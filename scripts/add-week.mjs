@@ -9,7 +9,8 @@
 //     --source "https://www.prnewswire.co.uk/..." --x "https://x.com/BitMNR/status/..." --notes "..."
 //
 // Optional overrides (use when Bitmine discloses them): --purchase-price, --shares-issued,
-// --shares-outstanding (official count; replaces the running estimate), --staking-yield.
+// --shares-outstanding (official count; replaces the running estimate), --staking-yield (the release's
+// stated 7-day BMNR yield, e.g. 0.0258), --sec (SEC 8-K URL).
 // Add --dry to print without writing.
 import { readFile, writeFile } from 'node:fs/promises';
 import { computeNav, weeklyStakingEth } from '../assets/calc.js';
@@ -90,8 +91,12 @@ Object.assign(next, {
   eth: num('eth'), eth_staked: num('staked'), btc: num('btc'), cash_usd: num('cash'),
   beast_usd: num('beast', prev.beast_usd),
   shares_outstanding: sharesOut,
-  source: { type: 'official', press_release: args.source, x_post: args.x || null },
+  source: { type: 'official', press_release: args.source, x_post: args.x || null, sec_8k: args.sec || null },
 });
+if (args['staking-yield'] !== undefined) {
+  next.assumptions.weekly_staking_yield = yieldW;
+  next.assumptions.weekly_staking_yield_source = `Bitmine's stated "7-day BMNR yield" in the ${args.date} release.`;
+}
 if (args['orbs-value']) next.orbs.reported_value_usd = num('orbs-value');
 next.shares_basis = args['shares-outstanding'] !== undefined
   ? `Official count supplied on ${args.date}.`
@@ -108,7 +113,7 @@ const r = (x, d = 0) => (x == null ? null : +x.toFixed(d));
 const snap = {
   date: args.date, as_of: args.asof,
   eth: next.eth, eth_added: ethAdded, eth_staked: next.eth_staked,
-  est_staking_eth: r(stakingEst), est_purchased_eth: r(purchasedEst),
+  staking_yield_used: yieldW, est_staking_eth: r(stakingEst), est_purchased_eth: r(purchasedEst),
   assumed_purchase_price: r(purchasePrice, 2), purchase_price_basis: args['purchase-price'] ? 'disclosed' : 'assumed: avg daily ETH price over the week',
   est_purchase_cost: r(purchaseCost),
   buyback_shares: bbShares, buyback_price: r(bbPrice, 2),
@@ -120,7 +125,7 @@ const snap = {
   snapshot_prices: { ETH: r(next.reference_prices.ETH, 2), BTC: r(next.reference_prices.BTC, 0), BMNR: r(next.reference_prices.BMNR, 2) },
   full_nav: r(nav.rows[0].value), nav_per_share: r(nav.rows[0].perShare, 2), mnav: r(nav.rows[0].mnav, 3),
   eth_nav_mnav: r(nav.rows[2].mnav, 3), eth_per_share: r(nav.ethPerShare, 7),
-  source: args.source, x_post: args.x || null, notes: args.notes || '',
+  source: args.source, x_post: args.x || null, sec_8k: args.sec || null, notes: args.notes || '',
 };
 history.snapshots = history.snapshots.filter((s) => s.date !== args.date).concat(snap).sort((a, b) => a.date.localeCompare(b.date));
 next.last_week = snap;

@@ -79,12 +79,15 @@ Bitmine does not disclose staking rewards, its average purchase price or (usuall
    `data/history.json`.
 4. Sanity-check the printed snapshot (ETH added should match "we acquired N ETH"), then
    `git add data && git commit -m "week of <date>" && git push`. GitHub Pages redeploys in ~1 min.
+   Also pass `--staking-yield <stated 7-day BMNR yield, e.g. 0.0258>` and `--sec <8-K Ex. 99.1 URL>`.
 5. Occasionally refresh `shares_outstanding` with an official count (10-Q/10-K cover page or an 8-K) via
    `--shares-outstanding`, and review `assumptions` in `data/holdings.json` (staking yield, valuation scenario inputs).
 
 Manual editing is fine too: every field in `data/holdings.json` / `data/history.json` is plain JSON.
 
 ## Notes / caveats
+
+* **Shares outstanding**: last official count is 603,226,394 as of July 9, 2026 (10-Q cover). Everything after that is an estimate (see `shares_audit_note` in `data/holdings.json`). Replace it with `--shares-outstanding` when the FY2026 10-K (fiscal year ends Aug 31) or the next 10-Q is filed.
 
 * **ORBS** = Eightco Holdings (NASDAQ: ORBS) **stock** — not the "Orbs" crypto token on CoinGecko. The 100,000,000 share
   count is the sheet's assumption (Bitmine only reports the $ value; $76M ÷ 100M ≈ the ORBS share price, so it is consistent).

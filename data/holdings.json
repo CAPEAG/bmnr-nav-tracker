@@ -10,19 +10,20 @@
   "orbs": {
     "shares": 100000000,
     "reported_value_usd": 76000000,
-    "note": "Eightco Holdings (NASDAQ: ORBS) stock. Share count 100,000,000 is the sheet's figure (assumption: Bitmine only discloses the $ value; $76M ÷ 100M = $0.76 ≈ ORBS close, consistent)."
+    "note": "Eightco Holdings (NASDAQ: ORBS) stock. Share count 100,000,000 is the sheet's figure (assumption: Bitmine only discloses the $ value; $76M \u00f7 100M = $0.76 \u2248 ORBS close, consistent)."
   },
   "beast_usd": 180000000,
-  "shares_outstanding": 627234610,
-  "shares_basis": "Running estimate: previous 629,274,610 + est. issued 0 − buyback 2,040,000 (week of 2026-10-25).",
+  "shares_outstanding": 625534610,
+  "shares_basis": "Running estimate: previous 627,574,610 + est. issued 0 \u2212 buyback 2,040,000 (week of 2026-10-25).",
   "source": {
     "type": "official",
     "press_release": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
-    "x_post": "https://x.com/BitMNR/status/2114706044198785282"
+    "x_post": "https://x.com/BitMNR/status/2114706044198785282",
+    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm"
   },
   "assumptions": {
     "weekly_staking_yield": 0.0258,
-    "weekly_staking_yield_source": "Bitmine's disclosed '7-day BMNR yield' of 2.58% (press release Oct 26, 2026).",
+    "weekly_staking_yield_source": "Bitmine's stated \"7-day BMNR yield\" in the 2026-10-26 release.",
     "etha_target_ratio": 1.4,
     "valuation": {
       "staking_yield": {
@@ -76,7 +77,7 @@
     "BTC": 80048.84794045369,
     "BMNR": 22.399999618530273,
     "ORBS": 0.76,
-    "note": "Snapshot prices for 2026-10-25: ETH per press release (Coinbase) if given, BTC CoinGecko daily, BMNR last close on/before as-of date, ORBS = reported stake value ÷ assumed share count."
+    "note": "Snapshot prices for 2026-10-25: ETH per press release (Coinbase) if given, BTC CoinGecko daily, BMNR last close on/before as-of date, ORBS = reported stake value \u00f7 assumed share count."
   },
   "last_week": {
     "date": "2026-10-26",
@@ -84,6 +85,7 @@
     "eth": 6051933,
     "eth_added": 10452,
     "eth_staked": 5227037,
+    "staking_yield_used": 0.0258,
     "est_staking_eth": 2507,
     "est_purchased_eth": 7945,
     "assumed_purchase_price": 2397.1,
@@ -97,7 +99,7 @@
     "implied_equity_raise": -3096484,
     "est_shares_issued": 0,
     "assumed_issue_price": 22.65,
-    "shares_outstanding": 627234610,
+    "shares_outstanding": 625534610,
     "btc": 215,
     "orbs_value": 76000000,
     "beast_value": 180000000,
@@ -107,13 +109,21 @@
       "BMNR": 22.4
     },
     "full_nav": 15045564650,
-    "nav_per_share": 23.99,
-    "mnav": 0.934,
-    "eth_nav_mnav": 0.985,
-    "eth_per_share": 0.0096486,
+    "nav_per_share": 24.05,
+    "mnav": 0.931,
+    "eth_nav_mnav": 0.983,
+    "eth_per_share": 0.0096748,
     "source": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
     "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-    "notes": "Official: +10,452 ETH; repurchased 2.04M shares at avg $22.48 (disclosed). Staked ETH rose to 5,227,037."
+    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
+    "notes": "Official: +10,452 ETH; repurchased 2.04M shares at avg $22.48 (disclosed; 22.9M repurchased in 2026 for $399.6M); staked ETH rose to 5,227,037; stated 7-day BMNR yield 2.58%; no share issuance disclosed."
   },
-  "last_updated": "2026-10-26T15:09:03.271Z"
+  "last_updated": "2026-10-26T15:23:05.553Z",
+  "shares_official": {
+    "count": 603226394,
+    "as_of": "2026-07-09",
+    "source": "Form 10-Q for quarter ended May 31, 2026 (cover page), filed 2026-07-14",
+    "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+  },
+  "shares_audit_note": "Audit 2026-10-26: no newer official share count exists (FY ends Aug 31; FY2026 10-K not yet filed; weekly 8-Ks/press releases give no share count and disclose no ATM sales). Estimate = sheet C3 (603,226,394 official + sheet's own ATM-issuance estimates totalling +45,148,216, unverifiable \u2212 buybacks 5.5M+6.1M+4.5M+3.0M) \u2212 1,700,000 shares repurchased in the week reported Aug 17, 2026 (8-K 0001493152-26-038652; 20.8M cumulative since July) which the sheet omitted \u2212 2,040,000 repurchased in the week reported Oct 26, 2026. Disclosed buybacks since July total ~22.9M shares."
 }

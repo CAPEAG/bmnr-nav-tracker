@@ -117,12 +117,12 @@ function render() {
     `<tr class="hl"><td>Total (Full NAV)</td><td></td><td></td><td>${big(fullV)}</td><td>100%</td></tr>`;
   const days = Math.max(0, (Date.now() - Date.parse(h.as_of + 'T20:00:00Z')) / 86400000);
   const accrued = weeklyStakingEth(h.eth_staked, h.assumptions.weekly_staking_yield, days);
-  $('holdNote').innerHTML = `ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.`;
+  $('holdNote').innerHTML = `ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding is an estimate; last official count ${n(h.shares_official.count)} as of ${fmtDate(h.shares_official.as_of)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>), adjusted for estimated ATM issuance and disclosed buybacks.` : ''}`;
 
   // This week
   const w = h.last_week;
   const tagA = '<span class="tag a">est.</span>', tagO = '<span class="tag o">reported</span>';
-  $('weekCard').innerHTML = `<div class="card-h"><h2>This week · ${fmtDate(w.date)}</h2><span class="pill"><a href="${w.source}" target="_blank" rel="noopener">press release</a>${w.x_post ? ` · <a href="${w.x_post}" target="_blank" rel="noopener">X post</a>` : ''}</span></div>
+  $('weekCard').innerHTML = `<div class="card-h"><h2>This week · ${fmtDate(w.date)}</h2><span class="pill"><a href="${w.source}" target="_blank" rel="noopener">press release</a>${w.x_post ? ` · <a href="${w.x_post}" target="_blank" rel="noopener">X post</a>` : ''}${w.sec_8k ? ` · <a href="${w.sec_8k}" target="_blank" rel="noopener">8-K</a>` : ''}</span></div>
     <div class="kv">
       <div>ETH added ${tagO}</div><div>${n(w.eth_added)} ETH → ${n(w.eth)}</div>
       <div>Staking rewards ${tagA}</div><div>${w.est_staking_eth == null ? '—' : '~' + n(w.est_staking_eth) + ' ETH'}</div>
@@ -185,7 +185,7 @@ function render() {
 function renderHistory() {
   const s = S.history.snapshots;
   $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Added</th><th>Staking est.</th><th>Buy px (est.)</th><th>Buyback</th><th>Cash</th><th>Shares (est.)</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
-    s.slice().reverse().map((r) => `<tr><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${n(r.eth_added)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) : '—'}</td><td>${big(r.cash)}</td><td>${n(r.shares_outstanding)}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.source}" target="_blank" rel="noopener">PR</a></td></tr>`).join('');
+    s.slice().reverse().map((r) => `<tr><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${n(r.eth_added)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) : '—'}</td><td>${big(r.cash)}</td><td>${n(r.shares_outstanding)}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.source}" target="_blank" rel="noopener">PR</a>${r.sec_8k ? ` · <a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>` : ''}${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
   if (!window.Chart) return;
   const ctx = $('histChart');
   S.chart?.destroy();
