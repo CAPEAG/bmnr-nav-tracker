@@ -94,7 +94,7 @@ function render() {
       <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'} · last weekly snapshot ${last ? last.mnav.toFixed(3) + '×' : '—'}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${when(bm.time)}${bm.extended ? `<br>ext. hrs ${usd(bm.extended.price)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot</div></div>
-    <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span></div></div>
+    <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>range ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
     <div class="kpi"><div class="l">ETH / share</div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH held</div></div>
     <div class="kpi"><div class="l">ETHA ratio</div><div class="v">${ethaRatio ? ethaRatio.toFixed(3) : '—'}</div><div class="s">BMNR ÷ ETHA (${usd(P.ETHA.price)})</div></div>`;
@@ -117,38 +117,36 @@ function render() {
     `<tr class="hl"><td>Total (Full NAV)</td><td></td><td></td><td>${big(fullV)}</td><td>100%</td></tr>`;
   const days = Math.max(0, (Date.now() - Date.parse(h.as_of + 'T20:00:00Z')) / 86400000);
   const accrued = weeklyStakingEth(h.eth_staked, h.assumptions.weekly_staking_yield, days);
-  $('holdNote').innerHTML = `ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding is an estimate; last official count ${n(h.shares_official.count)} as of ${fmtDate(h.shares_official.as_of)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>), adjusted for estimated ATM issuance and disclosed buybacks.` : ''}`;
+  $('holdNote').innerHTML = `ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (range ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])}): last official count ${n(h.shares_official.count)} on ${fmtDate(h.shares_official.as_of)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology).` : ''}`;
 
   // This week
   const w = h.last_week;
   const tagA = '<span class="tag a">est.</span>', tagO = '<span class="tag o">reported</span>';
-  $('weekCard').innerHTML = `<div class="card-h"><h2>This week · ${fmtDate(w.date)}</h2><span class="pill"><a href="${w.source}" target="_blank" rel="noopener">press release</a>${w.x_post ? ` · <a href="${w.x_post}" target="_blank" rel="noopener">X post</a>` : ''}${w.sec_8k ? ` · <a href="${w.sec_8k}" target="_blank" rel="noopener">8-K</a>` : ''}</span></div>
+  const rng = (x) => (x ? `${n(x[0])}–${n(x[1])}` : '—');
+  $('weekCard').innerHTML = `<div class="card-h"><h2>This week · ${fmtDate(w.date)}</h2><span class="pill"><a href="${w.sec_8k}" target="_blank" rel="noopener">8-K</a>${w.x_post ? ` · <a href="${w.x_post}" target="_blank" rel="noopener">X post</a>` : ''}</span></div>
     <div class="kv">
-      <div>ETH added ${tagO}</div><div>${n(w.eth_added)} ETH → ${n(w.eth)}</div>
-      <div>Staking rewards ${tagA}</div><div>${w.est_staking_eth == null ? '—' : '~' + n(w.est_staking_eth) + ' ETH'}</div>
-      <div>ETH purchased ${tagA}</div><div>${n(w.est_purchased_eth)} ETH @ ${usd(w.assumed_purchase_price, 0)}</div>
-      <div>Purchase cost ${tagA}</div><div>${big(w.est_purchase_cost)}</div>
+      <div>ETH held ${tagO}</div><div>${n(w.eth)} (${w.eth_change >= 0 ? '+' : ''}${n(w.eth_change)})</div>
+      <div>Staking rewards ${tagA}</div><div>~${n(w.est_staking_eth)} ETH (${(w.staking_yield_7d * 100).toFixed(2)}% stated yield)</div>
+      <div>ETH bought ${tagA}</div><div>${n(w.est_purchased_eth)} ETH @ ${usd(w.assumed_purchase_price, 0)} = ${big(w.est_purchase_cost)}</div>
       <div>Staked ETH ${tagO}</div><div>${n(w.eth_staked)}</div>
-      <div>Share buyback</div><div>${w.buyback_shares ? `${n(w.buyback_shares)} sh @ ${usd(w.buyback_price)} = ${big(w.buyback_shares * w.buyback_price)} ${w.buyback_price_basis === 'disclosed' ? tagO : tagA}` : 'none disclosed'}</div>
+      <div>Share buyback</div><div>${w.buyback_shares ? `${n(w.buyback_shares)} sh @ ${usd(w.buyback_price)} = ${big(w.buyback_cost)} ${w.buyback_price_basis === 'disclosed' ? tagO : tagA}` : 'none disclosed'}</div>
       <div>Cash ${tagO}</div><div>${big(w.cash_prev)} → ${big(w.cash)}</div>
+      <div>Cash opex + BMNP div. ${tagA}</div><div>${big(w.est_cash_opex)}</div>
       <div>Implied equity raise ${tagA}</div><div>${big(w.implied_equity_raise)}</div>
-      <div>Shares issued (ATM) ${tagA}</div><div>${n(w.est_shares_issued)}${w.est_shares_issued ? ' @ ' + usd(w.assumed_issue_price) : ''}</div>
-      <div>Shares outstanding ${tagA}</div><div>${n(w.shares_outstanding)}</div>
+      <div>Shares issued ${tagA}</div><div>${n(w.est_shares_issued)} @ ${usd(w.assumed_issue_price)} <span class="fine">(${rng(w.est_shares_issued_range)})</span></div>
+      <div>Shares outstanding ${tagA}</div><div>${n(w.shares_outstanding)}<br><span class="fine">${rng(w.shares_outstanding_range)}</span></div>
       <div>NAV/share · mNAV at report</div><div>${usd(w.nav_per_share)} · ${w.mnav.toFixed(3)}×</div>
     </div><p class="fine">${w.notes || ''}</p>`;
 
   // ETHA card
   const target = P.ETHA.price ? P.ETHA.price * h.assumptions.etha_target_ratio : null;
-  const z = h.sheet_snapshot || {};
   $('ethaCard').innerHTML = `<div class="card-h"><h2>ETHA ratio</h2><span class="pill">BMNR vs iShares Ethereum Trust</span></div>
     <div class="kv">
       <div>ETHA price</div><div>${usd(P.ETHA.price)} <span class="fine">${when(P.ETHA.time)}</span></div>
       <div>BMNR ÷ ETHA</div><div>${ethaRatio ? ethaRatio.toFixed(3) : '—'}</div>
-      <div>Target ratio (sheet)</div><div>${h.assumptions.etha_target_ratio}</div>
+      <div>Target ratio (assumption)</div><div>${h.assumptions.etha_target_ratio}</div>
       <div>BMNR at target ratio</div><div>${usd(target)} ${target ? `<span class="${cls(target / p.BMNR - 1)}">(${pct(target / p.BMNR - 1, 0)})</span>` : ''}</div>
-      <div>30d Z-score · curve price</div><div>${z.etha_ratio_30d_zscore ?? '—'} · ${usd(z.curve_price_30d)}</div>
-      <div>60d Z-score · curve price</div><div>${z.etha_ratio_60d_zscore ?? '—'} · ${usd(z.curve_price_60d)}</div>
-    </div><p class="fine">Z-scores/curve prices: static copy from the spreadsheet on ${z.date ? fmtDate(z.date) : '—'} (imported there from a separate model; not recomputed).</p>`;
+    </div><p class="fine">ETHA = iShares Ethereum Trust ETF. Target ratio is a user assumption in <code>data/holdings.json</code>.</p>`;
 
   // Valuation table
   const K = ['bear', 'base', 'bull'];
@@ -177,15 +175,15 @@ function render() {
     vr('Implied mNAV', (v) => v.impliedMnav.toFixed(2) + '×') +
     vr('vs BMNR price', (v) => `<span class="${cls(v.upside)}">${pct(v.upside, 1)}</span>`);
 
-  $('mYield').textContent = (h.assumptions.weekly_staking_yield * 100).toFixed(2) + '%';
+  if ($('mYield')) $('mYield').textContent = (h.assumptions.weekly_staking_yield * 100).toFixed(2) + '%';
   const q = S.prices?.quotes || {};
   $('footTimes').innerHTML = `Price timestamps — ETH: ${when(P.ETH.time)} (${P.ETH.source}); BTC: ${when(P.BTC.time)} (${P.BTC.source}); BMNR: ${when(q.BMNR?.time)}; ETHA: ${when(q.ETHA?.time)}; ORBS: ${when(q.ORBS?.time)} · prices.json saved ${when(S.prices?.fetched_at)} (${ago(S.prices?.fetched_at)}). Holdings updated ${fmtDate(h.announced)}.`;
 }
 
 function renderHistory() {
   const s = S.history.snapshots;
-  $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Added</th><th>Staking est.</th><th>Buy px (est.)</th><th>Buyback</th><th>Cash</th><th>Shares (est.)</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
-    s.slice().reverse().map((r) => `<tr><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${n(r.eth_added)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) : '—'}</td><td>${big(r.cash)}</td><td>${n(r.shares_outstanding)}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.source}" target="_blank" rel="noopener">PR</a>${r.sec_8k ? ` · <a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>` : ''}${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
+  $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Δ ETH</th><th>Staking est.</th><th>Bought est. @</th><th>Buyback</th><th>Cash</th><th>Raise est.</th><th>Issued est.</th><th>Shares est.</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
+    s.slice().reverse().map((r) => `<tr><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth) + ' @ ' + usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${r.implied_equity_raise == null ? '—' : big(r.implied_equity_raise)}</td><td>${r.est_shares_issued == null ? '—' : n(r.est_shares_issued)}</td><td title="range ${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}">${n(r.shares_outstanding)}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
   if (!window.Chart) return;
   const ctx = $('histChart');
   S.chart?.destroy();

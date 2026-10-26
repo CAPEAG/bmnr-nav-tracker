@@ -1,0 +1,374 @@
+{
+  "2026-07-05": {
+    "window": [
+      "2026-06-29",
+      "2026-07-05"
+    ],
+    "eth_avg": 1686.79,
+    "eth_days": 7,
+    "btc_close": 63586,
+    "bmnr_avg": 13.905,
+    "bmnr_min": 13.31,
+    "bmnr_max": 14.36,
+    "bmnr_trading_days": [
+      "2026-06-29",
+      "2026-06-30",
+      "2026-07-01",
+      "2026-07-02"
+    ],
+    "bmnr_close": 14.36,
+    "bmnr_close_date": "2026-07-02",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-07-12": {
+    "window": [
+      "2026-07-06",
+      "2026-07-12"
+    ],
+    "eth_avg": 1777.91,
+    "eth_days": 7,
+    "btc_close": 63747,
+    "bmnr_avg": 14.976,
+    "bmnr_min": 14.69,
+    "bmnr_max": 15.55,
+    "bmnr_trading_days": [
+      "2026-07-06",
+      "2026-07-07",
+      "2026-07-08",
+      "2026-07-09",
+      "2026-07-10"
+    ],
+    "bmnr_close": 14.98,
+    "bmnr_close_date": "2026-07-10",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-07-19": {
+    "window": [
+      "2026-07-13",
+      "2026-07-19"
+    ],
+    "eth_avg": 1859.72,
+    "eth_days": 7,
+    "btc_close": 64670,
+    "bmnr_avg": 15.564,
+    "bmnr_min": 14.61,
+    "bmnr_max": 16.29,
+    "bmnr_trading_days": [
+      "2026-07-13",
+      "2026-07-14",
+      "2026-07-15",
+      "2026-07-16",
+      "2026-07-17"
+    ],
+    "bmnr_close": 15.69,
+    "bmnr_close_date": "2026-07-17",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-07-26": {
+    "window": [
+      "2026-07-20",
+      "2026-07-26"
+    ],
+    "eth_avg": 1904.16,
+    "eth_days": 7,
+    "btc_close": 65344,
+    "bmnr_avg": 16.796,
+    "bmnr_min": 15.79,
+    "bmnr_max": 17.74,
+    "bmnr_trading_days": [
+      "2026-07-20",
+      "2026-07-21",
+      "2026-07-22",
+      "2026-07-23",
+      "2026-07-24"
+    ],
+    "bmnr_close": 15.79,
+    "bmnr_close_date": "2026-07-24",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-08-02": {
+    "window": [
+      "2026-07-27",
+      "2026-08-02"
+    ],
+    "eth_avg": 1889.17,
+    "eth_days": 7,
+    "btc_close": 63504,
+    "bmnr_avg": 17.488,
+    "bmnr_min": 16.59,
+    "bmnr_max": 18.08,
+    "bmnr_trading_days": [
+      "2026-07-27",
+      "2026-07-28",
+      "2026-07-29",
+      "2026-07-30",
+      "2026-07-31"
+    ],
+    "bmnr_close": 17.28,
+    "bmnr_close_date": "2026-07-31",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-08-09": {
+    "window": [
+      "2026-08-03",
+      "2026-08-09"
+    ],
+    "eth_avg": 1896.3,
+    "eth_days": 7,
+    "btc_close": 64856,
+    "bmnr_avg": 18.214,
+    "bmnr_min": 17.42,
+    "bmnr_max": 18.82,
+    "bmnr_trading_days": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07"
+    ],
+    "bmnr_close": 18.82,
+    "bmnr_close_date": "2026-08-07",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-08-16": {
+    "window": [
+      "2026-08-10",
+      "2026-08-16"
+    ],
+    "eth_avg": 1878.53,
+    "eth_days": 7,
+    "btc_close": 62844,
+    "bmnr_avg": 18.09,
+    "bmnr_min": 17.89,
+    "bmnr_max": 18.29,
+    "bmnr_trading_days": [
+      "2026-08-10",
+      "2026-08-11",
+      "2026-08-12",
+      "2026-08-13",
+      "2026-08-14"
+    ],
+    "bmnr_close": 18.08,
+    "bmnr_close_date": "2026-08-14",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-08-23": {
+    "window": [
+      "2026-08-17",
+      "2026-08-23"
+    ],
+    "eth_avg": 2258.25,
+    "eth_days": 7,
+    "btc_close": 77712,
+    "bmnr_avg": 20.33,
+    "bmnr_min": 18.28,
+    "bmnr_max": 22.83,
+    "bmnr_trading_days": [
+      "2026-08-17",
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-20",
+      "2026-08-21"
+    ],
+    "bmnr_close": 22.83,
+    "bmnr_close_date": "2026-08-21",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-08-30": {
+    "window": [
+      "2026-08-24",
+      "2026-08-30"
+    ],
+    "eth_avg": 2465.35,
+    "eth_days": 7,
+    "btc_close": 77658,
+    "bmnr_avg": 24.66,
+    "bmnr_min": 23.8,
+    "bmnr_max": 25.63,
+    "bmnr_trading_days": [
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-08-28"
+    ],
+    "bmnr_close": 23.8,
+    "bmnr_close_date": "2026-08-28",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-09-07": {
+    "window": [
+      "2026-08-31",
+      "2026-09-07"
+    ],
+    "eth_avg": 2465.27,
+    "eth_days": 8,
+    "btc_close": 79093,
+    "bmnr_avg": 24.634,
+    "bmnr_min": 23.06,
+    "bmnr_max": 26.45,
+    "bmnr_trading_days": [
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04"
+    ],
+    "bmnr_close": 24.97,
+    "bmnr_close_date": "2026-09-04",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-09-13": {
+    "window": [
+      "2026-09-08",
+      "2026-09-13"
+    ],
+    "eth_avg": 2484.49,
+    "eth_days": 6,
+    "btc_close": 76819,
+    "bmnr_avg": 24.5525,
+    "bmnr_min": 24.2,
+    "bmnr_max": 25.03,
+    "bmnr_trading_days": [
+      "2026-09-08",
+      "2026-09-09",
+      "2026-09-10",
+      "2026-09-11"
+    ],
+    "bmnr_close": 25.03,
+    "bmnr_close_date": "2026-09-11",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-09-20": {
+    "window": [
+      "2026-09-14",
+      "2026-09-20"
+    ],
+    "eth_avg": 2523.24,
+    "eth_days": 7,
+    "btc_close": 81169,
+    "bmnr_avg": 24.41,
+    "bmnr_min": 22.81,
+    "bmnr_max": 25.99,
+    "bmnr_trading_days": [
+      "2026-09-14",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18"
+    ],
+    "bmnr_close": 25.99,
+    "bmnr_close_date": "2026-09-18",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-09-27": {
+    "window": [
+      "2026-09-21",
+      "2026-09-27"
+    ],
+    "eth_avg": 2710.47,
+    "eth_days": 7,
+    "btc_close": 84449,
+    "bmnr_avg": 28.012,
+    "bmnr_min": 27.46,
+    "bmnr_max": 28.76,
+    "bmnr_trading_days": [
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25"
+    ],
+    "bmnr_close": 27.56,
+    "bmnr_close_date": "2026-09-25",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-10-04": {
+    "window": [
+      "2026-09-28",
+      "2026-10-04"
+    ],
+    "eth_avg": 2690.87,
+    "eth_days": 7,
+    "btc_close": 86490,
+    "bmnr_avg": 26.6,
+    "bmnr_min": 26.27,
+    "bmnr_max": 26.84,
+    "bmnr_trading_days": [
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02"
+    ],
+    "bmnr_close": 26.27,
+    "bmnr_close_date": "2026-10-02",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-10-11": {
+    "window": [
+      "2026-10-05",
+      "2026-10-11"
+    ],
+    "eth_avg": 2568.31,
+    "eth_days": 7,
+    "btc_close": 83691,
+    "bmnr_avg": 25.144,
+    "bmnr_min": 24.03,
+    "bmnr_max": 26.79,
+    "bmnr_trading_days": [
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09"
+    ],
+    "bmnr_close": 24.03,
+    "bmnr_close_date": "2026-10-09",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-10-18": {
+    "window": [
+      "2026-10-12",
+      "2026-10-18"
+    ],
+    "eth_avg": 2432.98,
+    "eth_days": 7,
+    "btc_close": 82020,
+    "bmnr_avg": 22.918,
+    "bmnr_min": 21.66,
+    "bmnr_max": 23.83,
+    "bmnr_trading_days": [
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14",
+      "2026-10-15",
+      "2026-10-16"
+    ],
+    "bmnr_close": 21.66,
+    "bmnr_close_date": "2026-10-16",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-10-25": {
+    "window": [
+      "2026-10-19",
+      "2026-10-25"
+    ],
+    "eth_avg": 2397.1,
+    "eth_days": 7,
+    "btc_close": 80049,
+    "bmnr_avg": 22.65,
+    "bmnr_min": 21.57,
+    "bmnr_max": 23.96,
+    "bmnr_trading_days": [
+      "2026-10-19",
+      "2026-10-20",
+      "2026-10-21",
+      "2026-10-22",
+      "2026-10-23"
+    ],
+    "bmnr_close": 22.4,
+    "bmnr_close_date": "2026-10-23",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  }
+}

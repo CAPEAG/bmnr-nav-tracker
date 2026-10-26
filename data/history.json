@@ -1,161 +1,1265 @@
 {
-  "description": "Weekly snapshots, one per Bitmine Monday holdings announcement. Fields prefixed est_/assumed_ are tracker estimates (see README).",
+  "description": "Week-by-week reconstruction from official Bitmine releases since the last official share count (603,226,394 on 2026-07-09). est_* / assumed_* fields are estimates; see README \"Share-count reconstruction\".",
+  "method": {
+    "anchor": {
+      "shares": 603226394,
+      "date": "2026-07-09",
+      "source": "Form 10-Q (quarter ended May 31, 2026) cover page, filed 2026-07-14",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    "buyback_aggregate": {
+      "shares": 22900000,
+      "avg_price": 17.48,
+      "amount": 399600000,
+      "as_of": "2026-10-25",
+      "note": "'In 2026, Bitmine has repurchased 22.9 million common shares, at an average price of $17.48 or an aggregate amount of $399.6 million' (Oct 26, 2026 release). Used to calibrate undisclosed weekly buyback prices.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm"
+    },
+    "buyback_price_calibration_k": 1.0049,
+    "weekly_cash_opex_usd": 3257538,
+    "weekly_cash_opex_source": "10-Q quarter ended May 31, 2026: (G&A $37.270M − share-based comp $0.648M + cost of sales $5.726M) ÷ 13 weeks. Staking rewards are received in ETH and are already inside reported ETH holdings, so they are not a cash inflow here.",
+    "bmnp_weekly_dividend_usd": 646450,
+    "bmnp_weekly_dividend_source": "3,500,000 BMNP shares (June 10, 2026 offering) × $0.1847 regular weekly dividend (dividend schedule, 8-K Aug 14, 2026).",
+    "opex_high_multiplier": 2,
+    "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
+    "purchase_price": "average daily ETH price over the week (CoinGecko)",
+    "staking_rewards": "ETH staked at the previous report × that week's stated 7-day BMNR yield × days/365"
+  },
   "snapshots": [
     {
-      "date": "2026-10-05",
-      "as_of": "2026-10-04",
-      "eth": 6016414,
-      "eth_added": 15112,
-      "eth_staked": 5067309,
-      "staking_yield_used": 0.0263,
+      "date": "2026-07-06",
+      "as_of": "2026-07-05",
+      "days": null,
+      "eth": 5742237,
+      "eth_change": null,
+      "eth_acquired_reported": 42197,
+      "eth_staked": 4879157,
+      "staking_yield_7d": 0.0268,
       "est_staking_eth": null,
-      "est_purchased_eth": 15112,
-      "assumed_purchase_price": 2690,
-      "purchase_price_basis": "user's sheet (H7)",
-      "est_purchase_cost": 40651280,
+      "est_purchased_eth": null,
+      "assumed_purchase_price": null,
+      "est_purchase_cost": null,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
+      "buyback_cost": null,
+      "cash_prev": null,
+      "cash": 527000000,
+      "cash_change": null,
+      "est_cash_opex": null,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": null,
+      "assumed_issue_price": null,
+      "bmnr_week_range": null,
+      "est_shares_issued": null,
+      "est_shares_issued_range": null,
+      "other_shares_issued": 0,
+      "shares_outstanding": 603021275,
+      "shares_outstanding_range": [
+        602804675,
+        603226394
+      ],
+      "btc": 206,
+      "orbs_value": 71000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1800,
+        "BTC": 63586,
+        "BMNR": 14.36,
+        "BMNR_date": "2026-07-02"
+      },
+      "nav": {
+        "full": 11127125316,
+        "crypto": 10876125316,
+        "eth": 10336026600,
+        "ev": 8132385509
+      },
+      "nav_per_share": 18.45,
+      "nav_per_share_all": {
+        "full": 18.45,
+        "crypto": 18.04,
+        "eth": 17.14,
+        "ev": 13.49
+      },
+      "mnav": 0.778,
+      "mnav_all": {
+        "full": 0.778,
+        "crypto": 0.796,
+        "eth": 0.838,
+        "ev": 1.065
+      },
+      "eth_per_share": 0.0095224,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032090/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2074117201385111723",
+      "notes": "Opening point. The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings − 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5."
+    },
+    {
+      "date": "2026-07-13",
+      "as_of": "2026-07-12",
+      "days": 7,
+      "eth": 5770038,
+      "eth_change": 27801,
+      "eth_acquired_reported": 27801,
+      "eth_staked": 4917189,
+      "staking_yield_7d": 0.027,
+      "est_staking_eth": 2526,
+      "est_purchased_eth": 25275,
+      "assumed_purchase_price": 1777.91,
+      "est_purchase_cost": 44935844,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 527000000,
+      "cash": 482000000,
+      "cash_change": -45000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 3839832,
+      "assumed_issue_price": 14.976,
+      "bmnr_week_range": [
+        14.69,
+        15.55
+      ],
+      "est_shares_issued": 51280,
+      "est_shares_issued_range": [
+        0,
+        105430
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 603277674,
+      "shares_outstanding_range": [
+        603226394,
+        603331824
+      ],
+      "btc": 206,
+      "orbs_value": 69000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1820,
+        "BTC": 63747,
+        "BMNR": 14.98,
+        "BMNR_date": "2026-07-10"
+      },
+      "nav": {
+        "full": 11245601042,
+        "crypto": 10996601042,
+        "eth": 10501469160,
+        "ev": 8555099557
+      },
+      "nav_per_share": 18.64,
+      "nav_per_share_all": {
+        "full": 18.64,
+        "crypto": 18.23,
+        "eth": 17.41,
+        "ev": 14.18
+      },
+      "mnav": 0.804,
+      "mnav_all": {
+        "full": 0.804,
+        "crypto": 0.822,
+        "eth": 0.861,
+        "ev": 1.056
+      },
+      "eth_per_share": 0.0095645,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032951/ex99-1.htm",
+      "x_post": null,
+      "notes": "No @BitMNR 'holdings update' X post found for this week. Same 8-K announced the fiscal year-end change (Aug 31 → Dec 31)."
+    },
+    {
+      "date": "2026-07-20",
+      "as_of": "2026-07-19",
+      "days": 7,
+      "eth": 5777468,
+      "eth_change": 7430,
+      "eth_acquired_reported": 7430,
+      "eth_staked": 4917189,
+      "staking_yield_7d": 0.0267,
+      "est_staking_eth": 2518,
+      "est_purchased_eth": 4912,
+      "assumed_purchase_price": 1859.72,
+      "est_purchase_cost": 9135186,
+      "buyback_shares": 5500000,
+      "buyback_price": 15.6156,
+      "buyback_price_basis": "disclosed",
+      "buyback_cost": 85885800,
+      "cash_prev": 482000000,
+      "cash": 385000000,
+      "cash_change": -97000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 1924974,
+      "assumed_issue_price": 15.564,
+      "bmnr_week_range": [
+        14.61,
+        16.29
+      ],
+      "est_shares_issued": 123681,
+      "est_shares_issued_range": [
+        0,
+        398971
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 597901355,
+      "shares_outstanding_range": [
+        597726394,
+        598230795
+      ],
+      "btc": 207,
+      "orbs_value": 58000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1879,
+        "BTC": 64670,
+        "BMNR": 15.69,
+        "BMNR_date": "2026-07-17"
+      },
+      "nav": {
+        "full": 11492249062,
+        "crypto": 11254249062,
+        "eth": 10855862372,
+        "ev": 8996072260
+      },
+      "nav_per_share": 19.22,
+      "nav_per_share_all": {
+        "full": 19.22,
+        "crypto": 18.82,
+        "eth": 18.16,
+        "ev": 15.05
+      },
+      "mnav": 0.816,
+      "mnav_all": {
+        "full": 0.816,
+        "crypto": 0.834,
+        "eth": 0.864,
+        "ev": 1.043
+      },
+      "eth_per_share": 0.0096629,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226033855/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2079184628414382391",
+      "notes": "Buyback 'approximately 5.5 million shares … at an average price of $15.6156' (disclosed)."
+    },
+    {
+      "date": "2026-07-27",
+      "as_of": "2026-07-26",
+      "days": 7,
+      "eth": 5787414,
+      "eth_change": 9946,
+      "eth_acquired_reported": 9946,
+      "eth_staked": 4917189,
+      "staking_yield_7d": 0.0265,
+      "est_staking_eth": 2499,
+      "est_purchased_eth": 7447,
+      "assumed_purchase_price": 1904.16,
+      "est_purchase_cost": 14180261,
+      "buyback_shares": 6100000,
+      "buyback_price": 16.8784,
+      "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
+      "buyback_cost": 102958525,
+      "cash_prev": 385000000,
+      "cash": 268000000,
+      "cash_change": -117000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 4042774,
+      "assumed_issue_price": 16.796,
+      "bmnr_week_range": [
+        15.79,
+        17.74
+      ],
+      "est_shares_issued": 240699,
+      "est_shares_issued_range": [
+        7823,
+        503278
+      ],
+      "other_shares_issued": 22620,
+      "shares_outstanding": 592064674,
+      "shares_outstanding_range": [
+        591656837,
+        592656693
+      ],
+      "btc": 208,
+      "orbs_value": 61000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1948,
+        "BTC": 65344,
+        "BMNR": 15.79,
+        "BMNR_date": "2026-07-24"
+      },
+      "nav": {
+        "full": 11796474024,
+        "crypto": 11555474024,
+        "eth": 11273882472,
+        "ev": 9080701202
+      },
+      "nav_per_share": 19.92,
+      "nav_per_share_all": {
+        "full": 19.92,
+        "crypto": 19.52,
+        "eth": 19.04,
+        "ev": 15.34
+      },
+      "mnav": 0.792,
+      "mnav_all": {
+        "full": 0.792,
+        "crypto": 0.809,
+        "eth": 0.829,
+        "ev": 1.03
+      },
+      "eth_per_share": 0.009775,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2081719755296133365",
+      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s)."
+    },
+    {
+      "date": "2026-08-03",
+      "as_of": "2026-08-02",
+      "days": 7,
+      "eth": 5797813,
+      "eth_change": 10399,
+      "eth_acquired_reported": 10399,
+      "eth_staked": 4917189,
+      "staking_yield_7d": 0.0267,
+      "est_staking_eth": 2518,
+      "est_purchased_eth": 7881,
+      "assumed_purchase_price": 1889.17,
+      "est_purchase_cost": 14888794,
+      "buyback_shares": 4500000,
+      "buyback_price": 17.5738,
+      "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
+      "buyback_cost": 79082296,
+      "cash_prev": 268000000,
+      "cash": 173000000,
+      "cash_change": -95000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 2875078,
+      "assumed_issue_price": 17.488,
+      "bmnr_week_range": [
+        16.59,
+        18.08
+      ],
+      "est_shares_issued": 164403,
+      "est_shares_issued_range": [
+        0,
+        408624
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 587729076,
+      "shares_outstanding_range": [
+        587156837,
+        588565316
+      ],
+      "btc": 209,
+      "orbs_value": 61000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1880,
+        "BTC": 63504,
+        "BMNR": 17.28,
+        "BMNR_date": "2026-07-31"
+      },
+      "nav": {
+        "full": 11327160776,
+        "crypto": 11086160776,
+        "eth": 10899888440,
+        "ev": 9982958433
+      },
+      "nav_per_share": 19.27,
+      "nav_per_share_all": {
+        "full": 19.27,
+        "crypto": 18.86,
+        "eth": 18.55,
+        "ev": 16.99
+      },
+      "mnav": 0.897,
+      "mnav_all": {
+        "full": 0.897,
+        "crypto": 0.916,
+        "eth": 0.932,
+        "ev": 1.017
+      },
+      "eth_per_share": 0.0098648,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226035752/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2084257549889524151",
+      "notes": "Buyback 4.5M shares (price not disclosed); 16.1M repurchased since July 1. (X post typo: '55,797,813 ETH'.)"
+    },
+    {
+      "date": "2026-08-10",
+      "as_of": "2026-08-09",
+      "days": 7,
+      "eth": 5805238,
+      "eth_change": 7425,
+      "eth_acquired_reported": 7391,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0263,
+      "est_staking_eth": 2480,
+      "est_purchased_eth": 4945,
+      "assumed_purchase_price": 1896.3,
+      "est_purchase_cost": 9376920,
+      "buyback_shares": 3000000,
+      "buyback_price": 18.3034,
+      "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
+      "buyback_cost": 54910222,
+      "cash_prev": 173000000,
+      "cash": 104000000,
+      "cash_change": -69000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": -808870,
+      "assumed_issue_price": 18.214,
+      "bmnr_week_range": [
+        17.42,
+        18.82
+      ],
+      "est_shares_issued": 0,
+      "est_shares_issued_range": [
+        0,
+        177676
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 584729076,
+      "shares_outstanding_range": [
+        584156837,
+        585742992
+      ],
+      "btc": 209,
+      "orbs_value": 69000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1928,
+        "BTC": 64856,
+        "BMNR": 18.82,
+        "BMNR_date": "2026-08-07"
+      },
+      "nav": {
+        "full": 11559053768,
+        "crypto": 11310053768,
+        "eth": 11192498864,
+        "ev": 10900601210
+      },
+      "nav_per_share": 19.77,
+      "nav_per_share_all": {
+        "full": 19.77,
+        "crypto": 19.34,
+        "eth": 19.14,
+        "ev": 18.64
+      },
+      "mnav": 0.952,
+      "mnav_all": {
+        "full": 0.952,
+        "crypto": 0.973,
+        "eth": 0.983,
+        "ev": 1.01
+      },
+      "eth_per_share": 0.0099281,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2086800660868042869",
+      "notes": "Buyback 3.0M shares (price not disclosed); 19.1M since July 1. Note: reported 'acquired 7,391 ETH' but holdings rose 7,425 ETH (34 ETH gap in the release)."
+    },
+    {
+      "date": "2026-08-17",
+      "as_of": "2026-08-16",
+      "days": 7,
+      "eth": 5815164,
+      "eth_change": 9926,
+      "eth_acquired_reported": 9926,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0261,
+      "est_staking_eth": 2536,
+      "est_purchased_eth": 7390,
+      "assumed_purchase_price": 1878.53,
+      "est_purchase_cost": 13881527,
+      "buyback_shares": 1700000,
+      "buyback_price": 18.1788,
+      "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
+      "buyback_cost": 30903958,
+      "cash_prev": 104000000,
+      "cash": 78000000,
+      "cash_change": -26000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 22689472,
+      "assumed_issue_price": 18.09,
+      "bmnr_week_range": [
+        17.89,
+        18.29
+      ],
+      "est_shares_issued": 1254255,
+      "est_shares_issued_range": [
+        1027090,
+        1486499
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 584283331,
+      "shares_outstanding_range": [
+        583483928,
+        585529491
+      ],
+      "btc": 210,
+      "orbs_value": 73000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 1893,
+        "BTC": 62844,
+        "BMNR": 18.08,
+        "BMNR_date": "2026-08-14"
+      },
+      "nav": {
+        "full": 11352302692,
+        "crypto": 11099302692,
+        "eth": 11008105452,
+        "ev": 10485842624
+      },
+      "nav_per_share": 19.43,
+      "nav_per_share_all": {
+        "full": 19.43,
+        "crypto": 19,
+        "eth": 18.84,
+        "ev": 17.95
+      },
+      "mnav": 0.931,
+      "mnav_all": {
+        "full": 0.931,
+        "crypto": 0.952,
+        "eth": 0.96,
+        "ev": 1.007
+      },
+      "eth_per_share": 0.0099526,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038652/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2089359803722219771",
+      "notes": "Buyback 1.7M shares (price not disclosed); 20.8M since July 1 — last buyback until Oct. BTC 210 per 8-K (the X post says 209)."
+    },
+    {
+      "date": "2026-08-24",
+      "as_of": "2026-08-23",
+      "days": 7,
+      "eth": 5847611,
+      "eth_change": 32447,
+      "eth_acquired_reported": 32447,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0267,
+      "est_staking_eth": 2595,
+      "est_purchased_eth": 29852,
+      "assumed_purchase_price": 2258.25,
+      "est_purchase_cost": 67413866,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 78000000,
+      "cash": 308000000,
+      "cash_change": 230000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 301317854,
+      "assumed_issue_price": 20.33,
+      "bmnr_week_range": [
+        18.28,
+        22.83
+      ],
+      "est_shares_issued": 14821341,
+      "est_shares_issued_range": [
+        13027327,
+        16697037
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 599104672,
+      "shares_outstanding_range": [
+        596511254,
+        602226528
+      ],
+      "btc": 210,
+      "orbs_value": 89000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2440,
+        "BTC": 77712,
+        "BMNR": 22.83,
+        "BMNR_date": "2026-08-21"
+      },
+      "nav": {
+        "full": 14861490360,
+        "crypto": 14592490360,
+        "eth": 14268170840,
+        "ev": 13369559662
+      },
+      "nav_per_share": 24.81,
+      "nav_per_share_all": {
+        "full": 24.81,
+        "crypto": 24.36,
+        "eth": 23.82,
+        "ev": 22.32
+      },
+      "mnav": 0.92,
+      "mnav_all": {
+        "full": 0.92,
+        "crypto": 0.937,
+        "eth": 0.959,
+        "ev": 1.023
+      },
+      "eth_per_share": 0.0097606,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226039789/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2091866729651552553",
+      "notes": "Cash rose $230M while buying ETH and no buyback → implied equity issuance (no raise disclosed)."
+    },
+    {
+      "date": "2026-08-31",
+      "as_of": "2026-08-30",
+      "days": 7,
+      "eth": 5901112,
+      "eth_change": 53501,
+      "eth_acquired_reported": 53501,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0267,
+      "est_staking_eth": 2595,
+      "est_purchased_eth": 50906,
+      "assumed_purchase_price": 2465.35,
+      "est_purchase_cost": 125501748,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 308000000,
+      "cash": 541000000,
+      "cash_change": 233000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 362405736,
+      "assumed_issue_price": 24.66,
+      "bmnr_week_range": [
+        23.8,
+        25.63
+      ],
+      "est_shares_issued": 14696096,
+      "est_shares_issued_range": [
+        13987583,
+        15391165
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 613800768,
+      "shares_outstanding_range": [
+        610498837,
+        617617693
+      ],
+      "btc": 211,
+      "orbs_value": 81000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2511,
+        "BTC": 77658,
+        "BMNR": 23.8,
+        "BMNR_date": "2026-08-28"
+      },
+      "nav": {
+        "full": 15636078070,
+        "crypto": 15375078070,
+        "eth": 14817692232,
+        "ev": 14067458278
+      },
+      "nav_per_share": 25.47,
+      "nav_per_share_all": {
+        "full": 25.47,
+        "crypto": 25.05,
+        "eth": 24.14,
+        "ev": 22.92
+      },
+      "mnav": 0.934,
+      "mnav_all": {
+        "full": 0.934,
+        "crypto": 0.95,
+        "eth": 0.986,
+        "ev": 1.038
+      },
+      "eth_per_share": 0.0096141,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226040741/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2094412891323593143",
+      "notes": "Cash rose $233M while buying 53.5k ETH → implied equity issuance (no raise disclosed)."
+    },
+    {
+      "date": "2026-09-08",
+      "as_of": "2026-09-07",
+      "days": 8,
+      "eth": 5929198,
+      "eth_change": 28086,
+      "eth_acquired_reported": 28086,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0261,
+      "est_staking_eth": 2899,
+      "est_purchased_eth": 25187,
+      "assumed_purchase_price": 2465.27,
+      "est_purchase_cost": 62093302,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 541000000,
+      "cash": 593000000,
+      "cash_change": 52000000,
+      "est_cash_opex": 4461701,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 118555002,
+      "assumed_issue_price": 24.634,
+      "bmnr_week_range": [
+        23.06,
+        26.45
+      ],
+      "est_shares_issued": 4812657,
+      "est_shares_issued_range": [
+        4313546,
+        5334636
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 618613426,
+      "shares_outstanding_range": [
+        614812384,
+        622952329
+      ],
+      "btc": 211,
+      "orbs_value": 91000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2495,
+        "BTC": 79093,
+        "BMNR": 24.97,
+        "BMNR_date": "2026-09-04"
+      },
+      "nav": {
+        "full": 15674037633,
+        "crypto": 15403037633,
+        "eth": 14793349010,
+        "ev": 14853777247
+      },
+      "nav_per_share": 25.34,
+      "nav_per_share_all": {
+        "full": 25.34,
+        "crypto": 24.9,
+        "eth": 23.91,
+        "ev": 24.01
+      },
+      "mnav": 0.986,
+      "mnav_all": {
+        "full": 0.986,
+        "crypto": 1.003,
+        "eth": 1.044,
+        "ev": 1.04
+      },
+      "eth_per_share": 0.0095847,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2097322402325663994",
+      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02)."
+    },
+    {
+      "date": "2026-09-14",
+      "as_of": "2026-09-13",
+      "days": 6,
+      "eth": 5956378,
+      "eth_change": 27180,
+      "eth_acquired_reported": 27180,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0262,
+      "est_staking_eth": 2182,
+      "est_purchased_eth": 24998,
+      "assumed_purchase_price": 2484.49,
+      "est_purchase_cost": 62106253,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 593000000,
+      "cash": 549000000,
+      "cash_change": -44000000,
+      "est_cash_opex": 3346275,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 21452529,
+      "assumed_issue_price": 24.5525,
+      "bmnr_week_range": [
+        24.2,
+        25.03
+      ],
+      "est_shares_issued": 873741,
+      "est_shares_issued_range": [
+        723382,
+        1024744
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 619487167,
+      "shares_outstanding_range": [
+        615535766,
+        623977073
+      ],
+      "btc": 212,
+      "orbs_value": 98000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2513,
+        "BTC": 76819,
+        "BMNR": 25.03,
+        "BMNR_date": "2026-09-11"
+      },
+      "nav": {
+        "full": 15811663542,
+        "crypto": 15533663542,
+        "eth": 14968377914,
+        "ev": 14956763790
+      },
+      "nav_per_share": 25.52,
+      "nav_per_share_all": {
+        "full": 25.52,
+        "crypto": 25.08,
+        "eth": 24.16,
+        "ev": 24.14
+      },
+      "mnav": 0.981,
+      "mnav_all": {
+        "full": 0.981,
+        "crypto": 0.998,
+        "eth": 1.036,
+        "ev": 1.037
+      },
+      "eth_per_share": 0.009615,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226042492/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2099482412862640134",
+      "notes": ""
+    },
+    {
+      "date": "2026-09-21",
+      "as_of": "2026-09-20",
+      "days": 7,
+      "eth": 5983940,
+      "eth_change": 27562,
+      "eth_acquired_reported": 27562,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0262,
+      "est_staking_eth": 2546,
+      "est_purchased_eth": 25016,
+      "assumed_purchase_price": 2523.24,
+      "est_purchase_cost": 63120995,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 549000000,
+      "cash": 714000000,
+      "cash_change": 165000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 232024983,
+      "assumed_issue_price": 24.41,
+      "bmnr_week_range": [
+        22.81,
+        25.99
+      ],
+      "est_shares_issued": 9505325,
+      "est_shares_issued_range": [
+        8777260,
+        10343225
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 628992492,
+      "shares_outstanding_range": [
+        624313026,
+        634320298
+      ],
+      "btc": 212,
+      "orbs_value": 105000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2688,
+        "BTC": 81169,
+        "BMNR": 25.99,
+        "BMNR_date": "2026-09-18"
+      },
+      "nav": {
+        "full": 17101038548,
+        "crypto": 16816038548,
+        "eth": 16084830720,
+        "ev": 15633514867
+      },
+      "nav_per_share": 27.19,
+      "nav_per_share_all": {
+        "full": 27.19,
+        "crypto": 26.73,
+        "eth": 25.57,
+        "ev": 24.85
+      },
+      "mnav": 0.956,
+      "mnav_all": {
+        "full": 0.956,
+        "crypto": 0.972,
+        "eth": 1.016,
+        "ev": 1.046
+      },
+      "eth_per_share": 0.0095135,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226043486/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2102015712634032381",
+      "notes": "Cash rose $165M → implied equity issuance (no raise disclosed)."
+    },
+    {
+      "date": "2026-09-28",
+      "as_of": "2026-09-27",
+      "days": 7,
+      "eth": 6001302,
+      "eth_change": 17362,
+      "eth_acquired_reported": 17362,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0262,
+      "est_staking_eth": 2546,
+      "est_purchased_eth": 14816,
+      "assumed_purchase_price": 2710.47,
+      "est_purchase_cost": 40157919,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 714000000,
+      "cash": 672000000,
+      "cash_change": -42000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 2061907,
+      "assumed_issue_price": 28.012,
+      "bmnr_week_range": [
+        27.46,
+        28.76
+      ],
+      "est_shares_issued": 73608,
+      "est_shares_issued_range": [
+        0,
+        217258
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 629066100,
+      "shares_outstanding_range": [
+        624313026,
+        634537556
+      ],
+      "btc": 213,
+      "orbs_value": 115000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2698,
+        "BTC": 84449,
+        "BMNR": 27.56,
+        "BMNR_date": "2026-09-25"
+      },
+      "nav": {
+        "full": 17176500433,
+        "crypto": 16881500433,
+        "eth": 16191512796,
+        "ev": 16665061716
+      },
+      "nav_per_share": 27.3,
+      "nav_per_share_all": {
+        "full": 27.3,
+        "crypto": 26.84,
+        "eth": 25.74,
+        "ev": 26.49
+      },
+      "mnav": 1.009,
+      "mnav_all": {
+        "full": 1.009,
+        "crypto": 1.027,
+        "eth": 1.071,
+        "ev": 1.04
+      },
+      "eth_per_share": 0.00954,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226044459/ex99-1.htm",
+      "x_post": null,
+      "notes": "No @BitMNR 'holdings update' X post found for this week."
+    },
+    {
+      "date": "2026-10-05",
+      "as_of": "2026-10-04",
+      "days": 7,
+      "eth": 6016414,
+      "eth_change": 15112,
+      "eth_acquired_reported": 15112,
+      "eth_staked": 5067309,
+      "staking_yield_7d": 0.0263,
+      "est_staking_eth": 2556,
+      "est_purchased_eth": 12556,
+      "assumed_purchase_price": 2690.87,
+      "est_purchase_cost": 33786921,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
       "cash_prev": 672000000,
       "cash": 643000000,
-      "implied_equity_raise": 11651280,
-      "est_shares_issued": 431529,
-      "assumed_issue_price": 27,
-      "shares_outstanding": 627574610,
+      "cash_change": -29000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 8690909,
+      "assumed_issue_price": 26.6,
+      "bmnr_week_range": [
+        26.27,
+        26.84
+      ],
+      "est_shares_issued": 326726,
+      "est_shares_issued_range": [
+        178350,
+        479440
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 629392826,
+      "shares_outstanding_range": [
+        624491376,
+        635016996
+      ],
       "btc": 214,
       "orbs_value": 117000000,
       "beast_value": 180000000,
       "snapshot_prices": {
         "ETH": 2726,
         "BTC": 86490,
-        "BMNR": 26.27
+        "BMNR": 26.27,
+        "BMNR_date": "2026-10-02"
       },
-      "full_nav": 17359253424,
-      "nav_per_share": 27.66,
-      "mnav": 0.95,
-      "eth_nav_mnav": 1.005,
-      "eth_per_share": 0.0095868,
-      "source": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-02-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-17-4-billion-302897949.html",
-      "x_post": "https://x.com/BitMNR/status/2107086256010408071",
+      "nav": {
+        "full": 17359253424,
+        "crypto": 17062253424,
+        "eth": 16400744564,
+        "ev": 15891149539
+      },
+      "nav_per_share": 27.58,
+      "nav_per_share_all": {
+        "full": 27.58,
+        "crypto": 27.11,
+        "eth": 26.06,
+        "ev": 25.25
+      },
+      "mnav": 0.952,
+      "mnav_all": {
+        "full": 0.952,
+        "crypto": 0.969,
+        "eth": 1.008,
+        "ev": 1.04
+      },
+      "eth_per_share": 0.0095591,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226045699/ex99-1.htm",
-      "notes": "Baseline seeded from the user's Google Sheet (weekly-change block) + Oct 5 official holdings. Sheet's purchase/issue assumptions kept as-is ($2,690 ETH cost, $27 ATM price). No buyback that week. Share count corrected for the 1.7M Aug-17-week buyback the sheet omitted (see holdings.shares_basis). Stated 7-day BMNR yield that week: 2.63%."
+      "x_post": "https://x.com/BitMNR/status/2107086256010408071",
+      "notes": ""
     },
     {
       "date": "2026-10-12",
       "as_of": "2026-10-11",
+      "days": 7,
       "eth": 6028946,
-      "eth_added": 12532,
+      "eth_change": 12532,
+      "eth_acquired_reported": 12532,
       "eth_staked": 5067309,
-      "staking_yield_used": 0.0261,
+      "staking_yield_7d": 0.0261,
       "est_staking_eth": 2536,
       "est_purchased_eth": 9996,
       "assumed_purchase_price": 2568.31,
-      "purchase_price_basis": "assumed: avg daily ETH price over the week",
-      "est_purchase_cost": 25671762,
+      "est_purchase_cost": 25671720,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
+      "buyback_cost": 0,
       "cash_prev": 643000000,
       "cash": 612000000,
-      "implied_equity_raise": -5328238,
+      "cash_change": -31000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": -1424292,
+      "assumed_issue_price": 25.144,
+      "bmnr_week_range": [
+        24.03,
+        26.79
+      ],
       "est_shares_issued": 0,
-      "assumed_issue_price": 25.14,
-      "shares_outstanding": 627574610,
+      "est_shares_issued_range": [
+        0,
+        103192
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 629392826,
+      "shares_outstanding_range": [
+        624491376,
+        635120188
+      ],
       "btc": 214,
       "orbs_value": 85000000,
       "beast_value": 180000000,
       "snapshot_prices": {
         "ETH": 2544,
         "BTC": 83691,
-        "BMNR": 24.03
+        "BMNR": 24.03,
+        "BMNR_date": "2026-10-09"
       },
-      "full_nav": 16232548470,
-      "nav_per_share": 25.87,
-      "mnav": 0.929,
-      "eth_nav_mnav": 0.983,
-      "eth_per_share": 0.0096067,
-      "source": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-03-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-16-2-billion-302905339.html",
-      "x_post": "https://x.com/BitMNR/status/2109629888378667207",
+      "nav": {
+        "full": 16232548498,
+        "crypto": 15967548498,
+        "eth": 15337638624,
+        "ev": 14512309609
+      },
+      "nav_per_share": 25.79,
+      "nav_per_share_all": {
+        "full": 25.79,
+        "crypto": 25.37,
+        "eth": 24.37,
+        "ev": 23.06
+      },
+      "mnav": 0.932,
+      "mnav_all": {
+        "full": 0.932,
+        "crypto": 0.947,
+        "eth": 0.986,
+        "ev": 1.042
+      },
+      "eth_per_share": 0.009579,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226046744/ex99-1.htm",
-      "notes": "Official: +12,532 ETH; staked unchanged at 5,067,309; stated 7-day BMNR yield 2.61%; no buyback or share issuance disclosed."
+      "x_post": "https://x.com/BitMNR/status/2109629888378667207",
+      "notes": ""
     },
     {
       "date": "2026-10-19",
       "as_of": "2026-10-18",
+      "days": 7,
       "eth": 6041481,
-      "eth_added": 12535,
+      "eth_change": 12535,
+      "eth_acquired_reported": 12535,
       "eth_staked": 5067309,
-      "staking_yield_used": 0.0258,
+      "staking_yield_7d": 0.0258,
       "est_staking_eth": 2507,
       "est_purchased_eth": 10028,
       "assumed_purchase_price": 2432.98,
-      "purchase_price_basis": "assumed: avg daily ETH price over the week",
-      "est_purchase_cost": 24397222,
+      "est_purchase_cost": 24397250,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
+      "buyback_cost": 0,
       "cash_prev": 612000000,
       "cash": 582000000,
-      "implied_equity_raise": -5602778,
+      "cash_change": -30000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": -1698762,
+      "assumed_issue_price": 22.918,
+      "bmnr_week_range": [
+        21.66,
+        23.83
+      ],
       "est_shares_issued": 0,
-      "assumed_issue_price": 22.92,
-      "shares_outstanding": 627574610,
+      "est_shares_issued_range": [
+        0,
+        101811
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 629392826,
+      "shares_outstanding_range": [
+        624491376,
+        635221999
+      ],
       "btc": 215,
       "orbs_value": 74000000,
       "beast_value": 180000000,
       "snapshot_prices": {
         "ETH": 2365,
         "BTC": 82020,
-        "BMNR": 21.66
+        "BMNR": 21.66,
+        "BMNR_date": "2026-10-16"
       },
-      "full_nav": 15141736775,
-      "nav_per_share": 24.13,
-      "mnav": 0.898,
-      "eth_nav_mnav": 0.951,
-      "eth_per_share": 0.0096267,
-      "source": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-04-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-1-billion-302912118.html",
-      "x_post": null,
+      "nav": {
+        "full": 15141736865,
+        "crypto": 14887736865,
+        "eth": 14288102565,
+        "ev": 13050648611
+      },
+      "nav_per_share": 24.06,
+      "nav_per_share_all": {
+        "full": 24.06,
+        "crypto": 23.65,
+        "eth": 22.7,
+        "ev": 20.74
+      },
+      "mnav": 0.9,
+      "mnav_all": {
+        "full": 0.9,
+        "crypto": 0.916,
+        "eth": 0.954,
+        "ev": 1.045
+      },
+      "eth_per_share": 0.0095989,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226047517/ex99-1.htm",
-      "notes": "Official: +12,535 ETH; staked unchanged at 5,067,309; stated 7-day BMNR yield 2.58%; no buyback or share issuance disclosed. @BitMNR did not post a holdings thread on X for this week (none found Oct 18-20); sources are the press release and 8-K."
+      "x_post": null,
+      "notes": "No @BitMNR holdings thread on X this week (none found Oct 18–20)."
     },
     {
       "date": "2026-10-26",
       "as_of": "2026-10-25",
+      "days": 7,
       "eth": 6051933,
-      "eth_added": 10452,
+      "eth_change": 10452,
+      "eth_acquired_reported": 10452,
       "eth_staked": 5227037,
-      "staking_yield_used": 0.0258,
+      "staking_yield_7d": 0.0258,
       "est_staking_eth": 2507,
       "est_purchased_eth": 7945,
       "assumed_purchase_price": 2397.1,
-      "purchase_price_basis": "assumed: avg daily ETH price over the week",
-      "est_purchase_cost": 19044316,
+      "est_purchase_cost": 19044296,
       "buyback_shares": 2040000,
       "buyback_price": 22.48,
       "buyback_price_basis": "disclosed",
+      "buyback_cost": 45859200,
       "cash_prev": 582000000,
       "cash": 514000000,
-      "implied_equity_raise": -3096484,
-      "est_shares_issued": 0,
+      "cash_change": -68000000,
+      "est_cash_opex": 3903988,
+      "disclosed_proceeds": null,
+      "implied_equity_raise": 807484,
       "assumed_issue_price": 22.65,
-      "shares_outstanding": 625534610,
+      "bmnr_week_range": [
+        21.57,
+        23.96
+      ],
+      "est_shares_issued": 35651,
+      "est_shares_issued_range": [
+        0,
+        218427
+      ],
+      "other_shares_issued": 22620,
+      "shares_outstanding": 627411096,
+      "shares_outstanding_range": [
+        622473996,
+        633423046
+      ],
       "btc": 215,
       "orbs_value": 76000000,
       "beast_value": 180000000,
       "snapshot_prices": {
         "ETH": 2356,
         "BTC": 80049,
-        "BMNR": 22.4
+        "BMNR": 22.4,
+        "BMNR_date": "2026-10-23"
       },
-      "full_nav": 15045564650,
-      "nav_per_share": 24.05,
-      "mnav": 0.931,
-      "eth_nav_mnav": 0.983,
-      "eth_per_share": 0.0096748,
-      "source": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
-      "x_post": "https://x.com/BitMNR/status/2114706044198785282",
+      "nav": {
+        "full": 15045564683,
+        "crypto": 14789564683,
+        "eth": 14258354148,
+        "ev": 13540008550
+      },
+      "nav_per_share": 23.98,
+      "nav_per_share_all": {
+        "full": 23.98,
+        "crypto": 23.57,
+        "eth": 22.73,
+        "ev": 21.58
+      },
+      "mnav": 0.934,
+      "mnav_all": {
+        "full": 0.934,
+        "crypto": 0.95,
+        "eth": 0.986,
+        "ev": 1.038
+      },
+      "eth_per_share": 0.0096459,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
-      "notes": "Official: +10,452 ETH; repurchased 2.04M shares at avg $22.48 (disclosed; 22.9M repurchased in 2026 for $399.6M); staked ETH rose to 5,227,037; stated 7-day BMNR yield 2.58%; no share issuance disclosed."
+      "x_post": "https://x.com/BitMNR/status/2114706044198785282",
+      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s)."
     }
   ]
 }

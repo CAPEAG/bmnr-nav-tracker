@@ -8,22 +8,21 @@
   "btc": 215,
   "cash_usd": 514000000,
   "orbs": {
-    "shares": 100000000,
+    "shares": 100655143,
     "reported_value_usd": 76000000,
-    "note": "Eightco Holdings (NASDAQ: ORBS) stock. Share count 100,000,000 is the sheet's figure (assumption: Bitmine only discloses the $ value; $76M \u00f7 100M = $0.76 \u2248 ORBS close, consistent)."
+    "note": "Eightco Holdings (NASDAQ: ORBS) common stock. 100,655,143 shares per Bitmine's 10-Q (May 31, 2026, Note on Investment in Eightco: beneficially owned after the March 12, 2026 purchase). Bitmine's weekly releases report only the $ value (e.g. $76M on Oct 25 ≈ 100.66M × $0.755)."
   },
   "beast_usd": 180000000,
-  "shares_outstanding": 625534610,
-  "shares_basis": "Running estimate: previous 627,574,610 + est. issued 0 \u2212 buyback 2,040,000 (week of 2026-10-25).",
+  "shares_outstanding": 627411096,
   "source": {
     "type": "official",
-    "press_release": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
+    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
     "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm"
+    "press_release": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm"
   },
   "assumptions": {
     "weekly_staking_yield": 0.0258,
-    "weekly_staking_yield_source": "Bitmine's stated \"7-day BMNR yield\" in the 2026-10-26 release.",
+    "weekly_staking_yield_source": "Bitmine's stated 7-day BMNR yield in the 2026-10-26 release.",
     "etha_target_ratio": 1.4,
     "valuation": {
       "staking_yield": {
@@ -61,69 +60,114 @@
           "bull": 25
         }
       },
-      "source": "Copied from the user's BMNR sheet (rows 19-36). Bear ETH staked = latest reported staked ETH; base = all ETH held; bull = sheet hard-code 6,105,000."
+      "source": "Scenario inputs originally from the group's spreadsheet (rows 19-36). Bear ETH staked = latest reported staked ETH; base = all ETH held; bull = 6,105,000."
+    },
+    "share_estimation": {
+      "weekly_cash_opex_usd": 3257538,
+      "weekly_cash_opex_source": "10-Q quarter ended May 31, 2026: (G&A $37.270M − share-based comp $0.648M + cost of sales $5.726M) ÷ 13 weeks. Staking rewards are received in ETH and are already inside reported ETH holdings, so they are not a cash inflow here.",
+      "bmnp_weekly_dividend_usd": 646450,
+      "bmnp_weekly_dividend_source": "3,500,000 BMNP shares (June 10, 2026 offering) × $0.1847 regular weekly dividend (dividend schedule, 8-K Aug 14, 2026).",
+      "opex_high_multiplier": 2,
+      "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
+      "purchase_price": "average daily ETH price over the week (CoinGecko)",
+      "staking_rewards": "ETH staked at the previous report × that week's stated 7-day BMNR yield × days/365"
     }
-  },
-  "sheet_snapshot": {
-    "note": "Values copied from the user's sheet on 2026-10-26 for reference only (not live). Z-scores come from another spreadsheet via IMPORTRANGE and are not recomputed here.",
-    "date": "2026-10-26",
-    "etha_ratio_30d_zscore": -33.91,
-    "curve_price_30d": 77.44,
-    "etha_ratio_60d_zscore": -28.11,
-    "curve_price_60d": 98.66
   },
   "reference_prices": {
     "ETH": 2356,
-    "BTC": 80048.84794045369,
-    "BMNR": 22.399999618530273,
-    "ORBS": 0.76,
-    "note": "Snapshot prices for 2026-10-25: ETH per press release (Coinbase) if given, BTC CoinGecko daily, BMNR last close on/before as-of date, ORBS = reported stake value \u00f7 assumed share count."
+    "BTC": 80049,
+    "BMNR": 22.4,
+    "ORBS": 0.7550533210210629,
+    "note": "As-of 2026-10-25: ETH per release, BTC CoinGecko, BMNR close 2026-10-23, ORBS = reported stake ÷ shares held."
   },
   "last_week": {
     "date": "2026-10-26",
     "as_of": "2026-10-25",
+    "days": 7,
     "eth": 6051933,
-    "eth_added": 10452,
+    "eth_change": 10452,
+    "eth_acquired_reported": 10452,
     "eth_staked": 5227037,
-    "staking_yield_used": 0.0258,
+    "staking_yield_7d": 0.0258,
     "est_staking_eth": 2507,
     "est_purchased_eth": 7945,
     "assumed_purchase_price": 2397.1,
-    "purchase_price_basis": "assumed: avg daily ETH price over the week",
-    "est_purchase_cost": 19044316,
+    "est_purchase_cost": 19044296,
     "buyback_shares": 2040000,
     "buyback_price": 22.48,
     "buyback_price_basis": "disclosed",
+    "buyback_cost": 45859200,
     "cash_prev": 582000000,
     "cash": 514000000,
-    "implied_equity_raise": -3096484,
-    "est_shares_issued": 0,
+    "cash_change": -68000000,
+    "est_cash_opex": 3903988,
+    "disclosed_proceeds": null,
+    "implied_equity_raise": 807484,
     "assumed_issue_price": 22.65,
-    "shares_outstanding": 625534610,
+    "bmnr_week_range": [
+      21.57,
+      23.96
+    ],
+    "est_shares_issued": 35651,
+    "est_shares_issued_range": [
+      0,
+      218427
+    ],
+    "other_shares_issued": 22620,
+    "shares_outstanding": 627411096,
+    "shares_outstanding_range": [
+      622473996,
+      633423046
+    ],
     "btc": 215,
     "orbs_value": 76000000,
     "beast_value": 180000000,
     "snapshot_prices": {
       "ETH": 2356,
       "BTC": 80049,
-      "BMNR": 22.4
+      "BMNR": 22.4,
+      "BMNR_date": "2026-10-23"
     },
-    "full_nav": 15045564650,
-    "nav_per_share": 24.05,
-    "mnav": 0.931,
-    "eth_nav_mnav": 0.983,
-    "eth_per_share": 0.0096748,
-    "source": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
-    "x_post": "https://x.com/BitMNR/status/2114706044198785282",
+    "nav": {
+      "full": 15045564683,
+      "crypto": 14789564683,
+      "eth": 14258354148,
+      "ev": 13540008550
+    },
+    "nav_per_share": 23.98,
+    "nav_per_share_all": {
+      "full": 23.98,
+      "crypto": 23.57,
+      "eth": 22.73,
+      "ev": 21.58
+    },
+    "mnav": 0.934,
+    "mnav_all": {
+      "full": 0.934,
+      "crypto": 0.95,
+      "eth": 0.986,
+      "ev": 1.038
+    },
+    "eth_per_share": 0.0096459,
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
-    "notes": "Official: +10,452 ETH; repurchased 2.04M shares at avg $22.48 (disclosed; 22.9M repurchased in 2026 for $399.6M); staked ETH rose to 5,227,037; stated 7-day BMNR yield 2.58%; no share issuance disclosed."
+    "x_post": "https://x.com/BitMNR/status/2114706044198785282",
+    "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s)."
   },
-  "last_updated": "2026-10-26T15:23:05.553Z",
+  "last_updated": "2026-10-26T15:32:50.791Z",
   "shares_official": {
     "count": 603226394,
     "as_of": "2026-07-09",
     "source": "Form 10-Q for quarter ended May 31, 2026 (cover page), filed 2026-07-14",
-    "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+    "next_expected": "Form 10-K for the fiscal year ended Aug 31, 2026 (not yet filed as of Oct 26, 2026); afterwards a 10-KT for Sep 1–Dec 31, 2026 (fiscal year-end changed to Dec 31 per 8-K of Jul 13, 2026)."
   },
-  "shares_audit_note": "Audit 2026-10-26: no newer official share count exists (FY ends Aug 31; FY2026 10-K not yet filed; weekly 8-Ks/press releases give no share count and disclose no ATM sales). Estimate = sheet C3 (603,226,394 official + sheet's own ATM-issuance estimates totalling +45,148,216, unverifiable \u2212 buybacks 5.5M+6.1M+4.5M+3.0M) \u2212 1,700,000 shares repurchased in the week reported Aug 17, 2026 (8-K 0001493152-26-038652; 20.8M cumulative since July) which the sheet omitted \u2212 2,040,000 repurchased in the week reported Oct 26, 2026. Disclosed buybacks since July total ~22.9M shares."
+  "shares_outstanding_range": [
+    622473996,
+    633423046
+  ],
+  "share_estimation_meta": {
+    "buyback_price_calibration_k": 1.0049,
+    "weekly_cash_outflow_used": 3903988,
+    "built": "2026-10-26T15:32:50.791Z"
+  }
 }
