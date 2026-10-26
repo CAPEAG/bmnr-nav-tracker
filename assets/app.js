@@ -3,7 +3,7 @@ import { computeNav, computeValuation, weeklyStakingEth } from './calc.js';
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
 
-const S = { holdings: null, history: null, prices: null, live: {}, chart: null };
+const S = { holdings: null, history: null, backtest: null, prices: null, live: {}, chart: null, chart2: null, range: localStorage.getItem('bmnrRange') || 'ALL' };
 const $ = (id) => document.getElementById(id);
 
 // ---------- formatting ----------
@@ -117,7 +117,7 @@ function render() {
     `<tr class="hl"><td>Total (Full NAV)</td><td></td><td></td><td>${big(fullV)}</td><td>100%</td></tr>`;
   const days = Math.max(0, (Date.now() - Date.parse(h.as_of + 'T20:00:00Z')) / 86400000);
   const accrued = weeklyStakingEth(h.eth_staked, h.assumptions.weekly_staking_yield, days);
-  $('holdNote').innerHTML = `ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (range ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])}): last official count ${n(h.shares_official.count)} on ${fmtDate(h.shares_official.as_of)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology).` : ''}`;
+  $('holdNote').innerHTML = `ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (range ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])}): last official count ${n(h.shares_official.shares)} on ${fmtDate(h.shares_official.date)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology and the backtest below).` : ''}`;
 
   // This week
   const w = h.last_week;
@@ -175,48 +175,109 @@ function render() {
     vr('Implied mNAV', (v) => v.impliedMnav.toFixed(2) + '×') +
     vr('vs BMNR price', (v) => `<span class="${cls(v.upside)}">${pct(v.upside, 1)}</span>`);
 
-  if ($('mYield')) $('mYield').textContent = (h.assumptions.weekly_staking_yield * 100).toFixed(2) + '%';
   const q = S.prices?.quotes || {};
   $('footTimes').innerHTML = `Price timestamps — ETH: ${when(P.ETH.time)} (${P.ETH.source}); BTC: ${when(P.BTC.time)} (${P.BTC.source}); BMNR: ${when(q.BMNR?.time)}; ETHA: ${when(q.ETHA?.time)}; ORBS: ${when(q.ORBS?.time)} · prices.json saved ${when(S.prices?.fetched_at)} (${ago(S.prices?.fetched_at)}). Holdings updated ${fmtDate(h.announced)}.`;
 }
 
-function renderHistory() {
-  const s = S.history.snapshots;
-  $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Δ ETH</th><th>Staking est.</th><th>Bought est. @</th><th>Buyback</th><th>Cash</th><th>Raise est.</th><th>Issued est.</th><th>Shares est.</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
-    s.slice().reverse().map((r) => `<tr><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth) + ' @ ' + usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${r.implied_equity_raise == null ? '—' : big(r.implied_equity_raise)}</td><td>${r.est_shares_issued == null ? '—' : n(r.est_shares_issued)}</td><td title="range ${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}">${n(r.shares_outstanding)}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
-  if (!window.Chart) return;
-  const ctx = $('histChart');
-  S.chart?.destroy();
-  S.chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: s.map((r) => fmtDate(r.date)),
-      datasets: [
-        { label: 'mNAV (Full NAV, at report)', data: s.map((r) => r.mnav), borderColor: '#7aa2ff', backgroundColor: '#7aa2ff', yAxisID: 'y', tension: .25 },
-        { label: 'ETH holdings', data: s.map((r) => r.eth), borderColor: '#8c8dfc', backgroundColor: 'rgba(140,141,252,.15)', yAxisID: 'y1', fill: true, tension: .25, borderDash: [4, 3] },
-      ],
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { labels: { color: '#c9d2e6' } } },
-      scales: {
-        x: { ticks: { color: '#8b97b0' }, grid: { color: '#1c2538' } },
-        y: { position: 'left', ticks: { color: '#7aa2ff' }, grid: { color: '#1c2538' }, title: { display: true, text: 'mNAV', color: '#7aa2ff' } },
-        y1: { position: 'right', ticks: { color: '#8c8dfc', callback: (v) => (v / 1e6).toFixed(3) + 'M' }, grid: { display: false }, title: { display: true, text: 'ETH', color: '#8c8dfc' } },
-      },
-    },
+// ---------- history (range selector) ----------
+const RANGES = { '1M': 31, '3M': 92, '6M': 183, YTD: 'ytd', '1Y': 366, ALL: null };
+function inRange(s) {
+  const last = s.at(-1)?.as_of; const r = RANGES[S.range];
+  if (!last || r == null) return s;
+  const end = Date.parse(last + 'T00:00:00Z');
+  const cut = r === 'ytd' ? Date.parse(last.slice(0, 4) + '-01-01T00:00:00Z') : end - r * 86400000;
+  const f = s.filter((x) => Date.parse(x.as_of + 'T00:00:00Z') >= cut);
+  return f.length >= 2 ? f : s.slice(-2);
+}
+function setupRange() {
+  const box = $('rangeSel');
+  if (!RANGES.hasOwnProperty(S.range)) S.range = 'ALL';
+  box.innerHTML = Object.keys(RANGES).map((k) => `<button type="button" data-r="${k}" aria-pressed="${k === S.range}">${k === 'ALL' ? 'All' : k}</button>`).join('');
+  box.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-r]'); if (!b) return;
+    S.range = b.dataset.r; try { localStorage.setItem('bmnrRange', S.range); } catch {}
+    box.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.r === S.range)));
+    renderHistory();
   });
+}
+const shortDate = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+function renderHistory() {
+  const all = S.history.snapshots, s = inRange(all);
+  $('histNote').innerHTML = `Showing ${s.length} of ${all.length} weekly reports (${fmtDate(s[0].as_of)} → ${fmtDate(s.at(-1).as_of)}). Share counts are <b>official</b> at 10-Q checkpoints (●) and <span class="tag a">est.</span> in between (rolled forward from the latest checkpoint; shaded band = low/high range).`;
+  const cpTag = (r) => (r.checkpoints_in_week || []).map((c) => `<a href="${c.url}" target="_blank" rel="noopener" title="${c.basis}${c.used_as_anchor ? '' : ' — flagged, not used as anchor'}" class="tag ${c.used_as_anchor ? 'o' : 'w'}">10-Q ${shortDate(c.date)}: ${(c.shares / 1e6).toFixed(2)}M</a>`).join(' ');
+  $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Δ ETH</th><th>Staking est.</th><th>Bought est. @</th><th>Buyback</th><th>Cash</th><th>Other uses</th><th>Raise est.</th><th>Issued est.</th><th>Shares</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
+    s.slice().reverse().map((r) => `<tr class="${r.shares_basis === 'official' ? 'off' : ''}"><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth) + ' @ ' + usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${r.investments ? big(r.investments) : r.disclosed_proceeds ? '−' + big(r.disclosed_proceeds) + ' pref.' : '—'}</td><td>${r.implied_equity_raise == null ? '—' : big(r.implied_equity_raise)}</td><td>${r.est_shares_issued == null ? (r.checkpoints_in_week ? '<span class="fine">re-anchored</span>' : '—') : n(r.est_shares_issued)}</td><td title="range ${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}">${n(r.shares_outstanding)} ${r.shares_basis === 'official' ? '<span class="tag o">official</span>' : '<span class="tag a">est.</span>'}${r.checkpoints_in_week ? '<br>' + cpTag(r) : ''}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
+  if (!window.Chart) return;
+  const labels = s.map((r) => shortDate(r.as_of));
+  const grid = { color: '#1c2538' }, tick = { color: '#8b97b0', maxRotation: 0, autoSkip: true, autoSkipPadding: 14 };
+  const mobile = window.matchMedia('(max-width: 600px)').matches;
+  const legend = { labels: { color: '#c9d2e6', boxWidth: 12, font: { size: mobile ? 10 : 12 } } };
+  const ptR = s.length > 30 ? 0 : 2;
+  S.chart?.destroy();
+  S.chart = new Chart($('histChart'), {
+    type: 'line',
+    data: { labels, datasets: [
+      { label: 'mNAV (Full NAV, at report)', data: s.map((r) => r.mnav), borderColor: '#7aa2ff', backgroundColor: '#7aa2ff', yAxisID: 'y', tension: .25, pointRadius: ptR },
+      { label: 'NAV / share', data: s.map((r) => r.nav_per_share), borderColor: '#3ddc97', backgroundColor: '#3ddc97', yAxisID: 'y1', tension: .25, pointRadius: ptR },
+      { label: 'BMNR close', data: s.map((r) => r.snapshot_prices?.BMNR), borderColor: '#ffc857', backgroundColor: '#ffc857', yAxisID: 'y1', tension: .25, pointRadius: ptR, borderDash: [4, 3] },
+    ] },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend },
+      scales: { x: { ticks: tick, grid },
+        y: { position: 'left', ticks: { color: '#7aa2ff' }, grid, title: { display: !mobile, text: 'mNAV', color: '#7aa2ff' } },
+        y1: { position: 'right', ticks: { color: '#3ddc97', callback: (v) => '$' + v }, grid: { display: false }, title: { display: !mobile, text: 'USD / share', color: '#3ddc97' } } } },
+  });
+  const cpPts = s.map((r) => { const c = (r.checkpoints_in_week || []).find((x) => x.used_as_anchor); return c ? c.shares : null; });
+  const cpFlag = s.map((r) => { const c = (r.checkpoints_in_week || []).find((x) => !x.used_as_anchor); return c ? c.shares : null; });
+  S.chart2?.destroy();
+  S.chart2 = new Chart($('shareChart'), {
+    type: 'line',
+    data: { labels, datasets: [
+      { label: 'Range high', data: s.map((r) => r.shares_outstanding_range[1]), borderColor: 'transparent', backgroundColor: 'rgba(255,200,87,.13)', pointRadius: 0, fill: '+1', yAxisID: 'y' },
+      { label: 'Range low', data: s.map((r) => r.shares_outstanding_range[0]), borderColor: 'transparent', backgroundColor: 'transparent', pointRadius: 0, fill: false, yAxisID: 'y' },
+      { label: 'Shares outstanding (est.)', data: s.map((r) => r.shares_outstanding), borderColor: '#ffc857', backgroundColor: '#ffc857', pointRadius: ptR, tension: .2, yAxisID: 'y' },
+      { label: 'Official 10-Q count', data: cpPts, type: 'scatter', showLine: false, pointRadius: 6, pointHoverRadius: 8, borderColor: '#3ddc97', backgroundColor: '#3ddc97', yAxisID: 'y' },
+      { label: 'Flagged 10-Q cover count', data: cpFlag, type: 'scatter', showLine: false, pointRadius: 6, pointStyle: 'rectRot', borderColor: '#ff6b6b', backgroundColor: 'rgba(255,107,107,.3)', yAxisID: 'y' },
+      { label: 'ETH holdings', data: s.map((r) => r.eth), borderColor: '#8c8dfc', backgroundColor: 'rgba(140,141,252,.12)', yAxisID: 'y1', tension: .25, pointRadius: 0, borderDash: [4, 3] },
+    ] },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { ...legend, labels: { ...legend.labels, filter: (i) => !i.text.startsWith('Range') } },
+        tooltip: { filter: (i) => i.raw != null && !i.dataset.label.startsWith('Range') } },
+      scales: { x: { ticks: tick, grid },
+        y: { position: 'left', ticks: { color: '#ffc857', callback: (v) => (v / 1e6).toFixed(0) + 'M' }, grid, title: { display: !mobile, text: 'Shares', color: '#ffc857' } },
+        y1: { position: 'right', ticks: { color: '#8c8dfc', callback: (v) => (v / 1e6).toFixed(1) + 'M' }, grid: { display: false }, title: { display: !mobile, text: 'ETH', color: '#8c8dfc' } } } },
+  });
+}
+
+// ---------- backtest ----------
+function renderBacktest() {
+  const B = S.backtest; if (!B) { $('backtest').style.display = 'none'; return; }
+  const m = (x) => (x == null ? '—' : (x >= 0 ? '+' : '−') + n(Math.abs(x)));
+  const p = (x) => (x == null ? '' : ` (${x >= 0 ? '+' : ''}${x.toFixed(2)}%)`);
+  const sm = B.summary;
+  $('btSummary').innerHTML = ['v1', 'v2', 'v2_walkforward'].filter((k) => sm[k]).map((k) => `<div class="kpi"><div class="l">${B.models[k].label}</div><div class="v">${sm[k].mean_abs_error_pct.toFixed(2)}%</div><div class="s">mean |error| on ${sm[k].intervals} clean intervals · ${n(sm[k].mean_abs_error_shares)} sh · ${sm[k].within_range}/${sm[k].intervals} inside range</div></div>`).join('');
+  $('btTable').innerHTML = `<tr><th>Interval (official → official)</th><th>Official Δ shares</th><th>Official ATM shares</th><th>v1 est. end · error</th><th>v2 est. end · error</th><th>v2 est. ATM shares</th><th>v2 est. proceeds vs official</th></tr>` +
+    B.intervals.map((b) => { const v1 = b.models.v1, v2 = b.models.v2;
+      return `<tr class="${b.flagged ? 'flag' : ''}"><td>${shortDate(b.from)} → ${shortDate(b.to)}${b.kind !== 'consecutive' ? `<br><span class="fine">${b.kind}</span>` : ''}${b.flagged ? '<br><span class="fine">⚠ uses the Apr 13 cover count</span>' : ''}<br><span class="fine"><a href="${b.sources[0]}" target="_blank" rel="noopener">start</a> · <a href="${b.sources[1]}" target="_blank" rel="noopener">end</a></span></td>
+      <td>${n(b.official_change)}</td><td>${b.official_atm_shares == null ? 'n/d' : n(b.official_atm_shares)}</td>
+      <td>${n(v1.est_shares)}<br><span class="${Math.abs(v1.error_pct) < 0.5 ? 'up' : 'down'}">${m(v1.error_shares)}${p(v1.error_pct)}</span></td>
+      <td>${n(v2.est_shares)}<br><span class="${Math.abs(v2.error_pct) < 0.5 ? 'up' : 'down'}">${m(v2.error_shares)}${p(v2.error_pct)}</span></td>
+      <td>${n(v2.est_issued)}${v2.issued_error == null ? '' : `<br><span class="fine">${m(v2.issued_error)} (${v2.issued_error_pct > 0 ? '+' : ''}${v2.issued_error_pct}%)</span>`}</td>
+      <td>${big(v2.est_proceeds_usd)}${b.official_atm_net_usd ? `<br><span class="fine">vs ${big(b.official_atm_net_usd)}</span>` : ''}</td></tr>`; }).join('');
 }
 
 async function init() {
   try {
     [S.holdings, S.history] = await Promise.all([getJSON('data/holdings.json'), getJSON('data/history.json')]);
+    S.backtest = await getJSON('data/backtest.json').catch(() => null);
   } catch (e) {
     $('status').textContent = 'Failed to load data files: ' + e.message; return;
   }
   await Promise.all([loadPrices(), loadCrypto()]);
   render();
-  if (window.Chart) renderHistory(); else window.addEventListener('load', renderHistory);
+  setupRange();
+  renderBacktest();
+  if (window.Chart) renderHistory(); else { renderHistory(); window.addEventListener('load', renderHistory); }
+  const mq = window.matchMedia('(max-width: 600px)'); mq.addEventListener?.('change', () => window.Chart && renderHistory());
   setInterval(async () => { await loadCrypto(); render(); }, 60000);
   setInterval(async () => { await loadPrices(); render(); }, 300000);
 }

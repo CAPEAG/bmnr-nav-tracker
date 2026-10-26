@@ -1,0 +1,714 @@
+{
+  "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
+  "built": "2026-10-26T16:16:19.455Z",
+  "models": {
+    "v1": {
+      "label": "v1 – original (Jul–Oct 2026)",
+      "opex_weekly": 3257538,
+      "bmnp_weekly": 646450,
+      "bmnp_start": "2026-06-10",
+      "include_investments": false,
+      "staking_lag_reports": 0,
+      "staking_realization": 1,
+      "carry_forward": false,
+      "opex_high_multiplier": 2
+    },
+    "v2": {
+      "label": "v2 – recalibrated (current)",
+      "opex_weekly": 2278000,
+      "bmnp_weekly": 646450,
+      "bmnp_start": "2026-06-10",
+      "include_investments": true,
+      "staking_lag_reports": 4,
+      "staking_realization": 1,
+      "carry_forward": true,
+      "opex_high_multiplier": 2,
+      "eth_cost_factor": 1.05
+    },
+    "v2_walkforward": {
+      "label": "v2 walk-forward (ETH cost factor from Dec–Feb only)",
+      "opex_weekly": 2278000,
+      "bmnp_weekly": 646450,
+      "bmnp_start": "2026-06-10",
+      "include_investments": true,
+      "staking_lag_reports": 4,
+      "staking_realization": 1,
+      "carry_forward": true,
+      "opex_high_multiplier": 2,
+      "eth_cost_factor": 1.035
+    }
+  },
+  "buyback_price_calibration_k": 1.0049,
+  "summary": {
+    "v1": {
+      "intervals": 4,
+      "mean_abs_error_shares": 3007187,
+      "mean_abs_error_pct": 0.55,
+      "mean_error_shares": -3007187,
+      "within_range": 3
+    },
+    "v2": {
+      "intervals": 4,
+      "mean_abs_error_shares": 642299,
+      "mean_abs_error_pct": 0.13,
+      "mean_error_shares": 439562,
+      "within_range": 4
+    },
+    "v2_walkforward": {
+      "intervals": 4,
+      "mean_abs_error_shares": 632482,
+      "mean_abs_error_pct": 0.12,
+      "mean_error_shares": -323722,
+      "within_range": 4
+    }
+  },
+  "intervals": [
+    {
+      "from": "2025-11-30",
+      "to": "2026-01-12",
+      "kind": "consecutive",
+      "start_shares": 408578823,
+      "official_end_shares": 454862451,
+      "official_change": 46283628,
+      "official_atm_shares": 46169850,
+      "official_atm_net_usd": 1498042000,
+      "flagged": false,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 454042913,
+          "est_range": [
+            450455500,
+            458858687
+          ],
+          "error_shares": -819538,
+          "error_pct": -0.18,
+          "est_issued": 45464090,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -705760,
+          "issued_error_pct": -1.5,
+          "est_proceeds_usd": 1488551953,
+          "proceeds_error_usd": -9490047,
+          "proceeds_error_pct": -0.6,
+          "within_range": true
+        },
+        "v2": {
+          "est_shares": 456025613,
+          "est_range": [
+            452490536,
+            460806422
+          ],
+          "error_shares": 1163162,
+          "error_pct": 0.26,
+          "est_issued": 47446790,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1276940,
+          "issued_error_pct": 2.8,
+          "est_proceeds_usd": 1553064442,
+          "proceeds_error_usd": 55022442,
+          "proceeds_error_pct": 3.7,
+          "within_range": true
+        },
+        "v2_walkforward": {
+          "est_shares": 455395276,
+          "est_range": [
+            451901189,
+            460121446
+          ],
+          "error_shares": 532825,
+          "error_pct": 0.12,
+          "est_issued": 46816453,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 646603,
+          "issued_error_pct": 1.4,
+          "est_proceeds_usd": 1532569074,
+          "proceeds_error_usd": 34527074,
+          "proceeds_error_pct": 2.3,
+          "within_range": true
+        }
+      }
+    },
+    {
+      "from": "2026-01-12",
+      "to": "2026-02-28",
+      "kind": "consecutive",
+      "start_shares": 454862451,
+      "official_end_shares": 493905227,
+      "official_change": 39042776,
+      "official_atm_shares": 38790740,
+      "official_atm_net_usd": 906492000,
+      "flagged": false,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 490971782,
+          "est_range": [
+            488090422,
+            493961912
+          ],
+          "error_shares": -2933445,
+          "error_pct": -0.59,
+          "est_issued": 36109331,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -2681409,
+          "issued_error_pct": -6.9,
+          "est_proceeds_usd": 763196908,
+          "proceeds_error_usd": -143295092,
+          "proceeds_error_pct": -15.8,
+          "within_range": true
+        },
+        "v2": {
+          "est_shares": 493499753,
+          "est_range": [
+            490690285,
+            496417061
+          ],
+          "error_shares": -405474,
+          "error_pct": -0.08,
+          "est_issued": 38637302,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -153438,
+          "issued_error_pct": -0.4,
+          "est_proceeds_usd": 826972843,
+          "proceeds_error_usd": -79519157,
+          "proceeds_error_pct": -8.8,
+          "within_range": true
+        },
+        "v2_walkforward": {
+          "est_shares": 493057389,
+          "est_range": [
+            490269896,
+            495947463
+          ],
+          "error_shares": -847838,
+          "error_pct": -0.17,
+          "est_issued": 38194938,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -595802,
+          "issued_error_pct": -1.5,
+          "est_proceeds_usd": 816547879,
+          "proceeds_error_usd": -89944121,
+          "proceeds_error_pct": -9.9,
+          "within_range": true
+        }
+      }
+    },
+    {
+      "from": "2026-02-28",
+      "to": "2026-04-13",
+      "kind": "consecutive",
+      "start_shares": 493905227,
+      "official_end_shares": 537628819,
+      "official_change": 43723592,
+      "official_atm_shares": 57107586,
+      "official_atm_net_usd": 1180714000,
+      "flagged": true,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 534447247,
+          "est_range": [
+            531857921,
+            537437319
+          ],
+          "error_shares": -3181572,
+          "error_pct": -0.59,
+          "est_issued": 40040475,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -17067111,
+          "issued_error_pct": -29.9,
+          "est_proceeds_usd": 821651753,
+          "proceeds_error_usd": -359062247,
+          "proceeds_error_pct": -30.4,
+          "within_range": false
+        },
+        "v2": {
+          "est_shares": 540474737,
+          "est_range": [
+            538024871,
+            543314193
+          ],
+          "error_shares": 2845918,
+          "error_pct": 0.53,
+          "est_issued": 46067965,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -11039621,
+          "issued_error_pct": -19.3,
+          "est_proceeds_usd": 946151568,
+          "proceeds_error_usd": -234562432,
+          "proceeds_error_pct": -19.9,
+          "within_range": false
+        },
+        "v2_walkforward": {
+          "est_shares": 539840215,
+          "est_range": [
+            537413821,
+            542646398
+          ],
+          "error_shares": 2211396,
+          "error_pct": 0.41,
+          "est_issued": 45433443,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -11674143,
+          "issued_error_pct": -20.4,
+          "est_proceeds_usd": 933082597,
+          "proceeds_error_usd": -247631403,
+          "proceeds_error_pct": -21,
+          "within_range": true
+        }
+      }
+    },
+    {
+      "from": "2026-04-13",
+      "to": "2026-05-31",
+      "kind": "consecutive",
+      "start_shares": 537628819,
+      "official_end_shares": 579652432,
+      "official_change": 42023613,
+      "official_atm_shares": 30148062,
+      "official_atm_net_usd": 619773000,
+      "flagged": true,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 575213750,
+          "est_range": [
+            573263514,
+            577208353
+          ],
+          "error_shares": -4438682,
+          "error_pct": -0.77,
+          "est_issued": 37584931,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 7436869,
+          "issued_error_pct": 24.7,
+          "est_proceeds_usd": 825061656,
+          "proceeds_error_usd": 205288656,
+          "proceeds_error_pct": 33.1,
+          "within_range": false
+        },
+        "v2": {
+          "est_shares": 577189530,
+          "est_range": [
+            575132303,
+            579291143
+          ],
+          "error_shares": -2462902,
+          "error_pct": -0.42,
+          "est_issued": 39560711,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 9412649,
+          "issued_error_pct": 31.2,
+          "est_proceeds_usd": 867376953,
+          "proceeds_error_usd": 247603953,
+          "proceeds_error_pct": 40,
+          "within_range": false
+        },
+        "v2_walkforward": {
+          "est_shares": 576376467,
+          "est_range": [
+            574351861,
+            578447400
+          ],
+          "error_shares": -3275965,
+          "error_pct": -0.57,
+          "est_issued": 38747648,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 8599586,
+          "issued_error_pct": 28.5,
+          "est_proceeds_usd": 850161431,
+          "proceeds_error_usd": 230388431,
+          "proceeds_error_pct": 37.2,
+          "within_range": false
+        }
+      }
+    },
+    {
+      "from": "2026-05-31",
+      "to": "2026-07-09",
+      "kind": "consecutive",
+      "start_shares": 579652432,
+      "official_end_shares": 603226394,
+      "official_change": 23573962,
+      "official_atm_shares": null,
+      "official_atm_net_usd": null,
+      "flagged": false,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 602570884,
+          "est_range": [
+            600481070,
+            604868057
+          ],
+          "error_shares": -655510,
+          "error_pct": -0.11,
+          "est_issued": 22918452,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 367090571,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v2": {
+          "est_shares": 603843939,
+          "est_range": [
+            601764614,
+            606019557
+          ],
+          "error_shares": 617545,
+          "error_pct": 0.1,
+          "est_issued": 24191507,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 388241498,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v2_walkforward": {
+          "est_shares": 603311088,
+          "est_range": [
+            601257940,
+            605454460
+          ],
+          "error_shares": 84694,
+          "error_pct": 0.01,
+          "est_issued": 23658656,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 379659696,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        }
+      }
+    },
+    {
+      "from": "2026-02-28",
+      "to": "2026-05-31",
+      "kind": "quarter (skips the Apr 13 cover count)",
+      "start_shares": 493905227,
+      "official_end_shares": 579652432,
+      "official_change": 85747205,
+      "official_atm_shares": 87255648,
+      "official_atm_net_usd": 1800487000,
+      "flagged": false,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 572032178,
+          "est_range": [
+            567492616,
+            577016852
+          ],
+          "error_shares": -7620254,
+          "error_pct": -1.31,
+          "est_issued": 77625406,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -9630242,
+          "issued_error_pct": -11,
+          "est_proceeds_usd": 1646713408,
+          "proceeds_error_usd": -153773592,
+          "proceeds_error_pct": -8.5,
+          "within_range": false
+        },
+        "v2": {
+          "est_shares": 580035448,
+          "est_range": [
+            575528355,
+            584976517
+          ],
+          "error_shares": 383016,
+          "error_pct": 0.07,
+          "est_issued": 85628676,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -1626972,
+          "issued_error_pct": -1.9,
+          "est_proceeds_usd": 1813528521,
+          "proceeds_error_usd": 13041521,
+          "proceeds_error_pct": 0.7,
+          "within_range": true
+        },
+        "v2_walkforward": {
+          "est_shares": 578587863,
+          "est_range": [
+            574136864,
+            583464979
+          ],
+          "error_shares": -1064569,
+          "error_pct": -0.18,
+          "est_issued": 84181091,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -3074557,
+          "issued_error_pct": -3.5,
+          "est_proceeds_usd": 1783244028,
+          "proceeds_error_usd": -17242972,
+          "proceeds_error_pct": -1,
+          "within_range": true
+        }
+      }
+    },
+    {
+      "from": "2025-11-30",
+      "to": "2026-07-09",
+      "kind": "long horizon, no re-anchoring",
+      "start_shares": 408578823,
+      "official_end_shares": 603226394,
+      "official_change": 194647571,
+      "official_atm_shares": null,
+      "official_atm_net_usd": null,
+      "flagged": false,
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      ],
+      "models": {
+        "v1": {
+          "est_shares": 591197647,
+          "est_range": [
+            578099498,
+            606285398
+          ],
+          "error_shares": -12028747,
+          "error_pct": -1.99,
+          "est_issued": 182117279,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4265552839,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v2": {
+          "est_shares": 604984643,
+          "est_range": [
+            592053680,
+            619799447
+          ],
+          "error_shares": 1758249,
+          "error_pct": 0.29,
+          "est_issued": 195904275,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4581807304,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v2_walkforward": {
+          "est_shares": 601931506,
+          "est_range": [
+            589145779,
+            616568237
+          ],
+          "error_shares": -1294888,
+          "error_pct": -0.21,
+          "est_issued": 192851138,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4512020676,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        }
+      }
+    }
+  ],
+  "diagnostics": {
+    "v1": {
+      "Dec 1, 2025 – Feb 28, 2026": {
+        "weeks": [
+          "2025-11-30",
+          "2026-03-01"
+        ],
+        "eth_purchase_cost": 2044892102,
+        "staking_eth": 10060,
+        "opex": 42347994,
+        "investments": 0,
+        "cash_change": -14000000,
+        "cash_need": 2073240096
+      },
+      "Mar 1 – May 31, 2026": {
+        "weeks": [
+          "2026-03-01",
+          "2026-05-31"
+        ],
+        "eth_purchase_cost": 2011027133,
+        "staking_eth": 25923,
+        "opex": 42347994,
+        "investments": 0,
+        "cash_change": -422000000,
+        "cash_need": 1631375127
+      }
+    },
+    "v2": {
+      "Dec 1, 2025 – Feb 28, 2026": {
+        "weeks": [
+          "2025-11-30",
+          "2026-03-01"
+        ],
+        "eth_purchase_cost": 2164423285,
+        "staking_eth": 3411,
+        "opex": 29614000,
+        "investments": 200000000,
+        "cash_change": -14000000,
+        "cash_need": 2380037285
+      },
+      "Mar 1 – May 31, 2026": {
+        "weeks": [
+          "2026-03-01",
+          "2026-05-31"
+        ],
+        "eth_purchase_cost": 2119914521,
+        "staking_eth": 22306,
+        "opex": 29614000,
+        "investments": 86000000,
+        "cash_change": -422000000,
+        "cash_need": 1813528521
+      }
+    },
+    "v2_walkforward": {
+      "Dec 1, 2025 – Feb 28, 2026": {
+        "weeks": [
+          "2025-11-30",
+          "2026-03-01"
+        ],
+        "eth_purchase_cost": 2133502953,
+        "staking_eth": 3411,
+        "opex": 29614000,
+        "investments": 200000000,
+        "cash_change": -14000000,
+        "cash_need": 2349116953
+      },
+      "Mar 1 – May 31, 2026": {
+        "weeks": [
+          "2026-03-01",
+          "2026-05-31"
+        ],
+        "eth_purchase_cost": 2089630028,
+        "staking_eth": 22306,
+        "opex": 29614000,
+        "investments": 86000000,
+        "cash_change": -422000000,
+        "cash_need": 1783244028
+      }
+    }
+  },
+  "official_cash_flows": {
+    "note": "Quarterly figures (USD thousands) derived by differencing the year-to-date statements of cash flows / operations in the three fiscal-2026 10-Qs (fiscal year ended Aug 31). Bitmine reclassified option-contract cash flows from operating (6-month statement) to investing (9-month statement), so the Dec–May combined column is the cleanest.",
+    "sources": {
+      "q1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+      "h1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+      "9m": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    "periods": [
+      {
+        "period": "Dec 1, 2025 – Feb 28, 2026",
+        "eth_purchases": 2134422,
+        "equity_investments": 186024,
+        "operating_cash_flow": -88243,
+        "atm_net_proceeds": 2404534,
+        "common_dividends_paid": 4258,
+        "cash_change": -8101,
+        "noncash_staking_revenue": 10201,
+        "interest_income_net": 4817,
+        "option_premium_income_pnl": 24090,
+        "option_unrealized_loss_pnl": -65272
+      },
+      {
+        "period": "Mar 1 – May 31, 2026",
+        "eth_purchases": 2150498,
+        "equity_investments": 83004,
+        "operating_cash_flow": 29007,
+        "option_collateral_posted": -100125,
+        "option_premiums_paid": -124584,
+        "option_premiums_received": 103938,
+        "pier_two_cash": -5699,
+        "atm_proceeds": 1800956,
+        "cash_change": -539288,
+        "noncash_mining_staking_revenue": 42292,
+        "interest_income_net": 5300,
+        "net_loss_on_derivatives_pnl": -92093,
+        "eth_sales": 241,
+        "other_digital_asset_sales": 840,
+        "equity_investment_sales": 148
+      },
+      {
+        "period": "Dec 1, 2025 – May 31, 2026 (combined)",
+        "eth_purchases": 4284920,
+        "equity_investments": 269028,
+        "operating_cash_flow": -59236,
+        "option_cash_flows_net_incl_collateral": -120771,
+        "atm_proceeds": 4205490,
+        "common_dividends_paid": 4258,
+        "cash_change": -547389,
+        "noncash_staking_revenue": 52493,
+        "interest_income_net": 10117
+      }
+    ],
+    "staking_eth_units_9m": {
+      "value": 23582,
+      "what": "ETH received from staking, Sep 1, 2025 – May 31, 2026 (Note 4 roll-forward)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    "cash_requirements_guidance": {
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+      "section": "MD&A – Material cash requirements",
+      "items_usd_thousands_per_year": {
+        "eth_management_fees": "40,000–50,000",
+        "working_capital": 12000,
+        "public_company_costs": 4000,
+        "capex": 1500,
+        "general_operating_overhead": 83016,
+        "bmnp_dividends": 33250
+      }
+    }
+  }
+}

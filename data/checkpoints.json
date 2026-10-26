@@ -1,0 +1,183 @@
+{
+  "description": "Official share-count checkpoints and official ATM (at-the-market) sales between them, from Bitmine 10-Q filings (CIK 1829311). Used to anchor the reconstruction and to backtest the weekly estimator out-of-sample. Dollar figures in USD.",
+  "checkpoints": [
+    {
+      "date": "2025-11-30",
+      "shares": 408578823,
+      "basis": "balance sheet (Note 7), trade-date basis",
+      "source": "10-Q quarter ended Nov 30, 2025 (filed 2026-01-13)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+      "note": "Later revised to 405,398,823 on a settlement-date basis (10-Q filed 2026-04-14, Note 2). The trade-date figure is used because the Jan 12 cover count (454,862,451) is on the same basis (408,578,823 + 46,169,850 ATM = 454,748,673).",
+      "use_as_anchor": true
+    },
+    {
+      "date": "2026-01-12",
+      "shares": 454862451,
+      "basis": "cover page",
+      "source": "10-Q quarter ended Nov 30, 2025 (filed 2026-01-13)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+      "use_as_anchor": true
+    },
+    {
+      "date": "2026-02-28",
+      "shares": 493905227,
+      "basis": "balance sheet (Note 8)",
+      "source": "10-Q quarter ended Feb 28, 2026 (filed 2026-04-14)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+      "use_as_anchor": true
+    },
+    {
+      "date": "2026-04-13",
+      "shares": 537628819,
+      "basis": "cover page",
+      "source": "10-Q quarter ended Feb 28, 2026 (filed 2026-04-14)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+      "note": "Inconsistent with the same filing: Feb 28 count 493,905,227 + 57,107,586 ATM shares sold \"subsequent to February 28, 2026 and through the date of issuance\" = 551,012,813, i.e. 13.38M more than this cover figure. No buybacks were disclosed before July 2026. The May 31 balance-sheet count (579,652,432) reconciles with Feb 28 + 9-month ATM disclosures, so this cover figure looks stale; intervals touching it are shown but flagged.",
+      "use_as_anchor": false
+    },
+    {
+      "date": "2026-05-31",
+      "shares": 579652432,
+      "basis": "balance sheet (Note 8)",
+      "source": "10-Q quarter ended May 31, 2026 (filed 2026-07-14)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+      "use_as_anchor": true
+    },
+    {
+      "date": "2026-07-09",
+      "shares": 603226394,
+      "basis": "cover page",
+      "source": "10-Q quarter ended May 31, 2026 (filed 2026-07-14)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+      "use_as_anchor": true
+    }
+  ],
+  "atm_disclosures": [
+    {
+      "from": "2025-12-01",
+      "to": "2026-01-12",
+      "shares": 46169850,
+      "gross_usd": 1515726000,
+      "net_usd": 1498042000,
+      "source": "10-Q Nov 30, 2025, Note 10 Subsequent Events",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+    },
+    {
+      "from": "2026-01-13",
+      "to": "2026-02-28",
+      "shares": 38790740,
+      "net_usd": 906492000,
+      "derived": true,
+      "source": "Derived: 6-month ATM 253,492,664 sh / $10,068,914K (10-Q Feb 28, 2026 Note 8) \u2212 Sep\u2013Nov 168,532,074 sh / $7,664,380K (10-Q Nov 30, 2025 Note 7) \u2212 Dec 1\u2013Jan 12 sales above",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+    },
+    {
+      "from": "2026-03-01",
+      "to": "2026-04-13",
+      "shares": 57107586,
+      "gross_usd": 1187641000,
+      "net_usd": 1180714000,
+      "source": "10-Q Feb 28, 2026, Subsequent Events",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+    },
+    {
+      "from": "2026-04-14",
+      "to": "2026-05-31",
+      "shares": 30148062,
+      "net_usd": 619773000,
+      "derived": true,
+      "source": "Derived: 9-month ATM 340,748,312 sh / $11,869,401K net (10-Q May 31, 2026 Note 8) \u2212 6-month figures \u2212 Mar 1\u2013Apr 13 sales above",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    {
+      "from": "2026-06-01",
+      "to": "2026-07-09",
+      "shares": null,
+      "source": "Not disclosed: the May 31, 2026 10-Q has no subsequent-event ATM figure (only the BMNP preferred offering).",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    }
+  ],
+  "other_official": [
+    {
+      "date": "2026-03-24",
+      "shares": 501545,
+      "what": "Pier Two acquisition stock consideration",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226013609/form8-k.htm"
+    },
+    {
+      "date": "2026-06-10",
+      "what": "BMNP 9.50% Series A Perpetual Preferred: 3,500,000 sh at $80, net ~$273.8M",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226027502/form8-k.htm"
+    }
+  ],
+  "cash_flow_official": {
+    "note": "Quarterly figures (USD thousands) derived by differencing the year-to-date statements of cash flows / operations in the three fiscal-2026 10-Qs (fiscal year ended Aug 31). Bitmine reclassified option-contract cash flows from operating (6-month statement) to investing (9-month statement), so the Dec\u2013May combined column is the cleanest.",
+    "sources": {
+      "q1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+      "h1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+      "9m": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    "periods": [
+      {
+        "period": "Dec 1, 2025 \u2013 Feb 28, 2026",
+        "eth_purchases": 2134422,
+        "equity_investments": 186024,
+        "operating_cash_flow": -88243,
+        "atm_net_proceeds": 2404534,
+        "common_dividends_paid": 4258,
+        "cash_change": -8101,
+        "noncash_staking_revenue": 10201,
+        "interest_income_net": 4817,
+        "option_premium_income_pnl": 24090,
+        "option_unrealized_loss_pnl": -65272
+      },
+      {
+        "period": "Mar 1 \u2013 May 31, 2026",
+        "eth_purchases": 2150498,
+        "equity_investments": 83004,
+        "operating_cash_flow": 29007,
+        "option_collateral_posted": -100125,
+        "option_premiums_paid": -124584,
+        "option_premiums_received": 103938,
+        "pier_two_cash": -5699,
+        "atm_proceeds": 1800956,
+        "cash_change": -539288,
+        "noncash_mining_staking_revenue": 42292,
+        "interest_income_net": 5300,
+        "net_loss_on_derivatives_pnl": -92093,
+        "eth_sales": 241,
+        "other_digital_asset_sales": 840,
+        "equity_investment_sales": 148
+      },
+      {
+        "period": "Dec 1, 2025 \u2013 May 31, 2026 (combined)",
+        "eth_purchases": 4284920,
+        "equity_investments": 269028,
+        "operating_cash_flow": -59236,
+        "option_cash_flows_net_incl_collateral": -120771,
+        "atm_proceeds": 4205490,
+        "common_dividends_paid": 4258,
+        "cash_change": -547389,
+        "noncash_staking_revenue": 52493,
+        "interest_income_net": 10117
+      }
+    ],
+    "staking_eth_units_9m": {
+      "value": 23582,
+      "what": "ETH received from staking, Sep 1, 2025 \u2013 May 31, 2026 (Note 4 roll-forward)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    "cash_requirements_guidance": {
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+      "section": "MD&A \u2013 Material cash requirements",
+      "items_usd_thousands_per_year": {
+        "eth_management_fees": "40,000\u201350,000",
+        "working_capital": 12000,
+        "public_company_costs": 4000,
+        "capex": 1500,
+        "general_operating_overhead": 83016,
+        "bmnp_dividends": 33250
+      }
+    }
+  }
+}

@@ -1,22 +1,25 @@
 #!/usr/bin/env node
-// Rebuilds data/history.json and data/holdings.json from data/releases.json (official weekly inputs)
-// using the share-estimation method documented in README.md ("Share-count reconstruction").
-// Market data for each week (avg ETH, BMNR closes, BTC) is fetched once and frozen in data/weekly-prices.json.
+// Rebuilds data/history.json, data/backtest.json and data/holdings.json from
+//   data/releases.json    – official weekly inputs (8-K Ex. 99 / @BitMNR) since Nov 30, 2025
+//   data/checkpoints.json – official share counts + ATM disclosures from 10-Qs
+// using the share-estimation method in scripts/model.mjs (documented in README "Share-count reconstruction").
+// Market data per week (avg ETH, BMNR closes, BTC) is fetched once and frozen in data/weekly-prices.json.
 //
 // Usage: node scripts/build-history.mjs [--refetch] [--dry]
 import { readFile, writeFile } from 'node:fs/promises';
-import { computeNav, weeklyStakingEth } from '../assets/calc.js';
+import { computeNav } from '../assets/calc.js';
+import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts } from './model.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
 const P = (f) => new URL(`../data/${f}`, import.meta.url);
 const load = async (f, d) => JSON.parse(await readFile(P(f), 'utf8').catch(() => (d === undefined ? (() => { throw new Error(f); })() : JSON.stringify(d))));
 const DAY = 86400000;
-const ts = (d) => Date.parse(d + 'T00:00:00Z');
 const iso = (t) => new Date(t).toISOString().slice(0, 10);
 const avg = (a) => a.reduce((s, x) => s + x, 0) / a.length;
 const r = (x, d = 0) => (x == null || !isFinite(x) ? null : +x.toFixed(d));
 
 const R = await load('releases.json');
+const C = await load('checkpoints.json');
 const H = await load('holdings.json');
 const cache = await load('weekly-prices.json', {});
 const A = H.assumptions.share_estimation;
@@ -34,9 +37,10 @@ async function getJSON(url) {
 let series = null;
 async function fetchSeries() {
   if (series) return series;
-  const days = Math.ceil((Date.now() - ts(rel[0].as_of)) / DAY) + 14;
-  const cg = async (id) => (await getJSON(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${Math.min(days, 365)}&interval=daily`)).prices;
-  const y = (await getJSON(`https://query1.finance.yahoo.com/v8/finance/chart/BMNR?interval=1d&range=1y`)).chart.result[0];
+  const start = ts(rel[0].as_of) - 14 * DAY;
+  const days = Math.min(365, Math.ceil((Date.now() - start) / DAY));
+  const cg = async (id) => (await getJSON(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}&interval=daily`)).prices;
+  const y = (await getJSON(`https://query1.finance.yahoo.com/v8/finance/chart/BMNR?interval=1d&period1=${Math.floor(start / 1000)}&period2=${Math.floor(Date.now() / 1000)}`)).chart.result[0];
   series = {
     eth: await cg('ethereum'), btc: await cg('bitcoin'),
     bmnr: y.timestamp.map((t, i) => [iso(t * 1000), y.indicators.quote[0].close[i]]).filter((p) => p[1] != null),
@@ -44,8 +48,7 @@ async function fetchSeries() {
   return series;
 }
 async function weekPrices(prevAsof, asof) {
-  const key = asof;
-  if (cache[key] && !process.argv.includes('--refetch')) return cache[key];
+  if (cache[asof] && !process.argv.includes('--refetch')) return cache[asof];
   const s = await fetchSeries();
   const lo = prevAsof ? ts(prevAsof) + DAY : ts(asof) - 6 * DAY; // first calendar day of the window
   const hi = ts(asof);
@@ -56,25 +59,17 @@ async function weekPrices(prevAsof, asof) {
   const bmBefore = s.bmnr.filter(([d]) => ts(d) <= hi).at(-1);
   if (!ethW.length || !bm.length) throw new Error(`no price data for week ending ${asof}`);
   const closes = bm.map((p) => p[1]);
-  cache[key] = {
+  cache[asof] = {
     window: [iso(lo), asof], eth_avg: r(avg(ethW), 2), eth_days: ethW.length, btc_close: r(btcAt[1], 0),
     bmnr_avg: r(avg(closes), 4), bmnr_min: r(Math.min(...closes), 4), bmnr_max: r(Math.max(...closes), 4),
     bmnr_trading_days: bm.map((p) => p[0]), bmnr_close: r(bmBefore[1], 4), bmnr_close_date: bmBefore[0],
     source: 'CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)',
   };
-  return cache[key];
+  return cache[asof];
 }
 
-// ---------- reconstruction ----------
-const weeklyOpex = A.weekly_cash_opex_usd + A.bmnp_weekly_dividend_usd;
-const anchor = R.anchor;
-const out = [];
 const wk = [];
-for (let i = 0; i < rel.length; i++) {
-  const cur = rel[i], prev = rel[i - 1];
-  const px = await weekPrices(prev?.as_of, cur.as_of);
-  wk.push({ cur, prev, px });
-}
+for (let i = 0; i < rel.length; i++) wk.push({ cur: rel[i], prev: rel[i - 1], px: await weekPrices(rel[i - 1]?.as_of, rel[i].as_of) });
 
 // Calibrate undisclosed buyback prices to the disclosed aggregate (shares × weekly avg close × k).
 const agg = R.buyback_aggregate;
@@ -86,80 +81,121 @@ for (const { cur, px } of wk) {
 }
 const kBuyback = provisional ? (agg.amount - disclosedCost) / provisional : 1;
 
-// Pass 1: weekly flows
-for (const w of wk) {
-  const { cur, prev, px } = w;
-  if (!prev) { w.flows = null; continue; }
-  const days = (ts(cur.as_of) - ts(prev.as_of)) / DAY;
-  const ethChange = cur.eth - prev.eth;
-  const rewards = weeklyStakingEth(prev.eth_staked, cur.staking_yield_7d, days);
-  const purchased = Math.max(0, ethChange - rewards);
-  const ethCost = purchased * px.eth_avg;
-  const bbPrice = cur.buyback_shares ? (cur.buyback_price ?? px.bmnr_avg * kBuyback) : null;
-  const bbCost = cur.buyback_shares ? cur.buyback_shares * bbPrice : 0;
-  const cashChange = cur.cash_usd - prev.cash_usd;
-  const opex = weeklyOpex * days / 7;
-  const inflows = cur.disclosed_proceeds_usd || 0;
-  const raise = (o) => cashChange + ethCost + bbCost + opex * o - inflows;
-  const est = (o, price) => (cur.disclosed_shares_issued != null ? cur.disclosed_shares_issued : Math.max(0, raise(o)) / price);
-  // Pro-rate the week that contains the July 9 anchor: only issuance after the anchor date is added.
-  const tdays = px.bmnr_trading_days;
-  const after = tdays.filter((d) => d > anchor.date).length;
-  const frac = ts(prev.as_of) < ts(anchor.date) && ts(cur.as_of) >= ts(anchor.date) ? after / tdays.length : 1;
-  w.flows = {
-    days, ethChange, rewards, purchased, ethCost, bbPrice, bbCost, cashChange, opex, inflows,
-    raise: raise(1), frac,
-    issued: est(1, px.bmnr_avg), issuedLow: est(0, px.bmnr_max), issuedHigh: est(A.opex_high_multiplier, px.bmnr_min),
-    bbPriceBasis: cur.buyback_shares ? (cur.buyback_price ? 'disclosed' : `assumed: week avg close × ${kBuyback.toFixed(4)} (calibrated to disclosed $${(agg.amount / 1e6).toFixed(1)}M aggregate)`) : null,
-  };
-}
-// Pass 2: shares (anchor July 9 count), forward and backward
-const ai = wk.findIndex((w) => w.flows && w.flows.frac < 1) ; // week containing the anchor
-let sh = anchor.shares, lo = anchor.shares, hi = anchor.shares;
-const f0 = wk[ai].flows;
-// shares at the start of the anchor week = anchor − pre-anchor part of that week's issuance
-const pre = (x) => x * (1 - f0.frac);
-wk[ai - 1].shares = [anchor.shares - pre(f0.issued), anchor.shares - pre(f0.issuedHigh), anchor.shares - pre(f0.issuedLow)];
-for (let i = ai; i < wk.length; i++) {
-  const f = wk[i].flows, c = wk[i].cur;
-  const fr = i === ai ? f.frac : 1;
-  const other = c.other_shares_issued || 0, bb = c.buyback_shares || 0;
-  if (c.shares_outstanding_official) { sh = lo = hi = c.shares_outstanding_official; }
-  else {
-    sh += f.issued * fr + other - bb;
-    lo += f.issuedLow * fr + other - bb;
-    hi += f.issuedHigh * fr + other - bb;
-  }
-  wk[i].shares = [sh, lo, hi];
-}
-// weeks before the anchor week (only the opening point here)
-for (let i = ai - 2; i >= 0; i--) {
-  const f = wk[i + 1].flows, c = wk[i + 1].cur, [s, l, h] = wk[i + 1].shares;
-  const other = c.other_shares_issued || 0, bb = c.buyback_shares || 0;
-  wk[i].shares = [s - f.issued - other + bb, l - f.issuedLow - other + bb, h - f.issuedHigh - other + bb];
-}
+// ---------- models ----------
+// v1 = the method used for the Jul 9 – Oct 26, 2026 reconstruction (before this backtest).
+// v2 = recalibrated after the 2026 backtest (parameters + sources in holdings.json → assumptions.share_estimation).
+const MODELS = {
+  v1: { label: 'v1 – original (Jul–Oct 2026)', opex_weekly: 3257538, bmnp_weekly: A.bmnp_weekly_dividend_usd, bmnp_start: A.bmnp_start,
+    include_investments: false, staking_lag_reports: 0, staking_realization: 1, carry_forward: false, opex_high_multiplier: 2 },
+  v2: { label: 'v2 – recalibrated (current)', opex_weekly: A.weekly_cash_opex_usd, bmnp_weekly: A.bmnp_weekly_dividend_usd, bmnp_start: A.bmnp_start,
+    include_investments: A.include_investments, staking_lag_reports: A.staking_lag_reports, staking_realization: A.staking_realization,
+    carry_forward: A.carry_forward, opex_high_multiplier: A.opex_high_multiplier, eth_cost_factor: A.eth_cost_factor },
+};
+// Walk-forward check of v2: ETH cost factor fitted only on Dec–Feb (10-Q filed Apr 14, 2026), so Mar–Jul intervals are out-of-sample.
+MODELS.v2_walkforward = { ...MODELS.v2, label: 'v2 walk-forward (ETH cost factor from Dec–Feb only)', eth_cost_factor: A.eth_cost_factor_walkforward };
+const flowsBy = Object.fromEntries(Object.entries(MODELS).map(([k, m]) => [k, wk.map((_, i) => weekFlows(wk, i, m, kBuyback))]));
 
-// Pass 3: NAV per week
-for (const { cur, px, flows: f, shares } of wk) {
-  const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: cur.beast_usd, shares_outstanding: Math.round(shares[0]) };
+// ---------- backtest (out-of-sample: start at an official count, never use the next filing) ----------
+const cps = C.checkpoints;
+const atmFor = (a, b) => C.atm_disclosures.filter((x) => x.from > a && x.to <= b);
+const intervals = [];
+for (let j = 0; j + 1 < cps.length; j++) intervals.push([cps[j], cps[j + 1], 'consecutive']);
+const cpAt = (d) => cps.find((c) => c.date === d);
+intervals.push([cpAt('2026-02-28'), cpAt('2026-05-31'), 'quarter (skips the Apr 13 cover count)']);
+intervals.push([cpAt('2025-11-30'), cpAt('2026-07-09'), 'long horizon, no re-anchoring']);
+const backtest = intervals.map(([s, e, kind]) => {
+  const atm = atmFor(s.date, e.date);
+  const offShares = atm.length && atm.every((x) => x.shares != null) ? atm.reduce((t, x) => t + x.shares, 0) : null;
+  const offNet = atm.length && atm.every((x) => x.net_usd != null) ? atm.reduce((t, x) => t + x.net_usd, 0) : null;
+  const res = {};
+  for (const [k, m] of Object.entries(MODELS)) {
+    const o = rollForward(wk, flowsBy[k], m, s.date, s.shares, e.date);
+    res[k] = {
+      est_shares: r(o.shares[1]), est_range: [r(o.shares[0]), r(o.shares[2])],
+      error_shares: r(o.shares[1] - e.shares), error_pct: r(((o.shares[1] - e.shares) / e.shares) * 100, 2),
+      est_issued: r(o.issued[1]), est_other: o.other, est_buybacks: o.bb,
+      issued_error: offShares != null ? r(o.issued[1] - offShares) : null,
+      issued_error_pct: offShares ? r(((o.issued[1] - offShares) / offShares) * 100, 1) : null,
+      est_proceeds_usd: r(o.proceeds[1]), proceeds_error_usd: offNet != null ? r(o.proceeds[1] - offNet) : null,
+      proceeds_error_pct: offNet ? r(((o.proceeds[1] - offNet) / offNet) * 100, 1) : null,
+      within_range: e.shares >= o.shares[0] && e.shares <= o.shares[2],
+    };
+  }
+  return {
+    from: s.date, to: e.date, kind, weeks: res.v1 ? null : null,
+    start_shares: s.shares, official_end_shares: e.shares, official_change: e.shares - s.shares,
+    official_atm_shares: offShares, official_atm_net_usd: offNet,
+    flagged: !!(s.note && s.date === '2026-04-13') || !!(e.note && e.date === '2026-04-13'),
+    sources: [s.url, e.url], models: res,
+  };
+});
+for (const b of backtest) delete b.weeks;
+
+// Quarter diagnostics: model components vs the 10-Q cash-flow statement.
+const diag = (k, from, to) => {
+  const i0 = weekIndexOf(wk, from), i1 = weekIndexOf(wk, to);
+  let eth = 0, rew = 0, opex = 0, inv = 0, cash = 0, need = 0;
+  for (let i = i0 + 1; i <= i1; i++) { const f = flowsBy[k][i]; eth += f.ethCost; rew += f.rewards; opex += f.opex; inv += f.investments; cash += f.cashChange; need += f.need[1]; }
+  return { weeks: [wk[i0].cur.as_of, wk[i1].cur.as_of], eth_purchase_cost: r(eth), staking_eth: r(rew), opex: r(opex), investments: r(inv), cash_change: r(cash), cash_need: r(need) };
+};
+const diagnostics = Object.fromEntries(Object.keys(MODELS).map((k) => [k, {
+  'Dec 1, 2025 – Feb 28, 2026': diag(k, '2025-11-30', '2026-03-01'),
+  'Mar 1 – May 31, 2026': diag(k, '2026-03-01', '2026-05-31'),
+}]));
+
+// ---------- reconstruction (current model), anchored at each official checkpoint ----------
+const M = MODELS.v2, F = flowsBy.v2;
+const anchors = cps.filter((c) => c.use_as_anchor !== false);
+const est = wk.map(() => null);
+for (let j = 0; j < anchors.length; j++) {
+  const s = anchors[j], next = anchors[j + 1];
+  const o = rollForward(wk, F, M, s.date, s.shares, null);
+  for (const row of o.rows) {
+    if (next && wk[row.i].cur.as_of >= next.date && weekIndexOf(wk, next.date) !== row.i) break;
+    const sh = [0, 1, 2].map((k) => s.shares + row.issued[k] + row.other - row.bb);
+    est[row.i] = { shares: sh, anchor: s, weeks_since: row.i - o.i0 };
+  }
+}
+// the week containing a later anchor is re-based on that anchor (official count + issuance after it that week)
+for (const a of anchors) {
+  const i = weekIndexOf(wk, a.date);
+  if (i < 0) continue;
+  const f = F[i];
+  const after = 1 - fracOnOrBefore(wk[i].px, a.date);
+  const add = (k) => (f && after > 0 ? Math.max(0, f.need[k] * after) / f.price[k] : 0);
+  est[i] = { shares: [0, 1, 2].map((k) => a.shares + add(k)), anchor: a, weeks_since: 0, official: after === 0 || Math.abs(ts(wk[i].cur.as_of) - ts(a.date)) <= DAY };
+}
+// per-week issuance for display (difference of consecutive estimates, net of other/buybacks)
+const out = [];
+for (let i = 0; i < wk.length; i++) {
+  const { cur, px } = wk[i], f = F[i], e = est[i];
+  const prevE = est[i - 1];
+  const sameSeg = prevE && e && prevE.anchor === e.anchor;
+  const issued = (k) => (sameSeg ? e.shares[k] - prevE.shares[k] - (cur.other_shares_issued || 0) + (cur.buyback_shares || 0) : null);
+  const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: cur.beast_usd, shares_outstanding: Math.round(e.shares[1]) };
   const nav = computeNav(h, { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, ORBS: cur.orbs_value_usd });
   const row = Object.fromEntries(nav.rows.map((x) => [x.key, x]));
+  const cpIn = cps.filter((c) => weekIndexOf(wk, c.date) === i).map((c) => ({ date: c.date, shares: c.shares, basis: c.basis, url: c.url, used_as_anchor: c.use_as_anchor !== false }));
   out.push({
     date: cur.date, as_of: cur.as_of, days: f?.days ?? null,
     eth: cur.eth, eth_change: f ? f.ethChange : null, eth_acquired_reported: cur.eth_acquired_reported,
     eth_staked: cur.eth_staked, staking_yield_7d: cur.staking_yield_7d,
     est_staking_eth: f ? r(f.rewards) : null, est_purchased_eth: f ? r(f.purchased) : null,
     assumed_purchase_price: f ? px.eth_avg : null, est_purchase_cost: f ? r(f.ethCost) : null,
-    buyback_shares: cur.buyback_shares || 0, buyback_price: f?.bbPrice ? r(f.bbPrice, 4) : null, buyback_price_basis: f?.bbPriceBasis ?? null,
+    buyback_shares: cur.buyback_shares || 0, buyback_price: f?.bbPrice ? r(f.bbPrice, 4) : null,
+    buyback_price_basis: cur.buyback_shares ? (cur.buyback_price ? 'disclosed' : `assumed: week avg close × ${kBuyback.toFixed(4)} (calibrated to disclosed $${(agg.amount / 1e6).toFixed(1)}M aggregate)`) : null,
     buyback_cost: f ? r(f.bbCost) : null,
     cash_prev: f ? cur.cash_usd - f.cashChange : null, cash: cur.cash_usd, cash_change: f ? f.cashChange : null,
-    est_cash_opex: f ? r(f.opex) : null, disclosed_proceeds: cur.disclosed_proceeds_usd,
-    implied_equity_raise: f ? r(f.raise) : null,
+    est_cash_opex: f ? r(f.opex) : null, investments: cur.investments_usd || 0, disclosed_proceeds: cur.disclosed_proceeds_usd,
+    implied_equity_raise: f ? r(f.need[1]) : null,
     assumed_issue_price: f ? px.bmnr_avg : null, bmnr_week_range: f ? [px.bmnr_min, px.bmnr_max] : null,
-    est_shares_issued: f ? r(f.issued * (f.frac ?? 1)) : null,
-    est_shares_issued_range: f ? [r(f.issuedLow * f.frac), r(f.issuedHigh * f.frac)] : null,
+    est_shares_issued: sameSeg ? r(issued(1)) : null,
+    est_shares_issued_range: sameSeg ? [r(issued(0)), r(issued(2))] : null,
     other_shares_issued: cur.other_shares_issued || 0,
-    shares_outstanding: r(shares[0]), shares_outstanding_range: [r(shares[1]), r(shares[2])],
+    shares_outstanding: r(e.shares[1]), shares_outstanding_range: [r(e.shares[0]), r(e.shares[2])],
+    shares_basis: e.official ? 'official' : 'estimate',
+    shares_anchor: { date: e.anchor.date, shares: e.anchor.shares, weeks_since: e.weeks_since },
+    checkpoints_in_week: cpIn.length ? cpIn : undefined,
     btc: cur.btc, orbs_value: cur.orbs_value_usd, beast_value: cur.beast_usd,
     snapshot_prices: { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, BMNR_date: px.bmnr_close_date },
     nav: { full: r(row.full.value), crypto: r(row.crypto.value), eth: r(row.eth.value), ev: r(row.ev.value) },
@@ -183,21 +219,43 @@ Object.assign(H, {
     note: `As-of ${lr.as_of}: ETH per release, BTC CoinGecko, BMNR close ${lp.bmnr_close_date}, ORBS = reported stake ÷ shares held.` },
   last_week: last, last_updated: new Date().toISOString(),
 });
+const latestCp = cps.filter((c) => c.use_as_anchor !== false).at(-1);
+H.shares_official = { shares: latestCp.shares, date: latestCp.date, source: latestCp.source, url: latestCp.url, next_expected: H.shares_official?.next_expected };
 H.orbs.reported_value_usd = lr.orbs_value_usd;
 H.assumptions.weekly_staking_yield = lr.staking_yield_7d;
 H.assumptions.weekly_staking_yield_source = `Bitmine's stated 7-day BMNR yield in the ${lr.date} release.`;
-H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), weekly_cash_outflow_used: r(weeklyOpex), built: new Date().toISOString() };
+H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), built: new Date().toISOString() };
 
+const summarize = (k) => {
+  const xs = backtest.filter((b) => !b.flagged && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
+  const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+  return { intervals: xs.length, mean_abs_error_shares: r(mean(xs.map((x) => Math.abs(x.error_shares)))), mean_abs_error_pct: r(mean(xs.map((x) => Math.abs(x.error_pct))), 2),
+    mean_error_shares: r(mean(xs.map((x) => x.error_shares))), within_range: xs.filter((x) => x.within_range).length };
+};
+const bt = {
+  description: 'Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.',
+  built: new Date().toISOString(), models: MODELS, buyback_price_calibration_k: r(kBuyback, 4),
+  summary: Object.fromEntries(Object.keys(MODELS).map((k) => [k, summarize(k)])),
+  intervals: backtest, diagnostics, official_cash_flows: C.cash_flow_official,
+};
 const hist = {
-  description: 'Week-by-week reconstruction from official Bitmine releases since the last official share count (603,226,394 on 2026-07-09). est_* / assumed_* fields are estimates; see README "Share-count reconstruction".',
-  method: { anchor, buyback_aggregate: agg, buyback_price_calibration_k: r(kBuyback, 4), ...A },
+  description: 'Weekly reconstruction from every official Bitmine release since Nov 30, 2025. Share counts are official at 10-Q checkpoints (checkpoints.json) and estimated between them by rolling the current model forward from the latest checkpoint. est_* / assumed_* fields are estimates; see README "Share-count reconstruction".',
+  method: { model: MODELS.v2, checkpoints: cps.map(({ date, shares, basis, url, use_as_anchor }) => ({ date, shares, basis, url, use_as_anchor })), buyback_aggregate: agg, buyback_price_calibration_k: r(kBuyback, 4), ...A },
   snapshots: out,
 };
-for (const s of out) console.log(s.date, String(s.eth).padStart(9), (s.est_shares_issued ?? '').toString().padStart(11), String(s.buyback_shares).padStart(8), String(s.shares_outstanding).padStart(11), s.shares_outstanding_range.join('–'), s.nav_per_share, s.mnav);
+const f0 = (x) => (x == null ? '' : Math.round(x).toLocaleString('en-US'));
+console.log('date        eth        issued      shares        basis     NAV/sh  mNAV');
+for (const s of out) console.log(s.as_of, String(s.eth).padStart(9), f0(s.est_shares_issued).padStart(11), f0(s.shares_outstanding).padStart(12), s.shares_basis.padEnd(9), s.nav_per_share, s.mnav);
+console.log('\nBACKTEST (estimate − official)');
+for (const b of backtest) console.log(`${b.from} → ${b.to} ${b.flagged ? '[flag]' : '      '} official Δ ${f0(b.official_change).padStart(11)} atm ${f0(b.official_atm_shares).padStart(11)} | ` +
+  Object.entries(b.models).map(([k, m]) => `${k}: est ${f0(m.est_shares)} err ${f0(m.error_shares)} (${m.error_pct}%) iss.err ${f0(m.issued_error)} $err ${f0(m.proceeds_error_usd / 1e6)}M ${m.within_range ? 'in' : 'out'}`).join(' | '));
+console.log(JSON.stringify(bt.summary));
+console.log(JSON.stringify(diagnostics, null, 0));
 console.log('k_buyback', kBuyback.toFixed(4));
 if (!process.argv.includes('--dry')) {
   await writeFile(P('history.json'), JSON.stringify(hist, null, 2) + '\n');
+  await writeFile(P('backtest.json'), JSON.stringify(bt, null, 2) + '\n');
   await writeFile(P('holdings.json'), JSON.stringify(H, null, 2) + '\n');
   await writeFile(P('weekly-prices.json'), JSON.stringify(cache, null, 2) + '\n');
-  console.log('wrote history.json, holdings.json, weekly-prices.json');
+  console.log('wrote history.json, backtest.json, holdings.json, weekly-prices.json');
 }

@@ -48,3 +48,17 @@ table.t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 .method ul{padding-left:18px;margin:4px 0}.method li{margin:5px 0;font-size:13.5px}
 .foot{color:var(--mut);font-size:13px;padding-bottom:30px}
 @media (max-width:860px){.grid2,.method .cols{grid-template-columns:1fr}.kpi.main{grid-column:1/-1}.kpi.main .v{font-size:36px}}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:#0e1422;border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{appearance:none;border:0;background:transparent;color:var(--mut);font:600 12px/1 inherit;font-family:inherit;padding:8px 11px;border-radius:7px;cursor:pointer;min-width:40px;min-height:32px}
+.seg button:hover{color:var(--txt)}
+.seg button[aria-pressed="true"]{background:var(--acc);color:#0b0f17}
+.t tr.off td{background:#0f1d18}
+.t tr.flag td{background:#22161a}
+.tag.w{background:#3a1820;color:var(--bad)}
+a.tag{text-decoration:none;display:inline-block;margin:2px 0 0}
+.bt-sum{margin:6px 0 10px}
+.bt-sum .kpi .v{font-size:22px}
+.t.cash td{white-space:normal;vertical-align:top}.t.cash td:nth-child(2){white-space:nowrap}
+.t.cash td:last-child{text-align:left;color:var(--mut);min-width:260px}
+.findings{padding-left:18px;margin:10px 0 0}.findings li{margin:6px 0;font-size:13.5px}
+@media (max-width:600px){.chart-box{height:250px}.seg{width:100%;justify-content:space-between}.seg button{flex:1;padding:9px 0}.card{padding:12px}.kpi .v{font-size:20px}}

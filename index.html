@@ -23,7 +23,7 @@
     <div class="card">
       <div class="card-h"><h2>NAV &amp; mNAV</h2><span class="pill" id="navBasis"></span></div>
       <div class="table-wrap"><table class="t" id="navTable"></table></div>
-      <p class="fine">mNAV = BMNR price ÷ NAV per share (= market cap ÷ NAV). Enterprise Value row follows the sheet: EV = market cap − cash, "mNAV" = market cap ÷ EV.</p>
+      <p class="fine">mNAV = BMNR price ÷ NAV per share (= market cap ÷ NAV). Enterprise Value row: EV = market cap − cash; its "mNAV" = market cap ÷ EV.</p>
     </div>
     <div class="card">
       <div class="card-h"><h2>Holdings</h2><span class="pill" id="holdBasis"></span></div>
@@ -40,13 +40,41 @@
   <section class="card">
     <div class="card-h"><h2>Valuation: staking + MAVAN + SOTP</h2><span class="pill">recomputed with live ETH &amp; BMNR</span></div>
     <div class="table-wrap"><table class="t val" id="valTable"></table></div>
-    <p class="fine">SOTP per share = staking equity/share + Full NAV/share + MAVAN equity/share. "Implied mNAV" = SOTP ÷ Full NAV per share. All inputs are assumptions copied from the shared spreadsheet; edit <code>data/holdings.json → assumptions.valuation</code>.</p>
+    <p class="fine">SOTP per share = staking equity/share + Full NAV/share + MAVAN equity/share. "Implied mNAV" = SOTP ÷ Full NAV per share. All inputs are user-set scenario assumptions; edit <code>data/holdings.json → assumptions.valuation</code>.</p>
   </section>
 
-  <section class="card">
-    <div class="card-h"><h2>Weekly history</h2><span class="pill">reconstructed from every Bitmine release since the July 9 official share count · * = estimated buyback price</span></div>
-    <div class="chart-box"><canvas id="histChart"></canvas></div>
+  <section class="card" id="history">
+    <div class="card-h"><h2>Weekly history</h2><div class="seg" id="rangeSel" role="group" aria-label="Chart time range"></div></div>
+    <p class="fine" id="histNote"></p>
+    <div class="chart-box"><canvas id="histChart" aria-label="mNAV, NAV per share and BMNR price by week"></canvas></div>
+    <div class="chart-box"><canvas id="shareChart" aria-label="Estimated and official shares outstanding, ETH holdings"></canvas></div>
     <div class="table-wrap"><table class="t small" id="histTable"></table></div>
+    <p class="fine">Every row is one Bitmine weekly release (8-K Ex. 99 · @BitMNR) since Nov 30, 2025. * = estimated buyback price. "Other uses" = disclosed cash investments (Beast, Eightco, Pier Two); "pref." = BMNP preferred proceeds. Rows marked <span class="tag o">official</span> carry a 10-Q count; the rest are estimates rolled forward from the latest official count.</p>
+  </section>
+
+  <section class="card" id="backtest">
+    <div class="card-h"><h2>Model accuracy / backtest</h2><span class="pill">out-of-sample: start at an official count, roll forward weekly, compare with the next filing</span></div>
+    <div class="hero bt-sum" id="btSummary"></div>
+    <div class="table-wrap"><table class="t small" id="btTable"></table></div>
+    <p class="fine">Error = estimate − official. "Clean intervals" exclude the Apr 13, 2026 10-Q cover count, which contradicts the same filing (Feb 28 count 493,905,227 + 57,107,586 ATM shares sold through Apr 14 = 551.0M, not 537.6M) — the Feb 28 → May 31 quarter is used instead. v2's ETH-cost, staking and opex parameters were fitted on Dec 2025 – May 2026 10-Q data, so its Dec–May rows are partly in-sample; the walk-forward variant fits the ETH-cost factor on Dec–Feb only. The next true test is Bitmine's next official count (10-K for FY ended Aug 31, 2026).</p>
+    <h3>Is Bitmine generating cash some other way than issuing stock?</h3>
+    <p class="fine" style="margin-top:0">Cash-flow statements, Dec 1, 2025 – May 31, 2026 (26 weeks; 9-month minus 3-month figures from the <a href="https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm" target="_blank" rel="noopener">May 31, 2026 10-Q</a> and <a href="https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm" target="_blank" rel="noopener">Nov 30, 2025 10-Q</a>).</p>
+    <div class="table-wrap"><table class="t small cash">
+      <tr><th>Source</th><th>Cash, Dec–May</th><th>Comment</th></tr>
+      <tr class="hl"><td>Common stock sold via ATM</td><td>$4,205M</td><td>172.2M shares (84.96M Dec–Feb + 87.26M Mar–May). ~97% of all cash raised.</td></tr>
+      <tr><td>Staking rewards</td><td>$0 cash · $52.5M in ETH</td><td>Received in ETH and kept (ETH sold: $0.24M in 9 months). Adds ETH, which the tracker already counts — not a cash source.</td></tr>
+      <tr><td>ETH option premiums</td><td>+$103.9M received</td><td>but −$124.6M premiums paid and −$100.1M cash collateral posted; net loss on derivative contracts −$133.3M (9 months). Net cash <i>user</i>.</td></tr>
+      <tr><td>Interest income</td><td>≈ +$10.1M</td><td>On cash balances ($4.8M Dec–Feb, $5.3M Mar–May).</td></tr>
+      <tr><td>Asset sales / warrants</td><td>≈ +$2.5M</td><td>ETH $0.24M, other tokens $0.84M, equity stakes $0.15M, equipment $0.81M, warrant exercises ~$0.5M.</td></tr>
+      <tr><td>Debt / convertibles</td><td>$0</td><td>No borrowings or convertible notes in 2026.</td></tr>
+      <tr><td>Operating activities (net)</td><td>−$59.2M</td><td>Costs exceed cash revenue (consulting, Pier Two, mining) + interest: ≈ −$2.3M/week.</td></tr>
+      <tr><td>BMNP 9.50% preferred (Jun 10, 2026)</td><td>+$273.8M net</td><td>The one material non-dilutive (to common) raise of 2026; costs ≈ $33M/yr in dividends. <a href="https://www.sec.gov/Archives/edgar/data/1829311/000149315226027502/form8-k.htm" target="_blank" rel="noopener">8-K</a></td></tr>
+    </table></div>
+    <ul class="findings">
+      <li><b>The evidence does not support a hidden cash source.</b> Outside the ATM, Dec–May cash inflows were small (interest ≈ $10M) and were outweighed by option-strategy and operating outflows. Staking income is real but arrives (and stays) as ETH.</li>
+      <li><b>The original model's misses were missing cash <i>uses</i>, not missing income:</b> $286M of disclosed investments (Beast Industries, Eightco/ORBS, Pier Two), ETH cash cost running 3.5–6.5% above "ETH added × weekly average price", and staking rewards overstated while new stake waited in the validator entry queue (model $80M vs 10-Q $52.5M).</li>
+      <li><b>Jul–Oct 2026</b> (no filing yet): weekly cash moves are explained by cash on hand (incl. BMNP proceeds) funding buybacks and ETH buys, then renewed issuance from late August. Confirmation waits for the next 10-K / 10-KT.</li>
+    </ul>
   </section>
 
   <section class="card method" id="method">
@@ -57,30 +85,30 @@
         <ul>
           <li><b>ETH &amp; BTC</b>: CoinGecko public API, fetched in your browser on load and every 60 s. If it fails, the page falls back to the last prices saved by the GitHub Action, then to the last announcement's prices.</li>
           <li><b>BMNR, ETHA, ORBS</b>: Yahoo Finance quotes saved to <code>data/prices.json</code> by a GitHub Action every ~15 min during US market hours (Mon–Fri). The page re-reads that file every 5 min.</li>
-          <li><b>Holdings</b> (ETH, staked ETH, stated staking yield, BTC, cash &amp; marketable securities, Eightco and Beast stakes, buybacks) are transcribed from every Bitmine Monday release (8-K Ex. 99.1 / PR Newswire / @BitMNR) since July 2026 into <code>data/releases.json</code>; <code>scripts/build-history.mjs</code> rebuilds the weekly history from them.</li>
+          <li><b>Holdings</b> (ETH, staked ETH, stated staking yield, BTC, cash &amp; marketable securities, Eightco and Beast stakes, buybacks, disclosed investments) are transcribed from every Bitmine Monday release since Nov 30, 2025 (8-K Ex. 99 / @BitMNR) into <code>data/releases.json</code>. Official share counts and ATM sales come from the 10-Qs (<code>data/checkpoints.json</code>).</li>
           <li><b>Weekly NAV snapshots</b> use the release's ETH price, BTC (CoinGecko) on the as-of date, the last BMNR close on/before the as-of date, and the reported Eightco stake value.</li>
         </ul>
       </div>
       <div>
-        <h3>Share-count reconstruction</h3>
+        <h3>Share-count reconstruction (model v2)</h3>
         <ul>
-          <li><b>Anchor</b>: last official count, <b>603,226,394 shares on July 9, 2026</b> (10-Q cover). Bitmine has not disclosed ATM sales or a newer count since.</li>
-          <li><b>Staking rewards (est.)</b> = ETH staked at the previous report × that week's stated 7-day BMNR yield × days/365. Rewards arrive in ETH and are inside reported holdings.</li>
-          <li><b>ETH bought (est.)</b> = change in ETH holdings − est. rewards, priced at the week's <b>average daily ETH price</b>.</li>
-          <li><b>Buyback price</b>: disclosed if given; otherwise the week's average BMNR close × a factor (≈1.005) calibrated so all buybacks sum to Bitmine's disclosed $399.6M for 22.9M shares.</li>
-          <li><b>Implied equity raise</b> = Δcash + ETH cost + buyback cost + est. cash costs (≈$3.26M/wk opex from the 10-Q + $0.65M/wk BMNP preferred dividends) − any disclosed proceeds.</li>
-          <li><b>Shares issued (est.)</b> = raise ÷ week's average BMNR close (0 if the raise is negative); plus disclosed RSU vesting; minus disclosed buybacks.</li>
-          <li><b>Range</b>: low = no cash costs and issuance at the week's highest close; high = 2× cash costs and issuance at the week's lowest close.</li>
+          <li><b>Anchors</b>: official 10-Q counts — 408.58M (Nov 30, 2025), 454.86M (Jan 12), 493.91M (Feb 28), 579.65M (May 31), <b>603,226,394 (Jul 9, 2026, latest)</b>. Between them the count is rolled forward weekly.</li>
+          <li><b>Staking rewards (est.)</b> = ETH that was already staked 4 reports earlier × the week's stated 7-day BMNR yield × days/365 (validator entry-queue lag; fitted to 10-Q staking revenue). Rewards arrive in ETH and are inside reported holdings.</li>
+          <li><b>ETH bought (est.)</b> = change in ETH − est. rewards, costed at the week's average daily ETH price × 1.05 (cash actually paid per the 10-Q cash-flow statements).</li>
+          <li><b>Buyback price</b>: disclosed if given; otherwise the week's average BMNR close × a factor (≈1.005) calibrated so all buybacks sum to the disclosed $399.6M for 22.9M shares.</li>
+          <li><b>Cash need</b> = Δcash + ETH cost + buybacks + disclosed investments + operating cash burn ($2.28M/wk, Dec–May 10-Q operating cash flow) + BMNP dividends ($0.65M/wk from Jun 10) − disclosed non-common proceeds.</li>
+          <li><b>Shares issued (est.)</b> = cash need ÷ week's average BMNR close. A week with surplus cash carries forward to offset later weeks. Plus disclosed RSU/acquisition shares, minus disclosed buybacks.</li>
+          <li><b>Range</b>: low = no operating cash costs and issuance at the week's highest close; high = 2× costs at the week's lowest close.</li>
         </ul>
       </div>
       <div>
         <h3>Valuation &amp; caveats</h3>
         <ul>
           <li><b>ORBS</b> = Eightco Holdings (NASDAQ: ORBS) <i>stock</i> (not the Orbs crypto token): 100,655,143 shares per Bitmine's 10-Q × live ORBS price.</li>
-          <li><b>Beast Industries</b> stake is carried at the disclosed $180M. "Cash" = "total cash &amp; marketable securities".</li>
+          <li><b>Beast Industries</b> stake is carried at the disclosed $180M. "Cash" = "total cash &amp; marketable securities" (includes cash posted as option collateral).</li>
           <li>BMNP preferred (3.5M shares) and other liabilities are <i>not</i> deducted from NAV.</li>
-          <li>Unknowns that can move the share estimate: actual ETH purchase prices, ATM sale prices, operating costs, marketable-securities price changes, and any undisclosed inflows/outflows. The estimate resets to an official count whenever Bitmine files one (10-K for FY ended Aug 31, 2026 is due soon).</li>
-          <li>Valuation scenario inputs (staking multiple, SG&amp;A, MAVAN) are assumptions carried over from the group's spreadsheet.</li>
+          <li>Backtest: v2 is within ~0.1–0.3% of every clean official count since Nov 2025 (see above). Biggest remaining unknowns: within-week timing of ATM sales, rounded cash figures in some releases ($1.0B/$1.2B), ETH execution prices and option-strategy cash flows. The estimate re-anchors whenever Bitmine files a new count (10-K for FY ended Aug 31, 2026 is due).</li>
+          <li>Valuation scenario inputs (staking multiple, SG&amp;A, MAVAN) are user-set assumptions in <code>data/holdings.json</code>.</li>
         </ul>
       </div>
     </div>
