@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMNR NAV / mNAV Tracker — Bitmine Immersion Technologies</title>
+<meta name="description" content="Live NAV, NAV per share and mNAV tracker for Bitmine Immersion Technologies (BMNR), updated weekly from Bitmine's holdings announcements.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⟠</text></svg>">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="logo">⟠</span><div><h1>BMNR NAV / mNAV Tracker</h1><p class="sub">Bitmine Immersion Technologies (NYSE: BMNR) · live crypto prices · weekly holdings</p></div></div>
+    <div class="status" id="status">Loading…</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="hero"></section>
+
+  <section class="grid2">
+    <div class="card">
+      <div class="card-h"><h2>NAV &amp; mNAV</h2><span class="pill" id="navBasis"></span></div>
+      <div class="table-wrap"><table class="t" id="navTable"></table></div>
+      <p class="fine">mNAV = BMNR price ÷ NAV per share (= market cap ÷ NAV). Enterprise Value row follows the sheet: EV = market cap − cash, "mNAV" = market cap ÷ EV.</p>
+    </div>
+    <div class="card">
+      <div class="card-h"><h2>Holdings</h2><span class="pill" id="holdBasis"></span></div>
+      <div class="table-wrap"><table class="t" id="holdTable"></table></div>
+      <p class="fine" id="holdNote"></p>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card" id="weekCard"></div>
+    <div class="card" id="ethaCard"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-h"><h2>Valuation: staking + MAVAN + SOTP</h2><span class="pill">recomputed with live ETH &amp; BMNR</span></div>
+    <div class="table-wrap"><table class="t val" id="valTable"></table></div>
+    <p class="fine">SOTP per share = staking equity/share + Full NAV/share + MAVAN equity/share. "Implied mNAV" = SOTP ÷ Full NAV per share. All inputs are assumptions copied from the shared spreadsheet; edit <code>data/holdings.json → assumptions.valuation</code>.</p>
+  </section>
+
+  <section class="card">
+    <div class="card-h"><h2>Weekly history</h2><span class="pill">one point per Monday announcement</span></div>
+    <div class="chart-box"><canvas id="histChart"></canvas></div>
+    <div class="table-wrap"><table class="t small" id="histTable"></table></div>
+  </section>
+
+  <section class="card method" id="method">
+    <h2>Assumptions &amp; methodology</h2>
+    <div class="cols">
+      <div>
+        <h3>Data flow</h3>
+        <ul>
+          <li><b>ETH &amp; BTC</b>: CoinGecko public API, fetched in your browser on load and every 60 s. If it fails, the page falls back to the last prices saved by the GitHub Action, then to the last announcement's prices.</li>
+          <li><b>BMNR, ETHA, ORBS</b>: Yahoo Finance quotes saved to <code>data/prices.json</code> by a GitHub Action every ~15 min during US market hours (Mon–Fri). The page re-reads that file every 5 min.</li>
+          <li><b>Holdings</b> (ETH, staked ETH, BTC, cash, Beast, ORBS stake) come from Bitmine's Monday press release / @BitMNR post and are stored in <code>data/holdings.json</code>.</li>
+          <li><b>Shares outstanding</b> are not disclosed weekly. We carry a running estimate: last count + estimated ATM issuance − disclosed buybacks (see below).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Weekly estimates</h3>
+        <ul>
+          <li><b>Staking rewards (est.)</b> = ETH staked at the start of the week × annual staking yield × 7/365. Yield default: <span id="mYield"></span> (Bitmine's disclosed 7-day BMNR yield).</li>
+          <li><b>ETH purchased (est.)</b> = reported change in ETH holdings − estimated staking rewards. <i>Assumption:</i> Bitmine's weekly "acquired" figure equals the change in total holdings and we assume rewards credited to its wallets are inside it.</li>
+          <li><b>Purchase price</b>: if not disclosed, assumed = average daily ETH price over the week (Mon–Sun ending on the "as of" date).</li>
+          <li><b>Buyback price</b>: if not disclosed, assumed = average BMNR close over that week's trading days.</li>
+          <li><b>Implied equity raise</b> (sheet logic) = ETH purchase cost + buyback cost − decrease in cash. If positive, <b>est. ATM shares issued</b> = raise ÷ average BMNR close that week; if negative (cash covered it), no issuance is assumed. Opex, preferred (BMNP) dividends and staking cash flows are ignored.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Valuation &amp; caveats</h3>
+        <ul>
+          <li><b>ORBS</b> is the Eightco Holdings (NASDAQ: ORBS) stake — a stock, <i>not</i> the Orbs crypto token. Value = assumed 100,000,000 shares × ORBS price (Bitmine discloses only the $ value).</li>
+          <li><b>Beast Industries</b> stake is carried at the disclosed $180M (not marked to market).</li>
+          <li>"Cash" = Bitmine's "total cash &amp; marketable securities".</li>
+          <li>Preferred stock (BMNP) and any debt are <i>not</i> deducted from NAV (same as the spreadsheet).</li>
+          <li>The 30/60-day ETHA-ratio Z-scores shown are a static copy from the spreadsheet (they are imported from another sheet and not recomputed here).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p><b>Not investment advice.</b> Estimates and assumptions may be wrong; always check Bitmine's filings. Data: <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a> (ETH, BTC), Yahoo Finance (BMNR, ETHA, ORBS), Bitmine press releases (<a href="https://www.prnewswire.com/news/bitmine-immersion-technologies%2C-inc./" target="_blank" rel="noopener">PR Newswire</a>, <a href="https://x.com/BitMNR" target="_blank" rel="noopener">@BitMNR</a>, <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001829311&type=8-K" target="_blank" rel="noopener">SEC 8-K</a>).</p>
+  <p id="footTimes" class="fine"></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

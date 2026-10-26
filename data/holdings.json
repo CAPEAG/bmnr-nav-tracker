@@ -1,0 +1,119 @@
+{
+  "ticker": "BMNR",
+  "company": "Bitmine Immersion Technologies, Inc.",
+  "as_of": "2026-10-25",
+  "announced": "2026-10-26",
+  "eth": 6051933,
+  "eth_staked": 5227037,
+  "btc": 215,
+  "cash_usd": 514000000,
+  "orbs": {
+    "shares": 100000000,
+    "reported_value_usd": 76000000,
+    "note": "Eightco Holdings (NASDAQ: ORBS) stock. Share count 100,000,000 is the sheet's figure (assumption: Bitmine only discloses the $ value; $76M ÷ 100M = $0.76 ≈ ORBS close, consistent)."
+  },
+  "beast_usd": 180000000,
+  "shares_outstanding": 627234610,
+  "shares_basis": "Running estimate: previous 629,274,610 + est. issued 0 − buyback 2,040,000 (week of 2026-10-25).",
+  "source": {
+    "type": "official",
+    "press_release": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
+    "x_post": "https://x.com/BitMNR/status/2114706044198785282"
+  },
+  "assumptions": {
+    "weekly_staking_yield": 0.0258,
+    "weekly_staking_yield_source": "Bitmine's disclosed '7-day BMNR yield' of 2.58% (press release Oct 26, 2026).",
+    "etha_target_ratio": 1.4,
+    "valuation": {
+      "staking_yield": {
+        "bear": 0.026,
+        "base": 0.026,
+        "bull": 0.026
+      },
+      "bull_eth_staked": 6105000,
+      "sga": {
+        "bear_pct_of_rewards": 0.015,
+        "bear_fixed": 50000000,
+        "base": 55000000,
+        "bull": 60000000
+      },
+      "staking_multiple": {
+        "bear": 5,
+        "base": 5,
+        "bull": 5
+      },
+      "mavan": {
+        "aum": {
+          "bear": 2000000000,
+          "base": 2000000000,
+          "bull": 2000000000
+        },
+        "reward_rate": 0.045,
+        "margin": {
+          "bear": 0.0985,
+          "base": 0.125,
+          "bull": 0.15
+        },
+        "multiple": {
+          "bear": 15,
+          "base": 20,
+          "bull": 25
+        }
+      },
+      "source": "Copied from the user's BMNR sheet (rows 19-36). Bear ETH staked = latest reported staked ETH; base = all ETH held; bull = sheet hard-code 6,105,000."
+    }
+  },
+  "sheet_snapshot": {
+    "note": "Values copied from the user's sheet on 2026-10-26 for reference only (not live). Z-scores come from another spreadsheet via IMPORTRANGE and are not recomputed here.",
+    "date": "2026-10-26",
+    "etha_ratio_30d_zscore": -33.91,
+    "curve_price_30d": 77.44,
+    "etha_ratio_60d_zscore": -28.11,
+    "curve_price_60d": 98.66
+  },
+  "reference_prices": {
+    "ETH": 2356,
+    "BTC": 80048.84794045369,
+    "BMNR": 22.399999618530273,
+    "ORBS": 0.76,
+    "note": "Snapshot prices for 2026-10-25: ETH per press release (Coinbase) if given, BTC CoinGecko daily, BMNR last close on/before as-of date, ORBS = reported stake value ÷ assumed share count."
+  },
+  "last_week": {
+    "date": "2026-10-26",
+    "as_of": "2026-10-25",
+    "eth": 6051933,
+    "eth_added": 10452,
+    "eth_staked": 5227037,
+    "est_staking_eth": 2507,
+    "est_purchased_eth": 7945,
+    "assumed_purchase_price": 2397.1,
+    "purchase_price_basis": "assumed: avg daily ETH price over the week",
+    "est_purchase_cost": 19044316,
+    "buyback_shares": 2040000,
+    "buyback_price": 22.48,
+    "buyback_price_basis": "disclosed",
+    "cash_prev": 582000000,
+    "cash": 514000000,
+    "implied_equity_raise": -3096484,
+    "est_shares_issued": 0,
+    "assumed_issue_price": 22.65,
+    "shares_outstanding": 627234610,
+    "btc": 215,
+    "orbs_value": 76000000,
+    "beast_value": 180000000,
+    "snapshot_prices": {
+      "ETH": 2356,
+      "BTC": 80049,
+      "BMNR": 22.4
+    },
+    "full_nav": 15045564650,
+    "nav_per_share": 23.99,
+    "mnav": 0.934,
+    "eth_nav_mnav": 0.985,
+    "eth_per_share": 0.0096486,
+    "source": "https://www.prnewswire.co.uk/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-05-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-15-billion-302919315.html",
+    "x_post": "https://x.com/BitMNR/status/2114706044198785282",
+    "notes": "Official: +10,452 ETH; repurchased 2.04M shares at avg $22.48 (disclosed). Staked ETH rose to 5,227,037."
+  },
+  "last_updated": "2026-10-26T15:09:03.271Z"
+}
