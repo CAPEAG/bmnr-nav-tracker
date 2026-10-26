@@ -3,7 +3,7 @@ import { computeNav, computeValuation, weeklyStakingEth } from './calc.js';
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
 
-const S = { holdings: null, history: null, backtest: null, prices: null, live: {}, chart: null, chart2: null, range: localStorage.getItem('bmnrRange') || 'ALL' };
+const S = { holdings: null, history: null, backtest: null, prices: null, live: {}, chart: null, chart2: null, chart3: null, range: localStorage.getItem('bmnrRange') || 'ALL' };
 const $ = (id) => document.getElementById(id);
 
 // ---------- formatting ----------
@@ -84,6 +84,8 @@ function render() {
   const last = S.history.snapshots.at(-1);
   const navChg = last ? full.perShare / last.nav_per_share - 1 : null;
   const ethaRatio = P.ETHA.price ? p.BMNR / P.ETHA.price : null;
+  const prevSnap = S.history.snapshots.at(-2);
+  const ethWow = prevSnap ? nav.ethPerShare / (prevSnap.eth / prevSnap.shares_outstanding) - 1 : null;
 
   // status
   const stale = !!S.live.err;
@@ -96,7 +98,7 @@ function render() {
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>range ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
-    <div class="kpi"><div class="l">ETH / share</div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH held</div></div>
+    <div class="kpi"><div class="l">ETH / share <span class="tag a">est.</span></div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH ÷ ${(h.shares_outstanding / 1e6).toFixed(1)}M sh${ethWow != null ? ` · <span class="${cls(ethWow)}">${pct(ethWow, 2)}</span> WoW` : ''}</div></div>
     <div class="kpi"><div class="l">ETHA ratio</div><div class="v">${ethaRatio ? ethaRatio.toFixed(3) : '—'}</div><div class="s">BMNR ÷ ETHA (${usd(P.ETHA.price)})</div></div>`;
 
   $('navBasis').textContent = `live · ETH ${usd(p.ETH, 0)}`;
@@ -209,8 +211,8 @@ function renderHistory() {
     s.slice().reverse().map((r) => `<tr class="${r.shares_basis === 'official' ? 'off' : ''}"><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth) + ' @ ' + usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${r.investments ? big(r.investments) : r.disclosed_proceeds ? '−' + big(r.disclosed_proceeds) + ' pref.' : '—'}</td><td>${r.implied_equity_raise == null ? '—' : big(r.implied_equity_raise)}</td><td>${r.est_shares_issued == null ? (r.checkpoints_in_week ? '<span class="fine">re-anchored</span>' : '—') : n(r.est_shares_issued)}</td><td title="range ${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}">${n(r.shares_outstanding)} ${r.shares_basis === 'official' ? '<span class="tag o">official</span>' : '<span class="tag a">est.</span>'}${r.checkpoints_in_week ? '<br>' + cpTag(r) : ''}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
   if (!window.Chart) return;
   const labels = s.map((r) => shortDate(r.as_of));
-  const grid = { color: '#1c2538' }, tick = { color: '#8b97b0', maxRotation: 0, autoSkip: true, autoSkipPadding: 14 };
   const mobile = window.matchMedia('(max-width: 600px)').matches;
+  const grid = { color: '#1c2538' }, tick = { color: '#8b97b0', maxRotation: 0, autoSkip: true, autoSkipPadding: mobile ? 24 : 16, maxTicksLimit: mobile ? 4 : 8, font: { size: mobile ? 10 : 11 } };
   const legend = { labels: { color: '#c9d2e6', boxWidth: 12, font: { size: mobile ? 10 : 12 } } };
   const ptR = s.length > 30 ? 0 : 2;
   S.chart?.destroy();
@@ -245,6 +247,35 @@ function renderHistory() {
       scales: { x: { ticks: tick, grid },
         y: { position: 'left', ticks: { color: '#ffc857', callback: (v) => (v / 1e6).toFixed(0) + 'M' }, grid, title: { display: !mobile, text: 'Shares', color: '#ffc857' } },
         y1: { position: 'right', ticks: { color: '#8c8dfc', callback: (v) => (v / 1e6).toFixed(1) + 'M' }, grid: { display: false }, title: { display: !mobile, text: 'ETH', color: '#8c8dfc' } } } },
+  });
+
+  // ETH per share (ETH held ÷ estimated shares) + week-over-week % change
+  const eps = (r) => r.eth / r.shares_outstanding;
+  const idx = new Map(all.map((r, i) => [r.as_of, i]));
+  const wow = s.map((r) => { const pr = all[idx.get(r.as_of) - 1]; return pr ? (eps(r) / eps(pr) - 1) * 100 : null; });
+  const epsOff = s.map((r) => (r.shares_basis === 'official' || (r.checkpoints_in_week || []).some((c) => c.used_as_anchor) ? eps(r) : null));
+  const epsFlag = s.map((r) => { const c = (r.checkpoints_in_week || []).find((x) => !x.used_as_anchor); return c ? r.eth / c.shares : null; });
+  const first = eps(s[0]), lastE = eps(s.at(-1));
+  $('epsNote').innerHTML = `ETH / share ${first.toFixed(6)} → ${lastE.toFixed(6)} over the selected range (<span class="${cls(lastE - first)}">${pct(lastE / first - 1, 2)}</span>). Based on <b>estimated</b> shares between 10-Q filings.`;
+  const f6 = (v) => (v == null ? '—' : Number(v).toFixed(6));
+  S.chart3?.destroy();
+  S.chart3 = new Chart($('epsChart'), {
+    data: { labels, datasets: [
+      { type: 'line', label: 'Range high', data: s.map((r) => r.eth / r.shares_outstanding_range[0]), borderColor: 'transparent', backgroundColor: 'rgba(140,141,252,.14)', pointRadius: 0, fill: '+1', yAxisID: 'y', order: 1 },
+      { type: 'line', label: 'Range low', data: s.map((r) => r.eth / r.shares_outstanding_range[1]), borderColor: 'transparent', backgroundColor: 'transparent', pointRadius: 0, fill: false, yAxisID: 'y', order: 1 },
+      { type: 'line', label: 'ETH / share (est. shares)', data: s.map(eps), borderColor: '#8c8dfc', backgroundColor: '#8c8dfc', pointRadius: ptR, tension: .2, yAxisID: 'y', order: 0 },
+      { type: 'scatter', label: 'Official 10-Q share count', data: epsOff, showLine: false, pointRadius: 6, pointHoverRadius: 8, borderColor: '#3ddc97', backgroundColor: '#3ddc97', yAxisID: 'y', order: 0 },
+      { type: 'scatter', label: 'Flagged 10-Q cover count', data: epsFlag, showLine: false, pointRadius: 6, pointStyle: 'rectRot', borderColor: '#ff6b6b', backgroundColor: 'rgba(255,107,107,.3)', yAxisID: 'y', order: 0 },
+      { type: 'bar', label: 'Week-over-week %', data: wow, backgroundColor: wow.map((v) => (v == null ? 'rgba(139,151,176,.5)' : v >= 0 ? 'rgba(61,220,151,.45)' : 'rgba(255,107,107,.5)')), borderWidth: 0, yAxisID: 'y1', order: 2, barPercentage: .7 },
+    ] },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { ...legend, labels: { ...legend.labels, filter: (i) => !i.text.startsWith('Range') } },
+        tooltip: { filter: (i) => i.raw != null && !i.dataset.label.startsWith('Range'),
+          callbacks: { label: (c) => c.dataset.yAxisID === 'y1' ? `WoW: ${c.raw >= 0 ? '+' : ''}${c.raw.toFixed(2)}%` : `${c.dataset.label}: ${f6(c.raw)}`,
+            footer: (items) => { const r = s[items[0]?.dataIndex]; return r ? `range ${f6(r.eth / r.shares_outstanding_range[1])}–${f6(r.eth / r.shares_outstanding_range[0])} · ${r.shares_basis === 'official' ? 'official' : 'est.'} shares ${n(r.shares_outstanding)}` : ''; } } } },
+      scales: { x: { ticks: tick, grid },
+        y: { position: 'left', ticks: { color: '#8c8dfc', callback: (v) => v.toFixed(4) }, grid, title: { display: !mobile, text: 'ETH per share', color: '#8c8dfc' } },
+        y1: { position: 'right', ticks: { color: '#8b97b0', callback: (v) => v + '%' }, grid: { display: false }, title: { display: !mobile, text: 'WoW %', color: '#8b97b0' } } } },
   });
 }
 

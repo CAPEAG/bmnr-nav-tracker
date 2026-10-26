@@ -12,6 +12,12 @@ mNAV of **Bitmine Immersion Technologies (NYSE: BMNR)** using:
 * **Weekly holdings** from Bitmine's Monday-morning holdings releases, transcribed into `data/releases.json`; the
   week-by-week history (`data/history.json`) and latest balance sheet (`data/holdings.json`) are generated from it.
 
+**Weekly history charts** (time range 1M / 3M / 6M / YTD / 1Y / All): mNAV, NAV/share and BMNR close; estimated vs
+official shares outstanding with ETH held; and **ETH per share** (reported ETH ÷ v2 estimated shares, official 10-Q
+weeks marked) with week-over-week % change bars — the weekly accretion check (positive = ETH grew faster than the share
+count). The layout is fluid up to 1760 px: cards and charts flow into 2–3 columns on wide screens, one column on phones;
+wide tables scroll horizontally.
+
 Every figure is rebuilt from Bitmine's own weekly releases and SEC filings since Nov 30, 2025: weekly inputs in
 `data/releases.json`, official share counts / ATM sales / cash-flow figures from the 10-Qs in `data/checkpoints.json`.
 The share-count model is **backtested out-of-sample** against every official count in 2026 (`data/backtest.json`,

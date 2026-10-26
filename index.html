@@ -19,7 +19,7 @@
 <main class="wrap">
   <section class="hero" id="hero"></section>
 
-  <section class="grid2">
+  <section class="cards">
     <div class="card">
       <div class="card-h"><h2>NAV &amp; mNAV</h2><span class="pill" id="navBasis"></span></div>
       <div class="table-wrap"><table class="t" id="navTable"></table></div>
@@ -30,24 +30,25 @@
       <div class="table-wrap"><table class="t" id="holdTable"></table></div>
       <p class="fine" id="holdNote"></p>
     </div>
-  </section>
-
-  <section class="grid2">
     <div class="card" id="weekCard"></div>
     <div class="card" id="ethaCard"></div>
-  </section>
-
-  <section class="card">
+  <div class="card span2">
     <div class="card-h"><h2>Valuation: staking + MAVAN + SOTP</h2><span class="pill">recomputed with live ETH &amp; BMNR</span></div>
     <div class="table-wrap"><table class="t val" id="valTable"></table></div>
     <p class="fine">SOTP per share = staking equity/share + Full NAV/share + MAVAN equity/share. "Implied mNAV" = SOTP ÷ Full NAV per share. All inputs are user-set scenario assumptions; edit <code>data/holdings.json → assumptions.valuation</code>.</p>
+  </div>
   </section>
 
   <section class="card" id="history">
     <div class="card-h"><h2>Weekly history</h2><div class="seg" id="rangeSel" role="group" aria-label="Chart time range"></div></div>
     <p class="fine" id="histNote"></p>
-    <div class="chart-box"><canvas id="histChart" aria-label="mNAV, NAV per share and BMNR price by week"></canvas></div>
-    <div class="chart-box"><canvas id="shareChart" aria-label="Estimated and official shares outstanding, ETH holdings"></canvas></div>
+    <div class="charts">
+      <div class="chart-card"><h3>mNAV, NAV / share &amp; BMNR</h3><div class="chart-box"><canvas id="histChart" aria-label="mNAV, NAV per share and BMNR price by week"></canvas></div></div>
+      <div class="chart-card"><h3>Shares outstanding &amp; ETH held</h3><div class="chart-box"><canvas id="shareChart" aria-label="Estimated and official shares outstanding, ETH holdings"></canvas></div></div>
+      <div class="chart-card wide"><h3>ETH per share over time <span class="tag a">est. shares</span></h3><div class="chart-box"><canvas id="epsChart" aria-label="ETH per share by week with week-over-week change"></canvas></div>
+        <p class="fine" id="epsNote"></p>
+        <p class="fine">ETH / share = reported ETH held ÷ shares outstanding. Shares are the v2 <b>estimate</b> between filings (shaded band = from the high/low share range); green dots = weeks re-anchored to an official 10-Q count; red diamond = the flagged Apr 13 cover count. Bars = week-over-week % change — the weekly <b>accretion check</b>: a positive bar means ETH grew faster than the share count that week (issuance/buybacks were accretive to ETH per share); negative means dilutive.</p></div>
+    </div>
     <div class="table-wrap"><table class="t small" id="histTable"></table></div>
     <p class="fine">Every row is one Bitmine weekly release (8-K Ex. 99 · @BitMNR) since Nov 30, 2025. * = estimated buyback price. "Other uses" = disclosed cash investments (Beast, Eightco, Pier Two); "pref." = BMNP preferred proceeds. Rows marked <span class="tag o">official</span> carry a 10-Q count; the rest are estimates rolled forward from the latest official count.</p>
   </section>
