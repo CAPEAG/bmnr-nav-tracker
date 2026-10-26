@@ -23,7 +23,6 @@
   "assumptions": {
     "weekly_staking_yield": 0.0258,
     "weekly_staking_yield_source": "Bitmine's stated 7-day BMNR yield in the 2026-10-26 release.",
-    "etha_target_ratio": 1.4,
     "share_estimation": {
       "weekly_cash_opex_usd": 2278000,
       "weekly_cash_opex_source": "Net operating cash outflow Dec 1, 2025 – May 31, 2026 = 9-month operating cash flow (−$287.592M, 10-Q May 31, 2026) − Sep–Nov (−$228.356M, 10-Q Nov 30, 2025) = −$59.236M over 26 weeks. Already net of interest income and cash service revenue. (v1 used $3,257,538 = Mar–May G&A − SBC + cost of sales ÷ 13.)",
@@ -149,12 +148,12 @@
         "market": -0.0892
       },
       "eth_per_share": {
-        "capital": 0.000044093,
-        "staking": 0.000003993,
-        "premium": -6.33e-7,
+        "capital": 4.4093e-05,
+        "staking": 3.993e-06,
+        "premium": -6.33e-07,
         "reanchor": 0,
-        "total": 0.000047453,
-        "actual_change": 0.000047453
+        "total": 4.7453e-05,
+        "actual_change": 4.7453e-05
       }
     }
   },

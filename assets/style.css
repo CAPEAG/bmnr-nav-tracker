@@ -69,8 +69,7 @@ a.tag{text-decoration:none;display:inline-block;margin:2px 0 0}
 .charts{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:10px 0 12px}
 .chart-card{min-width:0;background:#0f1522;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .chart-card h3{margin:0 0 6px}
-@media (min-width:1200px){.charts{grid-template-columns:repeat(2,minmax(0,1fr))}.charts .wide{grid-column:1/-1}}
-@media (min-width:1700px){.charts{grid-template-columns:repeat(3,minmax(0,1fr))}.charts .wide{grid-column:auto}}
+@media (min-width:1200px){.charts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .table-wrap{max-width:100%;-webkit-overflow-scrolling:touch}
 main,section,.card{min-width:0}
 @media (max-width:600px){.chart-card{padding:8px}.chart-box{height:250px}}
@@ -87,9 +86,20 @@ main,section,.card{min-width:0}
 .kpi.case-bear .l{color:var(--bad)}.kpi.case-bull .l{color:var(--good)}.kpi.case-base .l{color:var(--acc)}
 .kpi .v.up{color:var(--good)}.kpi .v.down{color:var(--bad)}
 #accTable td.fine{font-size:12px;margin:0}
-@media (min-width:1200px){#hero{grid-template-columns:repeat(9,minmax(0,1fr))}}
+@media (min-width:1200px){#hero{grid-template-columns:repeat(8,minmax(0,1fr))}}
 .t.assum td:not(:first-child):not(.why),.t.assum th:not(:first-child):not(:last-child){width:1%}
 .t.assum td:first-child{min-width:190px;white-space:normal}
 .t.assum td.why{min-width:360px;max-width:none}
 .table-wrap.tall{max-height:560px;overflow:auto}
 .table-wrap.tall th{position:sticky;top:0;background:var(--panel);z-index:1}
+/* toggles */
+button.toggle{appearance:none;display:inline-flex;align-items:center;gap:6px;background:#0e1422;border:1px solid var(--line);color:var(--acc);font:600 12.5px/1 inherit;font-family:inherit;padding:8px 12px;border-radius:8px;cursor:pointer;min-height:36px;margin:4px 0}
+button.toggle:hover{color:var(--txt);border-color:#33467a}
+button.toggle:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.toggle .chev{display:inline-block;width:1em;text-align:center}
+.collapse{margin-top:8px}
+.card-h button.toggle{margin:0}
+.why-list{padding-left:18px}.why-list li{margin:5px 0}
+.notes{padding-left:18px;margin:4px 0}.notes li{margin:6px 0;font-size:13px;color:var(--mut)}
+.t.assum td:first-child{white-space:normal}
+#holdTable td,#holdTable th{padding-left:6px;padding-right:6px}#holdTable td:first-child{white-space:normal;min-width:84px}

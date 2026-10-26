@@ -23,91 +23,72 @@
     <div class="card">
       <div class="card-h"><h2>NAV &amp; mNAV</h2><span class="pill" id="navBasis"></span></div>
       <div class="table-wrap"><table class="t" id="navTable"></table></div>
-      <p class="fine">mNAV = BMNR price ÷ NAV per share (= market cap ÷ NAV). Enterprise Value row: EV = market cap − cash; its "mNAV" = market cap ÷ EV.</p>
     </div>
     <div class="card">
       <div class="card-h"><h2>Holdings</h2><span class="pill" id="holdBasis"></span></div>
       <div class="table-wrap"><table class="t" id="holdTable"></table></div>
-      <p class="fine" id="holdNote"></p>
     </div>
     <div class="card" id="weekCard"></div>
-    <div class="card" id="ethaCard"></div>
   </section>
 
   <section class="card" id="valuation">
     <div class="card-h"><h2>Valuation: Bear / Base / Bull (sum of the parts)</h2><span class="pill" id="valBasis"></span></div>
-    <p class="fine" style="margin-top:0">SOTP per share = live NAV per share + capitalized value of the staking/treasury business (net of company costs and BMNP preferred dividends) + MAVAN's third-party staking business. Every input is in <code>data/valuation.json</code> with its source; staked ETH and yields refresh with each weekly release.</p>
     <div class="hero bt-sum" id="valSummary"></div>
     <div class="grid-val">
       <div><h3>Result (live ETH &amp; estimated shares)</h3><div class="table-wrap"><table class="t small" id="valTable"></table></div></div>
-      <div><h3>Case rationale</h3><div id="valCases" class="cases"></div>
-        <h3>Avoiding double counting</h3><p class="fine" id="valNoDouble"></p></div>
+      <div><h3>Assumptions</h3><div class="table-wrap"><table class="t small assum" id="valInputs"></table></div></div>
     </div>
-    <h3>Assumptions &amp; sources</h3>
-    <div class="table-wrap"><table class="t small assum" id="valInputs"></table></div>
-    <ol class="fine srcs" id="valSources"></ol>
+    <button type="button" class="toggle" aria-expanded="false" aria-controls="valWhy" data-label="sources &amp; rationale"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show sources &amp; rationale</span></button>
+    <div id="valWhy" class="collapse" hidden>
+      <div id="valCases" class="cases"></div>
+      <h3>Avoiding double counting</h3><p class="fine" id="valNoDouble"></p>
+      <h3>Why each input</h3><ul class="fine why-list" id="valWhyList"></ul>
+      <h3>Sources</h3><ol class="fine srcs" id="valSources"></ol>
+    </div>
   </section>
 
 
   <section class="card" id="history">
     <div class="card-h"><h2>Weekly history</h2><div class="seg range-sel" id="rangeSel" role="group" aria-label="Chart time range"></div></div>
-    <p class="fine" id="histNote"></p>
     <div class="charts">
-      <div class="chart-card"><h3>mNAV, NAV / share &amp; BMNR</h3><div class="chart-box"><canvas id="histChart" aria-label="mNAV, NAV per share and BMNR price by week"></canvas></div></div>
+      <div class="chart-card"><h3>mNAV over time</h3><div class="chart-box"><canvas id="mnavChart" aria-label="mNAV by week with 1.0 reference line"></canvas></div></div>
+      <div class="chart-card"><h3>NAV / share &amp; BMNR price</h3><div class="chart-box"><canvas id="histChart" aria-label="NAV per share and BMNR price by week"></canvas></div></div>
       <div class="chart-card"><h3>Shares outstanding &amp; ETH held</h3><div class="chart-box"><canvas id="shareChart" aria-label="Estimated and official shares outstanding, ETH holdings"></canvas></div></div>
-      <div class="chart-card wide"><h3>ETH per share over time <span class="tag a">est. shares</span></h3><div class="chart-box"><canvas id="epsChart" aria-label="ETH per share by week with week-over-week change"></canvas></div>
-        <p class="fine" id="epsNote"></p>
-        <p class="fine">ETH / share = reported ETH held ÷ shares outstanding. Shares are the v2 <b>estimate</b> between filings (shaded band = from the high/low share range); green dots = weeks re-anchored to an official 10-Q count; red diamond = the flagged Apr 13 cover count. Bars = week-over-week % change — the weekly <b>accretion check</b>: a positive bar means ETH grew faster than the share count that week (issuance/buybacks were accretive to ETH per share); negative means dilutive.</p></div>
+      <div class="chart-card"><h3>ETH per share over time <span class="tag a">est. shares</span></h3><div class="chart-box"><canvas id="epsChart" aria-label="ETH per share by week with week-over-week change"></canvas></div></div>
     </div>
-    <div class="table-wrap"><table class="t small" id="histTable"></table></div>
-    <p class="fine">Every row is one Bitmine weekly release (8-K Ex. 99 · @BitMNR) since Nov 30, 2025. * = estimated buyback price. "Other uses" = disclosed cash investments (Beast, Eightco, Pier Two); "pref." = BMNP preferred proceeds. Rows marked <span class="tag o">official</span> carry a 10-Q count; the rest are estimates rolled forward from the latest official count.</p>
+    <button type="button" class="toggle" aria-expanded="false" aria-controls="histData" data-label="data"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show data</span></button>
+    <div id="histData" class="collapse" hidden><div class="table-wrap tall"><table class="t small" id="histTable"></table></div></div>
   </section>
 
   <section class="card" id="accretion">
     <div class="card-h"><h2>Accretion check (weekly)</h2><div class="seg range-sel" role="group" aria-label="Accretion time range"></div></div>
-    <p class="fine" style="margin-top:0"><b>What accretion means:</b> a capital action is <span class="up">accretive</span> if it raises what each existing share owns, and <span class="down">dilutive</span> if it lowers it. Selling new shares above NAV per share (mNAV &gt; 1) leaves more NAV behind each share; selling below NAV (mNAV &lt; 1) does the opposite. Buying back stock below NAV is accretive. Staking rewards add ETH without adding shares, so they are always accretive; cash costs and paying above market for ETH are dilutive. All figures are <span class="tag a">est.</span> — they use the v2 model's estimated weekly ATM issuance.</p>
     <div class="hero bt-sum" id="accSummary"></div>
     <div class="charts">
       <div class="chart-card"><h3>NAV per share effect ($) <span class="tag a">est.</span></h3><div class="chart-box"><canvas id="accUsdChart" aria-label="Weekly NAV per share accretion by source"></canvas></div></div>
       <div class="chart-card"><h3>ETH per 1,000 shares effect <span class="tag a">est.</span></h3><div class="chart-box"><canvas id="accEthChart" aria-label="Weekly ETH per share accretion by source"></canvas></div></div>
     </div>
-    <div class="table-wrap tall"><table class="t small" id="accTable"></table></div>
-    <p class="fine" id="accNote"></p>
+    <button type="button" class="toggle" aria-expanded="false" aria-controls="accData" data-label="data"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show data</span></button>
+    <div id="accData" class="collapse" hidden><div class="table-wrap tall"><table class="t small" id="accTable"></table></div></div>
   </section>
 
   <section class="card" id="backtest">
-    <div class="card-h"><h2>Model accuracy / backtest</h2><span class="pill">out-of-sample: start at an official count, roll forward weekly, compare with the next filing</span></div>
+    <div class="card-h"><h2>Model accuracy / backtest</h2><button type="button" class="toggle" aria-expanded="false" aria-controls="btBody" data-label="backtest"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show backtest</span></button></div>
+    <div id="btBody" class="collapse" hidden>
     <div class="hero bt-sum" id="btSummary"></div>
     <div class="table-wrap"><table class="t small" id="btTable"></table></div>
-    <p class="fine">Error = estimate − official. "Clean intervals" exclude the Apr 13, 2026 10-Q cover count, which contradicts the same filing (Feb 28 count 493,905,227 + 57,107,586 ATM shares sold through Apr 14 = 551.0M, not 537.6M) — the Feb 28 → May 31 quarter is used instead. v2's ETH-cost, staking and opex parameters were fitted on Dec 2025 – May 2026 10-Q data, so its Dec–May rows are partly in-sample; the walk-forward variant fits the ETH-cost factor on Dec–Feb only. The next true test is Bitmine's next official count (10-K for FY ended Aug 31, 2026).</p>
-    <h3>Is Bitmine generating cash some other way than issuing stock?</h3>
-    <p class="fine" style="margin-top:0">Cash-flow statements, Dec 1, 2025 – May 31, 2026 (26 weeks; 9-month minus 3-month figures from the <a href="https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm" target="_blank" rel="noopener">May 31, 2026 10-Q</a> and <a href="https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm" target="_blank" rel="noopener">Nov 30, 2025 10-Q</a>).</p>
-    <div class="table-wrap"><table class="t small cash">
-      <tr><th>Source</th><th>Cash, Dec–May</th><th>Comment</th></tr>
-      <tr class="hl"><td>Common stock sold via ATM</td><td>$4,205M</td><td>172.2M shares (84.96M Dec–Feb + 87.26M Mar–May). ~97% of all cash raised.</td></tr>
-      <tr><td>Staking rewards</td><td>$0 cash · $52.5M in ETH</td><td>Received in ETH and kept (ETH sold: $0.24M in 9 months). Adds ETH, which the tracker already counts — not a cash source.</td></tr>
-      <tr><td>ETH option premiums</td><td>+$103.9M received</td><td>but −$124.6M premiums paid and −$100.1M cash collateral posted; net loss on derivative contracts −$133.3M (9 months). Net cash <i>user</i>.</td></tr>
-      <tr><td>Interest income</td><td>≈ +$10.1M</td><td>On cash balances ($4.8M Dec–Feb, $5.3M Mar–May).</td></tr>
-      <tr><td>Asset sales / warrants</td><td>≈ +$2.5M</td><td>ETH $0.24M, other tokens $0.84M, equity stakes $0.15M, equipment $0.81M, warrant exercises ~$0.5M.</td></tr>
-      <tr><td>Debt / convertibles</td><td>$0</td><td>No borrowings or convertible notes in 2026.</td></tr>
-      <tr><td>Operating activities (net)</td><td>−$59.2M</td><td>Costs exceed cash revenue (consulting, Pier Two, mining) + interest: ≈ −$2.3M/week.</td></tr>
-      <tr><td>BMNP 9.50% preferred (Jun 10, 2026)</td><td>+$273.8M net</td><td>The one material non-dilutive (to common) raise of 2026; costs ≈ $33M/yr in dividends. <a href="https://www.sec.gov/Archives/edgar/data/1829311/000149315226027502/form8-k.htm" target="_blank" rel="noopener">8-K</a></td></tr>
-    </table></div>
-    <ul class="findings">
-      <li><b>The evidence does not support a hidden cash source.</b> Outside the ATM, Dec–May cash inflows were small (interest ≈ $10M) and were outweighed by option-strategy and operating outflows. Staking income is real but arrives (and stays) as ETH.</li>
-      <li><b>The original model's misses were missing cash <i>uses</i>, not missing income:</b> $286M of disclosed investments (Beast Industries, Eightco/ORBS, Pier Two), ETH cash cost running 3.5–6.5% above "ETH added × weekly average price", and staking rewards overstated while new stake waited in the validator entry queue (model $80M vs 10-Q $52.5M).</li>
-      <li><b>Jul–Oct 2026</b> (no filing yet): weekly cash moves are explained by cash on hand (incl. BMNP proceeds) funding buybacks and ETH buys, then renewed issuance from late August. Confirmation waits for the next 10-K / 10-KT.</li>
-    </ul>
+    <p class="fine">Out-of-sample: each interval starts at an official count, rolls the weekly estimator forward and compares with the next filing. Error = estimate − official. "Clean intervals" exclude the Apr 13, 2026 10-Q cover count, which contradicts the same filing (Feb 28 count 493,905,227 + 57,107,586 ATM shares sold through Apr 14 = 551.0M, not 537.6M) — the Feb 28 → May 31 quarter is used instead. v2's ETH-cost, staking and opex parameters were fitted on Dec 2025 – May 2026 10-Q data, so its Dec–May rows are partly in-sample; the walk-forward variant fits the ETH-cost factor on Dec–Feb only. The next true test is Bitmine's next official count (10-K for FY ended Aug 31, 2026).</p>
+    </div>
   </section>
 
   <section class="card method" id="method">
-    <h2>Assumptions &amp; methodology</h2>
+    <div class="card-h"><h2>Assumptions, methodology &amp; notes</h2><button type="button" class="toggle" aria-expanded="false" aria-controls="methodBody" data-label="methodology"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show methodology</span></button></div>
+    <div id="methodBody" class="collapse" hidden>
     <div class="cols">
       <div>
         <h3>Data flow</h3>
         <ul>
           <li><b>ETH &amp; BTC</b>: CoinGecko public API, fetched in your browser on load and every 60 s. If it fails, the page falls back to the last prices saved by the GitHub Action, then to the last announcement's prices.</li>
-          <li><b>BMNR, ETHA, ORBS</b>: Yahoo Finance quotes saved to <code>data/prices.json</code> by a GitHub Action every ~15 min during US market hours (Mon–Fri). The page re-reads that file every 5 min.</li>
+          <li><b>BMNR, ORBS</b>: Yahoo Finance quotes saved to <code>data/prices.json</code> by a GitHub Action every ~15 min during US market hours (Mon–Fri). The page re-reads that file every 5 min.</li>
           <li><b>Holdings</b> (ETH, staked ETH, stated staking yield, BTC, cash &amp; marketable securities, Eightco and Beast stakes, buybacks, disclosed investments) are transcribed from every Bitmine Monday release since Nov 30, 2025 (8-K Ex. 99 / @BitMNR) into <code>data/releases.json</code>. Official share counts and ATM sales come from the 10-Qs (<code>data/checkpoints.json</code>).</li>
           <li><b>Weekly NAV snapshots</b> use the release's ETH price, BTC (CoinGecko) on the as-of date, the last BMNR close on/before the as-of date, and the reported Eightco stake value.</li>
         </ul>
@@ -130,17 +111,27 @@
           <li><b>ORBS</b> = Eightco Holdings (NASDAQ: ORBS) <i>stock</i> (not the Orbs crypto token): 100,655,143 shares per Bitmine's 10-Q × live ORBS price.</li>
           <li><b>Beast Industries</b> stake is carried at the disclosed $180M. "Cash" = "total cash &amp; marketable securities" (includes cash posted as option collateral).</li>
           <li>BMNP preferred (3.5M shares) and other liabilities are <i>not</i> deducted from NAV.</li>
-          <li>Backtest: v2 is within ~0.1–0.3% of every clean official count since Nov 2025 (see above). Biggest remaining unknowns: within-week timing of ATM sales, rounded cash figures in some releases ($1.0B/$1.2B), ETH execution prices and option-strategy cash flows. The estimate re-anchors whenever Bitmine files a new count (10-K for FY ended Aug 31, 2026 is due).</li>
+          <li>Backtest: v2 is within ~0.1–0.3% of every clean official count since Nov 2025 (see the backtest section). Biggest remaining unknowns: within-week timing of ATM sales, rounded cash figures in some releases ($1.0B/$1.2B), ETH execution prices and option-strategy cash flows. The estimate re-anchors whenever Bitmine files a new count (10-K for FY ended Aug 31, 2026 is due).</li>
           <li><b>Valuation</b> (Bear/Base/Bull): SOTP = live NAV/share + capitalized net staking/treasury earnings (after company cash opex, BMNP dividends and tax) + MAVAN third-party staking value. Inputs and sources: <code>data/valuation.json</code> (staked share and trailing yields refresh weekly). Options income and interest are excluded.</li>
           <li><b>Accretion check</b>: weekly per-share effect of ATM issuance, buybacks, staking and costs, in $ NAV/share and ETH/share, from the v2 model's estimated issuance (see the Accretion section).</li>
         </ul>
       </div>
     </div>
+    <h3>Notes on the charts and tables</h3>
+    <ul class="notes">
+      <li><b>NAV &amp; mNAV</b>: mNAV = BMNR price ÷ NAV per share (= market cap ÷ NAV). Enterprise Value row: EV = market cap − cash; its "mNAV" = market cap ÷ EV.</li>
+      <li><b>Holdings</b>: <span id="holdNote"></span></li>
+      <li><b>Weekly history</b>: every row is one Bitmine weekly release (8-K Ex. 99 · @BitMNR) since Nov 30, 2025. Share counts are official at 10-Q checkpoints and estimated in between (rolled forward from the latest checkpoint; shaded band = low/high range). * = estimated buyback price. "Other uses" = disclosed cash investments (Beast, Eightco, Pier Two); "pref." = BMNP preferred proceeds.</li>
+      <li><b>ETH per share</b> = reported ETH held ÷ shares outstanding (v2 estimate between filings; band = high/low share range). Green dots = weeks re-anchored to an official 10-Q count; red diamond = the flagged Apr 13 cover count. Bars = week-over-week % change (positive = ETH grew faster than the share count). <span id="epsNote"></span></li>
+      <li><b>Accretion</b>: a capital action is accretive if it raises what each existing share owns. Selling shares above NAV/share (mNAV &gt; 1) is accretive, below NAV dilutive; buybacks below NAV are accretive; staking rewards add ETH without new shares; cash costs and paying above market for ETH are dilutive. <span id="accNote"></span></li>
+      <li><b>Valuation</b>: SOTP per share = live NAV per share + capitalized value of the staking/treasury business (net of company cash costs, BMNP preferred dividends and tax) + MAVAN's third-party staking business. Inputs and sources: <code>data/valuation.json</code>; staked ETH and trailing yields refresh weekly.</li>
+    </ul>
+    </div>
   </section>
 </main>
 
 <footer class="wrap foot">
-  <p><b>Not investment advice.</b> Estimates and assumptions may be wrong; always check Bitmine's filings. Data: <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a> (ETH, BTC), Yahoo Finance (BMNR, ETHA, ORBS), Bitmine press releases (<a href="https://www.prnewswire.com/news/bitmine-immersion-technologies%2C-inc./" target="_blank" rel="noopener">PR Newswire</a>, <a href="https://x.com/BitMNR" target="_blank" rel="noopener">@BitMNR</a>, <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001829311&type=8-K" target="_blank" rel="noopener">SEC 8-K</a>).</p>
+  <p><b>Not investment advice.</b> Estimates and assumptions may be wrong; always check Bitmine's filings. Data: <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a> (ETH, BTC), Yahoo Finance (BMNR, ORBS), Bitmine press releases (<a href="https://www.prnewswire.com/news/bitmine-immersion-technologies%2C-inc./" target="_blank" rel="noopener">PR Newswire</a>, <a href="https://x.com/BitMNR" target="_blank" rel="noopener">@BitMNR</a>, <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001829311&type=8-K" target="_blank" rel="noopener">SEC 8-K</a>).</p>
   <p id="footTimes" class="fine"></p>
 </footer>
 

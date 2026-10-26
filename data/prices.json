@@ -9,13 +9,6 @@
       "currency": "USD",
       "source": "yahoo:query1"
     },
-    "ETHA": {
-      "price": 52.78,
-      "time": "2026-10-26T15:25:41.000Z",
-      "previous_close": 54.08,
-      "currency": "USD",
-      "source": "yahoo:query1"
-    },
     "ORBS": {
       "price": 0.734,
       "time": "2026-10-26T15:25:21.000Z",

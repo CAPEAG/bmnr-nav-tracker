@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Fetches BMNR, ETHA, ORBS (Eightco Holdings, NASDAQ) quotes + ETH/BTC spot and writes data/prices.json.
+// Fetches BMNR, ORBS (Eightco Holdings, NASDAQ) quotes + ETH/BTC spot and writes data/prices.json.
 // Keyless sources: Yahoo Finance chart endpoint (query1 -> query2), Stooq CSV fallback, CoinGecko for crypto.
 // Usage: node scripts/fetch-prices.mjs [--dry]
 import { readFile, writeFile } from 'node:fs/promises';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const OUT = new URL('../data/prices.json', import.meta.url);
-const SYMBOLS = ['BMNR', 'ETHA', 'ORBS'];
+const SYMBOLS = ['BMNR', 'ORBS'];
 
 async function getJSON(url) {
   const r = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } });

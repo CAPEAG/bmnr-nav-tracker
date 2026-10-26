@@ -7,16 +7,18 @@ mNAV of **Bitmine Immersion Technologies (NYSE: BMNR)** using:
 
 * **Live ETH & BTC prices**, fetched in the browser from the free CoinGecko API on load and every 60 s
   (falls back to the last saved prices in `data/prices.json`, then to the last announcement's prices).
-* **BMNR, ETHA and ORBS quotes**, saved to `data/prices.json` by a GitHub Action every ~15 min during US market
+* **BMNR and ORBS quotes**, saved to `data/prices.json` by a GitHub Action every ~15 min during US market
   hours (Yahoo Finance chart endpoint, keyless; Stooq CSV as fallback). The page re-reads that file every 5 min.
 * **Weekly holdings** from Bitmine's Monday-morning holdings releases, transcribed into `data/releases.json`; the
   week-by-week history (`data/history.json`) and latest balance sheet (`data/holdings.json`) are generated from it.
 
-**Weekly history charts** (time range 1M / 3M / 6M / YTD / 1Y / All): mNAV, NAV/share and BMNR close; estimated vs
-official shares outstanding with ETH held; and **ETH per share** (reported ETH ÷ v2 estimated shares, official 10-Q
-weeks marked) with week-over-week % change bars — the weekly accretion check (positive = ETH grew faster than the share
-count). The layout is fluid up to 1760 px: cards and charts flow into 2–3 columns on wide screens, one column on phones;
-wide tables scroll horizontally.
+**Charts** (time range 1M / 3M / 6M / YTD / 1Y / All, applied to every chart): mNAV over time (with a 1.0× line);
+NAV/share and BMNR close; estimated vs official shares outstanding with ETH held; **ETH per share** (reported ETH ÷ v2
+estimated shares, official 10-Q weeks marked, week-over-week % bars); and the weekly accretion check ($ NAV/share and
+ETH per 1,000 shares). Raw data tables sit under a **Show data ▸** toggle (collapsed by default); the backtest and the
+methodology/notes sections are collapsed by default too. Explanatory notes for each chart/table live in
+"Assumptions, methodology & notes" at the bottom so the cards stay clean. The layout is fluid up to 1760 px (cards and
+charts in 2–3 columns on wide screens, one column on phones); wide tables scroll horizontally.
 
 Every figure is rebuilt from Bitmine's own weekly releases and SEC filings since Nov 30, 2025: weekly inputs in
 `data/releases.json`, official share counts / ATM sales / cash-flow figures from the 10-Qs in `data/checkpoints.json`.
@@ -36,7 +38,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV, weekly `accretion`). Don't edit by hand. |
 | `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v2 parameters with sources; ORBS share count). |
 | `data/valuation.json` | **Bear / Base / Bull valuation inputs**, each with sources and a rationale; `derived` (staked share, trailing 4/13/26-week yields, staked-ETH trajectory) is refreshed by the weekly build. |
-| `data/prices.json` | Latest BMNR / ETHA / ORBS (+ ETH, BTC) quotes, written by the Action. |
+| `data/prices.json` | Latest BMNR / ORBS (+ ETH, BTC) quotes, written by the Action. |
 | `scripts/model.mjs` | The share-count estimator (weekly cash need → implied issuance, roll-forward from an official count). |
 | `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
@@ -174,23 +176,6 @@ v2's ETH-cost, staking-lag and opex parameters were fitted on Dec–May 10-Q dat
 the walk-forward variant fits the ETH-cost factor on Dec–Feb only (1.035) and is out-of-sample from March. Errors on
 individual sub-quarter intervals are mostly *timing* (which days inside a week the ATM sold) and rounded cash figures
 in some releases ("$1.0 billion", "$1.2 billion" → ±$50M ≈ ±2M shares).
-
-### Non-dilutive cash sources (10-Q cash-flow statements, Dec 1, 2025 – May 31, 2026)
-
-| Item | Amount | Note |
-| --- | --- | --- |
-| ATM common stock | +$4,205M | 172.2M shares; ~97% of all cash raised |
-| Staking | $52.5M revenue, **non-cash** | received in ETH and kept (ETH sold: $0.24M in 9 months) |
-| ETH options | +$103.9M premiums received | −$124.6M premiums paid, −$100.1M collateral posted; net loss on derivatives −$133.3M (9 months) |
-| Interest income | ≈ +$10.1M | |
-| Asset sales, warrant exercises | ≈ +$2.5M | |
-| Debt / convertibles | $0 | |
-| Net operating cash flow | −$59.2M | |
-| BMNP 9.50% preferred (Jun 10, 2026) | +$273.8M net | only material non-dilutive raise of 2026 |
-
-Conclusion: no evidence of a material undisclosed cash source; v1's under-estimate came from missing cash *uses*
-(disclosed investments, ETH cost above the weekly average, overstated staking), all now in v2. Jul–Oct 2026 can be
-checked only when the next 10-K / 10-KT is filed.
 
 ## Weekly update procedure (Mondays, after Bitmine posts)
 
