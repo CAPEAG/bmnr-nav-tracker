@@ -248,7 +248,31 @@
       "eth_per_share": 0.0090812,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225026540/ex99-2.htm",
       "x_post": "https://x.com/BitMNR/status/1998022714569736374",
-      "notes": "Cash reported rounded ($1.0 billion) → ±$50M input uncertainty."
+      "notes": "Cash reported rounded ($1.0 billion) → ±$50M input uncertainty.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 29.9577,
+        "atm_shares": 17020069,
+        "mnav_at_issue": 1.101,
+        "usd_per_share": {
+          "issuance": 0.1208,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0547,
+          "total": 0.0661,
+          "actual_change": 1.26,
+          "market": 1.1939
+        },
+        "eth_per_share": {
+          "capital": -0.000023166,
+          "staking": 0,
+          "premium": -0.000016266,
+          "reanchor": 0,
+          "total": -0.000039431,
+          "actual_change": -0.000039431
+        }
+      }
     },
     {
       "date": "2025-12-15",
@@ -328,7 +352,31 @@
       "eth_per_share": 0.0091261,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225027660/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2000575612352667719",
-      "notes": "Cash reported rounded ($1.0 billion) → ±$50M input uncertainty."
+      "notes": "Cash reported rounded ($1.0 billion) → ±$50M input uncertainty.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 31.3662,
+        "atm_shares": 9112065,
+        "mnav_at_issue": 1.203,
+        "usd_per_share": {
+          "issuance": 0.1336,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0427,
+          "total": 0.0909,
+          "actual_change": -0.5,
+          "market": -0.5909
+        },
+        "eth_per_share": {
+          "capital": 0.000056643,
+          "staking": 0,
+          "premium": -0.000011762,
+          "reanchor": 0,
+          "total": 0.000044881,
+          "actual_change": 0.000044881
+        }
+      }
     },
     {
       "date": "2025-12-22",
@@ -408,7 +456,31 @@
       "eth_per_share": 0.0091405,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225028674/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2003127212648624370",
-      "notes": "Cash reported rounded ($1.0 billion) → ±$50M input uncertainty."
+      "notes": "Cash reported rounded ($1.0 billion) → ±$50M input uncertainty.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 29.2056,
+        "atm_shares": 10130158,
+        "mnav_at_issue": 1.037,
+        "usd_per_share": {
+          "issuance": 0.0247,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0377,
+          "total": -0.013,
+          "actual_change": -0.78,
+          "market": -0.767
+        },
+        "eth_per_share": {
+          "capital": 0.000025506,
+          "staking": 0,
+          "premium": -0.000011111,
+          "reanchor": 0,
+          "total": 0.000014395,
+          "actual_change": 0.000014395
+        }
+      }
     },
     {
       "date": "2025-12-29",
@@ -488,7 +560,31 @@
       "eth_per_share": 0.0091434,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225029227/ex99-3.htm",
       "x_post": "https://x.com/BitMNR/status/2005657702207545512",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Cash reported rounded ($1.0 billion) → ±$50M input uncertainty."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Cash reported rounded ($1.0 billion) → ±$50M input uncertainty.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 29.3107,
+        "atm_shares": 4722519,
+        "mnav_at_issue": 1.011,
+        "usd_per_share": {
+          "issuance": 0.0034,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0196,
+          "total": -0.0163,
+          "actual_change": -0.43,
+          "market": -0.4137
+        },
+        "eth_per_share": {
+          "capital": 0.00000783,
+          "staking": 0,
+          "premium": -0.000004945,
+          "reanchor": 0,
+          "total": 0.000002885,
+          "actual_change": 0.000002885
+        }
+      }
     },
     {
       "date": "2026-01-05",
@@ -568,7 +664,31 @@
       "eth_per_share": 0.0092006,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226000274/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2008182701266813376",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release)."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 30.1123,
+        "atm_shares": 787204,
+        "mnav_at_issue": 0.951,
+        "usd_per_share": {
+          "issuance": -0.0026,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0162,
+          "total": -0.0187,
+          "actual_change": 2.26,
+          "market": 2.2787
+        },
+        "eth_per_share": {
+          "capital": 0.000060904,
+          "staking": 0,
+          "premium": -0.000003661,
+          "reanchor": 0,
+          "total": 0.000057243,
+          "actual_change": 0.000057243
+        }
+      }
     },
     {
       "date": "2026-01-12",
@@ -648,7 +768,31 @@
       "eth_per_share": 0.009154,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226001237/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2010706267291938829",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release)."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 31.1464,
+        "atm_shares": 4944824,
+        "mnav_at_issue": 1.011,
+        "usd_per_share": {
+          "issuance": 0.0036,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0134,
+          "total": -0.0098,
+          "actual_change": -0.72,
+          "market": -0.7102
+        },
+        "eth_per_share": {
+          "capital": -0.000043963,
+          "staking": 0,
+          "premium": -0.000002665,
+          "reanchor": 0,
+          "total": -0.000046628,
+          "actual_change": -0.000046628
+        }
+      }
     },
     {
       "date": "2026-01-20",
@@ -734,7 +878,31 @@
       "eth_per_share": 0.0091813,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002762/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2013605389569228938",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release)."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 32.1765,
+        "atm_shares": 3649749,
+        "mnav_at_issue": 0.976,
+        "usd_per_share": {
+          "issuance": -0.0061,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0183,
+          "total": -0.0244,
+          "actual_change": 0.9,
+          "market": 0.9244
+        },
+        "eth_per_share": {
+          "capital": 0.000007911,
+          "staking": 0,
+          "premium": -0.000003852,
+          "reanchor": 0.000023259,
+          "total": 0.000027318,
+          "actual_change": 0.000027318
+        }
+      }
     },
     {
       "date": "2026-01-26",
@@ -814,7 +982,31 @@
       "eth_per_share": 0.009249,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2015779597694968189",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Beast Industries investment ($200M per release; closed this week). 10-Q (May 31, 2026) later shows $180.0M cash + $6.0M costs."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Beast Industries investment ($200M per release; closed this week). 10-Q (May 31, 2026) later shows $180.0M cash + $6.0M costs.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 29.1506,
+        "atm_shares": 1007923,
+        "mnav_at_issue": 0.989,
+        "usd_per_share": {
+          "issuance": -0.0007,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0171,
+          "total": -0.0179,
+          "actual_change": -3.45,
+          "market": -3.4321
+        },
+        "eth_per_share": {
+          "capital": 0.000072066,
+          "staking": 0,
+          "premium": -0.000004392,
+          "reanchor": 0,
+          "total": 0.000067674,
+          "actual_change": 0.000067674
+        }
+      }
     },
     {
       "date": "2026-02-02",
@@ -894,7 +1086,31 @@
       "eth_per_share": 0.009321,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226004658/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2018316966134439973",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release)."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 27.3608,
+        "atm_shares": 936492,
+        "mnav_at_issue": 1.013,
+        "usd_per_share": {
+          "issuance": 0.0007,
+          "buybacks": 0,
+          "staking": 0.0011,
+          "other": -0.0174,
+          "total": -0.0155,
+          "actual_change": -4.88,
+          "market": -4.8645
+        },
+        "eth_per_share": {
+          "capital": 0.000076096,
+          "staking": 4.79e-7,
+          "premium": -0.000004521,
+          "reanchor": 0,
+          "total": 0.000072055,
+          "actual_change": 0.000072055
+        }
+      }
     },
     {
       "date": "2026-02-09",
@@ -974,7 +1190,31 @@
       "eth_per_share": 0.009311,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226005707/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2020869755683668045",
-      "notes": "Release states CESR 3.11% and Bitmine 7-day yield 3.3234%."
+      "notes": "Release states CESR 3.11% and Bitmine 7-day yield 3.3234%.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 21.4571,
+        "atm_shares": 4855992,
+        "mnav_at_issue": 0.963,
+        "usd_per_share": {
+          "issuance": -0.0083,
+          "buybacks": 0,
+          "staking": 0.0019,
+          "other": -0.014,
+          "total": -0.0204,
+          "actual_change": -1.81,
+          "market": -1.7896
+        },
+        "eth_per_share": {
+          "capital": -0.000006587,
+          "staking": 9.04e-7,
+          "premium": -0.000004326,
+          "reanchor": 0,
+          "total": -0.000010009,
+          "actual_change": -0.000010009
+        }
+      }
     },
     {
       "date": "2026-02-17",
@@ -1054,7 +1294,31 @@
       "eth_per_share": 0.0092404,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226006953/ex99-2.htm",
       "x_post": "https://x.com/BitMNR/status/2023767872158261289",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 20.5436,
+        "atm_shares": 8503372,
+        "mnav_at_issue": 0.989,
+        "usd_per_share": {
+          "issuance": -0.0041,
+          "buybacks": 0,
+          "staking": 0.0034,
+          "other": -0.0151,
+          "total": -0.0158,
+          "actual_change": -1.2,
+          "market": -1.1842
+        },
+        "eth_per_share": {
+          "capital": -0.000067564,
+          "staking": 0.000001682,
+          "premium": -0.000004752,
+          "reanchor": 0,
+          "total": -0.000070634,
+          "actual_change": -0.000070634
+        }
+      }
     },
     {
       "date": "2026-02-23",
@@ -1134,7 +1398,31 @@
       "eth_per_share": 0.0092257,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226007694/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2025933063797014919",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.9428,
+        "atm_shares": 6297243,
+        "mnav_at_issue": 1.004,
+        "usd_per_share": {
+          "issuance": 0.0009,
+          "buybacks": 0,
+          "staking": 0.0036,
+          "other": -0.0143,
+          "total": -0.0098,
+          "actual_change": -0.39,
+          "market": -0.3802
+        },
+        "eth_per_share": {
+          "capital": -0.000011235,
+          "staking": 0.000001821,
+          "premium": -0.000005245,
+          "reanchor": 0,
+          "total": -0.000014658,
+          "actual_change": -0.000014658
+        }
+      }
     },
     {
       "date": "2026-03-02",
@@ -1220,7 +1508,31 @@
       "eth_per_share": 0.0090576,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226008462/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2028469808816173532",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 19.8836,
+        "atm_shares": 14116481,
+        "mnav_at_issue": 1.002,
+        "usd_per_share": {
+          "issuance": 0.0009,
+          "buybacks": 0,
+          "staking": 0.0044,
+          "other": -0.0144,
+          "total": -0.0091,
+          "actual_change": 0.13,
+          "market": 0.1391
+        },
+        "eth_per_share": {
+          "capital": -0.000157758,
+          "staking": 0.000002231,
+          "premium": -0.000005044,
+          "reanchor": -0.000007574,
+          "total": -0.000168145,
+          "actual_change": -0.000168145
+        }
+      }
     },
     {
       "date": "2026-03-09",
@@ -1300,7 +1612,31 @@
       "eth_per_share": 0.0087739,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226009312/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2030994056935887025",
-      "notes": "Cash reported rounded ($1.2 billion) → ±$50M input uncertainty. X thread is titled 'March 2nd' but is the Mar 9 update."
+      "notes": "Cash reported rounded ($1.2 billion) → ±$50M input uncertainty. X thread is titled 'March 2nd' but is the Mar 9 update.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 20.4644,
+        "atm_shares": 22920257,
+        "mnav_at_issue": 0.98,
+        "usd_per_share": {
+          "issuance": -0.0178,
+          "buybacks": 0,
+          "staking": 0.0061,
+          "other": -0.016,
+          "total": -0.0276,
+          "actual_change": -0.11,
+          "market": -0.0824
+        },
+        "eth_per_share": {
+          "capital": -0.000281064,
+          "staking": 0.000003103,
+          "premium": -0.000005744,
+          "reanchor": 0,
+          "total": -0.000283705,
+          "actual_change": -0.000283705
+        }
+      }
     },
     {
       "date": "2026-03-16",
@@ -1380,7 +1716,31 @@
       "eth_per_share": 0.0087195,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226010193/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2033522801576173968",
-      "notes": "Cash reported rounded ($1.2 billion) → ±$50M input uncertainty. Additional ~$80M investment in Eightco (ORBS) disclosed in this release (10-Q: $80.434M, settled Mar 13). Includes 5,000 ETH bought from the Ethereum Foundation."
+      "notes": "Cash reported rounded ($1.2 billion) → ±$50M input uncertainty. Additional ~$80M investment in Eightco (ORBS) disclosed in this release (10-Q: $80.434M, settled Mar 13). Includes 5,000 ETH bought from the Ethereum Foundation.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 20.9593,
+        "atm_shares": 10221354,
+        "mnav_at_issue": 0.988,
+        "usd_per_share": {
+          "issuance": -0.0048,
+          "buybacks": 0,
+          "staking": 0.0065,
+          "other": -0.016,
+          "total": -0.0143,
+          "actual_change": 1.89,
+          "market": 1.9043
+        },
+        "eth_per_share": {
+          "capital": -0.000051744,
+          "staking": 0.000002963,
+          "premium": -0.000005639,
+          "reanchor": 0,
+          "total": -0.00005442,
+          "actual_change": -0.00005442
+        }
+      }
     },
     {
       "date": "2026-03-23",
@@ -1460,7 +1820,31 @@
       "eth_per_share": 0.0088068,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226012078/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2036077774784315433",
-      "notes": "Cash reported rounded ($1.1 billion) → ±$50M input uncertainty."
+      "notes": "Cash reported rounded ($1.1 billion) → ±$50M input uncertainty.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 21.8687,
+        "atm_shares": 2189389,
+        "mnav_at_issue": 1.007,
+        "usd_per_share": {
+          "issuance": 0.0006,
+          "buybacks": 0,
+          "staking": 0.0065,
+          "other": -0.0174,
+          "total": -0.0103,
+          "actual_change": -0.98,
+          "market": -0.9697
+        },
+        "eth_per_share": {
+          "capital": 0.000090291,
+          "staking": 0.000003118,
+          "premium": -0.000006017,
+          "reanchor": 0,
+          "total": 0.000087391,
+          "actual_change": 0.000087391
+        }
+      }
     },
     {
       "date": "2026-03-30",
@@ -1540,7 +1924,31 @@
       "eth_per_share": 0.0089157,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226013487/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2038617414951149827",
-      "notes": "Pier Two acquisition closed Mar 24: 501,545 shares issued as stock consideration (8-K Mar 30, Item 3.02) + ~$6M cash (10-Q)."
+      "notes": "Pier Two acquisition closed Mar 24: 501,545 shares issued as stock consideration (8-K Mar 30, Item 3.02) + ~$6M cash (10-Q).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 20.9111,
+        "atm_shares": 1018183,
+        "mnav_at_issue": 0.968,
+        "usd_per_share": {
+          "issuance": -0.0019,
+          "buybacks": 0,
+          "staking": 0.0062,
+          "other": -0.0179,
+          "total": -0.0136,
+          "actual_change": -0.63,
+          "market": -0.6164
+        },
+        "eth_per_share": {
+          "capital": 0.000112367,
+          "staking": 0.000003076,
+          "premium": -0.000006552,
+          "reanchor": 0,
+          "total": 0.000108892,
+          "actual_change": 0.000108892
+        }
+      }
     },
     {
       "date": "2026-04-06",
@@ -1620,7 +2028,31 @@
       "eth_per_share": 0.0089999,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226015247/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2041131990649331839",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 20.9112,
+        "atm_shares": 2954856,
+        "mnav_at_issue": 0.923,
+        "usd_per_share": {
+          "issuance": -0.0089,
+          "buybacks": 0,
+          "staking": 0.0064,
+          "other": -0.0178,
+          "total": -0.0203,
+          "actual_change": 1.02,
+          "market": 1.0403
+        },
+        "eth_per_share": {
+          "capital": 0.000087628,
+          "staking": 0.000003037,
+          "premium": -0.000006523,
+          "reanchor": 0,
+          "total": 0.000084142,
+          "actual_change": 0.000084142
+        }
+      }
     },
     {
       "date": "2026-04-13",
@@ -1700,7 +2132,31 @@
       "eth_per_share": 0.0091186,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016296/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2043682564460712352",
-      "notes": "Release does not state weekly ETH acquired."
+      "notes": "Release does not state weekly ETH acquired.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 22.006,
+        "atm_shares": 894659,
+        "mnav_at_issue": 0.951,
+        "usd_per_share": {
+          "issuance": -0.0018,
+          "buybacks": 0,
+          "staking": 0.007,
+          "other": -0.0186,
+          "total": -0.0135,
+          "actual_change": 0.72,
+          "market": 0.7335
+        },
+        "eth_per_share": {
+          "capital": 0.000122107,
+          "staking": 0.000003152,
+          "premium": -0.000006532,
+          "reanchor": 0,
+          "total": 0.000118727,
+          "actual_change": 0.000118727
+        }
+      }
     },
     {
       "date": "2026-04-20",
@@ -1789,7 +2245,31 @@
       "eth_per_share": 0.0088243,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226018015/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2046228709061927060",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 23.3283,
+        "atm_shares": 29346336,
+        "mnav_at_issue": 0.949,
+        "usd_per_share": {
+          "issuance": -0.0616,
+          "buybacks": 0,
+          "staking": 0.0069,
+          "other": -0.0249,
+          "total": -0.0796,
+          "actual_change": 0.84,
+          "market": 0.9196
+        },
+        "eth_per_share": {
+          "capital": -0.000288416,
+          "staking": 0.000002978,
+          "premium": -0.000008861,
+          "reanchor": 0,
+          "total": -0.0002943,
+          "actual_change": -0.0002943
+        }
+      }
     },
     {
       "date": "2026-04-27",
@@ -1869,7 +2349,31 @@
       "eth_per_share": 0.0089568,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226019080/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2048781360928641404",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 23.1713,
+        "atm_shares": 3033076,
+        "mnav_at_issue": 0.964,
+        "usd_per_share": {
+          "issuance": -0.0045,
+          "buybacks": 0,
+          "staking": 0.0076,
+          "other": -0.0246,
+          "total": -0.0215,
+          "actual_change": 0.56,
+          "market": 0.5815
+        },
+        "eth_per_share": {
+          "capital": 0.00013812,
+          "staking": 0.000003224,
+          "premium": -0.000008825,
+          "reanchor": 0,
+          "total": 0.000132519,
+          "actual_change": 0.000132519
+        }
+      }
     },
     {
       "date": "2026-05-04",
@@ -1949,7 +2453,31 @@
       "eth_per_share": 0.0091341,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226021027/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2051327373983846710",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 22.721,
+        "atm_shares": 132554,
+        "mnav_at_issue": 0.942,
+        "usd_per_share": {
+          "issuance": -0.0003,
+          "buybacks": 0,
+          "staking": 0.0072,
+          "other": -0.0242,
+          "total": -0.0173,
+          "actual_change": -0.32,
+          "market": -0.3027
+        },
+        "eth_per_share": {
+          "capital": 0.000183037,
+          "staking": 0.000003093,
+          "premium": -0.000008816,
+          "reanchor": 0,
+          "total": 0.000177314,
+          "actual_change": 0.000177314
+        }
+      }
     },
     {
       "date": "2026-05-11",
@@ -2029,7 +2557,31 @@
       "eth_per_share": 0.0090832,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226022150/ex99-3.htm",
       "x_post": "https://x.com/BitMNR/status/2053835778485006606",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 23.1007,
+        "atm_shares": 6116114,
+        "mnav_at_issue": 0.978,
+        "usd_per_share": {
+          "issuance": -0.0054,
+          "buybacks": 0,
+          "staking": 0.0075,
+          "other": -0.009,
+          "total": -0.0069,
+          "actual_change": 0.27,
+          "market": 0.2769
+        },
+        "eth_per_share": {
+          "capital": -0.000051975,
+          "staking": 0.000003191,
+          "premium": -0.000002166,
+          "reanchor": 0,
+          "total": -0.00005095,
+          "actual_change": -0.00005095
+        }
+      }
     },
     {
       "date": "2026-05-18",
@@ -2109,7 +2661,31 @@
       "eth_per_share": 0.0091514,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226024088/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2056454152197124490",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 22.2428,
+        "atm_shares": 3561632,
+        "mnav_at_issue": 0.969,
+        "usd_per_share": {
+          "issuance": -0.0043,
+          "buybacks": 0,
+          "staking": 0.0068,
+          "other": -0.0175,
+          "total": -0.015,
+          "actual_change": -1.61,
+          "market": -1.595
+        },
+        "eth_per_share": {
+          "capital": 0.000071125,
+          "staking": 0.000003104,
+          "premium": -0.000006058,
+          "reanchor": 0,
+          "total": 0.000068172,
+          "actual_change": 0.000068172
+        }
+      }
     },
     {
       "date": "2026-05-26",
@@ -2189,7 +2765,31 @@
       "eth_per_share": 0.009341,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226025174/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2059257593390850301",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 21.0222,
+        "atm_shares": 275756,
+        "mnav_at_issue": 0.906,
+        "usd_per_share": {
+          "issuance": -0.0009,
+          "buybacks": 0,
+          "staking": 0.0074,
+          "other": -0.0246,
+          "total": -0.0181,
+          "actual_change": -0.52,
+          "market": -0.5019
+        },
+        "eth_per_share": {
+          "capital": 0.000195652,
+          "staking": 0.000003483,
+          "premium": -0.000009525,
+          "reanchor": 0,
+          "total": 0.00018961,
+          "actual_change": 0.00018961
+        }
+      }
     },
     {
       "date": "2026-06-01",
@@ -2275,7 +2875,31 @@
       "eth_per_share": 0.0093451,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226026543/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2061436317469176271",
-      "notes": "X thread is titled 'May 26' but is the Jun 1 update."
+      "notes": "X thread is titled 'May 26' but is the Jun 1 update.",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 20.2111,
+        "atm_shares": 2964510,
+        "mnav_at_issue": 0.947,
+        "usd_per_share": {
+          "issuance": -0.0055,
+          "buybacks": 0,
+          "staking": 0.0057,
+          "other": -0.0077,
+          "total": -0.0075,
+          "actual_change": -1.26,
+          "market": -1.2525
+        },
+        "eth_per_share": {
+          "capital": -0.000002784,
+          "staking": 0.000002866,
+          "premium": -0.000002142,
+          "reanchor": 0.000006172,
+          "total": 0.000004112,
+          "actual_change": 0.000004112
+        }
+      }
     },
     {
       "date": "2026-06-08",
@@ -2355,7 +2979,31 @@
       "eth_per_share": 0.0095335,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226027647/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2063962528015626605",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 17.6624,
+        "atm_shares": 1861636,
+        "mnav_at_issue": 0.991,
+        "usd_per_share": {
+          "issuance": -0.0005,
+          "buybacks": 0,
+          "staking": 0.007,
+          "other": -0.0227,
+          "total": -0.0162,
+          "actual_change": -3.53,
+          "market": -3.5138
+        },
+        "eth_per_share": {
+          "capital": 0.000194829,
+          "staking": 0.000004302,
+          "premium": -0.000010702,
+          "reanchor": 0,
+          "total": 0.000188429,
+          "actual_change": 0.000188429
+        }
+      }
     },
     {
       "date": "2026-06-15",
@@ -2435,7 +3083,31 @@
       "eth_per_share": 0.0095501,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226028622/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2066503209691029834",
-      "notes": "Cash line is \"total cash & marketable securities\". BMNP 9.50% Series A Perpetual Preferred closed Jun 10: 3,500,000 sh at $80, net proceeds ~$273.8M (non-dilutive to common)."
+      "notes": "Cash line is \"total cash & marketable securities\". BMNP 9.50% Series A Perpetual Preferred closed Jun 10: 3,500,000 sh at $80, net proceeds ~$273.8M (non-dilutive to common).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 16.8334,
+        "atm_shares": 7043326,
+        "mnav_at_issue": 0.966,
+        "usd_per_share": {
+          "issuance": -0.0068,
+          "buybacks": 0,
+          "staking": 0.0074,
+          "other": -0.0155,
+          "total": -0.015,
+          "actual_change": 1.29,
+          "market": 1.305
+        },
+        "eth_per_share": {
+          "capital": 0.000018572,
+          "staking": 0.000004285,
+          "premium": -0.000006317,
+          "reanchor": 0,
+          "total": 0.000016539,
+          "actual_change": 0.000016539
+        }
+      }
     },
     {
       "date": "2026-06-22",
@@ -2515,7 +3187,31 @@
       "eth_per_share": 0.0094486,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226029507/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2069077500907425935",
-      "notes": "Cash line is \"total cash & marketable securities\"."
+      "notes": "Cash line is \"total cash & marketable securities\".",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 17.9731,
+        "atm_shares": 11843197,
+        "mnav_at_issue": 0.906,
+        "usd_per_share": {
+          "issuance": -0.0332,
+          "buybacks": 0,
+          "staking": 0.0071,
+          "other": -0.0121,
+          "total": -0.0382,
+          "actual_change": 0.13,
+          "market": 0.1682
+        },
+        "eth_per_share": {
+          "capital": -0.000101402,
+          "staking": 0.00000411,
+          "premium": -0.000004142,
+          "reanchor": 0,
+          "total": -0.000101434,
+          "actual_change": -0.000101434
+        }
+      }
     },
     {
       "date": "2026-06-29",
@@ -2595,7 +3291,31 @@
       "eth_per_share": 0.0094937,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226030428/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2071581523115942302",
-      "notes": "Cash line is \"total cash & marketable securities\"."
+      "notes": "Cash line is \"total cash & marketable securities\".",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 16.7436,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.859,
+        "usd_per_share": {
+          "issuance": 0,
+          "buybacks": 0,
+          "staking": 0.0065,
+          "other": -0.0082,
+          "total": -0.0017,
+          "actual_change": -1.61,
+          "market": -1.6083
+        },
+        "eth_per_share": {
+          "capital": 0.000043019,
+          "staking": 0.00000414,
+          "premium": -0.000002049,
+          "reanchor": 0,
+          "total": 0.00004511,
+          "actual_change": 0.00004511
+        }
+      }
     },
     {
       "date": "2026-07-06",
@@ -2675,7 +3395,31 @@
       "eth_per_share": 0.0095139,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032090/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2074117201385111723",
-      "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings − 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5."
+      "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings − 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 17.3818,
+        "atm_shares": 3162247,
+        "mnav_at_issue": 0.8,
+        "usd_per_share": {
+          "issuance": -0.0182,
+          "buybacks": 0,
+          "staking": 0.0072,
+          "other": -0.0104,
+          "total": -0.0214,
+          "actual_change": 2.18,
+          "market": 2.2014
+        },
+        "eth_per_share": {
+          "capital": 0.000019449,
+          "staking": 0.000004018,
+          "premium": -0.000003295,
+          "reanchor": 0,
+          "total": 0.000020173,
+          "actual_change": 0.000020173
+        }
+      }
     },
     {
       "date": "2026-07-13",
@@ -2761,7 +3505,31 @@
       "eth_per_share": 0.0095642,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032951/ex99-1.htm",
       "x_post": null,
-      "notes": "No @BitMNR 'holdings update' X post found for this week. Same 8-K announced the fiscal year-end change (Aug 31 → Dec 31)."
+      "notes": "No @BitMNR 'holdings update' X post found for this week. Same 8-K announced the fiscal year-end change (Aug 31 → Dec 31).",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 18.2256,
+        "atm_shares": 351376,
+        "mnav_at_issue": 0.822,
+        "usd_per_share": {
+          "issuance": -0.0019,
+          "buybacks": 0,
+          "staking": 0.0074,
+          "other": -0.0086,
+          "total": -0.0031,
+          "actual_change": 0.2,
+          "market": 0.2031
+        },
+        "eth_per_share": {
+          "capital": 0.000038592,
+          "staking": 0.00000405,
+          "premium": -0.000002102,
+          "reanchor": 0.000009739,
+          "total": 0.000050279,
+          "actual_change": 0.000050279
+        }
+      }
     },
     {
       "date": "2026-07-20",
@@ -2841,7 +3609,31 @@
       "eth_per_share": 0.0096629,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226033855/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2079184628414382391",
-      "notes": "Buyback 'approximately 5.5 million shares … at an average price of $15.6156' (disclosed)."
+      "notes": "Buyback 'approximately 5.5 million shares … at an average price of $15.6156' (disclosed).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.0201,
+        "atm_shares": 102845,
+        "mnav_at_issue": 0.818,
+        "usd_per_share": {
+          "issuance": -0.0006,
+          "buybacks": 0.0313,
+          "staking": 0.0076,
+          "other": -0.0057,
+          "total": 0.0326,
+          "actual_change": 0.58,
+          "market": 0.5474
+        },
+        "eth_per_share": {
+          "capital": 0.000095139,
+          "staking": 0.000004041,
+          "premium": -4.19e-7,
+          "reanchor": 0,
+          "total": 0.000098761,
+          "actual_change": 0.000098761
+        }
+      }
     },
     {
       "date": "2026-07-27",
@@ -2921,7 +3713,31 @@
       "eth_per_share": 0.0097751,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2081719755296133365",
-      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s)."
+      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.4642,
+        "atm_shares": 236602,
+        "mnav_at_issue": 0.863,
+        "usd_per_share": {
+          "issuance": -0.0012,
+          "buybacks": 0.0266,
+          "staking": 0.0079,
+          "other": -0.0062,
+          "total": 0.0272,
+          "actual_change": 0.7,
+          "market": 0.6728
+        },
+        "eth_per_share": {
+          "capital": 0.000108713,
+          "staking": 0.00000405,
+          "premium": -6.37e-7,
+          "reanchor": 0,
+          "total": 0.000112126,
+          "actual_change": 0.000112126
+        }
+      }
     },
     {
       "date": "2026-08-03",
@@ -3001,7 +3817,31 @@
       "eth_per_share": 0.0098651,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226035752/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2084257549889524151",
-      "notes": "Buyback 4.5M shares (price not disclosed); 16.1M repurchased since July 1. (X post typo: '55,797,813 ETH'.)"
+      "notes": "Buyback 4.5M shares (price not disclosed); 16.1M repurchased since July 1. (X post typo: '55,797,813 ETH'.)",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.3494,
+        "atm_shares": 153168,
+        "mnav_at_issue": 0.904,
+        "usd_per_share": {
+          "issuance": -0.0005,
+          "buybacks": 0.0136,
+          "staking": 0.008,
+          "other": -0.0062,
+          "total": 0.0149,
+          "actual_change": -0.65,
+          "market": -0.6649
+        },
+        "eth_per_share": {
+          "capital": 0.000086413,
+          "staking": 0.000004251,
+          "premium": -6.72e-7,
+          "reanchor": 0,
+          "total": 0.000089992,
+          "actual_change": 0.000089992
+        }
+      }
     },
     {
       "date": "2026-08-10",
@@ -3081,7 +3921,31 @@
       "eth_per_share": 0.0099284,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2086800660868042869",
-      "notes": "Buyback 3.0M shares (price not disclosed); 19.1M since July 1. Note: reported 'acquired 7,391 ETH' but holdings rose 7,425 ETH (34 ETH gap in the release)."
+      "notes": "Buyback 3.0M shares (price not disclosed); 19.1M since July 1. Note: reported 'acquired 7,391 ETH' but holdings rose 7,425 ETH (34 ETH gap in the release).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.4341,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.937,
+        "usd_per_share": {
+          "issuance": 0,
+          "buybacks": 0.0058,
+          "staking": 0.0081,
+          "other": -0.0058,
+          "total": 0.0081,
+          "actual_change": 0.5,
+          "market": 0.4919
+        },
+        "eth_per_share": {
+          "capital": 0.000059529,
+          "staking": 0.000004209,
+          "premium": -4.24e-7,
+          "reanchor": 0,
+          "total": 0.000063314,
+          "actual_change": 0.000063314
+        }
+      }
     },
     {
       "date": "2026-08-17",
@@ -3161,7 +4025,31 @@
       "eth_per_share": 0.0099543,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038652/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2089359803722219771",
-      "notes": "Buyback 1.7M shares (price not disclosed); 20.8M since July 1 — last buyback until Oct. BTC 210 per 8-K (the X post says 209)."
+      "notes": "Buyback 1.7M shares (price not disclosed); 20.8M since July 1 — last buyback until Oct. BTC 210 per 8-K (the X post says 209).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.2776,
+        "atm_shares": 1175835,
+        "mnav_at_issue": 0.938,
+        "usd_per_share": {
+          "issuance": -0.0024,
+          "buybacks": 0.0032,
+          "staking": 0.008,
+          "other": -0.0062,
+          "total": 0.0026,
+          "actual_change": -0.34,
+          "market": -0.3426
+        },
+        "eth_per_share": {
+          "capital": 0.000022325,
+          "staking": 0.000004213,
+          "premium": -6.39e-7,
+          "reanchor": 0,
+          "total": 0.000025899,
+          "actual_change": 0.000025899
+        }
+      }
     },
     {
       "date": "2026-08-24",
@@ -3241,7 +4129,31 @@
       "eth_per_share": 0.0097601,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226039789/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2091866729651552553",
-      "notes": "Cash rose $230M while buying ETH and no buyback → implied equity issuance (no raise disclosed)."
+      "notes": "Cash rose $230M while buying ETH and no buyback → implied equity issuance (no raise disclosed).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 23.0684,
+        "atm_shares": 14947923,
+        "mnav_at_issue": 0.881,
+        "usd_per_share": {
+          "issuance": -0.0683,
+          "buybacks": 0,
+          "staking": 0.0103,
+          "other": -0.0105,
+          "total": -0.0686,
+          "actual_change": 5.37,
+          "market": 5.4386
+        },
+        "eth_per_share": {
+          "capital": -0.000195899,
+          "staking": 0.000004203,
+          "premium": -0.000002498,
+          "reanchor": 0,
+          "total": -0.000194194,
+          "actual_change": -0.000194194
+        }
+      }
     },
     {
       "date": "2026-08-31",
@@ -3321,7 +4233,31 @@
       "eth_per_share": 0.0096101,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226040741/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2094412891323593143",
-      "notes": "Cash rose $233M while buying 53.5k ETH → implied equity issuance (no raise disclosed)."
+      "notes": "Cash rose $233M while buying 53.5k ETH → implied equity issuance (no raise disclosed).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 25.0523,
+        "atm_shares": 14918908,
+        "mnav_at_issue": 0.984,
+        "usd_per_share": {
+          "issuance": -0.0095,
+          "buybacks": 0,
+          "staking": 0.0103,
+          "other": -0.015,
+          "total": -0.0142,
+          "actual_change": 0.66,
+          "market": 0.6742
+        },
+        "eth_per_share": {
+          "capital": -0.00014995,
+          "staking": 0.0000041,
+          "premium": -0.000004151,
+          "reanchor": 0,
+          "total": -0.000150001,
+          "actual_change": -0.000150001
+        }
+      }
     },
     {
       "date": "2026-09-08",
@@ -3401,7 +4337,31 @@
       "eth_per_share": 0.0095793,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2097322402325663994",
-      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02)."
+      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 25.0242,
+        "atm_shares": 4902269,
+        "mnav_at_issue": 0.984,
+        "usd_per_share": {
+          "issuance": -0.0031,
+          "buybacks": 0,
+          "staking": 0.0113,
+          "other": -0.0104,
+          "total": -0.0022,
+          "actual_change": -0.14,
+          "market": -0.1378
+        },
+        "eth_per_share": {
+          "capital": -0.00003324,
+          "staking": 0.000004545,
+          "premium": -0.000002042,
+          "reanchor": 0,
+          "total": -0.000030737,
+          "actual_change": -0.000030737
+        }
+      }
     },
     {
       "date": "2026-09-14",
@@ -3481,7 +4441,31 @@
       "eth_per_share": 0.0096083,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226042492/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2099482412862640134",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 25.2226,
+        "atm_shares": 966021,
+        "mnav_at_issue": 0.973,
+        "usd_per_share": {
+          "issuance": -0.001,
+          "buybacks": 0,
+          "staking": 0.0088,
+          "other": -0.0091,
+          "total": -0.0013,
+          "actual_change": 0.19,
+          "market": 0.1913
+        },
+        "eth_per_share": {
+          "capital": 0.000027412,
+          "staking": 0.00000352,
+          "premium": -0.000002016,
+          "reanchor": 0,
+          "total": 0.000028917,
+          "actual_change": 0.000028917
+        }
+      }
     },
     {
       "date": "2026-09-21",
@@ -3561,7 +4545,31 @@
       "eth_per_share": 0.0095056,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226043486/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2102015712634032381",
-      "notes": "Cash rose $165M → implied equity issuance (no raise disclosed)."
+      "notes": "Cash rose $165M → implied equity issuance (no raise disclosed).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 25.6042,
+        "atm_shares": 9594490,
+        "mnav_at_issue": 0.953,
+        "usd_per_share": {
+          "issuance": -0.0182,
+          "buybacks": 0,
+          "staking": 0.0109,
+          "other": -0.0097,
+          "total": -0.017,
+          "actual_change": 1.66,
+          "market": 1.677
+        },
+        "eth_per_share": {
+          "capital": -0.000104715,
+          "staking": 0.000004045,
+          "premium": -0.000001987,
+          "reanchor": 0,
+          "total": -0.000102657,
+          "actual_change": -0.000102657
+        }
+      }
     },
     {
       "date": "2026-09-28",
@@ -3641,7 +4649,31 @@
       "eth_per_share": 0.0095315,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226044459/ex99-1.htm",
       "x_post": null,
-      "notes": "No @BitMNR 'holdings update' X post found for this week."
+      "notes": "No @BitMNR 'holdings update' X post found for this week.",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 27.3789,
+        "atm_shares": 110319,
+        "mnav_at_issue": 1.023,
+        "usd_per_share": {
+          "issuance": 0.0001,
+          "buybacks": 0,
+          "staking": 0.0109,
+          "other": -0.0078,
+          "total": 0.0032,
+          "actual_change": 0.11,
+          "market": 0.1068
+        },
+        "eth_per_share": {
+          "capital": 0.000023042,
+          "staking": 0.000004044,
+          "premium": -0.000001177,
+          "reanchor": 0,
+          "total": 0.00002591,
+          "actual_change": 0.00002591
+        }
+      }
     },
     {
       "date": "2026-10-05",
@@ -3721,7 +4753,31 @@
       "eth_per_share": 0.0095502,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226045699/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2107086256010408071",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 27.2124,
+        "atm_shares": 353410,
+        "mnav_at_issue": 0.977,
+        "usd_per_share": {
+          "issuance": -0.0003,
+          "buybacks": 0,
+          "staking": 0.0111,
+          "other": -0.0073,
+          "total": 0.0034,
+          "actual_change": 0.28,
+          "market": 0.2766
+        },
+        "eth_per_share": {
+          "capital": 0.00001558,
+          "staking": 0.000004057,
+          "premium": -9.97e-7,
+          "reanchor": 0,
+          "total": 0.000018641,
+          "actual_change": 0.000018641
+        }
+      }
     },
     {
       "date": "2026-10-12",
@@ -3801,7 +4857,31 @@
       "eth_per_share": 0.00957,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226046744/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2109629888378667207",
-      "notes": ""
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 26.0492,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.965,
+        "usd_per_share": {
+          "issuance": 0,
+          "buybacks": 0,
+          "staking": 0.0102,
+          "other": -0.0067,
+          "total": 0.0036,
+          "actual_change": -1.79,
+          "market": -1.7936
+        },
+        "eth_per_share": {
+          "capital": 0.00001666,
+          "staking": 0.000004026,
+          "premium": -7.93e-7,
+          "reanchor": 0,
+          "total": 0.000019893,
+          "actual_change": 0.000019893
+        }
+      }
     },
     {
       "date": "2026-10-19",
@@ -3881,7 +4961,31 @@
       "eth_per_share": 0.0095899,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226047517/ex99-1.htm",
       "x_post": null,
-      "notes": "No @BitMNR holdings thread on X this week (none found Oct 18–20)."
+      "notes": "No @BitMNR holdings thread on X this week (none found Oct 18–20).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 24.7043,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.928,
+        "usd_per_share": {
+          "issuance": 0,
+          "buybacks": 0,
+          "staking": 0.0094,
+          "other": -0.0066,
+          "total": 0.0028,
+          "actual_change": -1.73,
+          "market": -1.7328
+        },
+        "eth_per_share": {
+          "capital": 0.000016713,
+          "staking": 0.00000398,
+          "premium": -7.96e-7,
+          "reanchor": 0,
+          "total": 0.000019897,
+          "actual_change": 0.000019897
+        }
+      }
     },
     {
       "date": "2026-10-26",
@@ -3961,7 +5065,31 @@
       "eth_per_share": 0.0096374,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s)."
+      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s).",
+      "accretion": {
+        "basis": "estimate (v2 model)",
+        "reanchor": false,
+        "nav_per_share_before": 24.3431,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.93,
+        "usd_per_share": {
+          "issuance": -0.0001,
+          "buybacks": 0.0061,
+          "staking": 0.0094,
+          "other": -0.0062,
+          "total": 0.0092,
+          "actual_change": -0.08,
+          "market": -0.0892
+        },
+        "eth_per_share": {
+          "capital": 0.000044093,
+          "staking": 0.000003993,
+          "premium": -6.33e-7,
+          "reanchor": 0,
+          "total": 0.000047453,
+          "actual_change": 0.000047453
+        }
+      }
     }
   ]
 }

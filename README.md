@@ -33,11 +33,12 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/checkpoints.json` | **Official share counts** (10-Q balance sheets and cover pages) with links, ATM sales disclosed between them, and the 10-Q cash-flow figures used for the backtest and the cash-source analysis. |
 | `data/backtest.json` | **Generated** out-of-sample backtest (model v1 vs v2 vs walk-forward) per interval, plus component diagnostics. |
 | `data/weekly-prices.json` | Frozen market data per week (avg ETH, BTC close, BMNR avg/min/max/close) so past weeks don't drift. |
-| `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV). Don't edit by hand. |
-| `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v2 parameters with sources; valuation scenario inputs; ORBS share count). |
+| `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV, weekly `accretion`). Don't edit by hand. |
+| `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v2 parameters with sources; ORBS share count). |
+| `data/valuation.json` | **Bear / Base / Bull valuation inputs**, each with sources and a rationale; `derived` (staked share, trailing 4/13/26-week yields, staked-ETH trajectory) is refreshed by the weekly build. |
 | `data/prices.json` | Latest BMNR / ETHA / ORBS (+ ETH, BTC) quotes, written by the Action. |
 | `scripts/model.mjs` | The share-count estimator (weekly cash need → implied issuance, roll-forward from an official count). |
-| `scripts/build-history.mjs` | Rebuilds `history.json`, `backtest.json` and `holdings.json` from `releases.json` + `checkpoints.json`. |
+| `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
 | `scripts/fetch-prices.mjs` | Price fetcher used by the Action. |
 | `.github/workflows/prices.yml` | Cron every 15 min 13:00–21:59 UTC Mon–Fri (+ hourly pre/after-hours) and manual dispatch; commits only when prices changed. |
@@ -48,7 +49,79 @@ The share-count model is **backtested out-of-sample** against every official cou
 * Crypto/Cash NAV = ETH + BTC + cash; ETH-only NAV = ETH
 * Enterprise Value = market cap − cash (that row's "mNAV" = market cap ÷ EV)
 * NAV/share = NAV ÷ estimated shares outstanding; mNAV = BMNR price ÷ NAV/share
-* Valuation scenarios (staking, MAVAN, SOTP): see `assets/calc.js`; inputs in `holdings.json → assumptions.valuation`.
+* Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.
+
+## Valuation (Bear / Base / Bull)
+
+Inputs live in `data/valuation.json` (edit there; the page recomputes with the live ETH price and current estimated share count).
+`derived` values are refreshed from the weekly releases by `scripts/build-history.mjs`:
+`staked_share_current` (staked ÷ held), `yield_trailing_4w/13w/26w` (averages of Bitmine's stated 7-day yields).
+
+Method:
+
+* Own staking (treasury) earnings = ETH held × staked share × gross staking yield × (1 − fee leakage) × live ETH price.
+* Corporate costs = company cash opex run-rate (excl. stock comp and one-time items) − the part attributed to serving MAVAN clients (current MAVAN client revenue × (1 − MAVAN margin)) + BMNP preferred dividends.
+* Treasury business value = (own staking earnings − corporate costs) × (1 − tax) × treasury multiple. Negative values are kept (costs above staking income destroy value).
+* MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − tax) × services multiple.
+* SOTP per share = live Full NAV per share + (treasury value + MAVAN value) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share.
+* Option-premium income and interest are excluded in all cases: the ETH options program lost $133.3M in the 9 months to May 31, 2026 and cash balances (and interest) are being spent down (10-Q).
+
+**No double counting:** NAV counts ETH already held, including staking rewards already received. The earnings value capitalizes only FUTURE net staking income on today's staked base, after costs, with no growth from future ETH purchases. Each week the rewards received move into NAV while the run-rate (and its capitalized value) stays the same, so no reward is counted twice at any point in time. Because a staked-ETH ETF (e.g. BlackRock ETHB) already passes staking yield to holders at ~1.0× NAV, the multiples on Bitmine's own staking income are kept modest — the premium is only for the yield being earned at scale net of costs.
+
+| Input | Bear | Base | Bull | Why |
+| --- | --- | --- | --- | --- |
+| ETH staked (% of ETH held) | `staked_share_current` | 93% | 97% | Bear: stays at the current share (5,227,037 of 6,051,933 ETH = 86%). Bitmine's stated goal is "staking nearly all of Bitmine's remaining unstaked ETH" (Mar 25, 2026); base 93% (half the remaining gap closed, judgment), bull 97% (keeps ~3% liquid). [6] [2] |
+| Gross staking yield (APR) | 2.25% | `yield_trailing_13w` | `yield_trailing_26w` | Base/bull use Bitmine's own stated 7-day yields (13- and 26-week trailing averages, refreshed weekly). Network APR is 2.46–2.6% today with ~35% of ETH staked and a 1.3–2.1M ETH entry queue; consensus rewards scale with 1/√(total stake), so a further ~20% rise in stake cuts yields ~9% → bear 2.25%. [6] [7] [8] [9] |
+| Rewards paid away (advisory fee, partners, minority interest) | 8.5% | 3.5% | 3.5% | Since Sep 4, 2026 American Validator LLC receives 1.50% of rewards on Company-staked ETH, and Ethereum Tower owns 2% of MAVAN Holdings (base/bull = 3.5%). Bear adds 5% for ETH staked with outside "staking partners" at a Lido-node-operator-like fee. [4] [3] [10] |
+| Company cash opex, annual (excl. stock comp, one-time items) | $150.5M | $119.0M | $96.1M | Base = Mar–May 2026 quarter × 4: G&A $37.27M − stock comp $13.25M + cost of sales $5.73M = $29.75M/qtr. Bear = management's 12-month cash requirements: ETH-management fees up to $50M + overhead $83.0M + working capital $12M + public-company $4M + capex $1.5M. Bull = cash G&A only ($24.02M/qtr × 4), assuming cost of sales is covered by MAVAN client revenue. Excludes $200.0M of one-time capital-raising/advisory fees (9 months). [1] |
+| BMNP preferred dividends, annual | $33.2M | $33.2M | $33.2M | 3.5M shares of 9.50% Series A Perpetual Preferred; the 10-Q lists dividend obligations of ≈ $33.25M a year. Deducted from earnings (the preferred is not deducted from NAV). [1] |
+| Cash tax rate on net income | 21% | 15% | 10% | Staking rewards are taxable income when received (Rev. Rul. 2023-14); bear uses the 21% federal rate. Base/bull assume operating losses (G&A $335.7M in the 9 months to May 31, 2026) shelter part of near-term income (judgment). [18] [1] |
+| Multiple on net treasury/staking earnings | 6× | 15× | 18.8× | Bear 6× = Lido DAO's treasury-adjusted revenue multiple (staking-protocol comp). Base 15× = money-center banks' market cap ÷ net income (balance-sheet yield businesses). Bull 18.8× = asset managers' forward P/E. Kept below asset-manager levels because staked-ETH ETFs offer the same yield at ~1.0× NAV. [14] [15] [17] |
+| MAVAN client revenue run-rate (today) | $18.9M | $18.9M | $18.9M | Pier Two (now MAVAN) contributed $3.527M of staking revenue from its Mar 24 acquisition to May 31, 2026 (68 days) → $18.9M a year, on about $2B of client assets across ETH, Solana, Hyperliquid and Canton (Tom Lee, May 2026). [1] [5] |
+| Fee compression on existing clients | 25% | 0% | 0% | Institutional commissions are compressing (Messari); bear cuts existing revenue by a quarter. [12] |
+| New client ETH staked via MAVAN | $0 | $2,000.0M | $6,000.0M | From ~$2B of client assets in May 2026: bear no growth; base doubles to $4B; bull reaches $8B (MAVAN pitches itself as the largest Ethereum staking platform; judgment). [5] [2] |
+| Fee on new client rewards | 5% | 8% | 10% | Institutional range 5–10% of rewards (Messari); Coinbase Prime and Lido charge 10%. [12] [11] [10] |
+| MAVAN segment operating margin | 15% | 25% | 40% | Base = US asset managers' pre-tax operating margin (25.2%); bear/bull ±10–15 pts (judgment; MAVAN is not reported as a segment). [16] |
+| Multiple on MAVAN after-tax earnings | 8.5× | 18.8× | 24.8× | Bear 8.5× = LDO market cap ÷ annualized protocol revenue. Base 18.8× = asset managers' forward P/E. Bull 24.8× = asset managers' market cap ÷ net income. [13] [15] |
+
+Cases — **Bear:** Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple. **Base:** Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward "nearly all" ETH, 10-Q cost run-rate, MAVAN doubles client assets at a typical institutional fee, and financial-sector multiples. **Bull:** Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN quadruples client assets at Coinbase-Prime/Lido-level fees, net operating losses shelter part of the tax, and asset-manager multiples.
+
+Sources:
+
+1. [10-Q for quarter ended May 31, 2026 (filed Jul 14, 2026)](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm)
+2. [8-K Ex. 99.1, Mar 25, 2026 — MAVAN launch](https://www.sec.gov/Archives/edgar/data/1829311/000149315226012549/ex99-1.htm)
+3. [8-K, Mar 30, 2026 — Pier Two acquisition & Ethereum Tower MSA](https://www.sec.gov/Archives/edgar/data/1829311/000149315226013609/form8-k.htm)
+4. [8-K, Sep 8, 2026 — MSA terminated; American Validator fee 1.50% of rewards](https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/form8-k.htm)
+5. [8-K Ex. 99.2, May 11, 2026 — Tom Lee remarks ("staking about $2 billion of client assets")](https://www.sec.gov/Archives/edgar/data/1829311/000149315226022150/ex99-2.htm)
+6. [8-K Ex. 99.1, Oct 26, 2026 — weekly update (5,227,037 staked ETH; 2.58% 7-day yield; $318M annualized)](https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm)
+7. [validatorqueue.com (beaconcha.in data), Oct 26, 2026 — network APR 2.6%, 35.0% of supply staked, entry queue ~2.1M ETH](https://validatorqueue.com/)
+8. [TokenPost staking weekly (Dune), Oct 26, 2026 — APR 2.46–2.47% Oct 18–25; 43.94M ETH staked (35.2%)](https://www.tokenpost.com/news/investing/41001)
+9. [CryptoKeyhole, Oct 26, 2026 — consensus-layer rewards scale with 1/√(total stake); entry queue 1.26M ETH](https://cryptokeyhole.com/ethereum-staking/)
+10. [Lido — protocol fee 10% of rewards (5% node operators / 5% DAO)](https://lido.fi/how-lido-works/protocol-fee)
+11. [Coinbase Prime staking fees — 10% of ETH rewards (retail: 35%, 25.25–31.75% for Coinbase One)](https://help.coinbase.com/en/prime/staking/fees)
+12. [Messari, The Institutional Staking Landscape — institutional commissions typically 5–10% of rewards, compressing](https://messari.io/report/the-institutional-staking-landscape)
+13. [Digital Asset Database — LDO market cap ≈ 8.5× annualized protocol revenue (Oct 2026)](https://digitalassetdatabase.com/assets/lido-dao/valuation)
+14. [Lido DAO LTM dashboard (Dune) — 6.05× treasury-adjusted LTM revenue multiple (Aug 2026)](https://dune.com/bcvfinance/lido-dao-ltm-financial-and-governance-dashboard)
+15. [Damodaran, PE by sector (US, Jan 2026): Bank (Money Center) mkt cap/NI 14.99×; Investments & Asset Mgmt forward PE 18.77×, mkt cap/NI 24.80×](https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/pedata.html)
+16. [FinObservatory (Damodaran data) — US Investments & Asset Mgmt pre-tax operating margin 25.2%](https://finobservatory.org/valuation/industry/investments-asset-management)
+17. [iShares Staked Ethereum Trust ETF (ETHB) — passes net staking rewards to ETF holders](https://www.blackrock.com/us/individual/products/348532/ishares-staked-ethereum-trust-etf)
+18. [IRS Rev. Rul. 2023-14 — staking rewards are gross income when received](https://www.irs.gov/pub/irs-drop/rr-23-14.pdf)
+
+## Weekly accretion check
+
+Computed for every week in `scripts/build-history.mjs` (`history.json → snapshots[].accretion`), using the v2 model's
+estimated issuance (so everything is an estimate):
+
+* NAV/share before the week's actions = last week's assets with ETH revalued at the week's average ETH price.
+* **ATM issuance** = est. shares sold × (week's average BMNR close − NAV/share before) ÷ shares after — positive only when
+  sold above NAV (mNAV > 1).
+* **Buybacks** = shares bought × (NAV/share before − buyback price) ÷ shares after.
+* **Staking** = est. rewards × ETH price ÷ shares. **Other** = −(cash opex + BMNP dividends + cash paid above the week's
+  average ETH price) ÷ shares. "Market move" (price changes) is reported separately and is not a capital action.
+* **ETH per share**: change = capital actions (ETH the week's cash could buy at the average price − dilution from net new
+  shares) + staking rewards ÷ shares + premium (ETH lost by paying above the average price) + 10-Q re-anchor true-ups.
+  The parts add up exactly to the week's ETH/share change.
+* The page sums the weeks inside the selected range (1M … All) and shows last week as a headline card.
 
 ## Share-count reconstruction
 
@@ -146,7 +219,9 @@ checked only when the next 10-K / 10-KT is filed.
    --cp-source "10-K cover page" --cp-url <URL>` (or add it to `data/checkpoints.json`); the estimate re-anchors there.
    Also add any ATM sales the filing discloses to `checkpoints.json → atm_disclosures` and re-run the build: the backtest
    will show how far the model was off for the new interval.
-4. Check the printed table, then `git add data && git commit -m "week of <date>" && git push`. Pages redeploys in ~1 min.
+4. Check the printed table (the build also refreshes `valuation.json → derived` and each week's accretion), then
+   `git add data && git commit -m "week of <date>" && git push`. Pages redeploys in ~1 min.
+   Review `data/valuation.json` inputs when a new 10-Q/10-K is filed (opex run-rate, MAVAN revenue, preferred dividends).
 
 ## Notes / caveats
 

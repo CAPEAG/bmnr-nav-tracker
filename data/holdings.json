@@ -24,44 +24,6 @@
     "weekly_staking_yield": 0.0258,
     "weekly_staking_yield_source": "Bitmine's stated 7-day BMNR yield in the 2026-10-26 release.",
     "etha_target_ratio": 1.4,
-    "valuation": {
-      "staking_yield": {
-        "bear": 0.026,
-        "base": 0.026,
-        "bull": 0.026
-      },
-      "bull_eth_staked": 6105000,
-      "sga": {
-        "bear_pct_of_rewards": 0.015,
-        "bear_fixed": 50000000,
-        "base": 55000000,
-        "bull": 60000000
-      },
-      "staking_multiple": {
-        "bear": 5,
-        "base": 5,
-        "bull": 5
-      },
-      "mavan": {
-        "aum": {
-          "bear": 2000000000,
-          "base": 2000000000,
-          "bull": 2000000000
-        },
-        "reward_rate": 0.045,
-        "margin": {
-          "bear": 0.0985,
-          "base": 0.125,
-          "bull": 0.15
-        },
-        "multiple": {
-          "bear": 15,
-          "base": 20,
-          "bull": 25
-        }
-      },
-      "source": "User-set scenario assumptions. Bear ETH staked = latest reported staked ETH; base = all ETH held; bull = 6,105,000."
-    },
     "share_estimation": {
       "weekly_cash_opex_usd": 2278000,
       "weekly_cash_opex_source": "Net operating cash outflow Dec 1, 2025 – May 31, 2026 = 9-month operating cash flow (−$287.592M, 10-Q May 31, 2026) − Sep–Nov (−$228.356M, 10-Q Nov 30, 2025) = −$59.236M over 26 weeks. Already net of interest income and cash service revenue. (v1 used $3,257,538 = Mar–May G&A − SBC + cost of sales ÷ 13.)",
@@ -82,7 +44,8 @@
       "eth_cost_factor_walkforward": 1.035,
       "eth_cost_factor_source": "Cash paid for ETH per the 10-Q cash-flow statements ÷ (ETH added − staking) × weekly average price: Dec–Feb 1.035, Mar–May 1.065, Dec–May 1.050. v1 used 1.0.",
       "carry_forward_source": "A week whose reported cash rose more than purchases explain is treated as a surplus that funds later weeks, instead of being discarded (v1 floored each week at zero)."
-    }
+    },
+    "valuation_inputs": "See data/valuation.json (Bear/Base/Bull inputs with sources)."
   },
   "reference_prices": {
     "ETH": 2356,
@@ -169,9 +132,33 @@
     "eth_per_share": 0.0096374,
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
     "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-    "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s)."
+    "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s).",
+    "accretion": {
+      "basis": "estimate (v2 model)",
+      "reanchor": false,
+      "nav_per_share_before": 24.3431,
+      "atm_shares": 0,
+      "mnav_at_issue": 0.93,
+      "usd_per_share": {
+        "issuance": -0.0001,
+        "buybacks": 0.0061,
+        "staking": 0.0094,
+        "other": -0.0062,
+        "total": 0.0092,
+        "actual_change": -0.08,
+        "market": -0.0892
+      },
+      "eth_per_share": {
+        "capital": 0.000044093,
+        "staking": 0.000003993,
+        "premium": -6.33e-7,
+        "reanchor": 0,
+        "total": 0.000047453,
+        "actual_change": 0.000047453
+      }
+    }
   },
-  "last_updated": "2026-10-26T16:16:19.454Z",
+  "last_updated": "2026-10-26T16:52:26.277Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -185,6 +172,6 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-10-26T16:16:19.454Z"
+    "built": "2026-10-26T16:52:26.278Z"
   }
 }

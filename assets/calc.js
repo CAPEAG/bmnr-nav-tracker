@@ -30,38 +30,53 @@ export function computeNav(h, px) {
   };
 }
 
-/** Staking (bear/base/bull) + MAVAN + SOTP block. */
-export function computeValuation(h, px, nav) {
-  const a = h.assumptions.valuation;
+/** Resolve one valuation input for a case: {value} or {ref: key in V.derived}. */
+export function valInput(V, key, k) {
+  const c = V.inputs[key][k];
+  if (c == null) return null;
+  if (typeof c === 'number') return c;
+  if ('value' in c) return c.value;
+  const d = V.derived?.[c.ref];
+  return d && typeof d === 'object' ? d.value : d;
+}
+
+/**
+ * Bear/base/bull sum-of-the-parts (inputs in data/valuation.json, documented there and in the README).
+ * h = holdings.json, px = live prices, nav = computeNav(), V = valuation.json.
+ */
+export function computeValuation(h, px, nav, V) {
   const shares = h.shares_outstanding;
-  const fullNavPs = nav.rows[0].perShare;
-  const staked = {
-    bear: h.eth_staked,                                        // latest reported staked ETH
-    base: h.eth,
-    bull: a.bull_eth_staked,                                   // assumption (6,105,000)
-  };
+  const navPs = nav.rows[0].perShare;
   const out = {};
   for (const k of ['bear', 'base', 'bull']) {
-    const y = a.staking_yield[k];
-    const ethGen = y * staked[k];
-    const usdGen = ethGen * px.ETH;
-    const sga = k === 'bear'
-      ? a.sga.bear_pct_of_rewards * usdGen + a.sga.bear_fixed
-      : a.sga[k];
-    const profit = usdGen - sga;
-    const equity = profit * a.staking_multiple[k];
-    const stakingPs = equity / shares;
-    const aum = a.mavan.aum[k];
-    const rewards = aum * a.mavan.reward_rate;
-    const mavanProfit = rewards * a.mavan.margin[k];
-    const mavanEquity = mavanProfit * a.mavan.multiple[k];
-    const mavanPs = mavanEquity / shares;
-    const sotp = stakingPs + fullNavPs + mavanPs;
+    const g = (key) => valInput(V, key, k);
+    const stakedShare = g('staked_share'), y = g('gross_yield'), leak = g('fee_leakage');
+    const staked = h.eth * stakedShare;
+    const ethGross = staked * y;
+    const ethNet = ethGross * (1 - leak);
+    const stakingUsd = ethNet * px.ETH;
+    // MAVAN third-party
+    const mavanMargin = g('mavan_margin');
+    const existingRev = g('mavan_existing_revenue_usd');
+    const newAum = g('mavan_new_aum_usd');
+    const mavanRev = existingRev * (1 - g('mavan_fee_compression')) + newAum * y * g('mavan_take_rate');
+    const mavanPretax = mavanRev * mavanMargin;
+    const tax = g('tax_rate');
+    const mavanValue = mavanPretax * (1 - tax) * g('mavan_multiple');
+    // corporate costs (excluding the cost of serving MAVAN clients, which sits in the MAVAN margin)
+    const opex = g('opex_usd'), mavanCostInOpex = existingRev * (1 - mavanMargin);
+    const corpOpex = opex - mavanCostInOpex, pref = g('pref_dividends_usd');
+    const treasuryPretax = stakingUsd - corpOpex - pref;
+    const treasuryAfterTax = treasuryPretax > 0 ? treasuryPretax * (1 - tax) : treasuryPretax;
+    const treasuryValue = treasuryAfterTax * g('treasury_multiple');
+    const earningsPs = (treasuryValue + mavanValue) / shares;
+    const sotp = navPs + earningsPs;
     out[k] = {
-      yield: y, staked: staked[k], ethGen, usdGen, sga, profit, multiple: a.staking_multiple[k], equity, stakingPs,
-      aum, rewards, mavanProfit, mavanMultiple: a.mavan.multiple[k], mavanEquity, mavanPs,
-      sotp, impliedMnav: sotp / fullNavPs,
-      upside: sotp / px.BMNR - 1,
+      stakedShare, staked, yield: y, leak, ethGross, ethNet, stakingUsd,
+      opex, corpOpex, pref, treasuryPretax, tax, treasuryAfterTax, treasuryMultiple: g('treasury_multiple'), treasuryValue, treasuryPs: treasuryValue / shares,
+      mavanRev, mavanMargin, mavanPretax, mavanMultiple: g('mavan_multiple'), mavanValue, mavanPs: mavanValue / shares,
+      netIncome: treasuryAfterTax + mavanPretax * (1 - tax),
+      earningsPs, navPs, sotp, impliedMnav: sotp / navPs, upside: px.BMNR ? sotp / px.BMNR - 1 : null,
     };
   }
   return out;

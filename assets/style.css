@@ -66,7 +66,6 @@ a.tag{text-decoration:none;display:inline-block;margin:2px 0 0}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:14px;margin-bottom:14px;align-items:start}
 .cards>.card{margin-bottom:0}
 @media (min-width:1000px){.cards>.span2{grid-column:span 2}}
-@media (min-width:1200px){#hero{grid-template-columns:repeat(8,minmax(0,1fr))}}
 .charts{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:10px 0 12px}
 .chart-card{min-width:0;background:#0f1522;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .chart-card h3{margin:0 0 6px}
@@ -75,3 +74,22 @@ a.tag{text-decoration:none;display:inline-block;margin:2px 0 0}
 .table-wrap{max-width:100%;-webkit-overflow-scrolling:touch}
 main,section,.card{min-width:0}
 @media (max-width:600px){.chart-card{padding:8px}.chart-box{height:250px}}
+/* valuation + accretion */
+.grid-val{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+@media (min-width:1100px){.grid-val{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+.t.assum td{white-space:normal;vertical-align:top}
+.t.assum td:nth-child(-n+4){white-space:nowrap}
+.t.assum td.why{text-align:left;color:var(--mut);min-width:320px;max-width:640px;font-size:12px}
+.t.assum td.why a{margin-left:2px;text-decoration:none}
+.cases p{margin:4px 0}.cap{text-transform:capitalize}
+.srcs{padding-left:20px;margin:8px 0 0}.srcs li{margin:2px 0}
+.kpi.case-bear{border-color:#5a2a33}.kpi.case-base{border-color:#33467a}.kpi.case-bull{border-color:#1f5a43}
+.kpi.case-bear .l{color:var(--bad)}.kpi.case-bull .l{color:var(--good)}.kpi.case-base .l{color:var(--acc)}
+.kpi .v.up{color:var(--good)}.kpi .v.down{color:var(--bad)}
+#accTable td.fine{font-size:12px;margin:0}
+@media (min-width:1200px){#hero{grid-template-columns:repeat(9,minmax(0,1fr))}}
+.t.assum td:not(:first-child):not(.why),.t.assum th:not(:first-child):not(:last-child){width:1%}
+.t.assum td:first-child{min-width:190px;white-space:normal}
+.t.assum td.why{min-width:360px;max-width:none}
+.table-wrap.tall{max-height:560px;overflow:auto}
+.table-wrap.tall th{position:sticky;top:0;background:var(--panel);z-index:1}

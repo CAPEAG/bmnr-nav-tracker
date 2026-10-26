@@ -208,6 +208,46 @@ for (let i = 0; i < wk.length; i++) {
   });
 }
 
+// ---------- weekly accretion check (per-share effect of capital actions, v2 estimates) ----------
+// NAV/share before the week's actions = last week's assets with ETH revalued at this week's average ETH price.
+for (let i = 1; i < out.length; i++) {
+  const s = out[i], p = out[i - 1], f = F[i];
+  if (!f || !s.assumed_purchase_price) continue;
+  const S0 = p.shares_outstanding, S1 = s.shares_outstanding, ethAvg = s.assumed_purchase_price;
+  const navBefore = (p.nav.full - p.eth * p.snapshot_prices.ETH + p.eth * ethAvg) / S0;
+  const reanchor = s.est_shares_issued == null;
+  const atm = reanchor ? Math.max(0, f.need[1]) / f.price[1] : s.est_shares_issued;
+  const other = s.other_shares_issued || 0, bb = s.buyback_shares || 0;
+  const issuePx = s.assumed_issue_price;
+  const premiumUsd = f.ethCost - f.purchased * ethAvg; // cash paid above the week's average ETH price
+  const usd = {
+    issuance: ((atm + other) * (issuePx - navBefore)) / S1,
+    buybacks: bb ? (bb * (navBefore - s.buyback_price)) / S1 : 0,
+    staking: (f.rewards * s.snapshot_prices.ETH) / S1,
+    other: -(premiumUsd + f.opex) / S1,
+  };
+  usd.total = usd.issuance + usd.buybacks + usd.staking + usd.other;
+  usd.actual_change = s.nav_per_share - p.nav_per_share;
+  usd.market = usd.actual_change - usd.total;
+  const eps0 = p.eth / S0, dS = S1 - S0;
+  const correction = dS - (atm + other - bb); // share-count true-up at an official checkpoint
+  const eth = {
+    capital: f.ethCost / ethAvg / S1 - (eps0 * (atm + other - bb)) / S1,
+    staking: f.rewards / S1,
+    premium: -(f.ethCost / ethAvg - f.purchased) / S1,
+    reanchor: reanchor ? -(eps0 * correction) / S1 : 0,
+  };
+  // capital = ETH bought at market with the cash used − dilution from net issuance; premium = ETH lost to paying above the average price
+  eth.total = eth.capital + eth.staking + eth.premium + eth.reanchor;
+  eth.actual_change = s.eth / S1 - eps0;
+  const R = (o, d) => Object.fromEntries(Object.entries(o).map(([k, v]) => [k, Number(v.toFixed(d))]));
+  s.accretion = {
+    basis: reanchor ? 'estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)' : 'estimate (v2 model)',
+    reanchor, nav_per_share_before: Number(navBefore.toFixed(4)), atm_shares: Math.round(atm), mnav_at_issue: Number((issuePx / navBefore).toFixed(3)),
+    usd_per_share: R(usd, 4), eth_per_share: R(eth, 9),
+  };
+}
+
 // ---------- holdings.json (latest) ----------
 const last = out.at(-1), lr = rel.at(-1), lp = wk.at(-1).px;
 Object.assign(H, {
@@ -225,6 +265,23 @@ H.orbs.reported_value_usd = lr.orbs_value_usd;
 H.assumptions.weekly_staking_yield = lr.staking_yield_7d;
 H.assumptions.weekly_staking_yield_source = `Bitmine's stated 7-day BMNR yield in the ${lr.date} release.`;
 H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), built: new Date().toISOString() };
+
+// ---------- valuation.json derived inputs (refreshed weekly) ----------
+const V = JSON.parse(await readFile(P('valuation.json'), 'utf8'));
+const ys = rel.filter((x) => x.staking_yield_7d).map((x) => x.staking_yield_7d);
+const tavg = (n) => { const a = ys.slice(-n); return Number((a.reduce((t, x) => t + x, 0) / a.length).toFixed(5)); };
+const trj = rel.filter((x, i) => x.eth_staked && (i % 4 === 0 || i === rel.length - 1)).map((x) => ({ as_of: x.as_of, staked: x.eth_staked, pct: Number((x.eth_staked / x.eth).toFixed(4)) }));
+V.derived = {
+  as_of: lr.as_of, source: `Bitmine weekly releases in data/releases.json (latest: ${lr.sec_8k})`,
+  eth_held: lr.eth, eth_staked: lr.eth_staked,
+  staked_share_current: { value: Number((lr.eth_staked / lr.eth).toFixed(4)), label: `current: ${lr.eth_staked.toLocaleString('en-US')} ÷ ${lr.eth.toLocaleString('en-US')} ETH (${lr.as_of})` },
+  yield_latest_7d: { value: lr.staking_yield_7d, label: `latest stated 7-day yield (${lr.as_of})` },
+  yield_trailing_4w: { value: tavg(4), label: '4-week average of stated 7-day yields' },
+  yield_trailing_13w: { value: tavg(13), label: '13-week average of stated 7-day yields' },
+  yield_trailing_26w: { value: tavg(26), label: '26-week average of stated 7-day yields' },
+  staked_trajectory: trj,
+};
+console.log('valuation derived', JSON.stringify({ ...V.derived, staked_trajectory: undefined }));
 
 const summarize = (k) => {
   const xs = backtest.filter((b) => !b.flagged && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
@@ -257,5 +314,6 @@ if (!process.argv.includes('--dry')) {
   await writeFile(P('backtest.json'), JSON.stringify(bt, null, 2) + '\n');
   await writeFile(P('holdings.json'), JSON.stringify(H, null, 2) + '\n');
   await writeFile(P('weekly-prices.json'), JSON.stringify(cache, null, 2) + '\n');
+  await writeFile(P('valuation.json'), JSON.stringify(V, null, 2) + '\n');
   console.log('wrote history.json, backtest.json, holdings.json, weekly-prices.json');
 }
