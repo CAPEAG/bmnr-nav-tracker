@@ -88,7 +88,7 @@
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm"
     },
     "camt_notices": {
-      "label": "IRS Notices 2025-46 / 2025-49 — interim CAMT guidance; unrealized fair-value gains on digital assets disregarded",
+      "label": "IRS Notice 2025-49 — CAMT may disregard unrealized fair-value gains/losses on digital assets (interim guidance)",
       "url": "https://www.irs.gov/pub/irs-drop/n-25-49.pdf"
     },
     "ato_rates": {
@@ -299,7 +299,7 @@
         "q3_10q",
         "camt_notices"
       ],
-      "rationale": "Staking rewards are ordinary income when received (Rev. Rul. 2023-14). Base 21% federal (Nevada has no corporate income tax); bear 23% adds some state tax; bull 15% for deductions/credits (judgment). FY2025: $0 current tax, the 20.9% effective rate was all deferred; now a full valuation allowance and no cash taxes. ETH losses (cost ≈ $3,517/ETH vs ≈ $2,400) are capital losses and can't offset ordinary staking income. CAMT unlikely ($1B threshold; unrealized digital-asset gains excluded). No tax benefit on losses."
+      "rationale": "Staking rewards are ordinary income when received (Rev. Rul. 2023-14). Base 21% federal (Nevada has no corporate income tax); bear 23% adds some state tax; bull 15% for deductions/credits (judgment). FY2025: $0 current tax, the 20.9% effective rate was all deferred; now a full valuation allowance and no cash taxes. ETH losses (price well below Bitmine's ~$3,517 average cost) are capital losses and can't offset ordinary staking income. CAMT unlikely ($1B threshold; Notice 2025-49 excludes unrealized digital-asset gains). No tax benefit on losses."
     },
     "treasury_multiple": {
       "label": "Multiple on net treasury/staking earnings",
@@ -461,7 +461,7 @@
         "q3_10q",
         "k10_fy25"
       ],
-      "rationale": "Estimate pending the FY2026 10-K (due ~Oct 30, 2026). Losses carried forward (NOLs ≈ $50M, est.; not quantified in the 10-Q) shelter near-term tax temporarily, so the shelter is added once instead of lowering the rate permanently."
+      "rationale": "Existing NOLs ≈ $50M (est.) are worth ≈ $10.5M at 21%. The rest assumes FY2026's expected operating loss adds to the NOLs (pending the 10-K, due ~Oct 30, 2026). Added once instead of lowering the rate permanently."
     }
   }
 }
