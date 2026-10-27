@@ -2,6 +2,10 @@ import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
+// CNBC quote service (sends access-control-allow-origin: *). Symbols separated by "|" (%7C). exthrs=1 adds ExtendedMktQuote.
+const CNBC = 'https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=BMNR%7CORBS&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json';
+const STOCKS = ['BMNR', 'ORBS'];
+const REFRESH_MS = 60000;
 
 const S = { holdings: null, history: null, backtest: null, valuation: null, chart4: null, chart5: null, prices: null, live: {}, chart: null, chartM: null, chart2: null, chart3: null, range: localStorage.getItem('bmnrRange') || 'ALL' };
 const $ = (id) => document.getElementById(id);
@@ -29,6 +33,15 @@ const ago = (iso) => {
   const m = Math.round((Date.now() - Date.parse(iso)) / 60000);
   return m < 1 ? 'just now' : m < 60 ? `${m}m ago` : m < 2880 ? `${Math.round(m / 60)}h ago` : `${Math.round(m / 1440)}d ago`;
 };
+// Stock quote time in ET, e.g. "9:52 AM ET" (date added when not today in ET)
+const etTime = (iso) => {
+  if (!iso) return '—';
+  const d = new Date(iso), o = { timeZone: 'America/New_York' };
+  const day = (x) => x.toLocaleDateString('en-US', o);
+  const t = d.toLocaleTimeString('en-US', { ...o, hour: 'numeric', minute: '2-digit' }) + ' ET';
+  return day(d) === day(new Date()) ? t : d.toLocaleDateString('en-US', { ...o, month: 'short', day: 'numeric' }) + ', ' + t;
+};
+const quoteLine = (Q) => Q?.time ? `${etTime(Q.time)} · ${Q.source}${Q.session && Q.session !== 'regular' ? ` · ${Q.session}` : ''}` : Q?.source || '—';
 const fmtDate = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
 // ---------- data loading ----------
@@ -57,6 +70,51 @@ async function loadCrypto() {
   } catch (e) { S.live.err = e.message; }
 }
 
+// fetch with a timeout; no custom headers so cross-origin GETs stay "simple" (CNBC rejects CORS preflights)
+async function fetchT(url, ms = 10000) {
+  const ac = new AbortController(), t = setTimeout(() => ac.abort(), ms);
+  try { return await fetch(url, { signal: ac.signal, cache: 'no-store' }); } finally { clearTimeout(t); }
+}
+const num = (v) => { if (typeof v === 'number') return v; const x = parseFloat(String(v ?? '').replace(/[,$%+\s]/g, '')); return isFinite(x) ? x : null; };
+// CNBC times look like 2026-10-27T09:52:55.891-0400 → make the offset ISO (-04:00) so every browser parses it.
+const isoT = (s) => { if (!s) return null; const d = new Date(String(s).replace(/([+-]\d{2})(\d{2})$/, '$1:$2')); return isNaN(d) ? null : d.toISOString(); };
+const etHour = (iso) => { const p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date(iso)); const g = (t) => +p.find((x) => x.type === t).value; return g('hour') + g('minute') / 60; };
+const sessionOf = (iso) => (etHour(iso) < 9.5 ? 'pre-market' : 'after-hours');
+// One quote shape for both sources: price = what NAV/mNAV use (extended-hours price when it is newer than the regular last).
+function pickQuote(reg, ext, prevClose, source, extra = {}) {
+  const useExt = ext?.price > 0 && ext.time && (!reg.time || Date.parse(ext.time) > Date.parse(reg.time));
+  const main = useExt ? ext : reg;
+  return { price: main.price, time: main.time, session: useExt ? ext.session || sessionOf(ext.time) : 'regular', regular: reg, previous_close: prevClose, source, ...extra };
+}
+async function loadStocks() {
+  try {
+    const r = await fetchT(CNBC + '&t=' + Date.now());
+    if (!r.ok) throw new Error('cnbc ' + r.status);
+    const list = (await r.json())?.FormattedQuoteResult?.FormattedQuote;
+    if (!Array.isArray(list)) throw new Error('cnbc: unexpected format');
+    const got = {};
+    for (const f of list) {
+      if (!STOCKS.includes(f?.symbol)) continue;
+      const reg = { price: num(f.last), time: isoT(f.last_time) };
+      if (!(reg.price > 0) || !reg.time) continue;
+      const e = f.ExtendedMktQuote, ep = num(e?.last), et = isoT(e?.last_time);
+      const ext = ep > 0 && et ? { price: ep, time: et, session: e.type === 'PRE_MKT' ? 'pre-market' : e.type === 'POST_MKT' ? 'after-hours' : null } : null;
+      got[f.symbol] = pickQuote(reg, ext, num(f.previous_day_closing), 'CNBC', { live: true });
+    }
+    if (!got.BMNR) throw new Error('cnbc: no BMNR quote');
+    for (const k of STOCKS) S.live[k] = got[k] || null;
+    S.live.stockErr = null;
+  } catch (e) {
+    for (const k of STOCKS) S.live[k] = null;
+    S.live.stockErr = e.message;
+  }
+}
+// prices.json (written by the GitHub Action) in the same shape
+function savedQuote(q) {
+  if (!(q?.price > 0)) return null;
+  return pickQuote({ price: q.price, time: q.time }, q.extended ? { price: q.extended.price, time: q.extended.time } : null, q.previous_close, 'prices.json', { saved: true });
+}
+
 // Resolve each price: live → prices.json → last announcement reference price.
 function px() {
   const q = S.prices?.quotes || {};
@@ -67,8 +125,8 @@ function px() {
     return { price: ref[k], time: S.holdings.as_of + 'T20:00:00Z', source: 'last announcement' };
   };
   const out = { ETH: pick('ETH'), BTC: pick('BTC') };
-  for (const k of ['BMNR', 'ORBS']) {
-    out[k] = q[k]?.price ? { ...q[k], source: q[k].source } : { price: ref[k] ?? null, time: null, source: 'last announcement' };
+  for (const k of STOCKS) {
+    out[k] = S.live[k]?.price ? S.live[k] : savedQuote(q[k]) || { price: ref[k] ?? null, time: null, source: 'last announcement' };
   }
   return out;
 }
@@ -94,13 +152,14 @@ function render() {
   const ethWow = prevSnap ? nav.ethPerShare / (prevSnap.eth / prevSnap.shares_outstanding) - 1 : null;
 
   // status
-  const stale = !!S.live.err;
-  $('status').innerHTML = `<span class="dot ${stale ? 'stale' : ''}"></span>${stale ? 'Live crypto feed unavailable — using saved prices' : 'ETH/BTC live · refresh 60s'}<br>Holdings as of ${fmtDate(h.as_of)} · times in ${tz}`;
+  const cryptoLive = !S.live.err, stockLive = !!S.live.BMNR, stale = !cryptoLive || !stockLive;
+  const feeds = [stockLive ? 'BMNR/ORBS live (CNBC)' : `BMNR/ORBS saved (prices.json ${ago(S.prices?.fetched_at)})`, cryptoLive ? 'ETH/BTC live (CoinGecko)' : 'ETH/BTC saved'];
+  $('status').innerHTML = `<span class="dot ${stale ? 'stale' : ''}"></span>${feeds.join(' · ')} · refresh 60s<br>Holdings as of ${fmtDate(h.as_of)} · times in ${tz}`;
 
   $('hero').innerHTML = `
     <div class="kpi main"><div class="l">mNAV (Full NAV)</div><div class="v">${full.mnav.toFixed(3)}×</div>
       <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'} · last weekly snapshot ${last ? last.mnav.toFixed(3) + '×' : '—'}</div></div>
-    <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${when(bm.time)}${bm.extended ? `<br>ext. hrs ${usd(bm.extended.price)}` : ''}</div></div>
+    <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
@@ -158,8 +217,7 @@ function render() {
 
   if (val) renderValuation(val, p);
 
-  const q = S.prices?.quotes || {};
-  $('footTimes').innerHTML = `Price timestamps — ETH: ${when(P.ETH.time)} (${P.ETH.source}); BTC: ${when(P.BTC.time)} (${P.BTC.source}); BMNR: ${when(q.BMNR?.time)}; ORBS: ${when(q.ORBS?.time)} · prices.json saved ${when(S.prices?.fetched_at)} (${ago(S.prices?.fetched_at)}). Holdings updated ${fmtDate(h.announced)}.`;
+  $('footTimes').innerHTML = `Price timestamps — ETH: ${when(P.ETH.time)} (${P.ETH.source}); BTC: ${when(P.BTC.time)} (${P.BTC.source}); BMNR: ${quoteLine(P.BMNR)}; ORBS: ${quoteLine(P.ORBS)} · prices.json saved ${when(S.prices?.fetched_at)} (${ago(S.prices?.fetched_at)}). Holdings updated ${fmtDate(h.announced)}.`;
 }
 
 // ---------- valuation (bear / base / bull) ----------
@@ -420,13 +478,24 @@ async function init() {
   } catch (e) {
     $('status').textContent = 'Failed to load data files: ' + e.message; return;
   }
-  await Promise.all([loadPrices(), loadCrypto()]);
+  await Promise.all([loadPrices(), loadCrypto(), loadStocks()]);
   render();
   setupRange();
   renderBacktest();
   if (window.Chart) renderHistory(); else { renderHistory(); window.addEventListener('load', renderHistory); }
   const mq = window.matchMedia('(max-width: 600px)'); mq.addEventListener?.('change', () => window.Chart && renderHistory());
-  setInterval(async () => { await loadCrypto(); render(); }, 60000);
-  setInterval(async () => { await loadPrices(); render(); }, 300000);
+  // Re-poll CNBC + CoinGecko every 60 s while the tab is visible (prices.json every 5th tick, or every tick while CNBC is down).
+  // render() only rewrites the price-dependent cards/tables; the history charts don't depend on live prices and are left alone.
+  let busy = false, last = Date.now(), tick = 0;
+  const refresh = async () => {
+    if (busy || document.hidden) return;
+    busy = true; last = Date.now(); tick++;
+    try {
+      await Promise.all([loadCrypto(), loadStocks(), ...(tick % 5 === 0 || S.live.stockErr ? [loadPrices()] : [])]);
+      render();
+    } finally { busy = false; }
+  };
+  setInterval(refresh, REFRESH_MS);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - last >= REFRESH_MS) refresh(); });
 }
 init();

@@ -5,10 +5,9 @@ Live site: **https://capeag.github.io/bmnr-nav-tracker/**
 A static dashboard (plain HTML/CSS/JS + Chart.js from a CDN, no build step) that tracks the NAV, NAV per share and
 mNAV of **Bitmine Immersion Technologies (NYSE: BMNR)** using:
 
-* **Live ETH & BTC prices**, fetched in the browser from the free CoinGecko API on load and every 60 s
-  (falls back to the last saved prices in `data/prices.json`, then to the last announcement's prices).
-* **BMNR and ORBS quotes**, saved to `data/prices.json` by a GitHub Action every ~15 min during US market
-  hours (Yahoo Finance chart endpoint, keyless; Stooq CSV as fallback). The page re-reads that file every 5 min.
+* **Live BMNR and ORBS quotes**, fetched in the browser from CNBC's quote service on load and every 60 s
+  (incl. pre-market / after-hours), with `data/prices.json` (GitHub Action) as the fallback — see [Price sources](#price-sources).
+* **Live ETH & BTC prices**, fetched in the browser from the free CoinGecko API on load and every 60 s.
 * **Weekly holdings** from Bitmine's Monday-morning holdings releases, transcribed into `data/releases.json`; the
   week-by-week history (`data/history.json`) and latest balance sheet (`data/holdings.json`) are generated from it.
 
@@ -38,13 +37,38 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV, weekly `accretion`). Don't edit by hand. |
 | `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v3 parameters with sources; ORBS share count). |
 | `data/valuation.json` | **Bear / Base / Bull valuation inputs**, each with sources and a rationale; `derived` (staked share, trailing 4/13/26-week yields, staked-ETH trajectory) is refreshed by the weekly build. |
-| `data/prices.json` | Latest BMNR / ORBS (+ ETH, BTC) quotes, written by the Action. |
+| `data/prices.json` | Latest BMNR / ORBS (+ ETH, BTC) quotes, written by the Action — the fallback when the live CNBC / CoinGecko fetches fail. |
 | `scripts/model.mjs` | The share-count estimator (weekly cash shortfall → share-funded amount → issuance, capped surplus carry-forward, roll-forward from an official count). |
 | `data/onchain-purchases.json` | Bitmine-linked on-chain ETH receipts posted by trackers (Lookonchain etc.) — cross-check only, see below. |
 | `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
-| `scripts/fetch-prices.mjs` | Price fetcher used by the Action. |
+| `scripts/fetch-prices.mjs` | Price fetcher used by the Action (backup feed). |
 | `.github/workflows/prices.yml` | Cron every 15 min 13:00–21:59 UTC Mon–Fri (+ hourly pre/after-hours) and manual dispatch; commits only when prices changed. |
+
+## Price sources
+
+| Asset | 1st: live in the browser (on load + every 60 s) | 2nd: `data/prices.json` | 3rd |
+| --- | --- | --- | --- |
+| BMNR, ORBS (Eightco stock) | CNBC quote service, one request for both symbols: `https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=BMNR%7CORBS&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json` (symbols separated by `\|` = `%7C`; sends `access-control-allow-origin: *`) | written by the GitHub Action (Yahoo chart endpoint → Stooq) | last holdings release's reference price |
+| ETH, BTC | CoinGecko `simple/price` | same file | same |
+
+* **Which BMNR price is used.** CNBC returns the regular-session `last` / `last_time` and, with `exthrs=1`, an
+  `ExtendedMktQuote` (`PRE_MKT` / `POST_MKT`) with its own `last` / `last_time`. The page uses whichever is more recent:
+  during regular hours that's the regular last; before the open the pre-market price, after the close the after-hours
+  price (labelled "pre-market" / "after-hours", with the regular close shown underneath). NAV/mNAV, market cap and the
+  valuation use that price. The change % is vs. CNBC's previous close. Numbers are parsed with commas stripped.
+* **Label.** e.g. "BMNR $21.05 · +0.48% · 9:55 AM ET · CNBC" (date added when the quote isn't from today); the header
+  says "BMNR/ORBS live (CNBC)" or "BMNR/ORBS saved (prices.json …ago)", and the footer lists every price's time and source.
+* **Fallback.** Any CNBC failure (network, timeout after 10 s, HTTP error, CORS, unexpected format, no BMNR quote) silently
+  switches to `data/prices.json` (newer of the Pages copy and the raw GitHub copy) with its own timestamp and an amber
+  status dot; the next 60 s poll tries CNBC again. ETH/BTC fall back the same way when CoinGecko fails.
+* **Refresh.** Every 60 s while the tab is visible (paused when `document.hidden`, immediate refresh on return if a
+  poll was missed): CNBC + CoinGecko, plus `prices.json` every 5th tick (every tick while CNBC is down). Only the
+  price-dependent cards/tables are re-rendered (KPIs, NAV, holdings, valuation); the history charts are untouched, so no flicker.
+* **GitHub Action backup.** `.github/workflows/prices.yml` still writes `data/prices.json`, but GitHub's cron runs late or
+  gets skipped, so it is only the fallback now.
+* **No Yahoo in the browser.** Yahoo Finance's endpoints send no CORS header (and rate-limit with 429), and Stooq's CSV
+  has no CORS header either, so they can only be used server-side (the Action).
 
 ## NAV formulas
 
@@ -262,6 +286,6 @@ v2 was 627,963,701 (623.1–633.4M).
 * **ORBS** = Eightco Holdings (NASDAQ: ORBS) **stock** — not the "Orbs" crypto token on CoinGecko. 100,655,143 shares per
   Bitmine's 10-Q; weekly snapshots use the reported $ value, the live page uses shares × live price.
 * Beast Industries is carried at the disclosed $180M. BMNP preferred and other liabilities are not deducted.
-* GitHub cron schedules can run late or be skipped under load; the page always shows each price's timestamp.
+* GitHub cron schedules can run late or be skipped under load, which is why stock prices are fetched live from CNBC; the page always shows each price's timestamp and source.
 
 Not investment advice.
