@@ -39,6 +39,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/valuation.json` | **Bear / Base / Bull valuation inputs**, each with sources and a rationale; `derived` (staked share, trailing 4/13/26-week yields, staked-ETH trajectory) is refreshed by the weekly build. |
 | `data/prices.json` | Latest BMNR / ORBS (+ ETH, BTC) quotes, written by the Action — the fallback when the live CNBC / CoinGecko fetches fail. |
 | `scripts/model.mjs` | The share-count estimator (weekly cash shortfall → share-funded amount → issuance, capped surplus carry-forward, roll-forward from an official count). |
+| `data/onchain-wallets.json` / `data/onchain-check.json` | Bitmine-attributed wallets (with evidence) and the weekly wallet-based ETH-price cross-check written by `scripts/onchain-check.mjs`. |
 | `data/onchain-purchases.json` | Bitmine-linked on-chain ETH receipts posted by trackers (Lookonchain etc.) — cross-check only, see below. |
 | `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
@@ -76,6 +77,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 * Crypto/Cash NAV = ETH + BTC + cash; ETH-only NAV = ETH
 * Enterprise Value = market cap − cash (that row's "mNAV" = market cap ÷ EV)
 * NAV/share = NAV ÷ estimated shares outstanding; mNAV = BMNR price ÷ NAV/share
+* NAV/share range (NAV & mNAV card) = live Full NAV ÷ share-count high/low estimate; mNAV range = live BMNR ÷ those. The NAV/share chart shades the same weekly range.
 * Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.
 
 ## Valuation (Bear / Base / Bull)
@@ -227,6 +229,20 @@ the tracked part of each week at those figures made the Dec–Feb quarterly cost
 with the weekly average) and Mar–May no better (−0.55–0.74% vs −0.55%), with dated daily prices no better either.
 So they are shown as an "on-chain check" in the data table only. Treat every tracker attribution as probable, not certain.
 
+**Weekly wallet check (`scripts/onchain-check.mjs`).** A second, wallet-based cross-check. `data/onchain-wallets.json`
+lists Bitmine-attributed addresses: two clusters of 62 and 129 wallets that each sent exactly 0.001 ETH to one
+otherwise-unused address on Aug 31, 2026 (Bitmine's fiscal year-end), a coordinated proof-of-control that includes
+wallets trackers had tied to Bitmine, plus tracker-posted wallets added since (each with its source). For each
+reporting week (previous as_of → as_of, ~Sunday 5pm ET) the script finds ETH sent to those wallets by labeled
+exchanges/OTC desks (FalconX, Coinbase, Kraken, BitGo, Galaxy…), prices each transfer at the hourly ETH/USD candle
+(Coinbase; Binance fallback) and stores the ETH-weighted price, the model's assumed price, the difference, the share of
+the week's estimated purchases it covers and every transfer in `data/onchain-check.json`; the build copies it to
+`snapshots[].onchain_wallet_check` and the This-week card. Free, keyless sources only: an archive RPC
+(`eth.drpc.org`, override with `ETH_RPC`) pre-filters wallets by balance/nonce changes, Blockscout supplies transfers
+and labels. Limits: attribution is inferred, not disclosed; wallets created after Aug 31, 2026 are only covered once
+added from tracker posts; transfers are settlement withdrawals (often after the trade, sometimes in the next week), and
+transfer-time prices are not trade prices. Cross-check only — never the price used unless Bitmine discloses it.
+
 **Model v2** (Jul–Oct 2026, before this revision): ETH at weekly average × 1.05, unlimited surplus carry-forward, no
 ETH-price range. **Model v1** (before the first backtest): rewards on all ETH staked at the previous report, ETH at the plain weekly average price, $3,257,538/week opex (Mar–May G&A − SBC + cost of sales ÷ 13), no
 investments term, each week floored at zero issuance.
@@ -278,6 +294,10 @@ v2 was 627,963,701 (623.1–633.4M).
 
    If the release states a new cumulative buyback total, update `buyback_aggregate` in `data/releases.json` too.
    If a release ever states the dollars spent on ETH, pass `--eth-cost <USD>` (that week's ETH price becomes "disclosed").
+   On-chain wallet check (after add-week): add any new tracker-posted Bitmine wallet to `data/onchain-wallets.json →
+   tracker` (address, first_seen, source URL), then run `node scripts/onchain-check.mjs --weeks 2 && node
+   scripts/build-history.mjs` (re-checks last week too, since withdrawals often land late; ~2–5 min on free APIs).
+   It's a cross-check only; "n/a" is a valid result.
    Optional cross-check: add any tracker posts of Bitmine-linked OTC/exchange withdrawals that week (Lookonchain,
    OnchainLens, EmberCN on X) to `data/onchain-purchases.json` (`time_utc`, `eth`, `usd`, `source`); they are shown,
    not used for the price.

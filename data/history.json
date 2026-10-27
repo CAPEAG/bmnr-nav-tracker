@@ -5342,6 +5342,15 @@
           "https://x.com/lookonchain/status/2094582513096347988"
         ]
       },
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2460.13,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
       "est_purchase_cost": 62175026,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -5466,6 +5475,15 @@
         2454.51,
         2504.1
       ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2479.31,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
       "est_purchase_cost": 61976682,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -5590,6 +5608,15 @@
         2492.8,
         2543.16
       ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2517.98,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
       "est_purchase_cost": 62989307,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -5722,6 +5749,15 @@
           "https://x.com/lookonchain/status/2102233567527141819"
         ]
       },
+      "onchain_wallet_check": {
+        "status": "ok",
+        "onchain_vwap": 2753.41,
+        "onchain_eth": 12500,
+        "assumed": 2704.82,
+        "diff_pct": 1.8,
+        "coverage": 0.84,
+        "transfers": 2
+      },
       "est_purchase_cost": 40074138,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -5846,6 +5882,15 @@
         2658.4,
         2712.11
       ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2685.26,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
       "est_purchase_cost": 33716432,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -5978,6 +6023,15 @@
           "https://x.com/lookonchain/status/2107646165647065219"
         ]
       },
+      "onchain_wallet_check": {
+        "status": "ok",
+        "onchain_vwap": 2695.77,
+        "onchain_eth": 12500,
+        "assumed": 2562.95,
+        "diff_pct": 5.18,
+        "coverage": 1.25,
+        "transfers": 1
+      },
       "est_purchase_cost": 25618161,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -6102,6 +6156,15 @@
         2403.63,
         2452.18
       ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2427.9,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
       "est_purchase_cost": 24346351,
       "buyback_shares": 0,
       "buyback_price": null,
@@ -6227,6 +6290,15 @@
         2368.18,
         2416.02
       ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2392.1,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
       "est_purchase_cost": 19004564,
       "buyback_shares": 2040000,
       "buyback_price": 22.48,

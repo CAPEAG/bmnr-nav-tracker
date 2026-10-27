@@ -1,0 +1,199 @@
+{
+  "weeks": {
+    "2026-09-08": {
+      "as_of": "2026-09-07",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2460.13,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 2465.27,
+      "reported_bought_eth_est": 25273,
+      "coverage": null,
+      "unlabeled_eth": 0,
+      "transfers": [],
+      "checked": "2026-10-27T22:16:42.236Z"
+    },
+    "2026-09-14": {
+      "as_of": "2026-09-13",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2479.31,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 2484.49,
+      "reported_bought_eth_est": 24998,
+      "coverage": null,
+      "unlabeled_eth": 15000,
+      "transfers": [
+        {
+          "time_utc": "2026-09-08T22:16",
+          "eth": 15000,
+          "from": "0x040d6d590f4deb5013cdfdd7cd0df46ec9fe0f3f",
+          "label": null,
+          "to": "0x949a2c328bda464469a5ff2b251151bccfdb9c1f",
+          "price": 2486.57,
+          "counted": false,
+          "tx": "0x43c0156852c1e174787431e0edf653044b520f7644d3e9cffc1843485cf85141"
+        }
+      ],
+      "checked": "2026-10-27T22:16:42.236Z"
+    },
+    "2026-09-21": {
+      "as_of": "2026-09-20",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2517.98,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 2523.24,
+      "reported_bought_eth_est": 25016,
+      "coverage": null,
+      "unlabeled_eth": 0,
+      "transfers": [],
+      "checked": "2026-10-27T22:16:42.237Z"
+    },
+    "2026-09-28": {
+      "as_of": "2026-09-27",
+      "status": "ok",
+      "onchain_vwap": 2753.41,
+      "onchain_eth": 12500,
+      "assumed": 2704.82,
+      "assumed_basis": "assumed",
+      "diff_pct": 1.8,
+      "week_avg": 2710.47,
+      "reported_bought_eth_est": 14816,
+      "coverage": 0.84,
+      "unlabeled_eth": 0,
+      "transfers": [
+        {
+          "time_utc": "2026-09-21T17:00",
+          "eth": 7499.9,
+          "from": "0xf30ba13e4b04ce5dc4d254ae5fa95477800f0eb0",
+          "label": "Kraken: Hot Wallet 2",
+          "to": "0xaefc17967f63fe8c7ff711e66c216ab63c7dc00b",
+          "price": 2745.85,
+          "counted": true,
+          "tx": "0x16562f3376ad7f11f48438c293ae6de3be1c7baa41a5a48a4bfe9c4a600f2705"
+        },
+        {
+          "time_utc": "2026-09-21T19:50",
+          "eth": 5000,
+          "from": "0xf30ba13e4b04ce5dc4d254ae5fa95477800f0eb0",
+          "label": "Kraken: Hot Wallet 2",
+          "to": "0xaefc17967f63fe8c7ff711e66c216ab63c7dc00b",
+          "price": 2764.74,
+          "counted": true,
+          "tx": "0xbc6bd349ae70062ad5916cc65b88c3763f0579ac0134665c3cac1c28e5095017"
+        }
+      ],
+      "checked": "2026-10-27T22:16:42.237Z"
+    },
+    "2026-10-05": {
+      "as_of": "2026-10-04",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2685.26,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 2690.87,
+      "reported_bought_eth_est": 12556,
+      "coverage": null,
+      "unlabeled_eth": 14836,
+      "transfers": [
+        {
+          "time_utc": "2026-09-29T21:58",
+          "eth": 14835.63,
+          "from": "0x5933446f3888bc5eda2656e8e76857f5ff9bc8e3",
+          "label": null,
+          "to": "0x77feb0ecab03cf07f150da865a2262cc91acc53a",
+          "price": 2681.15,
+          "counted": false,
+          "tx": "0x98eea68b58ebcd69cfe4fdca8fed2786fc78cfd5eeba6d1f05fff1210af4c6d2"
+        }
+      ],
+      "checked": "2026-10-27T22:16:42.237Z"
+    },
+    "2026-10-12": {
+      "as_of": "2026-10-11",
+      "status": "ok",
+      "onchain_vwap": 2695.77,
+      "onchain_eth": 12500,
+      "assumed": 2562.95,
+      "assumed_basis": "assumed",
+      "diff_pct": 5.18,
+      "week_avg": 2568.31,
+      "reported_bought_eth_est": 9996,
+      "coverage": 1.25,
+      "unlabeled_eth": 0,
+      "transfers": [
+        {
+          "time_utc": "2026-10-06T20:19",
+          "eth": 12500,
+          "from": "0xbd02c51150a4ab6ce97b9de2025644594f3e75b8",
+          "label": "BitGo (WalletSimple multisig, tagged BitGo 1)",
+          "to": "0xe0cd1fb17a9fb62d2410403cdc28b11acd1e8e22",
+          "price": 2695.77,
+          "counted": true,
+          "tx": "0x608061c248dee6230075fd583a2f9f97455bdb90c64a07f6727aed2e7edcdd80"
+        }
+      ],
+      "checked": "2026-10-27T22:16:42.237Z"
+    },
+    "2026-10-19": {
+      "as_of": "2026-10-18",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2427.9,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 2432.98,
+      "reported_bought_eth_est": 10028,
+      "coverage": null,
+      "unlabeled_eth": 0,
+      "transfers": [],
+      "checked": "2026-10-27T22:16:42.237Z"
+    },
+    "2026-10-26": {
+      "as_of": "2026-10-25",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2392.1,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 2397.1,
+      "reported_bought_eth_est": 7945,
+      "coverage": null,
+      "unlabeled_eth": 0,
+      "transfers": [],
+      "checked": "2026-10-27T22:16:42.237Z"
+    }
+  },
+  "description": "Weekly on-chain cross-check of the ETH price paid (scripts/onchain-check.mjs). onchain_vwap = ETH-weighted hourly ETH/USD price at the times labeled exchanges/OTC desks sent ETH to Bitmine-attributed wallets (data/onchain-wallets.json). These are settlement transfers, not trade prices, and attribution is inferred, so this is a cross-check only — never the basis for the price unless Bitmine discloses it.",
+  "method": {
+    "wallets": 192,
+    "clusters": [
+      {
+        "id": "fy-end-proof-1",
+        "confidence": "high",
+        "n": 62
+      },
+      {
+        "id": "fy-end-proof-2",
+        "confidence": "high",
+        "n": 129
+      }
+    ],
+    "tracker_wallets": 1,
+    "min_eth": 50,
+    "window": "previous as_of 21:00 UTC → as_of 21:00 UTC (~Sunday 5pm ET)",
+    "price": "Coinbase Exchange ETH-USD hourly (H+L+C)/3; Binance ETHUSDT fallback",
+    "transfers": "archive RPC balance/nonce pre-filter, then Blockscout txlist + txlistinternal"
+  }
+}

@@ -88,6 +88,11 @@ const kBuyback = provisional ? (agg.amount - disclosedCost) / provisional : 1;
 // filed quarters ('assumed', ± the largest quarterly deviation as the range). On-chain tracker prices are recorded per
 // week as a cross-check; they are used ('on-chain') only if assumptions.share_estimation.use_onchain_price is true.
 const OC = (await load('onchain-purchases.json', { events: [] })).events;
+// Wallet-based weekly check (scripts/onchain-check.mjs → onchain-check.json): cross-check only, never the price used.
+const OCW = (await load('onchain-check.json', { weeks: {} })).weeks;
+const ocwFor = (date, used) => { const w = OCW[date]; if (!w) return undefined;
+  return { status: w.status, onchain_vwap: w.onchain_vwap, onchain_eth: w.onchain_eth, assumed: used,
+    diff_pct: w.onchain_vwap && used ? r((w.onchain_vwap / used - 1) * 100, 2) : null, coverage: w.coverage, transfers: w.transfers.filter((t) => t.counted).length }; };
 const QS = (C.eth_cost_quarterly?.quarters || []).map((q) => {
   const ws = wk.filter((w) => w.prev && w.cur.as_of > q.from && w.cur.as_of <= q.to);
   const add = ws.reduce((t, w) => t + (w.cur.eth - w.prev.eth), 0);
@@ -264,6 +269,7 @@ for (let i = 0; i < wk.length; i++) {
     eth_price_factor: f?.ethFactor != null ? r(f.ethFactor, 4) : undefined,
     eth_price_range: f && f.ethUnc ? [r(f.ethPrice * (1 - f.ethUnc), 2), r(f.ethPrice * (1 + f.ethUnc), 2)] : null,
     onchain_check: ocFor(i) || undefined,
+    onchain_wallet_check: ocwFor(cur.date, f ? r(f.ethPrice, 2) : null),
     other_digital_asset_cash: f?.extraCash ? r(f.extraCash) : undefined, other_digital_asset_cash_note: f?.extraCash ? f.extraWhat : undefined,
     est_purchase_cost: f ? r(f.ethCost) : null,
     buyback_shares: cur.buyback_shares || 0, buyback_price: f?.bbPrice ? r(f.bbPrice, 4) : null,

@@ -205,6 +205,8 @@ function render() {
       <div>Staking rewards ${tagA}</div><div>~${n(w.est_staking_eth)} ETH (${(w.staking_yield_7d * 100).toFixed(2)}% stated yield)</div>
       <div>ETH bought ${tagA}</div><div>${n(w.est_purchased_eth)} ETH × ${usd(w.eth_price_used, 0)} = ${big(w.est_purchase_cost)}</div>
       <div>ETH price paid</div><div>${usd(w.eth_price_used, 0)} <span class="tag ${w.eth_price_basis === 'assumed' ? 'a' : 'o'}">${w.eth_price_basis}</span><br><span class="fine">${ethBasisTxt(w)}</span></div>
+      <div>On-chain check</div><div>${(() => { const c = w.onchain_wallet_check;
+        return c && c.status === 'ok' ? `~${usd(c.onchain_vwap, 0)} <span class="${cls(c.diff_pct)}">(${c.diff_pct >= 0 ? '+' : ''}${c.diff_pct.toFixed(1)}% vs assumed)</span><br><span class="fine">${n(c.onchain_eth)} ETH to Bitmine-attributed wallets, priced at transfer time</span>` : `n/a<br><span class="fine">${c ? 'no exchange/OTC transfers to known Bitmine wallets found' : 'not checked yet'}</span>`; })()}</div>
       ${w.other_digital_asset_cash ? `<div>Other digital-asset cash (10-Q)</div><div>${big(w.other_digital_asset_cash)}</div>` : ''}
       <div>Staked ETH ${tagO}</div><div>${n(w.eth_staked)}</div>
       <div>Share buyback</div><div>${w.buyback_shares ? `${n(w.buyback_shares)} sh @ ${usd(w.buyback_price)} = ${big(w.buyback_cost)} ${w.buyback_price_basis === 'disclosed' ? tagO : tagA}` : 'none disclosed'}</div>

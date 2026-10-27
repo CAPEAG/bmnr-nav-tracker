@@ -76,6 +76,15 @@
       2368.18,
       2416.02
     ],
+    "onchain_wallet_check": {
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 2392.1,
+      "diff_pct": null,
+      "coverage": null,
+      "transfers": 0
+    },
     "est_purchase_cost": 19004564,
     "buyback_shares": 2040000,
     "buyback_price": 22.48,
@@ -181,7 +190,7 @@
       }
     }
   },
-  "last_updated": "2026-10-27T13:43:00.232Z",
+  "last_updated": "2026-10-27T22:16:48.834Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -195,6 +204,6 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-10-27T13:43:00.233Z"
+    "built": "2026-10-27T22:16:48.835Z"
   }
 }
