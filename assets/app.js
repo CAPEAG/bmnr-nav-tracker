@@ -73,6 +73,13 @@ function px() {
   return out;
 }
 
+// ETH purchase price basis, in plain words
+function ethBasisTxt(r) {
+  if (r.eth_price_basis === 'disclosed') return r.eth_price_factor ? `week avg ${usd(r.eth_week_avg, 0)} × ${r.eth_price_factor} (that quarter's 10-Q paid ÷ market)` : 'stated in the release';
+  if (r.eth_price_basis === 'on-chain') return 'tracked on-chain transfers';
+  return `week avg ${usd(r.eth_week_avg, 0)} × 10-Q factor ${r.eth_price_factor ?? ''}${r.eth_price_range ? ` · low–high est. ${usd(r.eth_price_range[0], 0)}–<wbr>${usd(r.eth_price_range[1], 0)}` : ''}`;
+}
+
 // ---------- rendering ----------
 function render() {
   const h = S.holdings, P = px();
@@ -95,7 +102,7 @@ function render() {
       <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'} · last weekly snapshot ${last ? last.mnav.toFixed(3) + '×' : '—'}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${when(bm.time)}${bm.extended ? `<br>ext. hrs ${usd(bm.extended.price)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot</div></div>
-    <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>range ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
+    <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
     <div class="kpi"><div class="l">ETH / share <span class="tag a">est.</span></div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH ÷ ${(h.shares_outstanding / 1e6).toFixed(1)}M sh${ethWow != null ? ` · <span class="${cls(ethWow)}">${pct(ethWow, 2)}</span> WoW` : ''}</div></div>
     ${accKpi()}`;
@@ -118,24 +125,34 @@ function render() {
     `<tr class="hl"><td>Total (Full NAV)</td><td></td><td></td><td>${big(fullV)}</td><td>100%</td></tr>`;
   const days = Math.max(0, (Date.now() - Date.parse(h.as_of + 'T20:00:00Z')) / 86400000);
   const accrued = weeklyStakingEth(h.eth_staked, h.assumptions.weekly_staking_yield, days);
-  $('holdNote').innerHTML = `ORBS share count is assumed (last disclosed). ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (range ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])}): last official count ${n(h.shares_official.shares)} on ${fmtDate(h.shares_official.date)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology and the backtest below).` : ''}`;
+  $('holdNote').innerHTML = `ORBS share count is assumed (last disclosed). ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (low–high est. ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])} since the last official count): last official count ${n(h.shares_official.shares)} on ${fmtDate(h.shares_official.date)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology and the backtest below).` : ''}`;
 
   // This week
   const w = h.last_week;
   const tagA = '<span class="tag a">est.</span>', tagO = '<span class="tag o">reported</span>';
-  const rng = (x) => (x ? `${n(x[0])}–${n(x[1])}` : '—');
+  const lh = (x, f = n) => (x ? `low–high est. ${f(x[0])}–<wbr>${f(x[1])}` : '');
+  const anchorTxt = `since ${fmtDate(w.shares_anchor.date)} official count`;
+  const short = w.cash_shortfall, used = w.surplus_from_prior || 0, fund = w.funded_by_shares || 0, out = w.surplus_carried_out || 0;
+  const carryTxt = out > 0 ? `; ${big(out)} surplus carried forward (up to 3 weeks)` : '';
+  const issuedTxt = w.est_shares_issued > 0
+    ? `${n(w.est_shares_issued)} @ ${usd(w.assumed_issue_price)}<br><span class="fine">${lh(w.est_shares_issued_range)}</span>`
+    : `0 — ${short <= 0 ? 'cash covered all spending' : 'shortfall covered by surplus carried from prior weeks'}${carryTxt}${w.est_shares_issued_range?.[1] > 0 ? `<br><span class="fine">${lh(w.est_shares_issued_range)}</span>` : ''}`;
   $('weekCard').innerHTML = `<div class="card-h"><h2>This week · ${fmtDate(w.date)}</h2><span class="pill"><a href="${w.sec_8k}" target="_blank" rel="noopener">8-K</a>${w.x_post ? ` · <a href="${w.x_post}" target="_blank" rel="noopener">X post</a>` : ''}</span></div>
     <div class="kv">
       <div>ETH held ${tagO}</div><div>${n(w.eth)} (${w.eth_change >= 0 ? '+' : ''}${n(w.eth_change)})</div>
       <div>Staking rewards ${tagA}</div><div>~${n(w.est_staking_eth)} ETH (${(w.staking_yield_7d * 100).toFixed(2)}% stated yield)</div>
-      <div>ETH bought ${tagA}</div><div>${n(w.est_purchased_eth)} ETH @ ${usd(w.assumed_purchase_price, 0)} = ${big(w.est_purchase_cost)}</div>
+      <div>ETH bought ${tagA}</div><div>${n(w.est_purchased_eth)} ETH × ${usd(w.eth_price_used, 0)} = ${big(w.est_purchase_cost)}</div>
+      <div>ETH price paid</div><div>${usd(w.eth_price_used, 0)} <span class="tag ${w.eth_price_basis === 'assumed' ? 'a' : 'o'}">${w.eth_price_basis}</span><br><span class="fine">${ethBasisTxt(w)}</span></div>
+      ${w.other_digital_asset_cash ? `<div>Other digital-asset cash (10-Q)</div><div>${big(w.other_digital_asset_cash)}</div>` : ''}
       <div>Staked ETH ${tagO}</div><div>${n(w.eth_staked)}</div>
       <div>Share buyback</div><div>${w.buyback_shares ? `${n(w.buyback_shares)} sh @ ${usd(w.buyback_price)} = ${big(w.buyback_cost)} ${w.buyback_price_basis === 'disclosed' ? tagO : tagA}` : 'none disclosed'}</div>
       <div>Cash ${tagO}</div><div>${big(w.cash_prev)} → ${big(w.cash)}</div>
       <div>Cash opex + BMNP div. ${tagA}</div><div>${big(w.est_cash_opex)}</div>
-      <div>Implied equity raise ${tagA}</div><div>${big(w.implied_equity_raise)}</div>
-      <div>Shares issued ${tagA}</div><div>${n(w.est_shares_issued)} @ ${usd(w.assumed_issue_price)} <span class="fine">(${rng(w.est_shares_issued_range)})</span></div>
-      <div>Shares outstanding ${tagA}</div><div>${n(w.shares_outstanding)}<br><span class="fine">${rng(w.shares_outstanding_range)}</span></div>
+      <div>Cash shortfall (spending − cash drop) ${tagA}</div><div>${short < 0 ? `${big(short)} (surplus)` : big(short)}<br><span class="fine">${big(w.est_spending)} spent − ${big(-w.cash_change)} cash drop${w.disclosed_proceeds ? ` − ${big(w.disclosed_proceeds)} disclosed proceeds` : ''}</span></div>
+      ${used > 0 ? `<div>Surplus carried from prior weeks</div><div>−${big(used)}</div>` : ''}
+      <div>Funded by share sales ${tagA}</div><div>${big(fund)}${w.funded_by_shares_range?.[1] > 0 ? `<br><span class="fine">${lh(w.funded_by_shares_range, big)}</span>` : ''}</div>
+      <div>Shares issued ${tagA}</div><div>${issuedTxt}</div>
+      <div>Shares outstanding ${tagA}</div><div>${n(w.shares_outstanding)}<br><span class="fine">low–high est. ${anchorTxt}: ${n(w.shares_outstanding_range[0])}–<wbr>${n(w.shares_outstanding_range[1])}</span></div>
       <div>NAV/share · mNAV at report</div><div>${usd(w.nav_per_share)} · ${w.mnav.toFixed(3)}×</div>
     </div>`;
 
@@ -272,8 +289,14 @@ const shortDate = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('en-US', 
 function renderHistory() {
   const all = S.history.snapshots, s = inRange(all);
   const cpTag = (r) => (r.checkpoints_in_week || []).map((c) => `<a href="${c.url}" target="_blank" rel="noopener" title="${c.basis}${c.used_as_anchor ? '' : ' — flagged, not used as anchor'}" class="tag ${c.used_as_anchor ? 'o' : 'w'}">10-Q ${shortDate(c.date)}: ${(c.shares / 1e6).toFixed(2)}M</a>`).join(' ');
-  $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Δ ETH</th><th>Staking est.</th><th>Bought est. @</th><th>Buyback</th><th>Cash</th><th>Other uses</th><th>Raise est.</th><th>Issued est.</th><th>Shares</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
-    s.slice().reverse().map((r) => `<tr class="${r.shares_basis === 'official' ? 'off' : ''}"><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth) + ' @ ' + usd(r.assumed_purchase_price, 0)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${r.investments ? big(r.investments) : r.disclosed_proceeds ? '−' + big(r.disclosed_proceeds) + ' pref.' : '—'}</td><td>${r.implied_equity_raise == null ? '—' : big(r.implied_equity_raise)}</td><td>${r.est_shares_issued == null ? (r.checkpoints_in_week ? '<span class="fine">re-anchored</span>' : '—') : n(r.est_shares_issued)}</td><td title="range ${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}">${n(r.shares_outstanding)} ${r.shares_basis === 'official' ? '<span class="tag o">official</span>' : '<span class="tag a">est.</span>'}${r.checkpoints_in_week ? '<br>' + cpTag(r) : ''}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
+  const dash = (x, f = big) => (x == null ? '—' : f(x));
+  const ethCell = (r) => r.eth_price_used == null ? '—'
+    : `${usd(r.eth_price_used, 0)} <span class="tag ${r.eth_price_basis === 'assumed' ? 'a' : 'o'}">${r.eth_price_basis}</span>${r.onchain_check ? `<br><span class="fine" title="${n(r.onchain_check.eth)} ETH in ${r.onchain_check.events} tracked transfer(s), valued at spot by the trackers">on-chain check ${usd(r.onchain_check.implied_price, 0)}</span>` : ''}`;
+  const issCell = (r) => r.est_shares_issued == null ? (r.checkpoints_in_week ? '<span class="fine">re-anchored</span>' : '—')
+    : r.est_shares_issued > 0 ? `${n(r.est_shares_issued)} @ ${usd(r.assumed_issue_price)}<br><span class="fine">low–high ${n(r.est_shares_issued_range[0])}–${n(r.est_shares_issued_range[1])}</span>`
+    : `0${r.est_shares_issued_range?.[1] > 0 ? `<br><span class="fine">low–high 0–${n(r.est_shares_issued_range[1])}</span>` : ''}`;
+  $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Δ ETH</th><th>Staking<br>est.</th><th>Bought<br>est.</th><th>ETH price<br>paid</th><th>Buyback</th><th>Cash</th><th>Other<br>uses</th><th>Shortfall<br>(spending − cash drop)</th><th>Surplus from<br>prior weeks</th><th>Funded by<br>share sales</th><th>Shares issued<br>est.</th><th>Shares<br>(low–high est.)</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
+    s.slice().reverse().map((r) => `<tr class="${r.shares_basis === 'official' ? 'off' : ''}"><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth)}</td><td>${ethCell(r)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${[r.investments ? big(r.investments) : '', r.other_digital_asset_cash ? big(r.other_digital_asset_cash) + ' 10-Q†' : '', r.disclosed_proceeds ? '−' + big(r.disclosed_proceeds) + ' pref.' : ''].filter(Boolean).join('<br>') || '—'}</td><td>${r.cash_shortfall == null ? '—' : r.cash_shortfall < 0 ? big(r.cash_shortfall) + ' <span class="fine">surplus</span>' : big(r.cash_shortfall)}</td><td>${r.surplus_from_prior ? '−' + big(r.surplus_from_prior) : '—'}</td><td>${dash(r.funded_by_shares)}</td><td>${issCell(r)}</td><td>${n(r.shares_outstanding)} ${r.shares_basis === 'official' ? '<span class="tag o">official</span>' : '<span class="tag a">est.</span>'}<br><span class="fine">${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}</span>${r.checkpoints_in_week ? '<br>' + cpTag(r) : ''}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
   renderAccretion(s);
   if (!window.Chart) return;
   const labels = s.map((r) => shortDate(r.as_of));
@@ -356,16 +379,23 @@ function renderBacktest() {
   const B = S.backtest; if (!B) { $('backtest').style.display = 'none'; return; }
   const m = (x) => (x == null ? '—' : (x >= 0 ? '+' : '−') + n(Math.abs(x)));
   const p = (x) => (x == null ? '' : ` (${x >= 0 ? '+' : ''}${x.toFixed(2)}%)`);
+  const sg = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(x).toFixed(2)}%`;
   const sm = B.summary;
-  $('btSummary').innerHTML = ['v1', 'v2', 'v2_walkforward'].filter((k) => sm[k]).map((k) => `<div class="kpi"><div class="l">${B.models[k].label}</div><div class="v">${sm[k].mean_abs_error_pct.toFixed(2)}%</div><div class="s">mean |error| on ${sm[k].intervals} clean intervals · ${n(sm[k].mean_abs_error_shares)} sh · ${sm[k].within_range}/${sm[k].intervals} inside range</div></div>`).join('');
-  $('btTable').innerHTML = `<tr><th>Interval (official → official)</th><th>Official Δ shares</th><th>Official ATM shares</th><th>v1 est. end · error</th><th>v2 est. end · error</th><th>v2 est. ATM shares</th><th>v2 est. proceeds vs official</th></tr>` +
-    B.intervals.map((b) => { const v1 = b.models.v1, v2 = b.models.v2;
+  $('btSummary').innerHTML = ['v1', 'v2', 'v3', 'v3_walkforward'].filter((k) => sm[k]).map((k) => `<div class="kpi"><div class="l">${B.models[k].label}</div><div class="v">${sm[k].mean_abs_error_pct.toFixed(2)}%</div><div class="s">mean |error| · bias ${sg(sm[k].mean_error_pct)} · ${sm[k].within_range}/${sm[k].intervals} inside low–high est.${B.current_estimate?.[k] ? `<br>now ${(B.current_estimate[k].shares / 1e6).toFixed(1)}M sh` : ''}</div></div>`).join('');
+  const cell = (v) => `${n(v.est_shares)}<br><span class="${Math.abs(v.error_pct) < 0.5 ? 'up' : 'down'}">${m(v.error_shares)}${p(v.error_pct)}</span>`;
+  $('btTable').innerHTML = `<tr><th>Interval (official → official)</th><th>Official Δ shares</th><th>Official ATM shares</th><th>v1 est. end · error</th><th>v2 est. end · error</th><th>v3 est. end · error</th><th>v3 walk-forward · error</th><th>v3 est. ATM shares</th><th>v3 est. proceeds vs official</th></tr>` +
+    B.intervals.map((b) => { const v3 = b.models.v3;
       return `<tr class="${b.flagged ? 'flag' : ''}"><td>${shortDate(b.from)} → ${shortDate(b.to)}${b.kind !== 'consecutive' ? `<br><span class="fine">${b.kind}</span>` : ''}${b.flagged ? '<br><span class="fine">⚠ uses the Apr 13 cover count</span>' : ''}<br><span class="fine"><a href="${b.sources[0]}" target="_blank" rel="noopener">start</a> · <a href="${b.sources[1]}" target="_blank" rel="noopener">end</a></span></td>
       <td>${n(b.official_change)}</td><td>${b.official_atm_shares == null ? 'n/d' : n(b.official_atm_shares)}</td>
-      <td>${n(v1.est_shares)}<br><span class="${Math.abs(v1.error_pct) < 0.5 ? 'up' : 'down'}">${m(v1.error_shares)}${p(v1.error_pct)}</span></td>
-      <td>${n(v2.est_shares)}<br><span class="${Math.abs(v2.error_pct) < 0.5 ? 'up' : 'down'}">${m(v2.error_shares)}${p(v2.error_pct)}</span></td>
-      <td>${n(v2.est_issued)}${v2.issued_error == null ? '' : `<br><span class="fine">${m(v2.issued_error)} (${v2.issued_error_pct > 0 ? '+' : ''}${v2.issued_error_pct}%)</span>`}</td>
-      <td>${big(v2.est_proceeds_usd)}${b.official_atm_net_usd ? `<br><span class="fine">vs ${big(b.official_atm_net_usd)}</span>` : ''}</td></tr>`; }).join('');
+      <td>${cell(b.models.v1)}</td><td>${cell(b.models.v2)}</td><td>${cell(v3)}</td><td>${cell(b.models.v3_walkforward)}</td>
+      <td>${n(v3.est_issued)}${v3.issued_error == null ? '' : `<br><span class="fine">${m(v3.issued_error)} (${v3.issued_error_pct > 0 ? '+' : ''}${v3.issued_error_pct}%)</span>`}</td>
+      <td>${big(v3.est_proceeds_usd)}${b.official_atm_net_usd ? `<br><span class="fine">vs ${big(b.official_atm_net_usd)}</span>` : ''}</td></tr>`; }).join('');
+  const E = B.eth_price;
+  if (E) $('btEth').innerHTML = `<tr><th>Fiscal quarter (10-Q)</th><th>ETH bought</th><th>Cost of ETH bought</th><th>Paid per ETH</th><th>Market avg (purchase-weighted)</th><th>Paid ÷ market</th><th>Cash paid for digital assets</th></tr>` +
+    E.quarters.map((q) => `<tr><td><a href="${q.url}" target="_blank" rel="noopener">${q.period}</a></td><td>${n(q.eth_units_purchased)}</td><td>${big(q.purchase_cost_usd)}</td><td>${usd(q.paid_per_eth, 0)}</td><td>${usd(q.market_avg_weighted, 0)}</td><td>${q.factor.toFixed(4)}</td><td>${q.cash_paid_usd ? big(q.cash_paid_usd) : '—'}</td></tr>`).join('') +
+    `<tr class="hl"><td>Pooled (used for weeks after the last 10-Q)</td><td></td><td></td><td></td><td></td><td>${E.pooled_factor.toFixed(4)} ± ${(E.assumed_uncertainty * 100).toFixed(0)}%</td><td></td></tr>`;
+  if (B.variants) $('btVar').innerHTML = `<tr><th>Variant</th><th>Mean |error|</th><th>Bias</th><th>Inside low–high est.</th><th>Shares now (low–high est.)</th></tr>` +
+    Object.entries(B.variants).map(([k, v]) => `<tr><td>${k}</td><td>${v.mean_abs_error_pct.toFixed(2)}%</td><td>${sg(v.mean_error_pct)}</td><td>${v.within_range}/${v.intervals}</td><td>${(v.current.shares / 1e6).toFixed(2)}M (${(v.current.range[0] / 1e6).toFixed(1)}–${(v.current.range[1] / 1e6).toFixed(1)}M)</td></tr>`).join('');
 }
 
 

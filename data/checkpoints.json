@@ -68,7 +68,7 @@
       "shares": 38790740,
       "net_usd": 906492000,
       "derived": true,
-      "source": "Derived: 6-month ATM 253,492,664 sh / $10,068,914K (10-Q Feb 28, 2026 Note 8) \u2212 Sep\u2013Nov 168,532,074 sh / $7,664,380K (10-Q Nov 30, 2025 Note 7) \u2212 Dec 1\u2013Jan 12 sales above",
+      "source": "Derived: 6-month ATM 253,492,664 sh / $10,068,914K (10-Q Feb 28, 2026 Note 8) − Sep–Nov 168,532,074 sh / $7,664,380K (10-Q Nov 30, 2025 Note 7) − Dec 1–Jan 12 sales above",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
     },
     {
@@ -86,7 +86,7 @@
       "shares": 30148062,
       "net_usd": 619773000,
       "derived": true,
-      "source": "Derived: 9-month ATM 340,748,312 sh / $11,869,401K net (10-Q May 31, 2026 Note 8) \u2212 6-month figures \u2212 Mar 1\u2013Apr 13 sales above",
+      "source": "Derived: 9-month ATM 340,748,312 sh / $11,869,401K net (10-Q May 31, 2026 Note 8) − 6-month figures − Mar 1–Apr 13 sales above",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
     },
     {
@@ -111,7 +111,7 @@
     }
   ],
   "cash_flow_official": {
-    "note": "Quarterly figures (USD thousands) derived by differencing the year-to-date statements of cash flows / operations in the three fiscal-2026 10-Qs (fiscal year ended Aug 31). Bitmine reclassified option-contract cash flows from operating (6-month statement) to investing (9-month statement), so the Dec\u2013May combined column is the cleanest.",
+    "note": "Quarterly figures (USD thousands) derived by differencing the year-to-date statements of cash flows / operations in the three fiscal-2026 10-Qs (fiscal year ended Aug 31). Bitmine reclassified option-contract cash flows from operating (6-month statement) to investing (9-month statement), so the Dec–May combined column is the cleanest.",
     "sources": {
       "q1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
       "h1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
@@ -119,7 +119,7 @@
     },
     "periods": [
       {
-        "period": "Dec 1, 2025 \u2013 Feb 28, 2026",
+        "period": "Dec 1, 2025 – Feb 28, 2026",
         "eth_purchases": 2134422,
         "equity_investments": 186024,
         "operating_cash_flow": -88243,
@@ -132,7 +132,7 @@
         "option_unrealized_loss_pnl": -65272
       },
       {
-        "period": "Mar 1 \u2013 May 31, 2026",
+        "period": "Mar 1 – May 31, 2026",
         "eth_purchases": 2150498,
         "equity_investments": 83004,
         "operating_cash_flow": 29007,
@@ -150,7 +150,7 @@
         "equity_investment_sales": 148
       },
       {
-        "period": "Dec 1, 2025 \u2013 May 31, 2026 (combined)",
+        "period": "Dec 1, 2025 – May 31, 2026 (combined)",
         "eth_purchases": 4284920,
         "equity_investments": 269028,
         "operating_cash_flow": -59236,
@@ -164,20 +164,86 @@
     ],
     "staking_eth_units_9m": {
       "value": 23582,
-      "what": "ETH received from staking, Sep 1, 2025 \u2013 May 31, 2026 (Note 4 roll-forward)",
+      "what": "ETH received from staking, Sep 1, 2025 – May 31, 2026 (Note 4 roll-forward)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
     },
     "cash_requirements_guidance": {
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
-      "section": "MD&A \u2013 Material cash requirements",
+      "section": "MD&A – Material cash requirements",
       "items_usd_thousands_per_year": {
-        "eth_management_fees": "40,000\u201350,000",
+        "eth_management_fees": "40,000–50,000",
         "working_capital": 12000,
         "public_company_costs": 4000,
         "capex": 1500,
         "general_operating_overhead": 83016,
         "bmnp_dividends": 33250
       }
+    }
+  },
+  "eth_cost_quarterly": {
+    "description": "Average price Bitmine actually paid per ETH, by fiscal quarter, from the 10-Q digital-asset roll-forward (Note 3/4: ETH units and cost basis; 'Additions from the purchase of ETH'). Units purchased = change in ETH units held − staking units (− units from acquisitions + units sold). Compared with the purchase-weighted average of the weekly average ETH price (weights = ETH added in each weekly release). factor = paid ÷ market. Used as the 'disclosed' ETH price basis for weeks inside a filed quarter; the pooled factor over all filed quarters is the 'assumed' basis after the last filed quarter.",
+    "quarters": [
+      {
+        "period": "Sep 1 – Nov 30, 2025",
+        "from": "2025-08-31",
+        "to": "2025-11-30",
+        "purchase_cost_usd": 7527221000,
+        "eth_units_purchased": 1861886,
+        "derivation": "Units: 3,737,140 held Nov 30, 2025 − 1,874,927 held Aug 31, 2025 − ~327 staking (=$980K staking additions ÷ ~$3,000). Cost: 'Additions from the purchase of ETH' $7,527,221K (cash paid in the cash-flow statement was $7,402,573K; the ~$125M difference was paid in December).",
+        "market_avg_weighted": 4052,
+        "market_avg_source": "Computed offline (no weekly releases before Nov 30, 2025 in releases.json): ETH added per weekly 8-K (Aug 31 → Nov 30, 2025 holdings: 1,866,974; 2,069,443; 2,151,676; 2,416,054; 2,650,900; 2,830,151; 3,032,188; 3,236,014; 3,313,069; 3,395,422; 3,505,723; 3,559,879; 3,629,701; 3,726,499) × that week's average daily ETH close (Yahoo Finance ETH-USD).",
+        "source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "filed": "2026-01-13",
+        "cash_paid_usd": 7402573000
+      },
+      {
+        "period": "Dec 1, 2025 – Feb 28, 2026",
+        "from": "2025-11-30",
+        "to": "2026-03-01",
+        "purchase_cost_usd": 2009424000,
+        "eth_units_purchased": 732539,
+        "derivation": "Units: 4,473,459 held Feb 28 − 3,737,140 held Nov 30 − ~3,780 staking (=$10,201K ÷ ~$2,700). Cost: 6-month additions $9,536,645K − Q1 $7,527,221K. Cash paid (cash-flow statement) was $2,134,422K: includes ~$125M for ETH added in November.",
+        "source": "10-Q quarter ended Feb 28, 2026, Note 3",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "filed": "2026-04-14",
+        "cash_paid_usd": 2134422000
+      },
+      {
+        "period": "Mar 1 – May 31, 2026",
+        "from": "2026-03-01",
+        "to": "2026-05-31",
+        "purchase_cost_usd": 2036507000,
+        "eth_units_purchased": 923853,
+        "derivation": "Units: 9-month purchases 3,518,278 (Note 4 roll-forward, exact) − Q1 1,861,886 − Q2 732,539. Cost: 9-month purchases $11,573,152K − 6-month $9,536,645K. Cash paid (cash-flow statement) was $2,150,498K; the 9-month cash paid for digital assets exceeds 9-month additions by $112.5M (not explained in the filing).",
+        "source": "10-Q quarter ended May 31, 2026, Note 4",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+        "filed": "2026-07-14",
+        "cash_paid_usd": 2150498000
+      }
+    ],
+    "next": "10-K for the fiscal year ended Aug 31, 2026 (not on EDGAR as of Oct 27, 2026): Jun–Aug 2026 = 12-month purchases − 9-month (3,518,278 ETH, $11,573,152K). Add it as a quarter here; those weeks then switch to 'disclosed'.",
+    "cash_timing_items": {
+      "description": "Cash paid for digital assets that is not the cost of ETH added in the same weeks (10-Q statement of cash flows 'Purchase of digital assets' vs the roll-forward additions). These are added to the weekly cash need as 'other digital-asset cash (10-Q)'. Each item is only used in the backtest from the date its 10-Q was filed (known_from).",
+      "items": [
+        {
+          "from": "2025-11-30",
+          "to": "2026-03-01",
+          "usd": 124648000,
+          "known_from": "2026-01-13",
+          "what": "Dec 2025–Feb 2026: cash paid for digital assets $2,134,422K − additions ~$2,009,774K (ETH $2,009,424K + BTC ~$350K): ETH added by Nov 30, 2025 but paid later (Q1 additions $7,527,221K − Q1 cash paid $7,402,573K = $124,648K). Payment dates not disclosed, so spread over the quarter's weeks in proportion to ETH bought.",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+        },
+        {
+          "from": "2026-03-01",
+          "to": "2026-05-31",
+          "usd": 112200000,
+          "known_from": "2026-07-14",
+          "what": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+        }
+      ],
+      "after_last_filing": "None assumed: over the three filed quarters together cash paid exceeded additions by only 1.0% ($11,687,493K vs $11,574,973K), and the 10-K for FY ended Aug 31, 2026 will show whether any Jun–Aug timing gap exists."
     }
   }
 }

@@ -130,3 +130,7 @@ table.val-t{table-layout:fixed;width:100%}
 /* chart captions (outside the canvas) */
 .chart-caption{color:var(--mut);font-size:12px;line-height:1.45;margin:6px 2px 2px}
 #weekCard .kv{grid-template-columns:minmax(0,max-content) minmax(0,1fr)}
+
+#weekCard .kv>div{min-width:0}
+#weekCard .kv .fine{display:block;margin:2px 0 0}
+#weekCard .kv{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}

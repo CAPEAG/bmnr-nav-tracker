@@ -13,7 +13,7 @@ mNAV of **Bitmine Immersion Technologies (NYSE: BMNR)** using:
   week-by-week history (`data/history.json`) and latest balance sheet (`data/holdings.json`) are generated from it.
 
 **Charts** (time range 1M / 3M / 6M / YTD / 1Y / All, applied to every chart): mNAV over time (with a 1.0× line);
-NAV/share and BMNR close; estimated vs official shares outstanding with ETH held; **ETH per share** (reported ETH ÷ v2
+NAV/share and BMNR close; estimated vs official shares outstanding with ETH held; **ETH per share** (reported ETH ÷ v3
 estimated shares, official 10-Q weeks marked, week-over-week % bars); and the weekly accretion check ($ NAV/share and
 ETH per 1,000 shares). Raw data tables sit under a **Show data ▸** toggle (collapsed by default); the backtest and the
 methodology/notes sections are collapsed by default too. Explanatory notes for each chart/table live in
@@ -33,13 +33,14 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `assets/calc.js` | NAV / mNAV / valuation formulas (shared by the page and the build script). |
 | `data/releases.json` | **Official weekly inputs**, one entry per Bitmine Monday release since Nov 30, 2025 (ETH, ETH acquired, release ETH price, staked ETH, stated 7-day yield or CESR, BTC, cash (& marketable securities), Eightco and Beast stakes, buybacks, RSU/acquisition shares, disclosed investments (`investments_usd`), disclosed non-common proceeds, 8-K / X links). Also the disclosed cumulative buyback total. |
 | `data/checkpoints.json` | **Official share counts** (10-Q balance sheets and cover pages) with links, ATM sales disclosed between them, and the 10-Q cash-flow figures used for the backtest and the cash-source analysis. |
-| `data/backtest.json` | **Generated** out-of-sample backtest (model v1 vs v2 vs walk-forward) per interval, plus component diagnostics. |
+| `data/backtest.json` | **Generated** out-of-sample backtest (models v1, v2, v3, v3 walk-forward + sensitivity variants) per interval, the 10-Q ETH price per quarter (`eth_price`), plus component diagnostics. |
 | `data/weekly-prices.json` | Frozen market data per week (avg ETH, BTC close, BMNR avg/min/max/close) so past weeks don't drift. |
 | `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV, weekly `accretion`). Don't edit by hand. |
-| `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v2 parameters with sources; ORBS share count). |
+| `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v3 parameters with sources; ORBS share count). |
 | `data/valuation.json` | **Bear / Base / Bull valuation inputs**, each with sources and a rationale; `derived` (staked share, trailing 4/13/26-week yields, staked-ETH trajectory) is refreshed by the weekly build. |
 | `data/prices.json` | Latest BMNR / ORBS (+ ETH, BTC) quotes, written by the Action. |
-| `scripts/model.mjs` | The share-count estimator (weekly cash need → implied issuance, roll-forward from an official count). |
+| `scripts/model.mjs` | The share-count estimator (weekly cash shortfall → share-funded amount → issuance, capped surplus carry-forward, roll-forward from an official count). |
+| `data/onchain-purchases.json` | Bitmine-linked on-chain ETH receipts posted by trackers (Lookonchain etc.) — cross-check only, see below. |
 | `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
 | `scripts/fetch-prices.mjs` | Price fetcher used by the Action. |
@@ -111,7 +112,7 @@ Sources:
 
 ## Weekly accretion check
 
-Computed for every week in `scripts/build-history.mjs` (`history.json → snapshots[].accretion`), using the v2 model's
+Computed for every week in `scripts/build-history.mjs` (`history.json → snapshots[].accretion`), using the v3 model's
 estimated issuance (so everything is an estimate):
 
 * NAV/share before the week's actions = last week's assets with ETH revalued at the week's average ETH price.
@@ -138,44 +139,82 @@ Bitmine does not disclose weekly ATM sales or a running share count. Official co
 | May 31, 2026 | 579,652,432 | [10-Q May 31, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm) balance sheet |
 | Jul 9, 2026 | 603,226,394 | same 10-Q, cover page (latest) |
 
-Between anchors, for each weekly release *t* (window = day after the previous as-of date through this as-of date), **model v2**:
+Between anchors, for each weekly release *t* (window = day after the previous as-of date through this as-of date), **model v3**:
 
 | Step | Formula / rule |
 | --- | --- |
 | Est. staking rewards | `min(ETH staked over the last 5 reports) × stated 7-day BMNR yield (CESR if none) × days / 365` — i.e. only ETH staked ≥ 4 reports earlier earns (validator entry queue). Fitted to 10-Q staking revenue: $55.6M modelled vs $52.5M reported for Dec–May (no lag gave $80.0M). |
 | Est. ETH bought | `ETH held_t − ETH held_{t−1} − rewards` (the 10-Q digital-asset roll-forward adds staking rewards to ETH units) |
-| ETH purchase cost | `ETH bought × average daily ETH price in the window × 1.05`. The 10-Q cash paid for ETH ran 3.5% (Dec–Feb) and 6.5% (Mar–May) above "ETH added × weekly average price". |
+| ETH price paid (basis per week) | **disclosed**: week inside a quarter with a filed 10-Q → `average daily ETH price in the window × that quarter's paid ÷ market ratio`. **assumed**: after the last filed quarter → `window average × pooled ratio (0.9979)`, low–high ±1%. **on-chain**: tracker prices, only if `use_onchain_price` is switched on (it is off — see below). A release that states the dollars spent on ETH (`eth_purchase_cost_usd`) would be used as disclosed for that week. |
+| Other digital-asset cash (10-Q) | cash paid for digital assets beyond the cost of ETH added (cash-flow statement vs roll-forward): $124.6M in Dec–Feb (Sep–Nov purchases paid later) and $112.2M in Mar–May (unexplained), spread over that quarter's weeks by ETH bought (`checkpoints.json → eth_cost_quarterly.cash_timing_items`). None assumed after May 31, 2026. |
 | Buyback cost | `shares × disclosed avg price`; else `shares × window avg BMNR close × k`, k calibrated to the disclosed total ($399.6M / 22.9M shares; k ≈ 1.005) |
 | Disclosed investments | cash for non-ETH investments named in the release (Beast $200M wk of Jan 25; Eightco ~$80M wk of Mar 15; Pier Two ~$6M wk of Mar 29) |
 | Operating cash burn | `$2,278,000/week` = Dec 2025–May 2026 net operating cash flow (−$59.236M ÷ 26, 10-Qs) **plus** `$646,450/week` BMNP dividends from Jun 10, 2026; prorated by days |
-| Cash need | `Δcash + ETH cost + buyback cost + investments + operating burn − disclosed non-common proceeds (BMNP $273.8M)` |
-| Est. shares issued | `cash need ÷ window average BMNR close`; a negative week is carried forward as surplus against later weeks |
+| Cash shortfall | `spending − cash drop − disclosed non-common proceeds (BMNP $273.8M)`, spending = ETH cost + other digital-asset cash + buyback cost + investments + operating burn. Negative = surplus. |
+| Surplus carry-forward | a surplus offsets the next weeks' shortfalls for at most **3 weeks** and **$5M in total** (oldest used first; anything older or above the cap is dropped). Noise-sized on purpose: cash in releases is rounded to the nearest $1M since Jan 4, 2026, and the ETH price assumption alone is ±1% (≈ ±$0.2M/week at current purchase sizes). |
+| Funded by share sales (est.) | `max(0, shortfall − surplus used)` |
+| Est. shares issued | `funded ÷ window average BMNR close` |
 | Shares outstanding | `anchor + Σ issued + RSU/acquisition shares − buybacks`; the week containing a new official count is re-based on it (issuance after that date only, by trading days) |
-| Range | low: operating burn = 0 and issue at the window's highest close; high: 2× burn and issue at the window's lowest close |
+| Low–high est. | low: operating burn = 0, ETH price −1% (assumed weeks only) and issue at the window's highest close; high: 2× burn, ETH price +1% and the window's lowest close. Shares-outstanding ranges accumulate from the last official count (Jul 9, 2026). |
 
-**Model v1** (used for the Jul–Oct 2026 reconstruction before the backtest): rewards on all ETH staked at the previous
-report, ETH at the plain weekly average price, $3,257,538/week opex (Mar–May G&A − SBC + cost of sales ÷ 13), no
+### What Bitmine pays for ETH
+
+The 10-Q digital-asset notes give ETH units held and the cost of ETH purchased, so the average price actually paid per
+quarter can be compared with the market (`checkpoints.json → eth_cost_quarterly`, `backtest.json → eth_price`):
+
+| Fiscal quarter | ETH bought | Cost | Paid / ETH | Market avg (purchase-weighted weekly avg) | Paid ÷ market | Cash paid (cash-flow stmt.) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Sep–Nov 2025 ([10-Q](https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm)) | 1,861,886 | $7,527.2M | $4,043 | $4,052 | 0.998 | $7,402.6M |
+| Dec 2025–Feb 2026 ([10-Q](https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm)) | 732,539 | $2,009.4M | $2,743 | $2,768 | 0.991 | $2,134.4M |
+| Mar–May 2026 ([10-Q](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm)) | 923,853 | $2,036.5M | $2,204 | $2,192 | 1.006 | $2,150.5M |
+| Pooled | 3,518,278 | $11,573.2M | $3,289 | | **0.998** | $11,687.5M |
+
+* Bitmine pays the market average to within about ±1% each quarter; there is no markup and no trend as purchases got
+  smaller. v2's 1.05 factor was fitted to the cash-flow statement, which mixes price with settlement timing
+  (Sep–Nov purchases paid in Dec–Feb, and $112M more cash than ETH added in Mar–May); v3 keeps the two apart.
+* No 10-K for the fiscal year ended Aug 31, 2026 is on EDGAR yet (checked Oct 27, 2026). When it lands, add Jun–Aug
+  2026 as a quarter (12-month − 9-month figures) and any cash-timing gap; those weeks then become "disclosed".
+* Q1 market average uses the Sep–Nov 2025 weekly 8-K holdings and Yahoo Finance daily ETH closes (computed once,
+  stored in `checkpoints.json`); Q2/Q3 use the frozen weekly prices in `weekly-prices.json`. Staking units in Q1/Q2
+  are estimated from the staking $ ÷ average price (~4k ETH; the 9-month total of 23,582 is exact).
+
+**On-chain trackers.** Lookonchain, OnchainLens, EmberCN and others post Bitmine-linked wallets receiving ETH from
+FalconX, BitGo, Kraken, Galaxy etc. 50 such transfers since Dec 2025 are in `data/onchain-purchases.json`. Since Jul 9,
+2026 there are 10 transfers in 8 of 16 weeks, and their amounts match the week's reported purchase within ±20% in only
+2 (Jul 19, Oct 11). The dollar figures are the trackers' spot valuations at withdrawal, not trade prices (except two
+Ethereum Foundation OTC sales), and withdrawals usually come after the trades (often after the week closes). Pricing
+the tracked part of each week at those figures made the Dec–Feb quarterly cost error worse (+1.35–1.58% vs +0.97%
+with the weekly average) and Mar–May no better (−0.55–0.74% vs −0.55%), with dated daily prices no better either.
+So they are shown as an "on-chain check" in the data table only. Treat every tracker attribution as probable, not certain.
+
+**Model v2** (Jul–Oct 2026, before this revision): ETH at weekly average × 1.05, unlimited surplus carry-forward, no
+ETH-price range. **Model v1** (before the first backtest): rewards on all ETH staked at the previous report, ETH at the plain weekly average price, $3,257,538/week opex (Mar–May G&A − SBC + cost of sales ÷ 13), no
 investments term, each week floored at zero issuance.
 
 ### Backtest (out-of-sample, estimate − official)
 
 Each interval starts at an official count and rolls forward using only the weekly releases; `node scripts/build-history.mjs` prints and saves it.
 
-| Interval | Official Δ | v1 error | v2 error | v2 walk-forward |
-| --- | --- | --- | --- | --- |
-| Nov 30 → Jan 12 | +46.28M | −0.82M (−0.18%) | +1.16M (+0.26%) | +0.53M (+0.12%) |
-| Jan 12 → Feb 28 | +39.04M | −2.93M (−0.59%) | −0.41M (−0.08%) | −0.85M (−0.17%) |
-| Feb 28 → May 31 (quarter) | +85.75M | −7.62M (−1.31%) | +0.38M (+0.07%) | −1.06M (−0.18%) |
-| May 31 → Jul 9 | +23.57M | −0.66M (−0.11%) | +0.62M (+0.10%) | +0.08M (+0.01%) |
-| Nov 30 → Jul 9 (no re-anchoring) | +194.65M | −12.03M (−1.99%) | +1.76M (+0.29%) | −1.29M (−0.21%) |
-| *Feb 28 → Apr 13 (flagged cover)* | +43.72M | −3.18M | +2.85M | +2.21M |
-| *Apr 13 → May 31 (flagged cover)* | +42.02M | −4.44M | −2.46M | −3.28M |
+| Interval | Official Δ | v1 error | v2 error | v3 error | v3 walk-forward |
+| --- | --- | --- | --- | --- | --- |
+| Nov 30 → Jan 12 | +46.28M | −0.82M (−0.18%) | +1.16M (+0.26%) | +1.21M (+0.27%) | +1.50M (+0.33%) |
+| Jan 12 → Feb 28 | +39.04M | −2.93M (−0.59%) | −0.41M (−0.08%) | −0.35M (−0.07%) | −0.15M (−0.03%) |
+| Feb 28 → May 31 (quarter) | +85.75M | −7.62M (−1.31%) | +0.38M (+0.07%) | +1.47M (+0.25%) | −4.36M (−0.75%) |
+| May 31 → Jul 9 | +23.57M | −0.66M (−0.11%) | +0.62M (+0.10%) | −1.23M (−0.20%) | −1.23M (−0.20%) |
+| Nov 30 → Jul 9 (no re-anchoring) | +194.65M | −12.03M (−1.99%) | +1.76M (+0.29%) | +1.09M (+0.18%) | −4.25M (−0.70%) |
+| *Feb 28 → Apr 13 (flagged cover)* | +43.72M | −3.18M | +2.85M | +3.32M | +0.63M |
+| *Apr 13 → May 31 (flagged cover)* | +42.02M | −4.44M | −2.46M | −1.85M | −5.04M |
 
-Mean |error| on the four clean intervals: **v1 0.55% (3.0M shares) → v2 0.13% (0.64M shares)**; walk-forward 0.12%.
-v2's ETH-cost, staking-lag and opex parameters were fitted on Dec–May 10-Q data, so those rows are partly in-sample;
-the walk-forward variant fits the ETH-cost factor on Dec–Feb only (1.035) and is out-of-sample from March. Errors on
-individual sub-quarter intervals are mostly *timing* (which days inside a week the ATM sold) and rounded cash figures
-in some releases ("$1.0 billion", "$1.2 billion" → ±$50M ≈ ±2M shares).
+Four clean intervals — mean |error| / bias: **v1 0.55% / −0.55%**, **v2 0.13% / +0.09%**, **v3 0.20% / +0.06%**,
+v3 walk-forward 0.33% / −0.16%. v2 and v3 both use Dec–May 10-Q data (in-sample on those rows); v3's walk-forward only
+knows 10-Qs filed before each interval starts, so it misses the Mar–May cash-timing item in the Feb 28 → May 31 test.
+v2's lower error comes from a factor that mixes ETH price with cash timing; it would overstate what Bitmine pays per
+ETH by ~5% in every week. Surplus carry-forward rules barely matter (no carry 0.19%, 3 wk/$5M 0.20%, unlimited 0.20%;
+current estimate 626.86M vs 626.77M). Sub-quarter errors are mostly *timing* (which days inside a week the ATM sold,
+when ETH purchases settled) and rounded cash figures in some releases ("$1.0 billion", "$1.2 billion" → ±$50M ≈ ±2M shares).
+
+Current estimate (Oct 25, 2026): **v3 626,766,979** (low–high est. since the Jul 9 official count 621.9–632.2M);
+v2 was 627,963,701 (623.1–633.4M).
 
 ## Weekly update procedure (Mondays, after Bitmine posts)
 
@@ -193,18 +232,26 @@ in some releases ("$1.0 billion", "$1.2 billion" → ±$50M ≈ ±2M shares).
      --eth <total ETH> --acquired <N> --eth-price <release ETH price> --staked <staked ETH> --yield <0.0258> \
      --btc <BTC> --cash <USD> --orbs-value <Eightco $> --beast 180000000 \
      [--buyback-shares <n> --buyback-price <avg>] [--other-shares <RSUs>] \
-     [--shares-issued <n>] [--proceeds <USD>] [--shares-outstanding <official count>] \
+     [--shares-issued <n>] [--proceeds <USD>] [--eth-cost <USD>] [--shares-outstanding <official count>] \
      --sec "<8-K Ex.99.1 URL>" --x "<@BitMNR post URL>" --notes "<anything unusual>"
    ```
 
    If the release states a new cumulative buyback total, update `buyback_aggregate` in `data/releases.json` too.
+   If a release ever states the dollars spent on ETH, pass `--eth-cost <USD>` (that week's ETH price becomes "disclosed").
+   Optional cross-check: add any tracker posts of Bitmine-linked OTC/exchange withdrawals that week (Lookonchain,
+   OnchainLens, EmberCN on X) to `data/onchain-purchases.json` (`time_utc`, `eth`, `usd`, `source`); they are shown,
+   not used for the price.
    If the release discloses cash spent on a new investment/acquisition, pass `--investments <USD>`; for preferred or
    other non-common proceeds pass `--proceeds <USD>`.
    When an official share count appears (e.g. the FY-Aug-2026 10-K cover), pass `--shares-outstanding <n> --cp-date <date>
    --cp-source "10-K cover page" --cp-url <URL>` (or add it to `data/checkpoints.json`); the estimate re-anchors there.
    Also add any ATM sales the filing discloses to `checkpoints.json → atm_disclosures` and re-run the build: the backtest
-   will show how far the model was off for the new interval.
-4. Check the printed table (the build also refreshes `valuation.json → derived` and each week's accretion), then
+   will show how far the model was off for the new interval. For a new 10-Q/10-K, also add the quarter's ETH cost to
+   `checkpoints.json → eth_cost_quarterly.quarters` (units purchased, cost of ETH purchased, cash paid for digital
+   assets; year-to-date figures minus the previous filing) and, if cash paid ≠ cost of digital assets added, a
+   `cash_timing_items` entry. Weeks in that quarter switch from "assumed" to "disclosed" and the pooled factor updates.
+4. Check the printed table and the "This week" card: ETH price paid + basis, cash shortfall (spending − cash drop),
+   surplus carried from prior weeks (max 3 weeks / $5M), funded by share sales, shares issued (low–high est.). The build also refreshes `valuation.json → derived` and each week's accretion. Then
    `git add data && git commit -m "week of <date>" && git push`. Pages redeploys in ~1 min.
    Review `data/valuation.json` inputs when a new 10-Q/10-K is filed (opex run-rate, MAVAN revenue, preferred dividends).
 

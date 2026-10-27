@@ -1,0 +1,408 @@
+{
+  "description": "Bitmine-linked on-chain ETH receipts from OTC desks/exchanges as posted by on-chain trackers (mainly Lookonchain; cross-checked with OnchainLens / EmberCN). time_utc ≈ post time minus the stated lag. usd = tracker's dollar figure, which is the ETH spot price at transfer time (not a disclosed trade price, except the two Ethereum Foundation OTC sales). Transfers are settlement withdrawals and often land days after the trade or in the next reporting week, and amounts often don't match the weekly reported purchase. Backtest vs 10-Q cost per ETH (Dec 2025–May 2026): pricing tracked transfers at these figures INCREASED the error (Dec–Feb +1.35–1.58% vs +0.97% weekly average; Mar–May −0.55–0.74% vs −0.55%), so they are kept as a cross-check, not as the price used.",
+  "events": [
+    {
+      "time_utc": "2025-12-10T19:00",
+      "eth": 33504,
+      "usd": 112060000,
+      "implied_price": 3344.68,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/1998918362680991953"
+    },
+    {
+      "time_utc": "2025-12-13T04:00",
+      "eth": 14959,
+      "usd": 46000000,
+      "implied_price": 3075.07,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/1999694935679992071"
+    },
+    {
+      "time_utc": "2025-12-13T21:47",
+      "eth": 23637,
+      "usd": 73280000,
+      "implied_price": 3100.22,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2000004572052636093"
+    },
+    {
+      "time_utc": "2025-12-16T19:31",
+      "eth": 48049,
+      "usd": 140580000,
+      "implied_price": 2925.76,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2001087945223348417"
+    },
+    {
+      "time_utc": "2025-12-18T15:00",
+      "eth": 30075,
+      "usd": 88730000,
+      "implied_price": 2950.29,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2001675474955866620"
+    },
+    {
+      "time_utc": "2025-12-22T07:00",
+      "eth": 13412,
+      "usd": 40610000,
+      "implied_price": 3027.89,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2002998857328959928"
+    },
+    {
+      "time_utc": "2025-12-23T02:30",
+      "eth": 29462,
+      "usd": 88100000,
+      "implied_price": 2990.29,
+      "counterparty": "BitGo, Kraken",
+      "source": "https://x.com/lookonchain/status/2003297617556771226"
+    },
+    {
+      "time_utc": "2025-12-23T14:00",
+      "eth": 38424,
+      "usd": 112900000,
+      "implied_price": 2938.27,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2003628817873772845",
+      "note": "67,886 ETH ($201M) in 24h minus the 29,462 above"
+    },
+    {
+      "time_utc": "2025-12-30T21:00",
+      "eth": 32938,
+      "usd": 97600000,
+      "implied_price": 2963.14,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2006168440965329096"
+    },
+    {
+      "time_utc": "2026-01-15T15:00",
+      "eth": 24068,
+      "usd": 80570000,
+      "implied_price": 3347.6,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2011820606325735520"
+    },
+    {
+      "time_utc": "2026-01-16T20:23",
+      "eth": 20000,
+      "usd": 65400000,
+      "implied_price": 3270.0,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2012304837644533900"
+    },
+    {
+      "time_utc": "2026-01-21T22:34",
+      "eth": 34954,
+      "usd": 105500000,
+      "implied_price": 3018.25,
+      "counterparty": "Kraken, BitGo",
+      "source": "https://x.com/lookonchain/status/2014134517049753929"
+    },
+    {
+      "time_utc": "2026-01-26T19:16",
+      "eth": 20000,
+      "usd": 58220000,
+      "implied_price": 2911.0,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2015956946290147399"
+    },
+    {
+      "time_utc": "2026-02-03T13:30",
+      "eth": 20000,
+      "usd": 46040000,
+      "implied_price": 2302.0,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2018681148621103489"
+    },
+    {
+      "time_utc": "2026-02-07T21:45",
+      "eth": 20000,
+      "usd": 41980000,
+      "implied_price": 2099.0,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2020327982100062283"
+    },
+    {
+      "time_utc": "2026-02-09T16:45",
+      "eth": 20000,
+      "usd": 41080000,
+      "implied_price": 2054.0,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2020911916743348566"
+    },
+    {
+      "time_utc": "2026-02-09T18:29",
+      "eth": 20000,
+      "usd": 42300000,
+      "implied_price": 2115.0,
+      "counterparty": "BitGo",
+      "source": "https://x.com/lookonchain/status/2021033637723209828"
+    },
+    {
+      "time_utc": "2026-02-18T12:57",
+      "eth": 20000,
+      "usd": 39800000,
+      "implied_price": 1990.0,
+      "counterparty": "BitGo",
+      "source": "https://x.com/lookonchain/status/2024136264551993795"
+    },
+    {
+      "time_utc": "2026-02-18T16:52",
+      "eth": 15000,
+      "usd": 29570000,
+      "implied_price": 1971.33,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2024286008175685986"
+    },
+    {
+      "time_utc": "2026-02-20T00:04",
+      "eth": 10000,
+      "usd": 19490000,
+      "implied_price": 1949.0,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2024666320340733966"
+    },
+    {
+      "time_utc": "2026-02-20T16:37",
+      "eth": 17722,
+      "usd": 34740000,
+      "implied_price": 1960.28,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2025006859607019593"
+    },
+    {
+      "time_utc": "2026-03-12T18:01",
+      "eth": 30000,
+      "usd": 61890000,
+      "implied_price": 2063.0,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2032275771927187596"
+    },
+    {
+      "time_utc": "2026-03-14T12:00",
+      "eth": 5000,
+      "usd": 10214800,
+      "implied_price": 2042.96,
+      "counterparty": "Ethereum Foundation OTC",
+      "source": "https://x.com/lookonchain/status/2032858027452514532",
+      "note": "trade price $2,042.96 disclosed"
+    },
+    {
+      "time_utc": "2026-03-24T21:00",
+      "eth": 67111,
+      "usd": 145000000,
+      "implied_price": 2160.6,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2036608514077106504"
+    },
+    {
+      "time_utc": "2026-03-25T20:46",
+      "eth": 50000,
+      "usd": 108300000,
+      "implied_price": 2166.0,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2036968111262626229"
+    },
+    {
+      "time_utc": "2026-04-01T15:00",
+      "eth": 45000,
+      "usd": 95300000,
+      "implied_price": 2117.78,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2039363998710456468"
+    },
+    {
+      "time_utc": "2026-04-04T14:00",
+      "eth": 40000,
+      "usd": 82070000,
+      "implied_price": 2051.75,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2040436791946408361"
+    },
+    {
+      "time_utc": "2026-04-29T03:00",
+      "eth": 45000,
+      "usd": 103500000,
+      "implied_price": 2300.0,
+      "counterparty": "FalconX, BitGo",
+      "source": "https://x.com/lookonchain/status/2049334346931478564"
+    },
+    {
+      "time_utc": "2026-04-29T21:51",
+      "eth": 20000,
+      "usd": 44800000,
+      "implied_price": 2240.0,
+      "counterparty": null,
+      "source": "https://x.com/lookonchain/status/2049652728612409549"
+    },
+    {
+      "time_utc": "2026-05-01T17:35",
+      "eth": 10000,
+      "usd": 22920000,
+      "implied_price": 2292.0,
+      "counterparty": "Ethereum Foundation OTC",
+      "source": "https://x.com/lookonchain/status/2050373690215506256"
+    },
+    {
+      "time_utc": "2026-05-05T17:19",
+      "eth": 40000,
+      "usd": 94680000,
+      "implied_price": 2367.0,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2051834329031180469"
+    },
+    {
+      "time_utc": "2026-05-15T23:25",
+      "eth": 89026,
+      "usd": 197640000,
+      "implied_price": 2220.03,
+      "counterparty": "Kraken, FalconX",
+      "source": "https://x.com/lookonchain/status/2055444486227140660"
+    },
+    {
+      "time_utc": "2026-05-22T23:00",
+      "eth": 60000,
+      "usd": 125900000,
+      "implied_price": 2098.33,
+      "counterparty": "Kraken, BitGo",
+      "source": "https://x.com/lookonchain/status/2057964916888485966"
+    },
+    {
+      "time_utc": "2026-05-29T19:05",
+      "eth": 25000,
+      "usd": 50560000,
+      "implied_price": 2022.4,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2060528093702594815"
+    },
+    {
+      "time_utc": "2026-06-08T18:00",
+      "eth": 25000,
+      "usd": 42030000,
+      "implied_price": 1681.2,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2064135931326829039"
+    },
+    {
+      "time_utc": "2026-06-09T19:54",
+      "eth": 75000,
+      "usd": 123000000,
+      "implied_price": 1640.0,
+      "counterparty": "Kraken, FalconX",
+      "source": "https://x.com/lookonchain/status/2064496366345417048"
+    },
+    {
+      "time_utc": "2026-06-10T15:29",
+      "eth": 25000,
+      "usd": 41090000,
+      "implied_price": 1643.6,
+      "counterparty": "BitGo",
+      "source": "https://x.com/lookonchain/status/2064858508311580811"
+    },
+    {
+      "time_utc": "2026-06-16T19:11",
+      "eth": 20000,
+      "usd": 35850000,
+      "implied_price": 1792.5,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2067037443312996782"
+    },
+    {
+      "time_utc": "2026-06-23T20:24",
+      "eth": 35138,
+      "usd": 58650000,
+      "implied_price": 1669.13,
+      "counterparty": "BitGo, Kraken",
+      "source": "https://x.com/lookonchain/status/2069577308701368594"
+    },
+    {
+      "time_utc": "2026-07-07T15:39",
+      "eth": 40000,
+      "usd": 71600000,
+      "implied_price": 1790.0,
+      "counterparty": "FalconX, Kraken",
+      "source": "https://x.com/lookonchain/status/2074684833897603145"
+    },
+    {
+      "time_utc": "2026-07-09T19:11",
+      "eth": 20500,
+      "usd": 35920000,
+      "implied_price": 1752.2,
+      "counterparty": "Galaxy Digital",
+      "source": "https://x.com/lookonchain/status/2075387342303748481"
+    },
+    {
+      "time_utc": "2026-07-14T17:57",
+      "eth": 6000,
+      "usd": 11180000,
+      "implied_price": 1863.33,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2077195724291555647"
+    },
+    {
+      "time_utc": "2026-07-27T20:14",
+      "eth": 7500,
+      "usd": 14610000,
+      "implied_price": 1948.0,
+      "counterparty": "BitGo",
+      "source": "https://x.com/lookonchain/status/2081911114661855656"
+    },
+    {
+      "time_utc": "2026-07-31T16:27",
+      "eth": 10464,
+      "usd": 19480000,
+      "implied_price": 1861.62,
+      "counterparty": "FalconX",
+      "source": "https://x.com/lookonchain/status/2083364058380869988"
+    },
+    {
+      "time_utc": "2026-08-10T23:35",
+      "eth": 13000,
+      "usd": 24360000,
+      "implied_price": 1873.85,
+      "counterparty": "BitGo",
+      "source": "https://x.com/lookonchain/status/2087021079659495697"
+    },
+    {
+      "time_utc": "2026-08-25T23:00",
+      "eth": 20000,
+      "usd": 48890000,
+      "implied_price": 2444.5,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2092429543399440537"
+    },
+    {
+      "time_utc": "2026-08-25T16:00",
+      "eth": 10000,
+      "usd": 24720000,
+      "implied_price": 2472.0,
+      "counterparty": "Coinbase?",
+      "source": "https://x.com/ai_9684xtpa/status/2092433000181244245",
+      "note": "attribution uncertain"
+    },
+    {
+      "time_utc": "2026-08-31T22:26",
+      "eth": 51000,
+      "usd": 126000000,
+      "implied_price": 2470.59,
+      "counterparty": "FalconX, BitGo",
+      "source": "https://x.com/lookonchain/status/2094582513096347988"
+    },
+    {
+      "time_utc": "2026-09-21T23:00",
+      "eth": 12500,
+      "usd": 34550000,
+      "implied_price": 2764.0,
+      "counterparty": "Kraken",
+      "source": "https://x.com/lookonchain/status/2102233567527141819"
+    },
+    {
+      "time_utc": "2026-10-06T20:36",
+      "eth": 12500,
+      "usd": 33650000,
+      "implied_price": 2692.0,
+      "counterparty": "BitGo",
+      "source": "https://x.com/lookonchain/status/2107646165647065219"
+    }
+  ]
+}

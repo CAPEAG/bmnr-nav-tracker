@@ -1,6 +1,6 @@
 {
   "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
-  "built": "2026-10-26T16:52:26.293Z",
+  "built": "2026-10-27T13:43:00.244Z",
   "models": {
     "v1": {
       "label": "v1 – original (Jul–Oct 2026)",
@@ -14,28 +14,45 @@
       "opex_high_multiplier": 2
     },
     "v2": {
-      "label": "v2 – recalibrated (current)",
+      "label": "v2 – ETH × 1.05, unlimited carry",
       "opex_weekly": 2278000,
       "bmnp_weekly": 646450,
       "bmnp_start": "2026-06-10",
       "include_investments": true,
       "staking_lag_reports": 4,
       "staking_realization": 1,
-      "carry_forward": true,
       "opex_high_multiplier": 2,
+      "carry_forward": true,
       "eth_cost_factor": 1.05
     },
-    "v2_walkforward": {
-      "label": "v2 walk-forward (ETH cost factor from Dec–Feb only)",
+    "v3": {
+      "label": "v3 – 10-Q ETH price, capped carry (current)",
       "opex_weekly": 2278000,
       "bmnp_weekly": 646450,
       "bmnp_start": "2026-06-10",
       "include_investments": true,
       "staking_lag_reports": 4,
       "staking_realization": 1,
-      "carry_forward": true,
       "opex_high_multiplier": 2,
-      "eth_cost_factor": 1.035
+      "carry_forward": true,
+      "carry_weeks": 3,
+      "carry_max_usd": 5000000,
+      "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)"
+    },
+    "v3_walkforward": {
+      "label": "v3 walk-forward (ETH factor from earlier 10-Qs only)",
+      "opex_weekly": 2278000,
+      "bmnp_weekly": 646450,
+      "bmnp_start": "2026-06-10",
+      "include_investments": true,
+      "staking_lag_reports": 4,
+      "staking_realization": 1,
+      "opex_high_multiplier": 2,
+      "carry_forward": true,
+      "carry_weeks": 3,
+      "carry_max_usd": 5000000,
+      "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)",
+      "walkforward": true
     }
   },
   "buyback_price_calibration_k": 1.0049,
@@ -45,6 +62,7 @@
       "mean_abs_error_shares": 3007187,
       "mean_abs_error_pct": 0.55,
       "mean_error_shares": -3007187,
+      "mean_error_pct": -0.55,
       "within_range": 3
     },
     "v2": {
@@ -52,15 +70,338 @@
       "mean_abs_error_shares": 642299,
       "mean_abs_error_pct": 0.13,
       "mean_error_shares": 439562,
+      "mean_error_pct": 0.09,
       "within_range": 4
     },
-    "v2_walkforward": {
+    "v3": {
       "intervals": 4,
-      "mean_abs_error_shares": 632482,
-      "mean_abs_error_pct": 0.12,
-      "mean_error_shares": -323722,
+      "mean_abs_error_shares": 1066658,
+      "mean_abs_error_pct": 0.2,
+      "mean_error_shares": 273412,
+      "mean_error_pct": 0.06,
+      "within_range": 4
+    },
+    "v3_walkforward": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1810587,
+      "mean_abs_error_pct": 0.33,
+      "mean_error_shares": -1061044,
+      "mean_error_pct": -0.16,
       "within_range": 4
     }
+  },
+  "variants": {
+    "v3, no carry-forward": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1004416,
+      "mean_abs_error_pct": 0.19,
+      "mean_error_shares": 335655,
+      "mean_error_pct": 0.07,
+      "within_range": 4,
+      "current": {
+        "shares": 626864915,
+        "range": [
+          622298781,
+          632228434
+        ]
+      }
+    },
+    "v3, unlimited carry": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1066658,
+      "mean_abs_error_pct": 0.2,
+      "mean_error_shares": 273412,
+      "mean_error_pct": 0.06,
+      "within_range": 4,
+      "current": {
+        "shares": 626766979,
+        "range": [
+          621776794,
+          632228434
+        ]
+      }
+    },
+    "v3, carry 2 wk / $5M": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1066658,
+      "mean_abs_error_pct": 0.2,
+      "mean_error_shares": 273412,
+      "mean_error_pct": 0.06,
+      "within_range": 4,
+      "current": {
+        "shares": 626766979,
+        "range": [
+          621929846,
+          632228434
+        ]
+      }
+    },
+    "v3, carry 3 wk / $5M": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1066658,
+      "mean_abs_error_pct": 0.2,
+      "mean_error_shares": 273412,
+      "mean_error_pct": 0.06,
+      "within_range": 4,
+      "current": {
+        "shares": 626766979,
+        "range": [
+          621929846,
+          632228434
+        ]
+      }
+    },
+    "v3, carry 4 wk / $10M": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1066658,
+      "mean_abs_error_pct": 0.2,
+      "mean_error_shares": 273412,
+      "mean_error_pct": 0.06,
+      "within_range": 4,
+      "current": {
+        "shares": 626766979,
+        "range": [
+          621776794,
+          632228434
+        ]
+      }
+    },
+    "v3, carry 8 wk / $25M": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1066658,
+      "mean_abs_error_pct": 0.2,
+      "mean_error_shares": 273412,
+      "mean_error_pct": 0.06,
+      "within_range": 4,
+      "current": {
+        "shares": 626766979,
+        "range": [
+          621776794,
+          632228434
+        ]
+      }
+    },
+    "v3 without 10-Q digital-asset timing items": {
+      "intervals": 4,
+      "mean_abs_error_shares": 2120517,
+      "mean_abs_error_pct": 0.4,
+      "mean_error_shares": -2120517,
+      "mean_error_pct": -0.4,
+      "within_range": 4,
+      "current": {
+        "shares": 626766979,
+        "range": [
+          621929846,
+          632228434
+        ]
+      }
+    },
+    "v3 but ETH = weekly avg × 1.00, no timing items": {
+      "intervals": 4,
+      "mean_abs_error_shares": 2042552,
+      "mean_abs_error_pct": 0.38,
+      "mean_error_shares": -2042552,
+      "mean_error_pct": -0.38,
+      "within_range": 4,
+      "current": {
+        "shares": 626814913,
+        "range": [
+          622155962,
+          632013542
+        ]
+      }
+    },
+    "v3 but ETH = weekly avg × 1.05, no timing items": {
+      "intervals": 4,
+      "mean_abs_error_shares": 642299,
+      "mean_abs_error_pct": 0.13,
+      "mean_error_shares": 439562,
+      "mean_error_pct": 0.09,
+      "within_range": 4,
+      "current": {
+        "shares": 627963701,
+        "range": [
+          623147111,
+          633374854
+        ]
+      }
+    },
+    "v3 but on-chain prices where tracked": {
+      "intervals": 4,
+      "mean_abs_error_shares": 1126996,
+      "mean_abs_error_pct": 0.21,
+      "mean_error_shares": 605069,
+      "mean_error_pct": 0.13,
+      "within_range": 4,
+      "current": {
+        "shares": 626804239,
+        "range": [
+          622055068,
+          632186514
+        ]
+      }
+    }
+  },
+  "current_estimate": {
+    "v1": {
+      "shares": 627411096,
+      "range": [
+        622473996,
+        633423046
+      ]
+    },
+    "v2": {
+      "shares": 627963701,
+      "range": [
+        623132116,
+        633374854
+      ]
+    },
+    "v3": {
+      "shares": 626766979,
+      "range": [
+        621929846,
+        632228434
+      ]
+    },
+    "v3_walkforward": {
+      "shares": 626766979,
+      "range": [
+        621929846,
+        632228434
+      ]
+    },
+    "v3, no carry-forward": {
+      "shares": 626864915,
+      "range": [
+        622298781,
+        632228434
+      ]
+    },
+    "v3, unlimited carry": {
+      "shares": 626766979,
+      "range": [
+        621776794,
+        632228434
+      ]
+    },
+    "v3, carry 2 wk / $5M": {
+      "shares": 626766979,
+      "range": [
+        621929846,
+        632228434
+      ]
+    },
+    "v3, carry 3 wk / $5M": {
+      "shares": 626766979,
+      "range": [
+        621929846,
+        632228434
+      ]
+    },
+    "v3, carry 4 wk / $10M": {
+      "shares": 626766979,
+      "range": [
+        621776794,
+        632228434
+      ]
+    },
+    "v3, carry 8 wk / $25M": {
+      "shares": 626766979,
+      "range": [
+        621776794,
+        632228434
+      ]
+    },
+    "v3 without 10-Q digital-asset timing items": {
+      "shares": 626766979,
+      "range": [
+        621929846,
+        632228434
+      ]
+    },
+    "v3 but ETH = weekly avg × 1.00, no timing items": {
+      "shares": 626814913,
+      "range": [
+        622155962,
+        632013542
+      ]
+    },
+    "v3 but ETH = weekly avg × 1.05, no timing items": {
+      "shares": 627963701,
+      "range": [
+        623147111,
+        633374854
+      ]
+    },
+    "v3 but on-chain prices where tracked": {
+      "shares": 626804239,
+      "range": [
+        622055068,
+        632186514
+      ]
+    }
+  },
+  "current_from": {
+    "date": "2026-07-09",
+    "shares": 603226394
+  },
+  "eth_price": {
+    "quarters": [
+      {
+        "period": "Sep 1 – Nov 30, 2025",
+        "from": "2025-08-31",
+        "to": "2025-11-30",
+        "purchase_cost_usd": 7527221000,
+        "eth_units_purchased": 1861886,
+        "derivation": "Units: 3,737,140 held Nov 30, 2025 − 1,874,927 held Aug 31, 2025 − ~327 staking (=$980K staking additions ÷ ~$3,000). Cost: 'Additions from the purchase of ETH' $7,527,221K (cash paid in the cash-flow statement was $7,402,573K; the ~$125M difference was paid in December).",
+        "market_avg_weighted": 4052,
+        "market_avg_source": "Computed offline (no weekly releases before Nov 30, 2025 in releases.json): ETH added per weekly 8-K (Aug 31 → Nov 30, 2025 holdings: 1,866,974; 2,069,443; 2,151,676; 2,416,054; 2,650,900; 2,830,151; 3,032,188; 3,236,014; 3,313,069; 3,395,422; 3,505,723; 3,559,879; 3,629,701; 3,726,499) × that week's average daily ETH close (Yahoo Finance ETH-USD).",
+        "source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "filed": "2026-01-13",
+        "cash_paid_usd": 7402573000,
+        "paid_per_eth": 4042.79,
+        "factor": 0.9977,
+        "weeks": 0
+      },
+      {
+        "period": "Dec 1, 2025 – Feb 28, 2026",
+        "from": "2025-11-30",
+        "to": "2026-03-01",
+        "purchase_cost_usd": 2009424000,
+        "eth_units_purchased": 732539,
+        "derivation": "Units: 4,473,459 held Feb 28 − 3,737,140 held Nov 30 − ~3,780 staking (=$10,201K ÷ ~$2,700). Cost: 6-month additions $9,536,645K − Q1 $7,527,221K. Cash paid (cash-flow statement) was $2,134,422K: includes ~$125M for ETH added in November.",
+        "source": "10-Q quarter ended Feb 28, 2026, Note 3",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "filed": "2026-04-14",
+        "cash_paid_usd": 2134422000,
+        "paid_per_eth": 2743.09,
+        "market_avg_weighted": 2768.48,
+        "factor": 0.9908,
+        "weeks": 13
+      },
+      {
+        "period": "Mar 1 – May 31, 2026",
+        "from": "2026-03-01",
+        "to": "2026-05-31",
+        "purchase_cost_usd": 2036507000,
+        "eth_units_purchased": 923853,
+        "derivation": "Units: 9-month purchases 3,518,278 (Note 4 roll-forward, exact) − Q1 1,861,886 − Q2 732,539. Cost: 9-month purchases $11,573,152K − 6-month $9,536,645K. Cash paid (cash-flow statement) was $2,150,498K; the 9-month cash paid for digital assets exceeds 9-month additions by $112.5M (not explained in the filing).",
+        "source": "10-Q quarter ended May 31, 2026, Note 4",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+        "filed": "2026-07-14",
+        "cash_paid_usd": 2150498000,
+        "paid_per_eth": 2204.36,
+        "market_avg_weighted": 2191.87,
+        "factor": 1.0057,
+        "weeks": 13
+      }
+    ],
+    "pooled_factor": 0.9979,
+    "assumed_uncertainty": 0.01,
+    "onchain_events": 50,
+    "note": "paid_per_eth = 10-Q cost of ETH purchased ÷ units purchased; market_avg_weighted = weekly average ETH price weighted by ETH added each week; factor = paid ÷ market."
   },
   "intervals": [
     {
@@ -114,22 +455,220 @@
           "proceeds_error_pct": 3.7,
           "within_range": true
         },
-        "v2_walkforward": {
-          "est_shares": 455395276,
+        "v3": {
+          "est_shares": 456070405,
           "est_range": [
-            451901189,
-            460121446
+            452532415,
+            460855098
           ],
-          "error_shares": 532825,
-          "error_pct": 0.12,
-          "est_issued": 46816453,
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
           "est_other": 0,
           "est_buybacks": 0,
-          "issued_error": 646603,
-          "issued_error_pct": 1.4,
-          "est_proceeds_usd": 1532569074,
-          "proceeds_error_usd": 34527074,
-          "proceeds_error_pct": 2.3,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3_walkforward": {
+          "est_shares": 456361536,
+          "est_range": [
+            452412609,
+            461627078
+          ],
+          "error_shares": 1499085,
+          "error_pct": 0.33,
+          "est_issued": 47782713,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1612863,
+          "issued_error_pct": 3.5,
+          "est_proceeds_usd": 1563986952,
+          "proceeds_error_usd": 65944952,
+          "proceeds_error_pct": 4.4,
+          "within_range": true
+        },
+        "v3, no carry-forward": {
+          "est_shares": 456070405,
+          "est_range": [
+            452532415,
+            460855098
+          ],
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3, unlimited carry": {
+          "est_shares": 456070405,
+          "est_range": [
+            452532415,
+            460855098
+          ],
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 456070405,
+          "est_range": [
+            452532415,
+            460855098
+          ],
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 456070405,
+          "est_range": [
+            452532415,
+            460855098
+          ],
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 456070405,
+          "est_range": [
+            452532415,
+            460855098
+          ],
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 456070405,
+          "est_range": [
+            452532415,
+            460855098
+          ],
+          "error_shares": 1207954,
+          "error_pct": 0.27,
+          "est_issued": 47491582,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1321732,
+          "issued_error_pct": 2.9,
+          "est_proceeds_usd": 1554520876,
+          "proceeds_error_usd": 56478876,
+          "proceeds_error_pct": 3.8,
+          "within_range": true
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 453537883,
+          "est_range": [
+            450164581,
+            458103047
+          ],
+          "error_shares": -1324568,
+          "error_pct": -0.29,
+          "est_issued": 44959060,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -1210790,
+          "issued_error_pct": -2.6,
+          "est_proceeds_usd": 1472176056,
+          "proceeds_error_usd": -25865944,
+          "proceeds_error_pct": -1.7,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 453924489,
+          "est_range": [
+            450526047,
+            458523167
+          ],
+          "error_shares": -937962,
+          "error_pct": -0.21,
+          "est_issued": 45345666,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -824184,
+          "issued_error_pct": -1.8,
+          "est_proceeds_usd": 1484746549,
+          "proceeds_error_usd": -13295451,
+          "proceeds_error_pct": -0.9,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 456025613,
+          "est_range": [
+            452490536,
+            460806422
+          ],
+          "error_shares": 1163162,
+          "error_pct": 0.26,
+          "est_issued": 47446790,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1276940,
+          "issued_error_pct": 2.8,
+          "est_proceeds_usd": 1553064442,
+          "proceeds_error_usd": 55022442,
+          "proceeds_error_pct": 3.7,
+          "within_range": true
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 456350031,
+          "est_range": [
+            452799203,
+            461154003
+          ],
+          "error_shares": 1487580,
+          "error_pct": 0.33,
+          "est_issued": 47771208,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 1601358,
+          "issued_error_pct": 3.5,
+          "est_proceeds_usd": 1564192311,
+          "proceeds_error_usd": 66150311,
+          "proceeds_error_pct": 4.4,
           "within_range": true
         }
       }
@@ -185,22 +724,220 @@
           "proceeds_error_pct": -8.8,
           "within_range": true
         },
-        "v2_walkforward": {
-          "est_shares": 493057389,
+        "v3": {
+          "est_shares": 493551470,
           "est_range": [
-            490269896,
-            495947463
+            490739348,
+            496471911
           ],
-          "error_shares": -847838,
-          "error_pct": -0.17,
-          "est_issued": 38194938,
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
           "est_other": 0,
           "est_buybacks": 0,
-          "issued_error": -595802,
-          "issued_error_pct": -1.5,
-          "est_proceeds_usd": 816547879,
-          "proceeds_error_usd": -89944121,
-          "proceeds_error_pct": -9.9,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3_walkforward": {
+          "est_shares": 493755782,
+          "est_range": [
+            490653888,
+            497001156
+          ],
+          "error_shares": -149445,
+          "error_pct": -0.03,
+          "est_issued": 38893331,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 102591,
+          "issued_error_pct": 0.3,
+          "est_proceeds_usd": 832947081,
+          "proceeds_error_usd": -73544919,
+          "proceeds_error_pct": -8.1,
+          "within_range": true
+        },
+        "v3, no carry-forward": {
+          "est_shares": 493551470,
+          "est_range": [
+            490739348,
+            496471911
+          ],
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3, unlimited carry": {
+          "est_shares": 493551470,
+          "est_range": [
+            490739348,
+            496471911
+          ],
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 493551470,
+          "est_range": [
+            490739348,
+            496471911
+          ],
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 493551470,
+          "est_range": [
+            490739348,
+            496471911
+          ],
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 493551470,
+          "est_range": [
+            490739348,
+            496471911
+          ],
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 493551470,
+          "est_range": [
+            490739348,
+            496471911
+          ],
+          "error_shares": -353757,
+          "error_pct": -0.07,
+          "est_issued": 38689019,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -101721,
+          "issued_error_pct": -0.3,
+          "est_proceeds_usd": 828132163,
+          "proceeds_error_usd": -78359837,
+          "proceeds_error_pct": -8.6,
+          "within_range": true
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 491753891,
+          "est_range": [
+            489031151,
+            494563714
+          ],
+          "error_shares": -2151336,
+          "error_pct": -0.44,
+          "est_issued": 36891440,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -1899300,
+          "issued_error_pct": -4.9,
+          "est_proceeds_usd": 785828983,
+          "proceeds_error_usd": -120663017,
+          "proceeds_error_pct": -13.3,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 492025207,
+          "est_range": [
+            489288989,
+            494851734
+          ],
+          "error_shares": -1880020,
+          "error_pct": -0.38,
+          "est_issued": 37162756,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -1627984,
+          "issued_error_pct": -4.2,
+          "est_proceeds_usd": 792222961,
+          "proceeds_error_usd": -114269039,
+          "proceeds_error_pct": -12.6,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 493499753,
+          "est_range": [
+            490690285,
+            496417061
+          ],
+          "error_shares": -405474,
+          "error_pct": -0.08,
+          "est_issued": 38637302,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": -153438,
+          "issued_error_pct": -0.4,
+          "est_proceeds_usd": 826972843,
+          "proceeds_error_usd": -79519157,
+          "proceeds_error_pct": -8.8,
+          "within_range": true
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 494565810,
+          "est_range": [
+            491698571,
+            497570262
+          ],
+          "error_shares": 660583,
+          "error_pct": 0.13,
+          "est_issued": 39703359,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 912619,
+          "issued_error_pct": 2.4,
+          "est_proceeds_usd": 853019907,
+          "proceeds_error_usd": -53472093,
+          "proceeds_error_pct": -5.9,
           "within_range": true
         }
       }
@@ -256,23 +993,221 @@
           "proceeds_error_pct": -19.9,
           "within_range": false
         },
-        "v2_walkforward": {
-          "est_shares": 539840215,
+        "v3": {
+          "est_shares": 540952465,
           "est_range": [
-            537413821,
-            542646398
+            538484913,
+            543816954
           ],
-          "error_shares": 2211396,
-          "error_pct": 0.41,
-          "est_issued": 45433443,
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
           "est_other": 501545,
           "est_buybacks": 0,
-          "issued_error": -11674143,
-          "issued_error_pct": -20.4,
-          "est_proceeds_usd": 933082597,
-          "proceeds_error_usd": -247631403,
-          "proceeds_error_pct": -21,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3_walkforward": {
+          "est_shares": 538263552,
+          "est_range": [
+            535489041,
+            541431246
+          ],
+          "error_shares": 634733,
+          "error_pct": 0.12,
+          "est_issued": 43856780,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -13250806,
+          "issued_error_pct": -23.2,
+          "est_proceeds_usd": 900608785,
+          "proceeds_error_usd": -280105215,
+          "proceeds_error_pct": -23.7,
           "within_range": true
+        },
+        "v3, no carry-forward": {
+          "est_shares": 540952465,
+          "est_range": [
+            538484913,
+            543816954
+          ],
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3, unlimited carry": {
+          "est_shares": 540952465,
+          "est_range": [
+            538484913,
+            543816954
+          ],
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 540952465,
+          "est_range": [
+            538484913,
+            543816954
+          ],
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 540952465,
+          "est_range": [
+            538484913,
+            543816954
+          ],
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 540952465,
+          "est_range": [
+            538484913,
+            543816954
+          ],
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 540952465,
+          "est_range": [
+            538484913,
+            543816954
+          ],
+          "error_shares": 3323646,
+          "error_pct": 0.62,
+          "est_issued": 46545693,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10561893,
+          "issued_error_pct": -18.5,
+          "est_proceeds_usd": 955990788,
+          "proceeds_error_usd": -224723212,
+          "proceeds_error_pct": -19,
+          "within_range": false
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 538600781,
+          "est_range": [
+            536220237,
+            541341973
+          ],
+          "error_shares": 971962,
+          "error_pct": 0.18,
+          "est_issued": 44194009,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -12913577,
+          "issued_error_pct": -22.6,
+          "est_proceeds_usd": 907554540,
+          "proceeds_error_usd": -273159460,
+          "proceeds_error_pct": -23.1,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 538359663,
+          "est_range": [
+            535988038,
+            541088211
+          ],
+          "error_shares": 730844,
+          "error_pct": 0.14,
+          "est_issued": 43952891,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -13154695,
+          "issued_error_pct": -23,
+          "est_proceeds_usd": 902588331,
+          "proceeds_error_usd": -278125669,
+          "proceeds_error_pct": -23.6,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 540474737,
+          "est_range": [
+            538024871,
+            543314193
+          ],
+          "error_shares": 2845918,
+          "error_pct": 0.53,
+          "est_issued": 46067965,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -11039621,
+          "issued_error_pct": -19.3,
+          "est_proceeds_usd": 946151568,
+          "proceeds_error_usd": -234562432,
+          "proceeds_error_pct": -19.9,
+          "within_range": false
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 541146032,
+          "est_range": [
+            538666543,
+            544036886
+          ],
+          "error_shares": 3517213,
+          "error_pct": 0.65,
+          "est_issued": 46739260,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -10368326,
+          "issued_error_pct": -18.2,
+          "est_proceeds_usd": 959874857,
+          "proceeds_error_usd": -220839143,
+          "proceeds_error_pct": -18.7,
+          "within_range": false
         }
       }
     },
@@ -327,22 +1262,220 @@
           "proceeds_error_pct": 40,
           "within_range": false
         },
-        "v2_walkforward": {
-          "est_shares": 576376467,
+        "v3": {
+          "est_shares": 577800973,
           "est_range": [
-            574351861,
-            578447400
+            575722988,
+            579924441
           ],
-          "error_shares": -3275965,
-          "error_pct": -0.57,
-          "est_issued": 38747648,
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
           "est_other": 0,
           "est_buybacks": 0,
-          "issued_error": 8599586,
-          "issued_error_pct": 28.5,
-          "est_proceeds_usd": 850161431,
-          "proceeds_error_usd": 230388431,
-          "proceeds_error_pct": 37.2,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3_walkforward": {
+          "est_shares": 574610715,
+          "est_range": [
+            572576070,
+            576844799
+          ],
+          "error_shares": -5041717,
+          "error_pct": -0.87,
+          "est_issued": 36981896,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 6833834,
+          "issued_error_pct": 22.7,
+          "est_proceeds_usd": 812397789,
+          "proceeds_error_usd": 192624789,
+          "proceeds_error_pct": 31.1,
+          "within_range": false
+        },
+        "v3, no carry-forward": {
+          "est_shares": 577800973,
+          "est_range": [
+            575722988,
+            579924441
+          ],
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3, unlimited carry": {
+          "est_shares": 577800973,
+          "est_range": [
+            575722988,
+            579924441
+          ],
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 577800973,
+          "est_range": [
+            575722988,
+            579924441
+          ],
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 577800973,
+          "est_range": [
+            575722988,
+            579924441
+          ],
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 577800973,
+          "est_range": [
+            575722988,
+            579924441
+          ],
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 577800973,
+          "est_range": [
+            575722988,
+            579924441
+          ],
+          "error_shares": -1851459,
+          "error_pct": -0.32,
+          "est_issued": 40172154,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 10024092,
+          "issued_error_pct": 33.2,
+          "est_proceeds_usd": 880297530,
+          "proceeds_error_usd": 260524530,
+          "proceeds_error_pct": 42,
+          "within_range": true
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 574907040,
+          "est_range": [
+            573160642,
+            576817056
+          ],
+          "error_shares": -4745392,
+          "error_pct": -0.82,
+          "est_issued": 37278221,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 7130159,
+          "issued_error_pct": 23.7,
+          "est_proceeds_usd": 818874244,
+          "proceeds_error_usd": 199101244,
+          "proceeds_error_pct": 32.1,
+          "within_range": false
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 574727988,
+          "est_range": [
+            572988851,
+            576560358
+          ],
+          "error_shares": -4924444,
+          "error_pct": -0.85,
+          "est_issued": 37099169,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 6951107,
+          "issued_error_pct": 23.1,
+          "est_proceeds_usd": 814960898,
+          "proceeds_error_usd": 195187898,
+          "proceeds_error_pct": 31.5,
+          "within_range": false
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 577189530,
+          "est_range": [
+            575132303,
+            579291143
+          ],
+          "error_shares": -2462902,
+          "error_pct": -0.42,
+          "est_issued": 39560711,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 9412649,
+          "issued_error_pct": 31.2,
+          "est_proceeds_usd": 867376953,
+          "proceeds_error_usd": 247603953,
+          "proceeds_error_pct": 40,
+          "within_range": false
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 577451185,
+          "est_range": [
+            575386264,
+            579558801
+          ],
+          "error_shares": -2201247,
+          "error_pct": -0.38,
+          "est_issued": 39822366,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": 9674304,
+          "issued_error_pct": 32.1,
+          "est_proceeds_usd": 873189715,
+          "proceeds_error_usd": 253416715,
+          "proceeds_error_pct": 40.9,
           "within_range": false
         }
       }
@@ -398,20 +1531,218 @@
           "proceeds_error_pct": null,
           "within_range": true
         },
-        "v2_walkforward": {
-          "est_shares": 603311088,
+        "v3": {
+          "est_shares": 601993659,
           "est_range": [
-            601257940,
-            605454460
+            599815968,
+            604433240
           ],
-          "error_shares": 84694,
-          "error_pct": 0.01,
-          "est_issued": 23658656,
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
           "est_other": 0,
           "est_buybacks": 0,
           "issued_error": null,
           "issued_error_pct": null,
-          "est_proceeds_usd": 379659696,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3_walkforward": {
+          "est_shares": 601993659,
+          "est_range": [
+            599815968,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, no carry-forward": {
+          "est_shares": 602242629,
+          "est_range": [
+            600164157,
+            604443859
+          ],
+          "error_shares": -983765,
+          "error_pct": -0.16,
+          "est_issued": 22590197,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 361903818,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, unlimited carry": {
+          "est_shares": 601993659,
+          "est_range": [
+            599691837,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 601993659,
+          "est_range": [
+            599815968,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 601993659,
+          "est_range": [
+            599815968,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 601993659,
+          "est_range": [
+            599691837,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 601993659,
+          "est_range": [
+            599691837,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 601993659,
+          "est_range": [
+            599815968,
+            604433240
+          ],
+          "error_shares": -1232735,
+          "error_pct": -0.2,
+          "est_issued": 22341227,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 358441889,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 602067770,
+          "est_range": [
+            600166479,
+            604135873
+          ],
+          "error_shares": -1158624,
+          "error_pct": -0.19,
+          "est_issued": 22415338,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 359635492,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 603843939,
+          "est_range": [
+            601764614,
+            606019557
+          ],
+          "error_shares": 617545,
+          "error_pct": 0.1,
+          "est_issued": 24191507,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 388241498,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 602182540,
+          "est_range": [
+            600023475,
+            604441036
+          ],
+          "error_shares": -1043854,
+          "error_pct": -0.17,
+          "est_issued": 22530108,
+          "est_other": 0,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 361267855,
           "proceeds_error_usd": null,
           "proceeds_error_pct": null,
           "within_range": true
@@ -469,22 +1800,220 @@
           "proceeds_error_pct": 0.7,
           "within_range": true
         },
-        "v2_walkforward": {
-          "est_shares": 578587863,
+        "v3": {
+          "est_shares": 581124619,
           "est_range": [
-            574136864,
-            583464979
+            576579081,
+            586112576
           ],
-          "error_shares": -1064569,
-          "error_pct": -0.18,
-          "est_issued": 84181091,
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
           "est_other": 501545,
           "est_buybacks": 0,
-          "issued_error": -3074557,
-          "issued_error_pct": -3.5,
-          "est_proceeds_usd": 1783244028,
-          "proceeds_error_usd": -17242972,
-          "proceeds_error_pct": -1,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3_walkforward": {
+          "est_shares": 575291350,
+          "est_range": [
+            570479892,
+            580729061
+          ],
+          "error_shares": -4361082,
+          "error_pct": -0.75,
+          "est_issued": 80884578,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -6371070,
+          "issued_error_pct": -7.3,
+          "est_proceeds_usd": 1714009812,
+          "proceeds_error_usd": -86477188,
+          "proceeds_error_pct": -4.8,
+          "within_range": true
+        },
+        "v3, no carry-forward": {
+          "est_shares": 581124619,
+          "est_range": [
+            576579081,
+            586112576
+          ],
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3, unlimited carry": {
+          "est_shares": 581124619,
+          "est_range": [
+            576579081,
+            586112576
+          ],
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 581124619,
+          "est_range": [
+            576579081,
+            586112576
+          ],
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 581124619,
+          "est_range": [
+            576579081,
+            586112576
+          ],
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 581124619,
+          "est_range": [
+            576579081,
+            586112576
+          ],
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 581124619,
+          "est_range": [
+            576579081,
+            586112576
+          ],
+          "error_shares": 1472187,
+          "error_pct": 0.25,
+          "est_issued": 86717847,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -537801,
+          "issued_error_pct": -0.6,
+          "est_proceeds_usd": 1836288318,
+          "proceeds_error_usd": 35801318,
+          "proceeds_error_pct": 2,
+          "within_range": true
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 575879002,
+          "est_range": [
+            571752060,
+            580530210
+          ],
+          "error_shares": -3773430,
+          "error_pct": -0.65,
+          "est_issued": 81472230,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -5783418,
+          "issued_error_pct": -6.6,
+          "est_proceeds_usd": 1726428784,
+          "proceeds_error_usd": -74058216,
+          "proceeds_error_pct": -4.1,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 575458832,
+          "est_range": [
+            571348069,
+            580019751
+          ],
+          "error_shares": -4193600,
+          "error_pct": -0.72,
+          "est_issued": 81052060,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -6203588,
+          "issued_error_pct": -7.1,
+          "est_proceeds_usd": 1717549229,
+          "proceeds_error_usd": -82937771,
+          "proceeds_error_pct": -4.6,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 580035448,
+          "est_range": [
+            575528355,
+            584976517
+          ],
+          "error_shares": 383016,
+          "error_pct": 0.07,
+          "est_issued": 85628676,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -1626972,
+          "issued_error_pct": -1.9,
+          "est_proceeds_usd": 1813528521,
+          "proceeds_error_usd": 13041521,
+          "proceeds_error_pct": 0.7,
+          "within_range": true
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 580968398,
+          "est_range": [
+            576423988,
+            585966868
+          ],
+          "error_shares": 1315966,
+          "error_pct": 0.23,
+          "est_issued": 86561626,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": -694022,
+          "issued_error_pct": -0.8,
+          "est_proceeds_usd": 1833064572,
+          "proceeds_error_usd": 32577572,
+          "proceeds_error_pct": 1.8,
           "within_range": true
         }
       }
@@ -540,20 +2069,218 @@
           "proceeds_error_pct": null,
           "within_range": true
         },
-        "v2_walkforward": {
-          "est_shares": 601931506,
+        "v3": {
+          "est_shares": 604320043,
           "est_range": [
-            589145779,
-            616568237
+            591246703,
+            619452715
           ],
-          "error_shares": -1294888,
-          "error_pct": -0.21,
-          "est_issued": 192851138,
+          "error_shares": 1093649,
+          "error_pct": 0.18,
+          "est_issued": 195239675,
           "est_other": 501545,
           "est_buybacks": 0,
           "issued_error": null,
           "issued_error_pct": null,
-          "est_proceeds_usd": 4512020676,
+          "est_proceeds_usd": 4577383245,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3_walkforward": {
+          "est_shares": 598975617,
+          "est_range": [
+            584936971,
+            615363356
+          ],
+          "error_shares": -4250777,
+          "error_pct": -0.7,
+          "est_issued": 189895249,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4469279458,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, no carry-forward": {
+          "est_shares": 604569013,
+          "est_range": [
+            591594893,
+            619463335
+          ],
+          "error_shares": 1342619,
+          "error_pct": 0.22,
+          "est_issued": 195488645,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4580845174,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, unlimited carry": {
+          "est_shares": 604320043,
+          "est_range": [
+            591122573,
+            619452715
+          ],
+          "error_shares": 1093649,
+          "error_pct": 0.18,
+          "est_issued": 195239675,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4577383245,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 2 wk / $5M": {
+          "est_shares": 604320043,
+          "est_range": [
+            591246703,
+            619452715
+          ],
+          "error_shares": 1093649,
+          "error_pct": 0.18,
+          "est_issued": 195239675,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4577383245,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 3 wk / $5M": {
+          "est_shares": 604320043,
+          "est_range": [
+            591246703,
+            619452715
+          ],
+          "error_shares": 1093649,
+          "error_pct": 0.18,
+          "est_issued": 195239675,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4577383245,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 4 wk / $10M": {
+          "est_shares": 604320043,
+          "est_range": [
+            591122573,
+            619452715
+          ],
+          "error_shares": 1093649,
+          "error_pct": 0.18,
+          "est_issued": 195239675,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4577383245,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3, carry 8 wk / $25M": {
+          "est_shares": 604320043,
+          "est_range": [
+            591122573,
+            619452715
+          ],
+          "error_shares": 1093649,
+          "error_pct": 0.18,
+          "est_issued": 195239675,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4577383245,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 without 10-Q digital-asset timing items": {
+          "est_shares": 594744324,
+          "est_range": [
+            582343650,
+            609210101
+          ],
+          "error_shares": -8482070,
+          "error_pct": -1.41,
+          "est_issued": 185663956,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4342875712,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.00, no timing items": {
+          "est_shares": 595056189,
+          "est_range": [
+            582909475,
+            609110415
+          ],
+          "error_shares": -8170205,
+          "error_pct": -1.35,
+          "est_issued": 185975821,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4354154231,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 but ETH = weekly avg × 1.05, no timing items": {
+          "est_shares": 604984643,
+          "est_range": [
+            592053680,
+            619799447
+          ],
+          "error_shares": 1758249,
+          "error_pct": 0.29,
+          "est_issued": 195904275,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4581807304,
+          "proceeds_error_usd": null,
+          "proceeds_error_pct": null,
+          "within_range": true
+        },
+        "v3 but on-chain prices where tracked": {
+          "est_shares": 605646670,
+          "est_range": [
+            592525127,
+            620712058
+          ],
+          "error_shares": 2420276,
+          "error_pct": 0.4,
+          "est_issued": 196566302,
+          "est_other": 501545,
+          "est_buybacks": 0,
+          "issued_error": null,
+          "issued_error_pct": null,
+          "est_proceeds_usd": 4611544646,
           "proceeds_error_usd": null,
           "proceeds_error_pct": null,
           "within_range": true
@@ -614,30 +2341,30 @@
         "cash_need": 1813528521
       }
     },
-    "v2_walkforward": {
+    "v3": {
       "Dec 1, 2025 – Feb 28, 2026": {
         "weeks": [
           "2025-11-30",
           "2026-03-01"
         ],
-        "eth_purchase_cost": 2133502953,
+        "eth_purchase_cost": 2042391039,
         "staking_eth": 3411,
         "opex": 29614000,
         "investments": 200000000,
         "cash_change": -14000000,
-        "cash_need": 2349116953
+        "cash_need": 2382653039
       },
       "Mar 1 – May 31, 2026": {
         "weeks": [
           "2026-03-01",
           "2026-05-31"
         ],
-        "eth_purchase_cost": 2089630028,
+        "eth_purchase_cost": 2030474318,
         "staking_eth": 22306,
         "opex": 29614000,
         "investments": 86000000,
         "cash_change": -422000000,
-        "cash_need": 1783244028
+        "cash_need": 1836288318
       }
     }
   },

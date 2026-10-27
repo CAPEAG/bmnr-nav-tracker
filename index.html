@@ -79,7 +79,12 @@
     <div id="btBody" class="collapse" hidden>
     <div class="hero bt-sum" id="btSummary"></div>
     <div class="table-wrap"><table class="t small" id="btTable"></table></div>
-    <p class="fine">Out-of-sample: each interval starts at an official count, rolls the weekly estimator forward and compares with the next filing. Error = estimate − official. "Clean intervals" exclude the Apr 13, 2026 10-Q cover count, which contradicts the same filing (Feb 28 count 493,905,227 + 57,107,586 ATM shares sold through Apr 14 = 551.0M, not 537.6M) — the Feb 28 → May 31 quarter is used instead. v2's ETH-cost, staking and opex parameters were fitted on Dec 2025 – May 2026 10-Q data, so its Dec–May rows are partly in-sample; the walk-forward variant fits the ETH-cost factor on Dec–Feb only. The next true test is Bitmine's next official count (10-K for FY ended Aug 31, 2026).</p>
+    <p class="fine">Out-of-sample: each interval starts at an official count, rolls the weekly estimator forward and compares with the next filing. Error = estimate − official; bias = mean signed error. "Clean intervals" exclude the Apr 13, 2026 10-Q cover count, which contradicts the same filing (Feb 28 count 493,905,227 + 57,107,586 ATM shares sold through Apr 14 = 551.0M, not 537.6M) — the Feb 28 → May 31 quarter is used instead. v2 and v3 use 10-Q data from Dec 2025 – May 2026 (v2's 1.05 ETH factor, v3's quarterly ETH price and cash-timing items), so their Dec–May rows are partly in-sample; v3 walk-forward only uses 10-Qs filed before each interval starts. The next true test is Bitmine's next official count (10-K for FY ended Aug 31, 2026).</p>
+    <h3>What Bitmine paid per ETH (10-Q)</h3>
+    <div class="table-wrap"><table class="t small" id="btEth"></table></div>
+    <p class="fine">Paid per ETH = cost of ETH purchased ÷ ETH units purchased, from each 10-Q's digital-asset roll-forward (cost basis and units). Market avg = the weekly average ETH price weighted by the ETH added in each weekly release. Bitmine has paid within about ±1% of the market average every quarter, with no trend as purchases got smaller; the 1.05 factor used before came from cash-flow timing (Sep–Nov purchases paid in December, and $112M of unexplained Mar–May digital-asset cash), which v3 adds separately as "other digital-asset cash (10-Q)" in those quarters only. On-chain tracker posts (Lookonchain, OnchainLens, EmberCN: 50 Bitmine-linked transfers since Dec 2025; since Jul 9, 2026, 10 transfers in 8 of 16 weeks, matching the week's reported purchase within ±20% in only 2) date settlement withdrawals and value them at spot; using them made the quarterly ETH cost less accurate, so they are shown only as a cross-check in the data table.</p>
+    <h3>Sensitivity (same intervals)</h3>
+    <div class="table-wrap"><table class="t small" id="btVar"></table></div>
     </div>
   </section>
 
@@ -97,15 +102,17 @@
         </ul>
       </div>
       <div>
-        <h3>Share-count reconstruction (model v2)</h3>
+        <h3>Share-count reconstruction (model v3)</h3>
         <ul>
           <li><b>Anchors</b>: official 10-Q counts — 408.58M (Nov 30, 2025), 454.86M (Jan 12), 493.91M (Feb 28), 579.65M (May 31), <b>603,226,394 (Jul 9, 2026, latest)</b>. Between them the count is rolled forward weekly.</li>
           <li><b>Staking rewards (est.)</b> = ETH that was already staked 4 reports earlier × the week's stated 7-day BMNR yield × days/365 (validator entry-queue lag; fitted to 10-Q staking revenue). Rewards arrive in ETH and are inside reported holdings.</li>
-          <li><b>ETH bought (est.)</b> = change in ETH − est. rewards, costed at the week's average daily ETH price × 1.05 (cash actually paid per the 10-Q cash-flow statements).</li>
+          <li><b>ETH bought (est.)</b> = change in ETH − est. rewards.</li>
+          <li><b>ETH price paid</b>, with its basis per week: <i>disclosed</i> = inside a quarter with a filed 10-Q, the week's average ETH price × that quarter's paid ÷ market ratio (10-Q cost of ETH purchased ÷ units; 0.998, 0.991, 1.006 for Sep–Nov, Dec–Feb, Mar–May); <i>assumed</i> = after the last 10-Q, the week's average × the pooled ratio (0.998), ±1%. <i>On-chain</i> tracker prices are recorded as a cross-check only (they were less accurate in the backtest).</li>
+          <li><b>Other digital-asset cash (10-Q)</b>: cash paid for digital assets beyond the cost of ETH added — $125M in Dec–Feb (Sep–Nov purchases paid later) and $112M in Mar–May — spread over that quarter's weeks by ETH bought. None assumed after May 31, 2026.</li>
           <li><b>Buyback price</b>: disclosed if given; otherwise the week's average BMNR close × a factor (≈1.005) calibrated so all buybacks sum to the disclosed $399.6M for 22.9M shares.</li>
-          <li><b>Cash need</b> = Δcash + ETH cost + buybacks + disclosed investments + operating cash burn ($2.28M/wk, Dec–May 10-Q operating cash flow) + BMNP dividends ($0.65M/wk from Jun 10) − disclosed non-common proceeds.</li>
-          <li><b>Shares issued (est.)</b> = cash need ÷ week's average BMNR close. A week with surplus cash carries forward to offset later weeks. Plus disclosed RSU/acquisition shares, minus disclosed buybacks.</li>
-          <li><b>Range</b>: low = no operating cash costs and issuance at the week's highest close; high = 2× costs at the week's lowest close.</li>
+          <li><b>Cash shortfall</b> = spending (ETH + other digital-asset cash + buybacks + disclosed investments + operating cash burn $2.28M/wk + BMNP dividends $0.65M/wk from Jun 10) − cash drop − disclosed non-common proceeds.</li>
+          <li><b>Funded by share sales (est.)</b> = shortfall − surplus carried from prior weeks. A negative shortfall (surplus) is carried for at most 3 weeks and $5M in total (cash in releases is rounded to $1M); anything older or larger is dropped. <b>Shares issued (est.)</b> = funded amount ÷ the week's average BMNR close; plus disclosed RSU/acquisition shares, minus disclosed buybacks.</li>
+          <li><b>Low–high est.</b> (shares issued, shares outstanding, funded amount): low = no operating cash costs, ETH price 1% below the assumption and issuance at the week's highest close; high = 2× operating costs, ETH price 1% above and the week's lowest close. Weeks with a disclosed (10-Q) ETH price use no ETH-price spread. Ranges accumulate from the last official count.</li>
         </ul>
       </div>
       <div>
@@ -114,9 +121,9 @@
           <li><b>ORBS</b> = Eightco Holdings (NASDAQ: ORBS) <i>stock</i> (not the Orbs crypto token): 100,655,143 shares per Bitmine's 10-Q × live ORBS price.</li>
           <li><b>Beast Industries</b> stake is carried at the disclosed $180M. "Cash" = "total cash &amp; marketable securities" (includes cash posted as option collateral).</li>
           <li>BMNP preferred (3.5M shares) and other liabilities are <i>not</i> deducted from NAV.</li>
-          <li>Backtest: v2 is within ~0.1–0.3% of every clean official count since Nov 2025 (see the backtest section). Biggest remaining unknowns: within-week timing of ATM sales, rounded cash figures in some releases ($1.0B/$1.2B), ETH execution prices and option-strategy cash flows. The estimate re-anchors whenever Bitmine files a new count (10-K for FY ended Aug 31, 2026 is due).</li>
+          <li>Backtest: v3 is within 0.07–0.27% of every clean official count since Nov 2025 (see the backtest section). Biggest remaining unknowns: within-week timing of ATM sales, rounded cash figures (nearest $1M since Jan 4, 2026; $1.0B/$1.2B in some earlier releases), cash-settlement timing of ETH purchases and option-strategy cash flows. The estimate re-anchors whenever Bitmine files a new count (10-K for FY ended Aug 31, 2026 is due).</li>
           <li><b>Valuation</b> (Bear/Base/Bull): SOTP = live NAV/share + capitalized net staking/treasury earnings (after company cash opex, BMNP dividends and tax) + MAVAN third-party staking value. Inputs and sources: <code>data/valuation.json</code> (staked share and trailing yields refresh weekly). Options income and interest are excluded.</li>
-          <li><b>Accretion check</b>: weekly per-share effect of ATM issuance, buybacks, staking and costs, in $ NAV/share and ETH/share, from the v2 model's estimated issuance (see the Accretion section).</li>
+          <li><b>Accretion check</b>: weekly per-share effect of ATM issuance, buybacks, staking and costs, in $ NAV/share and ETH/share, from the v3 model's estimated issuance (see the Accretion section).</li>
         </ul>
       </div>
     </div>
@@ -124,8 +131,8 @@
     <ul class="notes">
       <li><b>NAV &amp; mNAV</b>: mNAV = BMNR price ÷ NAV per share (= market cap ÷ NAV). Enterprise Value row: EV = market cap − cash; its "mNAV" = market cap ÷ EV.</li>
       <li><b>Holdings</b>: <span id="holdNote"></span></li>
-      <li><b>Weekly history</b>: every row is one Bitmine weekly release (8-K Ex. 99 · @BitMNR) since Nov 30, 2025. Share counts are official at 10-Q checkpoints and estimated in between (rolled forward from the latest checkpoint; shaded band = low/high range). * = estimated buyback price. "Other uses" = disclosed cash investments (Beast, Eightco, Pier Two); "pref." = BMNP preferred proceeds.</li>
-      <li><b>ETH per share</b> = reported ETH held ÷ shares outstanding (v2 estimate between filings; band = high/low share range). Green dots = weeks re-anchored to an official 10-Q count; red diamond = the flagged Apr 13 cover count. Bars = week-over-week % change (positive = ETH grew faster than the share count). <span id="epsNote"></span></li>
+      <li><b>Weekly history</b>: every row is one Bitmine weekly release (8-K Ex. 99 · @BitMNR) since Nov 30, 2025. Share counts are official at 10-Q checkpoints and estimated in between (rolled forward from the latest checkpoint; shaded band = low–high est.). * = estimated buyback price. † = other digital-asset cash from the 10-Q cash-flow statement. ETH price paid shows its basis (disclosed / assumed) and, where trackers posted Bitmine-linked transfers that week, the on-chain spot value as a cross-check. "Other uses" = disclosed cash investments (Beast, Eightco, Pier Two); "pref." = BMNP preferred proceeds.</li>
+      <li><b>ETH per share</b> = reported ETH held ÷ shares outstanding (v3 estimate between filings; band = low–high est. share range). Green dots = weeks re-anchored to an official 10-Q count; red diamond = the flagged Apr 13 cover count. Bars = week-over-week % change (positive = ETH grew faster than the share count). <span id="epsNote"></span></li>
       <li><b>Accretion</b>: a capital action is accretive if it raises what each existing share owns. Selling shares above NAV/share (mNAV &gt; 1) is accretive, below NAV dilutive; buybacks below NAV are accretive; staking rewards add ETH without new shares; cash costs and paying above market for ETH are dilutive. <span id="accNote"></span></li>
       <li><b>Valuation</b>: SOTP per share = live NAV per share + capitalized value of the staking/treasury business (net of company cash costs, BMNP preferred dividends and tax) + MAVAN's third-party staking business. Inputs and sources: <code>data/valuation.json</code>; staked ETH and trailing yields refresh weekly.</li>
     </ul>

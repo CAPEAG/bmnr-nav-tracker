@@ -81,19 +81,96 @@ for (const { cur, px } of wk) {
 }
 const kBuyback = provisional ? (agg.amount - disclosedCost) / provisional : 1;
 
+// ---------- ETH purchase price per week ----------
+// What Bitmine paid per ETH, from the 10-Q digital-asset roll-forward (checkpoints.json → eth_cost_quarterly):
+// cost of ETH purchased ÷ units purchased, compared with the purchase-weighted weekly average ETH price.
+// Weeks inside a filed quarter use that quarter's factor ('disclosed'); later weeks use the factor pooled over all
+// filed quarters ('assumed', ± the largest quarterly deviation as the range). On-chain tracker prices are recorded per
+// week as a cross-check; they are used ('on-chain') only if assumptions.share_estimation.use_onchain_price is true.
+const OC = (await load('onchain-purchases.json', { events: [] })).events;
+const QS = (C.eth_cost_quarterly?.quarters || []).map((q) => {
+  const ws = wk.filter((w) => w.prev && w.cur.as_of > q.from && w.cur.as_of <= q.to);
+  const add = ws.reduce((t, w) => t + (w.cur.eth - w.prev.eth), 0);
+  const mkt = q.market_avg_weighted ?? (ws.length ? ws.reduce((t, w) => t + (w.cur.eth - w.prev.eth) * w.px.eth_avg, 0) / add : null);
+  const paid = q.purchase_cost_usd / q.eth_units_purchased;
+  return { ...q, paid_per_eth: r(paid, 2), market_avg_weighted: r(mkt, 2), factor: r(paid / mkt, 4), weeks: ws.length };
+});
+const pooled = (qs) => qs.reduce((t, q) => t + q.purchase_cost_usd, 0) / qs.reduce((t, q) => t + q.eth_units_purchased * q.market_avg_weighted, 0);
+const ETH_F = pooled(QS);
+const ETH_UNC = A.eth_price_uncertainty ?? Math.ceil(Math.max(...QS.map((q) => Math.abs(q.factor / ETH_F - 1))) * 200) / 200;
+const ocFor = (i) => {
+  const { cur, prev } = wk[i];
+  if (!prev) return null;
+  const ev = OC.filter((e) => e.time_utc.slice(0, 10) > prev.as_of && e.time_utc.slice(0, 10) <= cur.as_of);
+  if (!ev.length) return null;
+  const eth = ev.reduce((t, e) => t + e.eth, 0), usdv = ev.reduce((t, e) => t + e.usd, 0);
+  return { events: ev.length, eth, implied_price: r(usdv / eth, 2), sources: ev.map((e) => e.source) };
+};
+const quarterOf = (asof) => QS.find((q) => asof > q.from && asof <= q.to);
+// Price function for a given information set (qs = quarters known; perQuarter = use each week's own quarter if filed)
+function ethPriceFn(qs, perQuarter) {
+  const f = pooled(qs);
+  return (i) => {
+    const { cur, px } = wk[i];
+    if (cur.eth_purchase_cost_usd != null) // a release that states the dollars spent on ETH that week
+      return { total: cur.eth_purchase_cost_usd, price: null, basis: 'disclosed', unc: 0, source: `release: $${n0(cur.eth_purchase_cost_usd)} spent on ETH (${cur.sec_8k})` };
+    const q = perQuarter && quarterOf(cur.as_of);
+    if (q && qs.includes(q)) return { price: px.eth_avg * q.factor, basis: 'disclosed', unc: 0, factor: q.factor, source: `${q.source}: paid $${n0(q.paid_per_eth)}/ETH vs $${n0(q.market_avg_weighted)} market (×${q.factor})` };
+    const oc = A.use_onchain_price && ocFor(i);
+    if (oc) return { price: oc.implied_price, basis: 'on-chain', unc: ETH_UNC, source: oc.sources.join(' ') };
+    return { price: px.eth_avg * f, basis: 'assumed', unc: ETH_UNC, factor: r(f, 4), source: `weekly avg × ${f.toFixed(4)} (pooled 10-Q factor, ${qs.length} quarters)` };
+  };
+}
+const n0 = (x) => Math.round(x).toLocaleString('en-US');
+// Other digital-asset cash from the 10-Qs (cash paid ≠ cost of ETH added that week), known from each filing date.
+const TI = C.eth_cost_quarterly?.cash_timing_items?.items || [];
+const tiWeeks = TI.map((t) => {
+  const idx = wk.map((w, i) => i).filter((i) => wk[i].prev && wk[i].cur.as_of > t.from && wk[i].cur.as_of <= t.to);
+  const wts = idx.map((i) => Math.max(0, wk[i].cur.eth - wk[i].prev.eth) * wk[i].px.eth_avg);
+  const tot = wts.reduce((a, b) => a + b, 0);
+  return { ...t, alloc: new Map(idx.map((i, j) => [i, (t.usd * wts[j]) / tot])) };
+});
+const extraCashFn = (knownBy) => (i) => {
+  const xs = tiWeeks.filter((t) => (!knownBy || t.known_from <= knownBy) && t.alloc.has(i));
+  if (!xs.length) return null;
+  return { usd: xs.reduce((a, t) => a + t.alloc.get(i), 0), what: xs.map((t) => t.what).join(' ') };
+};
+
 // ---------- models ----------
-// v1 = the method used for the Jul 9 – Oct 26, 2026 reconstruction (before this backtest).
-// v2 = recalibrated after the 2026 backtest (parameters + sources in holdings.json → assumptions.share_estimation).
+// v1 = the method used for the Jul 9 – Oct 26, 2026 reconstruction (before the first backtest).
+// v2 = first recalibration (ETH at weekly avg × 1.05 fitted on 10-Q cash flows; unlimited surplus carry-forward).
+// v3 = current: ETH price from the 10-Q cost per ETH (per quarter / pooled), surplus carry-forward capped.
+const base = { opex_weekly: A.weekly_cash_opex_usd, bmnp_weekly: A.bmnp_weekly_dividend_usd, bmnp_start: A.bmnp_start,
+  include_investments: A.include_investments, staking_lag_reports: A.staking_lag_reports, staking_realization: A.staking_realization,
+  opex_high_multiplier: A.opex_high_multiplier };
 const MODELS = {
   v1: { label: 'v1 – original (Jul–Oct 2026)', opex_weekly: 3257538, bmnp_weekly: A.bmnp_weekly_dividend_usd, bmnp_start: A.bmnp_start,
     include_investments: false, staking_lag_reports: 0, staking_realization: 1, carry_forward: false, opex_high_multiplier: 2 },
-  v2: { label: 'v2 – recalibrated (current)', opex_weekly: A.weekly_cash_opex_usd, bmnp_weekly: A.bmnp_weekly_dividend_usd, bmnp_start: A.bmnp_start,
-    include_investments: A.include_investments, staking_lag_reports: A.staking_lag_reports, staking_realization: A.staking_realization,
-    carry_forward: A.carry_forward, opex_high_multiplier: A.opex_high_multiplier, eth_cost_factor: A.eth_cost_factor },
+  v2: { label: 'v2 – ETH × 1.05, unlimited carry', ...base, carry_forward: true, eth_cost_factor: 1.05 },
+  v3: { label: 'v3 – 10-Q ETH price, capped carry (current)', ...base, carry_forward: A.carry_forward, carry_weeks: A.carry_weeks, carry_max_usd: A.carry_max_usd,
+    ethPrice: ethPriceFn(QS, true), extraCash: extraCashFn(null), eth_price: 'per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)' },
 };
-// Walk-forward check of v2: ETH cost factor fitted only on Dec–Feb (10-Q filed Apr 14, 2026), so Mar–Jul intervals are out-of-sample.
-MODELS.v2_walkforward = { ...MODELS.v2, label: 'v2 walk-forward (ETH cost factor from Dec–Feb only)', eth_cost_factor: A.eth_cost_factor_walkforward };
-const flowsBy = Object.fromEntries(Object.entries(MODELS).map(([k, m]) => [k, wk.map((_, i) => weekFlows(wk, i, m, kBuyback))]));
+// Walk-forward v3: each interval only knows the 10-Q ETH cost data filed by its start (quarters ended on/before it),
+// and prices every week at that pooled factor ('assumed').
+MODELS.v3_walkforward = { ...MODELS.v3, label: 'v3 walk-forward (ETH factor from earlier 10-Qs only)', walkforward: true, ethPrice: undefined };
+// Sensitivity variants (backtest diagnostics only)
+const VARIANTS = {
+  'v3, no carry-forward': { ...MODELS.v3, carry_forward: false },
+  'v3, unlimited carry': { ...MODELS.v3, carry_weeks: Infinity, carry_max_usd: Infinity },
+  'v3, carry 2 wk / $5M': { ...MODELS.v3, carry_weeks: 2, carry_max_usd: 5e6 },
+  'v3, carry 3 wk / $5M': { ...MODELS.v3 },
+  'v3, carry 4 wk / $10M': { ...MODELS.v3, carry_weeks: 4, carry_max_usd: 10e6 },
+  'v3, carry 8 wk / $25M': { ...MODELS.v3, carry_weeks: 8, carry_max_usd: 25e6 },
+  'v3 without 10-Q digital-asset timing items': { ...MODELS.v3, extraCash: undefined },
+  'v3 but ETH = weekly avg × 1.00, no timing items': { ...MODELS.v3, ethPrice: undefined, extraCash: undefined, eth_cost_factor: 1 },
+  'v3 but ETH = weekly avg × 1.05, no timing items': { ...MODELS.v3, ethPrice: undefined, extraCash: undefined, eth_cost_factor: 1.05 },
+  'v3 but on-chain prices where tracked': { ...MODELS.v3, ethPrice: (i) => { const oc = ocFor(i); return oc ? { price: oc.implied_price, basis: 'on-chain', unc: 0 } : MODELS.v3.ethPrice(i); } },
+};
+const flowsFor = (m) => wk.map((_, i) => weekFlows(wk, i, m, kBuyback));
+const flowsBy = Object.fromEntries(Object.entries(MODELS).filter(([, m]) => !m.walkforward).map(([k, m]) => [k, flowsFor(m)]));
+// known at an anchor date = quarters ended on/before it (their 10-Q also publishes the anchor) and timing items filed by then
+const filedBy = (date) => { const qs = QS.filter((q) => q.to <= date); return qs.length ? qs.at(-1).filed : QS[0].filed; };
+const wfModel = (m, date) => { const qs = QS.filter((q) => q.to <= date); return { ...m, ethPrice: ethPriceFn(qs.length ? qs : QS.slice(0, 1), false), extraCash: extraCashFn(filedBy(date)) }; };
 
 // ---------- backtest (out-of-sample: start at an official count, never use the next filing) ----------
 const cps = C.checkpoints;
@@ -108,8 +185,9 @@ const backtest = intervals.map(([s, e, kind]) => {
   const offShares = atm.length && atm.every((x) => x.shares != null) ? atm.reduce((t, x) => t + x.shares, 0) : null;
   const offNet = atm.length && atm.every((x) => x.net_usd != null) ? atm.reduce((t, x) => t + x.net_usd, 0) : null;
   const res = {};
-  for (const [k, m] of Object.entries(MODELS)) {
-    const o = rollForward(wk, flowsBy[k], m, s.date, s.shares, e.date);
+  for (const [k, m0] of Object.entries({ ...MODELS, ...VARIANTS })) {
+    const m = m0.walkforward ? wfModel(m0, s.date) : m0;
+    const o = rollForward(wk, flowsBy[k] || flowsFor(m), m, s.date, s.shares, e.date);
     res[k] = {
       est_shares: r(o.shares[1]), est_range: [r(o.shares[0]), r(o.shares[2])],
       error_shares: r(o.shares[1] - e.shares), error_pct: r(((o.shares[1] - e.shares) / e.shares) * 100, 2),
@@ -122,14 +200,13 @@ const backtest = intervals.map(([s, e, kind]) => {
     };
   }
   return {
-    from: s.date, to: e.date, kind, weeks: res.v1 ? null : null,
+    from: s.date, to: e.date, kind,
     start_shares: s.shares, official_end_shares: e.shares, official_change: e.shares - s.shares,
     official_atm_shares: offShares, official_atm_net_usd: offNet,
     flagged: !!(s.note && s.date === '2026-04-13') || !!(e.note && e.date === '2026-04-13'),
     sources: [s.url, e.url], models: res,
   };
 });
-for (const b of backtest) delete b.weeks;
 
 // Quarter diagnostics: model components vs the 10-Q cash-flow statement.
 const diag = (k, from, to) => {
@@ -138,13 +215,13 @@ const diag = (k, from, to) => {
   for (let i = i0 + 1; i <= i1; i++) { const f = flowsBy[k][i]; eth += f.ethCost; rew += f.rewards; opex += f.opex; inv += f.investments; cash += f.cashChange; need += f.need[1]; }
   return { weeks: [wk[i0].cur.as_of, wk[i1].cur.as_of], eth_purchase_cost: r(eth), staking_eth: r(rew), opex: r(opex), investments: r(inv), cash_change: r(cash), cash_need: r(need) };
 };
-const diagnostics = Object.fromEntries(Object.keys(MODELS).map((k) => [k, {
+const diagnostics = Object.fromEntries(Object.keys(flowsBy).map((k) => [k, {
   'Dec 1, 2025 – Feb 28, 2026': diag(k, '2025-11-30', '2026-03-01'),
   'Mar 1 – May 31, 2026': diag(k, '2026-03-01', '2026-05-31'),
 }]));
 
 // ---------- reconstruction (current model), anchored at each official checkpoint ----------
-const M = MODELS.v2, F = flowsBy.v2;
+const M = MODELS.v3, F = flowsBy.v3;
 const anchors = cps.filter((c) => c.use_as_anchor !== false);
 const est = wk.map(() => null);
 for (let j = 0; j < anchors.length; j++) {
@@ -153,7 +230,7 @@ for (let j = 0; j < anchors.length; j++) {
   for (const row of o.rows) {
     if (next && wk[row.i].cur.as_of >= next.date && weekIndexOf(wk, next.date) !== row.i) break;
     const sh = [0, 1, 2].map((k) => s.shares + row.issued[k] + row.other - row.bb);
-    est[row.i] = { shares: sh, anchor: s, weeks_since: row.i - o.i0 };
+    est[row.i] = { shares: sh, anchor: s, weeks_since: row.i - o.i0, det: row.det };
   }
 }
 // the week containing a later anchor is re-based on that anchor (official count + issuance after it that week)
@@ -163,7 +240,8 @@ for (const a of anchors) {
   const f = F[i];
   const after = 1 - fracOnOrBefore(wk[i].px, a.date);
   const add = (k) => (f && after > 0 ? Math.max(0, f.need[k] * after) / f.price[k] : 0);
-  est[i] = { shares: [0, 1, 2].map((k) => a.shares + add(k)), anchor: a, weeks_since: 0, official: after === 0 || Math.abs(ts(wk[i].cur.as_of) - ts(a.date)) <= DAY };
+  const det = [0, 1, 2].map((k) => (f ? { need: f.need[k] * after, carried_in: 0, used: 0, funded: Math.max(0, f.need[k] * after), shares: add(k), carried_out: 0, dropped: 0, reanchored: true } : null));
+  est[i] = { shares: [0, 1, 2].map((k) => a.shares + add(k)), anchor: a, weeks_since: 0, det, official: after === 0 || Math.abs(ts(wk[i].cur.as_of) - ts(a.date)) <= DAY };
 }
 // per-week issuance for display (difference of consecutive estimates, net of other/buybacks)
 const out = [];
@@ -181,13 +259,26 @@ for (let i = 0; i < wk.length; i++) {
     eth: cur.eth, eth_change: f ? f.ethChange : null, eth_acquired_reported: cur.eth_acquired_reported,
     eth_staked: cur.eth_staked, staking_yield_7d: cur.staking_yield_7d,
     est_staking_eth: f ? r(f.rewards) : null, est_purchased_eth: f ? r(f.purchased) : null,
-    assumed_purchase_price: f ? px.eth_avg : null, est_purchase_cost: f ? r(f.ethCost) : null,
+    eth_week_avg: f ? px.eth_avg : null,
+    eth_price_used: f ? r(f.ethPrice, 2) : null, eth_price_basis: f ? f.ethBasis : null, eth_price_source: f ? f.ethSource : null,
+    eth_price_factor: f?.ethFactor != null ? r(f.ethFactor, 4) : undefined,
+    eth_price_range: f && f.ethUnc ? [r(f.ethPrice * (1 - f.ethUnc), 2), r(f.ethPrice * (1 + f.ethUnc), 2)] : null,
+    onchain_check: ocFor(i) || undefined,
+    other_digital_asset_cash: f?.extraCash ? r(f.extraCash) : undefined, other_digital_asset_cash_note: f?.extraCash ? f.extraWhat : undefined,
+    est_purchase_cost: f ? r(f.ethCost) : null,
     buyback_shares: cur.buyback_shares || 0, buyback_price: f?.bbPrice ? r(f.bbPrice, 4) : null,
     buyback_price_basis: cur.buyback_shares ? (cur.buyback_price ? 'disclosed' : `assumed: week avg close × ${kBuyback.toFixed(4)} (calibrated to disclosed $${(agg.amount / 1e6).toFixed(1)}M aggregate)`) : null,
     buyback_cost: f ? r(f.bbCost) : null,
     cash_prev: f ? cur.cash_usd - f.cashChange : null, cash: cur.cash_usd, cash_change: f ? f.cashChange : null,
     est_cash_opex: f ? r(f.opex) : null, investments: cur.investments_usd || 0, disclosed_proceeds: cur.disclosed_proceeds_usd,
-    implied_equity_raise: f ? r(f.need[1]) : null,
+    est_spending: f ? r(f.spending) : null,
+    cash_shortfall: f ? r(f.need[1]) : null, // spending − cash drop − disclosed non-common proceeds (negative = surplus)
+    cash_shortfall_range: f ? [r(f.need[0]), r(f.need[2])] : null,
+    surplus_from_prior: e?.det?.[1] ? r(e.det[1].used) : null,
+    funded_by_shares: e?.det?.[1] ? r(e.det[1].funded) : null,
+    funded_by_shares_range: e?.det?.[0] ? [r(e.det[0].funded), r(e.det[2].funded)] : null,
+    surplus_carried_out: e?.det?.[1] ? r(e.det[1].carried_out) : null,
+    surplus_dropped: e?.det?.[1]?.dropped ? r(e.det[1].dropped) : undefined,
     assumed_issue_price: f ? px.bmnr_avg : null, bmnr_week_range: f ? [px.bmnr_min, px.bmnr_max] : null,
     est_shares_issued: sameSeg ? r(issued(1)) : null,
     est_shares_issued_range: sameSeg ? [r(issued(0)), r(issued(2))] : null,
@@ -212,8 +303,8 @@ for (let i = 0; i < wk.length; i++) {
 // NAV/share before the week's actions = last week's assets with ETH revalued at this week's average ETH price.
 for (let i = 1; i < out.length; i++) {
   const s = out[i], p = out[i - 1], f = F[i];
-  if (!f || !s.assumed_purchase_price) continue;
-  const S0 = p.shares_outstanding, S1 = s.shares_outstanding, ethAvg = s.assumed_purchase_price;
+  if (!f || !s.eth_week_avg) continue;
+  const S0 = p.shares_outstanding, S1 = s.shares_outstanding, ethAvg = s.eth_week_avg;
   const navBefore = (p.nav.full - p.eth * p.snapshot_prices.ETH + p.eth * ethAvg) / S0;
   const reanchor = s.est_shares_issued == null;
   const atm = reanchor ? Math.max(0, f.need[1]) / f.price[1] : s.est_shares_issued;
@@ -242,7 +333,7 @@ for (let i = 1; i < out.length; i++) {
   eth.actual_change = s.eth / S1 - eps0;
   const R = (o, d) => Object.fromEntries(Object.entries(o).map(([k, v]) => [k, Number(v.toFixed(d))]));
   s.accretion = {
-    basis: reanchor ? 'estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)' : 'estimate (v2 model)',
+    basis: reanchor ? 'estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)' : 'estimate (v3 model)',
     reanchor, nav_per_share_before: Number(navBefore.toFixed(4)), atm_shares: Math.round(atm), mnav_at_issue: Number((issuePx / navBefore).toFixed(3)),
     usd_per_share: R(usd, 4), eth_per_share: R(eth, 9),
   };
@@ -287,17 +378,28 @@ const summarize = (k) => {
   const xs = backtest.filter((b) => !b.flagged && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
   const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
   return { intervals: xs.length, mean_abs_error_shares: r(mean(xs.map((x) => Math.abs(x.error_shares)))), mean_abs_error_pct: r(mean(xs.map((x) => Math.abs(x.error_pct))), 2),
-    mean_error_shares: r(mean(xs.map((x) => x.error_shares))), within_range: xs.filter((x) => x.within_range).length };
+    mean_error_shares: r(mean(xs.map((x) => x.error_shares))), mean_error_pct: r(mean(xs.map((x) => x.error_pct)), 2), within_range: xs.filter((x) => x.within_range).length };
 };
+// Current estimate (latest anchor → latest week) under each model / variant
+const lastAnchor = cps.filter((c) => c.use_as_anchor !== false).at(-1);
+const current = Object.fromEntries(Object.entries({ ...MODELS, ...VARIANTS }).map(([k, m0]) => {
+  const m = m0.walkforward ? wfModel(m0, lastAnchor.date) : m0;
+  const o = rollForward(wk, flowsBy[k] || flowsFor(m), m, lastAnchor.date, lastAnchor.shares, null);
+  return [k, { shares: r(o.shares[1]), range: [r(o.shares[0]), r(o.shares[2])] }];
+}));
 const bt = {
   description: 'Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.',
   built: new Date().toISOString(), models: MODELS, buyback_price_calibration_k: r(kBuyback, 4),
   summary: Object.fromEntries(Object.keys(MODELS).map((k) => [k, summarize(k)])),
+  variants: Object.fromEntries(Object.keys(VARIANTS).map((k) => [k, { ...summarize(k), current: current[k] }])),
+  current_estimate: current, current_from: { date: lastAnchor.date, shares: lastAnchor.shares },
+  eth_price: { quarters: QS, pooled_factor: r(ETH_F, 4), assumed_uncertainty: ETH_UNC, onchain_events: OC.length,
+    note: 'paid_per_eth = 10-Q cost of ETH purchased ÷ units purchased; market_avg_weighted = weekly average ETH price weighted by ETH added each week; factor = paid ÷ market.' },
   intervals: backtest, diagnostics, official_cash_flows: C.cash_flow_official,
 };
 const hist = {
   description: 'Weekly reconstruction from every official Bitmine release since Nov 30, 2025. Share counts are official at 10-Q checkpoints (checkpoints.json) and estimated between them by rolling the current model forward from the latest checkpoint. est_* / assumed_* fields are estimates; see README "Share-count reconstruction".',
-  method: { model: MODELS.v2, checkpoints: cps.map(({ date, shares, basis, url, use_as_anchor }) => ({ date, shares, basis, url, use_as_anchor })), buyback_aggregate: agg, buyback_price_calibration_k: r(kBuyback, 4), ...A },
+  method: { model: MODELS.v3, eth_price: bt.eth_price, checkpoints: cps.map(({ date, shares, basis, url, use_as_anchor }) => ({ date, shares, basis, url, use_as_anchor })), buyback_aggregate: agg, buyback_price_calibration_k: r(kBuyback, 4), ...A },
   snapshots: out,
 };
 const f0 = (x) => (x == null ? '' : Math.round(x).toLocaleString('en-US'));
@@ -305,8 +407,11 @@ console.log('date        eth        issued      shares        basis     NAV/sh  
 for (const s of out) console.log(s.as_of, String(s.eth).padStart(9), f0(s.est_shares_issued).padStart(11), f0(s.shares_outstanding).padStart(12), s.shares_basis.padEnd(9), s.nav_per_share, s.mnav);
 console.log('\nBACKTEST (estimate − official)');
 for (const b of backtest) console.log(`${b.from} → ${b.to} ${b.flagged ? '[flag]' : '      '} official Δ ${f0(b.official_change).padStart(11)} atm ${f0(b.official_atm_shares).padStart(11)} | ` +
-  Object.entries(b.models).map(([k, m]) => `${k}: est ${f0(m.est_shares)} err ${f0(m.error_shares)} (${m.error_pct}%) iss.err ${f0(m.issued_error)} $err ${f0(m.proceeds_error_usd / 1e6)}M ${m.within_range ? 'in' : 'out'}`).join(' | '));
+  Object.entries(b.models).filter(([k]) => MODELS[k]).map(([k, m]) => `${k}: est ${f0(m.est_shares)} err ${f0(m.error_shares)} (${m.error_pct}%) iss.err ${f0(m.issued_error)} $err ${f0(m.proceeds_error_usd / 1e6)}M ${m.within_range ? 'in' : 'out'}`).join(' | '));
 console.log(JSON.stringify(bt.summary));
+for (const [k, v] of Object.entries(bt.variants)) console.log(k.padEnd(40), `mean|err| ${v.mean_abs_error_pct}%  bias ${v.mean_error_pct}%  in-range ${v.within_range}/${v.intervals}  current ${f0(v.current.shares)} (${f0(v.current.range[0])}–${f0(v.current.range[1])})`);
+console.log('current', JSON.stringify(Object.fromEntries(Object.entries(current).filter(([k]) => MODELS[k]))));
+console.log('eth price', JSON.stringify(bt.eth_price));
 console.log(JSON.stringify(diagnostics, null, 0));
 console.log('k_buyback', kBuyback.toFixed(4));
 if (!process.argv.includes('--dry')) {

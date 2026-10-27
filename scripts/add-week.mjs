@@ -6,12 +6,15 @@
 //     --eth 6060000 --acquired 8067 --eth-price 2400 --staked 5227037 --yield 0.0258 \
 //     --btc 215 --cash 480000000 --orbs-value 75000000 --beast 180000000 \
 //     [--buyback-shares 1000000 --buyback-price 22.10] [--other-shares 0] \
-//     [--investments USD] [--shares-issued N] [--proceeds USD] \
+//     [--investments USD] [--shares-issued N] [--proceeds USD] [--eth-cost USD] \
 //     [--shares-outstanding N --cp-date YYYY-MM-DD --cp-source "10-K cover page" --cp-url "<filing URL>"] \
 //     --sec "<8-K Ex.99.1 URL>" [--x "<@BitMNR post URL>"] [--pr "<PR Newswire URL>"] [--notes "..."] [--dry]
 //
 // --investments  = cash spent that week on non-ETH investments disclosed in the release (stakes, acquisitions)
 // --proceeds     = disclosed NON-common financing (e.g. preferred stock); --shares-issued = disclosed ATM shares
+// --eth-cost     = dollars spent on ETH that week, only if the release states it (ETH price basis → "disclosed").
+//                  Otherwise the ETH price is the week's average × the pooled 10-Q paid ÷ market factor ("assumed").
+// The build applies the current model (v3): cash shortfall = spending − cash drop; surplus carried ≤ 3 weeks / ≤ $5M.
 // --shares-outstanding adds an official checkpoint to data/checkpoints.json (the estimate re-anchors there).
 // Also update data/releases.json → buyback_aggregate when a release states a new cumulative buyback total.
 import { readFile, writeFile } from 'node:fs/promises';
@@ -40,6 +43,7 @@ const entry = {
   eth_staked: num('staked'), staking_yield_7d: num('yield'),
   buyback_shares: num('buyback-shares') ?? 0, buyback_price: num('buyback-price'), other_shares_issued: num('other-shares') ?? 0,
   disclosed_shares_issued: num('shares-issued'), disclosed_proceeds_usd: num('proceeds'), investments_usd: num('investments') ?? 0,
+  ...(a['eth-cost'] !== undefined ? { eth_purchase_cost_usd: num('eth-cost') } : {}),
   shares_outstanding_official: null,
   sec_8k: a.sec, x_post: a.x || null, press_release: a.pr || null, notes: a.notes || '',
 };
