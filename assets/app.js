@@ -169,6 +169,9 @@ function render() {
   $('navBasis').textContent = `live · ETH ${usd(p.ETH, 0)}`;
   $('navTable').innerHTML = `<tr><th></th><th>NAV</th><th>NAV / share</th><th>mNAV</th></tr>` +
     nav.rows.map((r, i) => `<tr class="${i === 0 ? 'hl' : ''}" title="${r.note}"><td>${r.label}</td><td>${big(r.value)}</td><td>${usd(r.perShare)}</td><td>${r.mnav.toFixed(3)}</td></tr>`).join('');
+  const sr = h.shares_outstanding_range;
+  $('navRange').innerHTML = sr ? (() => { const hiPs = full.value / sr[0], loPs = full.value / sr[1];
+    return `Full NAV / share low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices`; })() : '';
 
   const rows = [
     ['ETH', n(h.eth), usd(p.ETH), nav.ethVal, P.ETH],
@@ -379,10 +382,15 @@ function renderHistory() {
   S.chart = new Chart($('histChart'), {
     type: 'line',
     data: { labels, datasets: [
+      { label: 'Range high', data: s.map((r) => r.nav_per_share * r.shares_outstanding / r.shares_outstanding_range[0]), borderColor: 'transparent', backgroundColor: 'rgba(61,220,151,.12)', pointRadius: 0, pointHoverRadius: 0, tension: .25, fill: '+1' },
+      { label: 'Range low', data: s.map((r) => r.nav_per_share * r.shares_outstanding / r.shares_outstanding_range[1]), borderColor: 'transparent', backgroundColor: 'transparent', pointRadius: 0, pointHoverRadius: 0, tension: .25, fill: false },
       { label: 'NAV / share', data: s.map((r) => r.nav_per_share), borderColor: '#3ddc97', backgroundColor: '#3ddc97', tension: .25, pointRadius: ptR },
       { label: 'BMNR close', data: s.map((r) => r.snapshot_prices?.BMNR), borderColor: '#ffc857', backgroundColor: '#ffc857', tension: .25, pointRadius: ptR, borderDash: [4, 3] },
     ] },
-    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${usd(c.raw)}` } } },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { ...legend, labels: { ...legend.labels, filter: (i) => !i.text.startsWith('Range') } },
+        tooltip: { filter: (i) => !i.dataset.label.startsWith('Range'), callbacks: { label: (c) => `${c.dataset.label}: ${usd(c.raw)}`,
+          footer: (items) => { const r = s[items[0]?.dataIndex]; return r ? `NAV/share range ${usd(r.nav_per_share * r.shares_outstanding / r.shares_outstanding_range[1])}–${usd(r.nav_per_share * r.shares_outstanding / r.shares_outstanding_range[0])}` : ''; } } } },
       scales: { x: { ticks: tick, grid }, y: { ticks: { color: '#c9d2e6', callback: (v) => '$' + v }, grid } } },
   });
   const cpPts = s.map((r) => { const c = (r.checkpoints_in_week || []).find((x) => x.used_as_anchor); return c ? c.shares : null; });
