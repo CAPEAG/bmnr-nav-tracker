@@ -94,6 +94,26 @@
     "ato_rates": {
       "label": "ATO company tax rates — 30% (25% for base-rate entities)",
       "url": "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates"
+    },
+    "pref_424b5": {
+      "label": "424B5 prospectus, Jun 5, 2026 — May 25: 4.7M Bitmine ETH staked through MAVAN, which had >$14B ETH staked globally; Pier Two bought for ~$30.5M + up to $11.8M earn-out",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226027521/form424b5.htm"
+    },
+    "oct_msg": {
+      "label": "8-K Ex. 99.2, Oct 7, 2026 — Chairman's Message: MAVAN \"managing $2 billion of other people's crypto\"",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226046088/ex99-2.htm"
+    },
+    "mavan_terms": {
+      "label": "MAVAN (Pier Two) staking Terms of Use — service fee 10% of net rewards unless agreed otherwise",
+      "url": "https://app.mavan.bitminetech.io/docs/staking-terms-general-02-10-25.pdf"
+    },
+    "piertwo_lido": {
+      "label": "Lido research forum, Dec 3, 2025 — Pier Two: ~$6B delegated assets, Lido curated/DVT operator",
+      "url": "https://research.lido.fi/t/node-operator-admission-pier-two-as-stvault-professional-operator/10952"
+    },
+    "hypd_10q": {
+      "label": "Hyperion DeFi 10-Q (Q2 2026) — Kinetiq x Hyperion Hyperliquid validator run with MAVAN (MAVAN gets 25% of commissions)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926095181/hypd-20260630x10q.htm"
     }
   },
   "derived": {
@@ -186,8 +206,8 @@
   },
   "cases": {
     "bear": "Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple.",
-    "base": "Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward \"nearly all\" ETH, 10-Q cost run-rate, MAVAN doubles client assets at a typical institutional fee, and financial-sector multiples.",
-    "bull": "Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN quadruples client assets at Coinbase-Prime/Lido-level fees, a larger one-off NOL shelter, and asset-manager multiples."
+    "base": "Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward \"nearly all\" ETH, 10-Q cost run-rate, MAVAN adds $1B of client assets at a typical institutional fee, and financial-sector multiples.",
+    "bull": "Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN grows client assets back to Pier Two's ~$6B at its 10% list fee, a larger one-off NOL shelter, and asset-manager multiples."
   },
   "inputs": {
     "staked_share": {
@@ -334,9 +354,11 @@
       },
       "sources": [
         "q3_10q",
-        "lee_may"
+        "lee_may",
+        "oct_msg",
+        "hypd_10q"
       ],
-      "rationale": "Pier Two (now MAVAN) contributed $3.527M of staking revenue from its Mar 24 acquisition to May 31, 2026 (68 days) → $18.9M a year, on about $2B of client assets across ETH, Solana, Hyperliquid and Canton (Tom Lee, May 2026)."
+      "rationale": "Pier Two (now MAVAN) contributed $3.527M of staking revenue from its Mar 24 acquisition to May 31, 2026 (68 days) → $18.9M a year. Client assets ≈ $2B (Tom Lee, May and again Oct 7, 2026) across ETH, Solana, Hyperliquid and Canton. Only named partner: Hyperion DeFi/Kinetiq's Hyperliquid validator (MAVAN 25% of commissions)."
     },
     "mavan_fee_compression": {
       "label": "Fee compression on existing clients",
@@ -362,16 +384,17 @@
         "value": 0
       },
       "base": {
-        "value": 2000000000
+        "value": 1000000000
       },
       "bull": {
-        "value": 6000000000
+        "value": 4000000000
       },
       "sources": [
-        "lee_may",
-        "pr_mavan"
+        "oct_msg",
+        "pref_424b5",
+        "piertwo_lido"
       ],
-      "rationale": "From ~$2B of client assets in May 2026: bear no growth; base doubles to $4B; bull reaches $8B (MAVAN pitches itself as the largest Ethereum staking platform; judgment)."
+      "rationale": "Disclosed client assets were flat at ~$2B from May to Oct 2026, and no new clients have been named. Bear: no growth. Base +$1B (judgment: midpoint between the flat $2B and the ~$3.9B implied by the 424B5's >$14B less Bitmine's $10.1B). Bull +$4B, back to Pier Two's ~$6B delegated assets of Dec 2025."
     },
     "mavan_take_rate": {
       "label": "Fee on new client rewards",
@@ -386,11 +409,11 @@
         "value": 0.1
       },
       "sources": [
+        "mavan_terms",
         "messari",
-        "coinbase_prime",
-        "lido_fee"
+        "coinbase_prime"
       ],
-      "rationale": "Institutional range 5–10% of rewards (Messari); Coinbase Prime and Lido charge 10%."
+      "rationale": "MAVAN's standard terms charge 10% of net rewards (bull). Base 8%: large institutions negotiate below list (judgment). Bear 5%: low end of the institutional 5–10% range (Messari)."
     },
     "mavan_margin": {
       "label": "MAVAN segment operating margin",
@@ -405,9 +428,10 @@
         "value": 0.4
       },
       "sources": [
-        "finobs"
+        "finobs",
+        "pref_424b5"
       ],
-      "rationale": "Base = US asset managers' pre-tax operating margin (25.2%); bear/bull ±10–15 pts (judgment; MAVAN is not reported as a segment)."
+      "rationale": "Not disclosed (MAVAN is not a reported segment). Base = US asset managers' pre-tax operating margin (25.2%); bear 15% / bull 40% (judgment)."
     },
     "mavan_tax_rate": {
       "label": "Tax rate on MAVAN earnings (if positive)",
@@ -434,16 +458,17 @@
         "value": 8.5
       },
       "base": {
-        "value": 18.8
+        "value": 12
       },
       "bull": {
-        "value": 24.8
+        "value": 18.8
       },
       "sources": [
+        "pref_424b5",
         "ldo_val",
         "damodaran_pe"
       ],
-      "rationale": "Bear 8.5× = LDO market cap ÷ annualized protocol revenue. Base 18.8× = asset managers' forward P/E. Bull 24.8× = asset managers' market cap ÷ net income."
+      "rationale": "Bear 8.5× ≈ Bitmine's ~$30.5M price for Pier Two ÷ its base-case after-tax earnings (also ≈ LDO market cap ÷ protocol revenue). Base 12× ≈ price including the full $11.8M earn-out (~$42.3M). Bull 18.8× = asset managers' forward P/E."
     },
     "nol_shelter_usd": {
       "label": "NOL tax shelter, one-off (est., pending FY2026 10-K)",
