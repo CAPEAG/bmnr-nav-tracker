@@ -153,10 +153,14 @@ function renderValuation(val, p) {
   const num = (id) => keys.indexOf(id) + 1;
   $('valBasis').textContent = `live · ETH ${usd(p.ETH, 0)} · ${n(S.holdings.shares_outstanding)} sh (est.)`;
   $('valSummary').innerHTML = CASES.map((k) => { const v = val[k];
-    return `<div class="kpi case-${k}"><div class="l">${k}</div><div class="v">${usd(v.sotp)}</div><div class="s">SOTP / share · implied mNAV <b>${v.impliedMnav.toFixed(2)}×</b><br>vs BMNR ${usd(p.BMNR)}: <span class="${cls(v.upside)}">${pct(v.upside, 1)}</span> · business value ${v.earningsPs >= 0 ? '+' : '−'}${usd(Math.abs(v.earningsPs))}/sh</div></div>`; }).join('');
+    return `<div class="kpi case-${k}"><div class="l">${k}</div><div class="v">${usd(v.sotp)}</div><div class="s">SOTP value / share</div>
+      <div class="cr"><span>Implied mNAV</span><b>${v.impliedMnav.toFixed(2)}×</b></div>
+      <div class="cr"><span>vs BMNR ${usd(p.BMNR)}</span><b class="${cls(v.upside)}">${pct(v.upside, 1)}</b></div>
+      <div class="cr"><span>Business value</span><b>${v.earningsPs >= 0 ? '+' : '−'}${usd(Math.abs(v.earningsPs))}/sh</b></div></div>`; }).join('');
+  const COLS = '<colgroup><col class="c-lab"><col class="c-case"><col class="c-case"><col class="c-case"></colgroup>';
   const row = (label, f, cl = '') => `<tr class="${cl}"><td>${label}</td>${CASES.map((k) => `<td>${f(val[k], k)}</td>`).join('')}</tr>`;
   const sec = (t) => `<tr><td class="sec" colspan="4">${t}</td></tr>`;
-  $('valTable').innerHTML = `<tr><th></th><th>Bear</th><th>Base</th><th>Bull</th></tr>` +
+  $('valTable').innerHTML = COLS + `<tr><th></th><th>Bear</th><th>Base</th><th>Bull</th></tr>` +
     sec('Own staking (treasury)') +
     row('ETH staked', (v) => `${n(v.staked)} <span class="fine">(${(v.stakedShare * 100).toFixed(0)}%)</span>`) +
     row('Gross yield', (v) => (v.yield * 100).toFixed(2) + '%') +
@@ -184,7 +188,7 @@ function renderValuation(val, p) {
   const cell = (key, k) => { const c = V.inputs[key][k]; const x = valInput(V, key, k);
     const ref = c && c.ref ? `<br><span class="fine">${V.derived?.[c.ref]?.label || c.ref}</span>` : '';
     return fmtIn(V.inputs[key].unit, x) + ref; };
-  $('valInputs').innerHTML = `<tr><th>Input</th><th>Bear</th><th>Base</th><th>Bull</th></tr>` +
+  $('valInputs').innerHTML = COLS + `<tr><th>Input</th><th>Bear</th><th>Base</th><th>Bull</th></tr>` +
     Object.entries(V.inputs).map(([key, d]) => `<tr><td>${d.label}</td>${CASES.map((k) => `<td>${cell(key, k)}</td>`).join('')}</tr>`).join('');
   $('valWhyList').innerHTML = Object.values(V.inputs).map((d) => `<li><b>${d.label}:</b> ${d.rationale} ${d.sources.map((id) => `<a href="${src[id].url}" target="_blank" rel="noopener" title="${src[id].label.replace(/"/g, '&quot;')}">[${num(id)}]</a>`).join(' ')}</li>`).join('');
   $('valSources').innerHTML = keys.map((id) => `<li><a href="${src[id].url}" target="_blank" rel="noopener">${src[id].label}</a></li>`).join('');

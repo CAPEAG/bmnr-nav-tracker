@@ -103,3 +103,30 @@ button.toggle .chev{display:inline-block;width:1em;text-align:center}
 .notes{padding-left:18px;margin:4px 0}.notes li{margin:6px 0;font-size:13px;color:var(--mut)}
 .t.assum td:first-child{white-space:normal}
 #holdTable td,#holdTable th{padding-left:6px;padding-right:6px}#holdTable td:first-child{white-space:normal;min-width:84px}
+/* valuation layout: aligned case cards, stacked tables with shared columns */
+.val-cases{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:6px 0 14px}
+.val-cases .kpi{display:grid;grid-template-rows:subgrid;grid-row:span 6;row-gap:0;align-content:start}
+.val-cases .kpi .v{margin-top:4px}
+.val-cases .kpi .s{margin:0 0 8px}
+.val-cases .cr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:12.5px;font-variant-numeric:tabular-nums}
+.val-cases .cr span{color:var(--mut)}
+.val-cases .cr b{font-weight:600;white-space:nowrap}
+@media (min-width:700px){.val-cases{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}}
+.val-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.val-sub-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}
+.val-sub-h h3{margin:0}
+table.val-t{table-layout:fixed;width:100%}
+.val-t col.c-lab{width:34%}
+.val-t col.c-case{width:22%}
+.t.val-t td,.t.val-t th{white-space:normal;overflow-wrap:anywhere;vertical-align:top}
+.t.val-t td:not(:first-child){white-space:nowrap}
+.t.val-t td .fine{white-space:normal;display:inline-block;margin:2px 0 0}
+.t.assum td,.t.assum td:first-child{min-width:0;width:auto}
+.t.assum td:not(:first-child):not(.why),.t.assum th:not(:first-child):not(:last-child){width:auto}
+.t.assum td:not(:first-child){white-space:normal}
+@media (max-width:600px){table.val-t{min-width:520px}.val-t col.c-lab{width:31%}.val-t col.c-case{width:23%}}
+/* top cards: equal height */
+.cards{align-items:stretch}
+/* chart captions (outside the canvas) */
+.chart-caption{color:var(--mut);font-size:12px;line-height:1.45;margin:6px 2px 2px}
+#weekCard .kv{grid-template-columns:minmax(0,max-content) minmax(0,1fr)}

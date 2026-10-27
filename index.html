@@ -33,10 +33,13 @@
 
   <section class="card" id="valuation">
     <div class="card-h"><h2>Valuation: Bear / Base / Bull (sum of the parts)</h2><span class="pill" id="valBasis"></span></div>
-    <div class="hero bt-sum" id="valSummary"></div>
-    <div class="grid-val">
-      <div><h3>Result (live ETH &amp; estimated shares)</h3><div class="table-wrap"><table class="t small" id="valTable"></table></div></div>
-      <div><h3>Assumptions</h3><div class="table-wrap"><table class="t small assum" id="valInputs"></table></div></div>
+    <div class="val-cases" id="valSummary"></div>
+    <div class="val-stack">
+      <div><h3>Result (live ETH &amp; estimated shares)</h3><div class="table-wrap val-wrap"><table class="t small val-t" id="valTable"></table></div></div>
+      <div>
+        <div class="val-sub-h"><h3>Assumptions</h3><button type="button" class="toggle" aria-expanded="false" aria-controls="valAssum" data-label="assumptions"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show assumptions</span></button></div>
+        <div id="valAssum" class="collapse" hidden><div class="table-wrap val-wrap"><table class="t small val-t assum" id="valInputs"></table></div></div>
+      </div>
     </div>
     <button type="button" class="toggle" aria-expanded="false" aria-controls="valWhy" data-label="sources &amp; rationale"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show sources &amp; rationale</span></button>
     <div id="valWhy" class="collapse" hidden>
@@ -64,8 +67,8 @@
     <div class="card-h"><h2>Accretion check (weekly)</h2><div class="seg range-sel" role="group" aria-label="Accretion time range"></div></div>
     <div class="hero bt-sum" id="accSummary"></div>
     <div class="charts">
-      <div class="chart-card"><h3>NAV per share effect ($) <span class="tag a">est.</span></h3><div class="chart-box"><canvas id="accUsdChart" aria-label="Weekly NAV per share accretion by source"></canvas></div></div>
-      <div class="chart-card"><h3>ETH per 1,000 shares effect <span class="tag a">est.</span></h3><div class="chart-box"><canvas id="accEthChart" aria-label="Weekly ETH per share accretion by source"></canvas></div></div>
+      <div class="chart-card"><h3>NAV per share effect ($) <span class="tag a">est.</span></h3><div class="chart-box"><canvas id="accUsdChart" aria-label="Weekly NAV per share accretion by source"></canvas></div><p class="chart-caption">Each week's bars show how much Bitmine's own actions changed NAV per share in dollars: ATM share sales, buybacks, staking rewards and other costs (cash opex, preferred dividends, ETH bought above the week's average price), with ETH, BTC and ORBS price moves left out. Bars above zero added value to every existing share (accretive) and bars below zero took value away (dilutive); the gold line (right axis) is the running total over the selected range.</p></div>
+      <div class="chart-card"><h3>ETH per 1,000 shares effect <span class="tag a">est.</span></h3><div class="chart-box"><canvas id="accEthChart" aria-label="Weekly ETH per share accretion by source"></canvas></div><p class="chart-caption">The same weekly effects measured in ETH owned per 1,000 BMNR shares, so ETH price swings drop out: capital actions (ETH the week's cash could buy minus dilution from new shares), staking rewards, ETH paid above the average price and 10-Q share-count true-ups. Bars above zero mean each share's ETH backing grew that week and bars below zero mean it shrank; the gold line (right axis) is the cumulative change over the selected range.</p></div>
     </div>
     <button type="button" class="toggle" aria-expanded="false" aria-controls="accData" data-label="data"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show data</span></button>
     <div id="accData" class="collapse" hidden><div class="table-wrap tall"><table class="t small" id="accTable"></table></div></div>
