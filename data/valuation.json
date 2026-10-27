@@ -3,15 +3,16 @@
   "method": [
     "Own staking (treasury) earnings = ETH held × staked share × gross staking yield × (1 − fee leakage) × live ETH price.",
     "Corporate costs = company cash opex run-rate (excl. stock comp and one-time items) − the part attributed to serving MAVAN clients (current MAVAN client revenue × (1 − MAVAN margin)) + BMNP preferred dividends.",
-    "Treasury business value = (own staking earnings − corporate costs) × (1 − tax) × treasury multiple. Negative values are kept (costs above staking income destroy value).",
-    "MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − tax) × services multiple.",
-    "SOTP per share = live Full NAV per share + (treasury value + MAVAN value) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share.",
+    "Treasury business value = (own staking earnings − corporate costs) × (1 − treasury tax, only if positive) × treasury multiple. Losses get no tax benefit (full valuation allowance) and are kept (costs above staking income destroy value).",
+    "MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − MAVAN tax, only if positive) × services multiple.",
+    "NOL tax shelter = one-off value of losses carried forward (est., pending the FY2026 10-K), added once rather than by lowering the tax rate.",
+    "SOTP per share = live Full NAV per share + (treasury value + MAVAN value + NOL shelter) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share.",
     "Option-premium income and interest are excluded in all cases: the ETH options program lost $133.3M in the 9 months to May 31, 2026 and cash balances (and interest) are being spent down (10-Q)."
   ],
   "no_double_count": "NAV counts ETH already held, including staking rewards already received. The earnings value capitalizes only FUTURE net staking income on today's staked base, after costs, with no growth from future ETH purchases. Each week the rewards received move into NAV while the run-rate (and its capitalized value) stays the same, so no reward is counted twice at any point in time. Because a staked-ETH ETF (e.g. BlackRock ETHB) already passes staking yield to holders at ~1.0× NAV, the multiples on Bitmine's own staking income are kept modest — the premium is only for the yield being earned at scale net of costs.",
   "sources": {
     "q3_10q": {
-      "label": "10-Q for quarter ended May 31, 2026 (filed Jul 14, 2026)",
+      "label": "10-Q for quarter ended May 31, 2026 (filed Jul 14, 2026) — full valuation allowance, no income tax expense",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
     },
     "pr_mavan": {
@@ -81,6 +82,18 @@
     "irs_staking": {
       "label": "IRS Rev. Rul. 2023-14 — staking rewards are gross income when received",
       "url": "https://www.irs.gov/pub/irs-drop/rr-23-14.pdf"
+    },
+    "k10_fy25": {
+      "label": "10-K for FY ended Aug 31, 2025 (filed Nov 21, 2025) — $0 current tax; 20.9% effective rate all deferred",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm"
+    },
+    "camt_notices": {
+      "label": "IRS Notices 2025-46 / 2025-49 — interim CAMT guidance; unrealized fair-value gains on digital assets disregarded",
+      "url": "https://www.irs.gov/pub/irs-drop/n-25-49.pdf"
+    },
+    "ato_rates": {
+      "label": "ATO company tax rates — 30% (25% for base-rate entities)",
+      "url": "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates"
     }
   },
   "derived": {
@@ -174,7 +187,7 @@
   "cases": {
     "bear": "Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple.",
     "base": "Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward \"nearly all\" ETH, 10-Q cost run-rate, MAVAN doubles client assets at a typical institutional fee, and financial-sector multiples.",
-    "bull": "Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN quadruples client assets at Coinbase-Prime/Lido-level fees, net operating losses shelter part of the tax, and asset-manager multiples."
+    "bull": "Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN quadruples client assets at Coinbase-Prime/Lido-level fees, a larger one-off NOL shelter, and asset-manager multiples."
   },
   "inputs": {
     "staked_share": {
@@ -269,22 +282,24 @@
       "rationale": "3.5M shares of 9.50% Series A Perpetual Preferred; the 10-Q lists dividend obligations of ≈ $33.25M a year. Deducted from earnings (the preferred is not deducted from NAV)."
     },
     "tax_rate": {
-      "label": "Cash tax rate on net income",
+      "label": "Tax rate on treasury/staking earnings (if positive)",
       "unit": "pct",
       "bear": {
-        "value": 0.21
+        "value": 0.23
       },
       "base": {
-        "value": 0.15
+        "value": 0.21
       },
       "bull": {
-        "value": 0.1
+        "value": 0.15
       },
       "sources": [
         "irs_staking",
-        "q3_10q"
+        "k10_fy25",
+        "q3_10q",
+        "camt_notices"
       ],
-      "rationale": "Staking rewards are taxable income when received (Rev. Rul. 2023-14); bear uses the 21% federal rate. Base/bull assume operating losses (G&A $335.7M in the 9 months to May 31, 2026) shelter part of near-term income (judgment)."
+      "rationale": "Staking rewards are ordinary income when received (Rev. Rul. 2023-14). Base 21% federal (Nevada has no corporate income tax); bear 23% adds some state tax; bull 15% for deductions/credits (judgment). FY2025: $0 current tax, the 20.9% effective rate was all deferred; now a full valuation allowance and no cash taxes. ETH losses (cost ≈ $3,517/ETH vs ≈ $2,400) are capital losses and can't offset ordinary staking income. CAMT unlikely ($1B threshold; unrealized digital-asset gains excluded). No tax benefit on losses."
     },
     "treasury_multiple": {
       "label": "Multiple on net treasury/staking earnings",
@@ -394,6 +409,24 @@
       ],
       "rationale": "Base = US asset managers' pre-tax operating margin (25.2%); bear/bull ±10–15 pts (judgment; MAVAN is not reported as a segment)."
     },
+    "mavan_tax_rate": {
+      "label": "Tax rate on MAVAN earnings (if positive)",
+      "unit": "pct",
+      "bear": {
+        "value": 0.3
+      },
+      "base": {
+        "value": 0.25
+      },
+      "bull": {
+        "value": 0.21
+      },
+      "sources": [
+        "ato_rates",
+        "pier_two_8k"
+      ],
+      "rationale": "Pier Two, MAVAN's main business, is Australian (30% company rate); US rate is 21% plus state. Bear 30%, base 25% (mix), bull 21% (judgment)."
+    },
     "mavan_multiple": {
       "label": "Multiple on MAVAN after-tax earnings",
       "unit": "x",
@@ -411,6 +444,24 @@
         "damodaran_pe"
       ],
       "rationale": "Bear 8.5× = LDO market cap ÷ annualized protocol revenue. Base 18.8× = asset managers' forward P/E. Bull 24.8× = asset managers' market cap ÷ net income."
+    },
+    "nol_shelter_usd": {
+      "label": "NOL tax shelter, one-off (est., pending FY2026 10-K)",
+      "unit": "usd",
+      "bear": {
+        "value": 40000000
+      },
+      "base": {
+        "value": 50000000
+      },
+      "bull": {
+        "value": 60000000
+      },
+      "sources": [
+        "q3_10q",
+        "k10_fy25"
+      ],
+      "rationale": "Estimate pending the FY2026 10-K (due ~Oct 30, 2026). Losses carried forward (NOLs ≈ $50M, est.; not quantified in the 10-Q) shelter near-term tax temporarily, so the shelter is added once instead of lowering the rate permanently."
     }
   }
 }

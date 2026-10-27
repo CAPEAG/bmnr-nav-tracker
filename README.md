@@ -88,10 +88,16 @@ Method:
 
 * Own staking (treasury) earnings = ETH held × staked share × gross staking yield × (1 − fee leakage) × live ETH price.
 * Corporate costs = company cash opex run-rate (excl. stock comp and one-time items) − the part attributed to serving MAVAN clients (current MAVAN client revenue × (1 − MAVAN margin)) + BMNP preferred dividends.
-* Treasury business value = (own staking earnings − corporate costs) × (1 − tax) × treasury multiple. Negative values are kept (costs above staking income destroy value).
-* MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − tax) × services multiple.
-* SOTP per share = live Full NAV per share + (treasury value + MAVAN value) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share.
+* Treasury business value = (own staking earnings − corporate costs) × (1 − treasury tax, only if positive) × treasury multiple. Losses get no tax benefit (full valuation allowance) and are kept (costs above staking income destroy value).
+* MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − MAVAN tax, only if positive) × services multiple.
+* NOL tax shelter = one-off value of losses carried forward (est., pending the FY2026 10-K), added once rather than by lowering the tax rate.
+* SOTP per share = live Full NAV per share + (treasury value + MAVAN value + NOL shelter) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share.
 * Option-premium income and interest are excluded in all cases: the ETH options program lost $133.3M in the 9 months to May 31, 2026 and cash balances (and interest) are being spent down (10-Q).
+
+**Tax:** FY2025 10-K: $0 current tax (the 20.9% effective rate was all deferred). Q3 FY2026 10-Q: full valuation allowance, no cash taxes; NOLs ≈ $50M (est.).
+Staking rewards are ordinary income at receipt (Rev. Rul. 2023-14); ETH losses (cost ≈ $3,517/ETH vs ≈ $2,400) are capital losses and can't offset it.
+CAMT likely doesn't apply ($1B threshold; Notices 2025-46/2025-49 exclude unrealized digital-asset gains). Nevada has no corporate income tax.
+MAVAN is taxed separately (Pier Two is Australian, 30%). Tax applies only to positive earnings; the NOL shelter is a one-off estimate pending the FY2026 10-K (due ~Oct 30, 2026).
 
 **No double counting:** NAV counts ETH already held, including staking rewards already received. The earnings value capitalizes only FUTURE net staking income on today's staked base, after costs, with no growth from future ETH purchases. Each week the rewards received move into NAV while the run-rate (and its capitalized value) stays the same, so no reward is counted twice at any point in time. Because a staked-ETH ETF (e.g. BlackRock ETHB) already passes staking yield to holders at ~1.0× NAV, the multiples on Bitmine's own staking income are kept modest — the premium is only for the yield being earned at scale net of costs.
 
@@ -102,20 +108,22 @@ Method:
 | Rewards paid away (advisory fee, partners, minority interest) | 8.5% | 3.5% | 3.5% | Since Sep 4, 2026 American Validator LLC receives 1.50% of rewards on Company-staked ETH, and Ethereum Tower owns 2% of MAVAN Holdings (base/bull = 3.5%). Bear adds 5% for ETH staked with outside "staking partners" at a Lido-node-operator-like fee. [4] [3] [10] |
 | Company cash opex, annual (excl. stock comp, one-time items) | $150.5M | $119.0M | $96.1M | Base = Mar–May 2026 quarter × 4: G&A $37.27M − stock comp $13.25M + cost of sales $5.73M = $29.75M/qtr. Bear = management's 12-month cash requirements: ETH-management fees up to $50M + overhead $83.0M + working capital $12M + public-company $4M + capex $1.5M. Bull = cash G&A only ($24.02M/qtr × 4), assuming cost of sales is covered by MAVAN client revenue. Excludes $200.0M of one-time capital-raising/advisory fees (9 months). [1] |
 | BMNP preferred dividends, annual | $33.2M | $33.2M | $33.2M | 3.5M shares of 9.50% Series A Perpetual Preferred; the 10-Q lists dividend obligations of ≈ $33.25M a year. Deducted from earnings (the preferred is not deducted from NAV). [1] |
-| Cash tax rate on net income | 21% | 15% | 10% | Staking rewards are taxable income when received (Rev. Rul. 2023-14); bear uses the 21% federal rate. Base/bull assume operating losses (G&A $335.7M in the 9 months to May 31, 2026) shelter part of near-term income (judgment). [18] [1] |
+| Tax rate on treasury/staking earnings (if positive) | 23% | 21% | 15% | Staking rewards are ordinary income when received (Rev. Rul. 2023-14). Base 21% federal (Nevada has no corporate income tax); bear 23% adds some state tax; bull 15% for deductions/credits (judgment). FY2025: $0 current tax, the 20.9% effective rate was all deferred; now a full valuation allowance and no cash taxes. ETH losses (cost ≈ $3,517/ETH vs ≈ $2,400) are capital losses and can't offset ordinary staking income. CAMT unlikely ($1B threshold; unrealized digital-asset gains excluded). No tax benefit on losses. [18] [19] [1] [20] |
 | Multiple on net treasury/staking earnings | 6× | 15× | 18.8× | Bear 6× = Lido DAO's treasury-adjusted revenue multiple (staking-protocol comp). Base 15× = money-center banks' market cap ÷ net income (balance-sheet yield businesses). Bull 18.8× = asset managers' forward P/E. Kept below asset-manager levels because staked-ETH ETFs offer the same yield at ~1.0× NAV. [14] [15] [17] |
 | MAVAN client revenue run-rate (today) | $18.9M | $18.9M | $18.9M | Pier Two (now MAVAN) contributed $3.527M of staking revenue from its Mar 24 acquisition to May 31, 2026 (68 days) → $18.9M a year, on about $2B of client assets across ETH, Solana, Hyperliquid and Canton (Tom Lee, May 2026). [1] [5] |
 | Fee compression on existing clients | 25% | 0% | 0% | Institutional commissions are compressing (Messari); bear cuts existing revenue by a quarter. [12] |
 | New client ETH staked via MAVAN | $0 | $2,000.0M | $6,000.0M | From ~$2B of client assets in May 2026: bear no growth; base doubles to $4B; bull reaches $8B (MAVAN pitches itself as the largest Ethereum staking platform; judgment). [5] [2] |
 | Fee on new client rewards | 5% | 8% | 10% | Institutional range 5–10% of rewards (Messari); Coinbase Prime and Lido charge 10%. [12] [11] [10] |
 | MAVAN segment operating margin | 15% | 25% | 40% | Base = US asset managers' pre-tax operating margin (25.2%); bear/bull ±10–15 pts (judgment; MAVAN is not reported as a segment). [16] |
+| Tax rate on MAVAN earnings (if positive) | 30% | 25% | 21% | Pier Two, MAVAN's main business, is Australian (30% company rate); US rate is 21% plus state. Bear 30%, base 25% (mix), bull 21% (judgment). [21] [3] |
 | Multiple on MAVAN after-tax earnings | 8.5× | 18.8× | 24.8× | Bear 8.5× = LDO market cap ÷ annualized protocol revenue. Base 18.8× = asset managers' forward P/E. Bull 24.8× = asset managers' market cap ÷ net income. [13] [15] |
+| NOL tax shelter, one-off (est., pending FY2026 10-K) | $40.0M | $50.0M | $60.0M | Estimate pending the FY2026 10-K (due ~Oct 30, 2026). Losses carried forward (NOLs ≈ $50M, est.; not quantified in the 10-Q) shelter near-term tax temporarily, so the shelter is added once instead of lowering the rate permanently. [1] [19] |
 
-Cases — **Bear:** Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple. **Base:** Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward "nearly all" ETH, 10-Q cost run-rate, MAVAN doubles client assets at a typical institutional fee, and financial-sector multiples. **Bull:** Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN quadruples client assets at Coinbase-Prime/Lido-level fees, net operating losses shelter part of the tax, and asset-manager multiples.
+Cases — **Bear:** Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple. **Base:** Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward "nearly all" ETH, 10-Q cost run-rate, MAVAN doubles client assets at a typical institutional fee, and financial-sector multiples. **Bull:** Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN quadruples client assets at Coinbase-Prime/Lido-level fees, a larger one-off NOL shelter, and asset-manager multiples.
 
 Sources:
 
-1. [10-Q for quarter ended May 31, 2026 (filed Jul 14, 2026)](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm)
+1. [10-Q for quarter ended May 31, 2026 (filed Jul 14, 2026) — full valuation allowance, no income tax expense](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm)
 2. [8-K Ex. 99.1, Mar 25, 2026 — MAVAN launch](https://www.sec.gov/Archives/edgar/data/1829311/000149315226012549/ex99-1.htm)
 3. [8-K, Mar 30, 2026 — Pier Two acquisition & Ethereum Tower MSA](https://www.sec.gov/Archives/edgar/data/1829311/000149315226013609/form8-k.htm)
 4. [8-K, Sep 8, 2026 — MSA terminated; American Validator fee 1.50% of rewards](https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/form8-k.htm)
@@ -133,6 +141,9 @@ Sources:
 16. [FinObservatory (Damodaran data) — US Investments & Asset Mgmt pre-tax operating margin 25.2%](https://finobservatory.org/valuation/industry/investments-asset-management)
 17. [iShares Staked Ethereum Trust ETF (ETHB) — passes net staking rewards to ETF holders](https://www.blackrock.com/us/individual/products/348532/ishares-staked-ethereum-trust-etf)
 18. [IRS Rev. Rul. 2023-14 — staking rewards are gross income when received](https://www.irs.gov/pub/irs-drop/rr-23-14.pdf)
+19. [10-K for FY ended Aug 31, 2025 (filed Nov 21, 2025) — $0 current tax; 20.9% effective rate all deferred](https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm)
+20. [IRS Notices 2025-46 / 2025-49 — interim CAMT guidance; unrealized fair-value gains on digital assets disregarded](https://www.irs.gov/pub/irs-drop/n-25-49.pdf)
+21. [ATO company tax rates — 30% (25% for base-rate entities)](https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates)
 
 ## Weekly accretion check
 

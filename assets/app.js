@@ -244,14 +244,18 @@ function renderValuation(val, p) {
     row('− Corporate cash opex', (v) => big(-v.corpOpex)) +
     row('− BMNP preferred dividends', (v) => big(-v.pref)) +
     row('= Pre-tax earnings', (v) => `<span class="${cls(v.treasuryPretax)}">${big(v.treasuryPretax)}</span>`) +
-    row('After tax (if positive)', (v) => big(v.treasuryAfterTax)) +
+    row('After tax (if positive)', (v) => `${big(v.treasuryAfterTax)} <span class="fine">(${(v.tax * 100).toFixed(0)}%)</span>`) +
     row('× multiple', (v) => v.treasuryMultiple.toFixed(1) + '×') +
     row('Treasury business value / share', (v) => usd(v.treasuryPs), 'hl') +
     sec('MAVAN third-party staking') +
     row('Client revenue / yr', (v) => big(v.mavanRev)) +
     row('Margin → pre-tax', (v) => `${(v.mavanMargin * 100).toFixed(0)}% → ${big(v.mavanPretax)}`) +
-    row('× multiple (after tax)', (v) => v.mavanMultiple.toFixed(1) + '×') +
+    row('After tax (if positive)', (v) => `${big(v.mavanAfterTax)} <span class="fine">(${(v.mavanTax * 100).toFixed(0)}%)</span>`) +
+    row('× multiple', (v) => v.mavanMultiple.toFixed(1) + '×') +
     row('MAVAN value / share', (v) => usd(v.mavanPs), 'hl') +
+    sec('NOL tax shelter (one-off, est. pending FY2026 10-K)') +
+    row('Value (added once)', (v) => big(v.nolValue)) +
+    row('NOL shelter / share', (v) => usd(v.nolPs), 'hl') +
     sec('Sum of the parts') +
     row('NAV / share (live)', (v) => usd(v.navPs)) +
     row('+ Business value / share', (v) => `<span class="${cls(v.earningsPs)}">${usd(v.earningsPs)}</span>`) +
