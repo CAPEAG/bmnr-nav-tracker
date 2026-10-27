@@ -1,4 +1,4 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js';
+import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610271927';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
@@ -156,11 +156,15 @@ function render() {
   const feeds = [stockLive ? 'BMNR/ORBS live (CNBC)' : `BMNR/ORBS saved (prices.json ${ago(S.prices?.fetched_at)})`, cryptoLive ? 'ETH/BTC live (CoinGecko)' : 'ETH/BTC saved'];
   $('status').innerHTML = `<span class="dot ${stale ? 'stale' : ''}"></span>${feeds.join(' · ')} · refresh 60s<br>Holdings as of ${fmtDate(h.as_of)} · times in ${tz}`;
 
+  const srH = h.shares_outstanding_range;
+  const psLo = srH ? full.value / srH[1] : null, psHi = srH ? full.value / srH[0] : null;
+  const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
+  const rngM = srH ? `<br>range est. ${(p.BMNR / psHi).toFixed(3)}–${(p.BMNR / psLo).toFixed(3)}×` : '';
   $('hero').innerHTML = `
     <div class="kpi main"><div class="l">mNAV (Full NAV)</div><div class="v">${full.mnav.toFixed(3)}×</div>
-      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'} · last weekly snapshot ${last ? last.mnav.toFixed(3) + '×' : '—'}</div></div>
+      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'} · last weekly snapshot ${last ? last.mnav.toFixed(3) + '×' : '—'}${rngM}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
-    <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot</div></div>
+    <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
     <div class="kpi"><div class="l">ETH / share <span class="tag a">est.</span></div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH ÷ ${(h.shares_outstanding / 1e6).toFixed(1)}M sh${ethWow != null ? ` · <span class="${cls(ethWow)}">${pct(ethWow, 2)}</span> WoW` : ''}</div></div>
