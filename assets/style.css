@@ -136,3 +136,6 @@ table.val-t{table-layout:fixed;width:100%}
 #weekCard .kv{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
 
 .nav-range{font-size:.9rem;color:var(--text,inherit);opacity:.9;margin-top:.6rem}
+
+/* sensitivity row in the NAV table */
+.t tr.sens td{color:var(--mut);font-style:italic}

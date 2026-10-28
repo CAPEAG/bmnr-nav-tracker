@@ -1,10 +1,13 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610271927';
+import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610280100';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
 // CNBC quote service (sends access-control-allow-origin: *). Symbols separated by "|" (%7C). exthrs=1 adds ExtendedMktQuote.
 const CNBC = 'https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=BMNR%7CORBS&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json';
 const STOCKS = ['BMNR', 'ORBS'];
+// Extended-hours prices are used only for BMNR (newer of regular / pre-market / after-hours). ORBS (sub-$1, thin
+// after-hours trading, ~0.5% of NAV) always uses its regular-session price, as Bitmine's releases do.
+const EXT_OK = new Set(['BMNR']);
 const REFRESH_MS = 60000;
 
 const S = { holdings: null, history: null, backtest: null, valuation: null, chart4: null, chart5: null, prices: null, live: {}, chart: null, chartM: null, chart2: null, chart3: null, range: localStorage.getItem('bmnrRange') || 'ALL' };
@@ -99,7 +102,7 @@ async function loadStocks() {
       if (!(reg.price > 0) || !reg.time) continue;
       const e = f.ExtendedMktQuote, ep = num(e?.last), et = isoT(e?.last_time);
       const ext = ep > 0 && et ? { price: ep, time: et, session: e.type === 'PRE_MKT' ? 'pre-market' : e.type === 'POST_MKT' ? 'after-hours' : null } : null;
-      got[f.symbol] = pickQuote(reg, ext, num(f.previous_day_closing), 'CNBC', { live: true });
+      got[f.symbol] = pickQuote(reg, EXT_OK.has(f.symbol) ? ext : null, num(f.previous_day_closing), 'CNBC', { live: true });
     }
     if (!got.BMNR) throw new Error('cnbc: no BMNR quote');
     for (const k of STOCKS) S.live[k] = got[k] || null;
@@ -110,9 +113,10 @@ async function loadStocks() {
   }
 }
 // prices.json (written by the GitHub Action) in the same shape
-function savedQuote(q) {
+function savedQuote(q, sym) {
   if (!(q?.price > 0)) return null;
-  return pickQuote({ price: q.price, time: q.time }, q.extended ? { price: q.extended.price, time: q.extended.time } : null, q.previous_close, 'prices.json', { saved: true });
+  const ext = q.extended && EXT_OK.has(sym) ? { price: q.extended.price, time: q.extended.time } : null;
+  return pickQuote({ price: q.price, time: q.time }, ext, q.previous_close, 'prices.json', { saved: true });
 }
 
 // Resolve each price: live → prices.json → last announcement reference price.
@@ -126,7 +130,7 @@ function px() {
   };
   const out = { ETH: pick('ETH'), BTC: pick('BTC') };
   for (const k of STOCKS) {
-    out[k] = S.live[k]?.price ? S.live[k] : savedQuote(q[k]) || { price: ref[k] ?? null, time: null, source: 'last announcement' };
+    out[k] = S.live[k]?.price ? S.live[k] : savedQuote(q[k], k) || { price: ref[k] ?? null, time: null, source: 'last announcement' };
   }
   return out;
 }
@@ -144,7 +148,8 @@ function render() {
   const p = { ETH: P.ETH.price, BTC: P.BTC.price, BMNR: P.BMNR.price, ORBS: P.ORBS.price };
   const nav = computeNav(h, p);
   const val = S.valuation ? computeValuation(h, p, nav, S.valuation) : null;
-  const full = nav.rows[0];
+  const full = nav.rows.find((r) => r.key === 'net') || nav.rows[0]; // headline = NAV net of the BMNP preferred
+  const prefTxt = nav.pref ? `net of ${big(nav.pref)} preferred` : 'no preferred';
   const bm = P.BMNR, bmChg = bm.previous_close ? bm.price / bm.previous_close - 1 : null;
   const last = S.history.snapshots.at(-1);
   const navChg = last ? full.perShare / last.nav_per_share - 1 : null;
@@ -161,10 +166,10 @@ function render() {
   const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
   const rngM = srH ? `<br>range est. ${(p.BMNR / psHi).toFixed(3)}–${(p.BMNR / psLo).toFixed(3)}×` : '';
   $('hero').innerHTML = `
-    <div class="kpi main"><div class="l">mNAV (Full NAV)</div><div class="v">${full.mnav.toFixed(3)}×</div>
+    <div class="kpi main"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
       <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'} · last weekly snapshot ${last ? last.mnav.toFixed(3) + '×' : '—'}${rngM}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
-    <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s"><span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
+    <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
     <div class="kpi"><div class="l">ETH / share <span class="tag a">est.</span></div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH ÷ ${(h.shares_outstanding / 1e6).toFixed(1)}M sh${ethWow != null ? ` · <span class="${cls(ethWow)}">${pct(ethWow, 2)}</span> WoW` : ''}</div></div>
@@ -172,10 +177,10 @@ function render() {
 
   $('navBasis').textContent = `live · ETH ${usd(p.ETH, 0)}`;
   $('navTable').innerHTML = `<tr><th></th><th>NAV</th><th>NAV / share</th><th>mNAV</th></tr>` +
-    nav.rows.map((r, i) => `<tr class="${i === 0 ? 'hl' : ''}" title="${r.note}"><td>${r.label}</td><td>${big(r.value)}</td><td>${usd(r.perShare)}</td><td>${r.mnav.toFixed(3)}</td></tr>`).join('');
+    nav.rows.map((r) => `<tr class="${r.key === 'net' ? 'hl' : ''}${r.sensitivity ? ' sens' : ''}" title="${r.note}"><td>${r.label}</td><td>${big(r.value)}</td><td>${r.perShare == null ? '—' : usd(r.perShare)}</td><td>${r.mnav.toFixed(3)}${r.key === 'ev' ? '×' : ''}</td></tr>`).join('');
   const sr = h.shares_outstanding_range;
   $('navRange').innerHTML = sr ? (() => { const hiPs = full.value / sr[0], loPs = full.value / sr[1];
-    return `Full NAV / share low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices`; })() : '';
+    return `NAV / share (net of preferred) low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices`; })() : '';
 
   const rows = [
     ['ETH', n(h.eth), usd(p.ETH), nav.ethVal, P.ETH],
@@ -184,14 +189,16 @@ function render() {
     ['ORBS (Eightco stock)', n(h.orbs.shares), usd(p.ORBS), nav.orbsVal, P.ORBS],
     ['Beast Industries stake', '—', 'fixed', nav.beast, null],
   ];
-  const fullV = full.value;
+  const fullV = nav.full;
   $('holdBasis').innerHTML = `as of ${fmtDate(h.as_of)} <a href="${h.source.press_release}" target="_blank" rel="noopener">source</a>`;
   $('holdTable').innerHTML = `<tr><th>Asset</th><th>Quantity</th><th>Price</th><th>Value</th><th>% NAV</th></tr>` +
     rows.map(([a, q, pr, v]) => `<tr><td>${a}</td><td>${q}</td><td>${pr}</td><td>${big(v)}</td><td>${(v / fullV * 100).toFixed(1)}%</td></tr>`).join('') +
-    `<tr class="hl"><td>Total (Full NAV)</td><td></td><td></td><td>${big(fullV)}</td><td>100%</td></tr>`;
+    `<tr class="hl"><td>Total (Full NAV)</td><td></td><td></td><td>${big(fullV)}</td><td>100%</td></tr>` +
+    (nav.pref ? `<tr><td>− BMNP preferred (liq. pref.)</td><td>${n(h.preferred.shares)}</td><td>$100</td><td>${big(-nav.pref)}</td><td>${(-nav.pref / fullV * 100).toFixed(1)}%</td></tr>` : '');
   const days = Math.max(0, (Date.now() - Date.parse(h.as_of + 'T20:00:00Z')) / 86400000);
-  const accrued = weeklyStakingEth(h.eth_staked, h.assumptions.weekly_staking_yield, days);
-  $('holdNote').innerHTML = `ORBS share count is assumed (last disclosed). ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (low–high est. ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])} since the last official count): last official count ${n(h.shares_official.shares)} on ${fmtDate(h.shares_official.date)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology and the backtest below).` : ''}`;
+  const sb = h.staking_accrual_basis, stakedBasis = sb?.eth ?? h.eth_staked;
+  const accrued = weeklyStakingEth(stakedBasis, h.assumptions.weekly_staking_yield, days) * (sb?.realization ?? 1);
+  $('holdNote').innerHTML = `ORBS share count is assumed (last disclosed). ETH staked: ${n(h.eth_staked)} (${(h.eth_staked / h.eth * 100).toFixed(1)}%). Est. staking rewards accrued since the last report: ~${n(accrued)} ETH (${big(accrued * p.ETH)}) on ${n(stakedBasis)} ETH staked for at least ${h.assumptions.share_estimation?.staking_lag_reports ?? 0} reports (same lag as the share model) — not included in NAV until reported.${h.shares_official ? ` Shares outstanding ${n(h.shares_outstanding)} is an estimate (low–high est. ${n(h.shares_outstanding_range?.[0])}–${n(h.shares_outstanding_range?.[1])} since the last official count): last official count ${n(h.shares_official.shares)} on ${fmtDate(h.shares_official.date)} (<a href="${h.shares_official.url}" target="_blank" rel="noopener">10-Q</a>) + estimated equity issuance − disclosed buybacks, rebuilt weekly (see methodology and the backtest below).` : ''}`;
 
   // This week
   const w = h.last_week;
@@ -221,7 +228,7 @@ function render() {
       <div>Funded by share sales ${tagA}</div><div>${big(fund)}${w.funded_by_shares_range?.[1] > 0 ? `<br><span class="fine">${lh(w.funded_by_shares_range, big)}</span>` : ''}</div>
       <div>Shares issued ${tagA}</div><div>${issuedTxt}</div>
       <div>Shares outstanding ${tagA}</div><div>${n(w.shares_outstanding)}<br><span class="fine">low–high est. ${anchorTxt}: ${n(w.shares_outstanding_range[0])}–<wbr>${n(w.shares_outstanding_range[1])}</span></div>
-      <div>NAV/share · mNAV at report</div><div>${usd(w.nav_per_share)} · ${w.mnav.toFixed(3)}×</div>
+      <div>NAV/share · mNAV at report (net of pref.)</div><div>${usd(w.nav_per_share)} · ${w.mnav.toFixed(3)}×</div>
     </div>`;
 
   if (val) renderValuation(val, p);
@@ -251,9 +258,10 @@ function renderValuation(val, p) {
     row('Net rewards / yr (ETH)', (v) => n(v.ethNet)) +
     row('Net rewards / yr ($, live ETH)', (v) => big(v.stakingUsd)) +
     row('− Corporate cash opex', (v) => big(-v.corpOpex)) +
-    row('− BMNP preferred dividends', (v) => big(-v.pref)) +
     row('= Pre-tax earnings', (v) => `<span class="${cls(v.treasuryPretax)}">${big(v.treasuryPretax)}</span>`) +
-    row('After tax (if positive)', (v) => `${big(v.treasuryAfterTax)} <span class="fine">(${(v.tax * 100).toFixed(0)}%)</span>`) +
+    (val.base.prefMode === 'principal_and_dividends'
+      ? row('After tax (if positive), − BMNP dividends', (v) => `${big(v.treasuryAfterTax)} <span class="fine">(${(v.tax * 100).toFixed(0)}%, −${big(v.pref)})</span>`)
+      : row('After tax (if positive)', (v) => `${big(v.treasuryAfterTax)} <span class="fine">(${(v.tax * 100).toFixed(0)}%)</span>`)) +
     row('× multiple', (v) => v.treasuryMultiple.toFixed(1) + '×') +
     row('Treasury business value / share', (v) => usd(v.treasuryPs), 'hl') +
     sec('MAVAN third-party staking') +
@@ -266,7 +274,7 @@ function renderValuation(val, p) {
     row('Value (added once)', (v) => big(v.nolValue)) +
     row('NOL shelter / share', (v) => usd(v.nolPs), 'hl') +
     sec('Sum of the parts') +
-    row('NAV / share (live)', (v) => usd(v.navPs)) +
+    row(`NAV / share (live, net of ${big(S.holdings.preferred?.liquidation_usd || 0)} preferred)`, (v) => usd(v.navPs)) +
     row('+ Business value / share', (v) => `<span class="${cls(v.earningsPs)}">${usd(v.earningsPs)}</span>`) +
     row('SOTP value / share', (v) => usd(v.sotp), 'hl') +
     row('Implied mNAV', (v) => v.impliedMnav.toFixed(2) + '×') +
@@ -283,7 +291,7 @@ function renderValuation(val, p) {
 }
 
 // ---------- accretion check ----------
-const ACC_USD = [['issuance', 'ATM issuance', '#ff8f6b'], ['buybacks', 'Buybacks', '#3ddc97'], ['staking', 'Staking rewards', '#8c8dfc'], ['other', 'Other (opex, pref. div., ETH premium)', '#8b97b0']];
+const ACC_USD = [['issuance', 'ATM issuance', '#ff8f6b'], ['buybacks', 'Buybacks', '#3ddc97'], ['staking', 'Staking rewards', '#8c8dfc'], ['other', 'Other (opex, preferred, ETH premium)', '#8b97b0']];
 const ACC_ETH = [['capital', 'Capital actions (shares ↔ ETH bought)', '#ff8f6b'], ['staking', 'Staking rewards', '#8c8dfc'], ['premium', 'ETH bought above avg. price', '#8b97b0'], ['reanchor', '10-Q re-anchor', '#ff6b6b']];
 const c2 = (x) => (x == null ? '—' : `${x >= 0 ? '+' : '−'}$${Math.abs(x).toFixed(Math.abs(x) < 0.1 ? 3 : 2)}`);
 const e3 = (x) => (x == null ? '—' : `${x >= 0 ? '+' : '−'}${Math.abs(x * 1000).toFixed(4)}`);
@@ -309,7 +317,7 @@ function renderAccretion(s) {
   $('accTable').innerHTML = `<tr><th>Week</th><th>mNAV at issue</th><th>ATM sh (est.)</th><th>Buyback sh</th><th>ATM $</th><th>Buybacks $</th><th>Staking $</th><th>Other $</th><th>Total $/sh</th><th>Market move $</th><th>ETH/1k sh: capital</th><th>staking</th><th>premium</th><th>total</th></tr>` +
     rows.slice().reverse().map((r) => { const a = r.accretion, u = a.usd_per_share, e = a.eth_per_share;
       return `<tr class="${a.reanchor ? 'off' : ''}"><td>${fmtDate(r.as_of)}${a.reanchor ? ' <span class="tag o" title="share count re-anchored to an official 10-Q count this week">10-Q</span>' : ''}</td><td>${a.mnav_at_issue.toFixed(3)}</td><td>${n(a.atm_shares)}</td><td>${r.buyback_shares ? n(r.buyback_shares) : '—'}</td>${['issuance', 'buybacks', 'staking', 'other'].map((k) => `<td class="${cls(u[k])}">${c2(u[k])}</td>`).join('')}<td class="${cls(u.total)}"><b>${c2(u.total)}</b></td><td class="fine">${c2(u.market)}</td><td class="${cls(e.capital)}">${e3(e.capital)}</td><td>${e3(e.staking)}</td><td>${e3(e.premium)}</td><td class="${cls(e.total)}"><b>${e3(e.total)}</b></td></tr>`; }).join('');
-  $('accNote').innerHTML = `Per week: ATM $ = est. shares sold × (week's avg. BMNR close − NAV/share before issuance) ÷ shares after; buybacks $ = shares bought × (NAV/share − buyback price) ÷ shares after; staking $ = est. rewards × ETH price ÷ shares; other = −(cash opex + BMNP dividends + cash paid above the week's average ETH price) ÷ shares. NAV/share before issuance = last week's assets with ETH revalued at the week's average price. "Market move" = the rest of the week's NAV/share change (ETH/BTC/ORBS prices) — not a capital action. ETH/1k sh: capital = ETH the week's cash could buy at the average price − dilution from net new shares (includes cash raised but not yet spent, so it swings week to week); premium = ETH lost by paying above the average price (model: 5%). Rows tagged 10-Q were re-anchored to an official share count; their ATM issuance is the model's weekly estimate and the true-up is shown separately in the ETH chart.`;
+  $('accNote').innerHTML = `Per week: ATM $ = est. shares sold × (week's avg. BMNR close − NAV/share before issuance) ÷ shares after; buybacks $ = shares bought × (NAV/share − buyback price) ÷ shares after; staking $ = est. rewards × ETH price ÷ shares; other = −(cash opex + BMNP dividends + cash paid above the week's average ETH price) ÷ shares, plus in the BMNP issue week its net proceeds − the $350M liquidation preference added. NAV/share before issuance = last week's assets net of the preferred, with ETH revalued at the week's average price. "Market move" = the rest of the week's NAV/share change (ETH/BTC/ORBS prices) — not a capital action. ETH/1k sh: capital = ETH the week's cash could buy at the average price − dilution from net new shares (includes cash raised but not yet spent, so it swings week to week); premium = ETH lost by paying above the average price (model: 5%). Rows tagged 10-Q were re-anchored to an official share count; their ATM issuance is the model's weekly estimate and the true-up is shown separately in the ETH chart.`;
   if (!window.Chart) return;
   const labels = rows.map((r) => shortDate(r.as_of));
   const mobile = window.matchMedia('(max-width: 600px)').matches;
@@ -367,7 +375,7 @@ function renderHistory() {
     : r.est_shares_issued > 0 ? `${n(r.est_shares_issued)} @ ${usd(r.assumed_issue_price)}<br><span class="fine">low–high ${n(r.est_shares_issued_range[0])}–${n(r.est_shares_issued_range[1])}</span>`
     : `0${r.est_shares_issued_range?.[1] > 0 ? `<br><span class="fine">low–high 0–${n(r.est_shares_issued_range[1])}</span>` : ''}`;
   $('histTable').innerHTML = `<tr><th>Report</th><th>ETH</th><th>Δ ETH</th><th>Staking<br>est.</th><th>Bought<br>est.</th><th>ETH price<br>paid</th><th>Buyback</th><th>Cash</th><th>Other<br>uses</th><th>Shortfall<br>(spending − cash drop)</th><th>Surplus from<br>prior weeks</th><th>Funded by<br>share sales</th><th>Shares issued<br>est.</th><th>Shares<br>(low–high est.)</th><th>NAV/sh</th><th>mNAV</th><th>Src</th></tr>` +
-    s.slice().reverse().map((r) => `<tr class="${r.shares_basis === 'official' ? 'off' : ''}"><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth)}</td><td>${ethCell(r)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${[r.investments ? big(r.investments) : '', r.other_digital_asset_cash ? big(r.other_digital_asset_cash) + ' 10-Q†' : '', r.disclosed_proceeds ? '−' + big(r.disclosed_proceeds) + ' pref.' : ''].filter(Boolean).join('<br>') || '—'}</td><td>${r.cash_shortfall == null ? '—' : r.cash_shortfall < 0 ? big(r.cash_shortfall) + ' <span class="fine">surplus</span>' : big(r.cash_shortfall)}</td><td>${r.surplus_from_prior ? '−' + big(r.surplus_from_prior) : '—'}</td><td>${dash(r.funded_by_shares)}</td><td>${issCell(r)}</td><td>${n(r.shares_outstanding)} ${r.shares_basis === 'official' ? '<span class="tag o">official</span>' : '<span class="tag a">est.</span>'}<br><span class="fine">${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}</span>${r.checkpoints_in_week ? '<br>' + cpTag(r) : ''}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
+    s.slice().reverse().map((r) => `<tr class="${r.shares_basis === 'official' ? 'off' : ''}"><td>${fmtDate(r.date)}</td><td>${n(r.eth)}</td><td>${r.eth_change == null ? '—' : n(r.eth_change)}</td><td>${r.est_staking_eth == null ? '—' : n(r.est_staking_eth)}</td><td>${r.est_purchased_eth == null ? '—' : n(r.est_purchased_eth)}</td><td>${ethCell(r)}</td><td>${r.buyback_shares ? n(r.buyback_shares) + ' @ ' + usd(r.buyback_price) + (r.buyback_price_basis === 'disclosed' ? '' : '*') : '—'}</td><td>${big(r.cash)}</td><td>${[r.investments ? big(r.investments) : '', r.other_digital_asset_cash ? big(r.other_digital_asset_cash) + ' 10-Q†' : '', r.disclosed_proceeds ? '−' + big(r.disclosed_proceeds) + ' pref.' : ''].filter(Boolean).join('<br>') || '—'}</td><td>${r.cash_shortfall == null ? '—' : r.cash_shortfall < 0 ? big(r.cash_shortfall) + ' <span class="fine">surplus</span>' : big(r.cash_shortfall)}</td><td>${r.surplus_from_prior ? '−' + big(r.surplus_from_prior) : '—'}</td><td>${dash(r.funded_by_shares)}${r.funding_flag ? ` <span title="${r.funding_flag}">‡</span>` : ''}</td><td>${issCell(r)}</td><td>${n(r.shares_outstanding)} ${r.shares_basis === 'official' ? '<span class="tag o">official</span>' : '<span class="tag a">est.</span>'}<br><span class="fine">${n(r.shares_outstanding_range[0])}–${n(r.shares_outstanding_range[1])}</span>${r.checkpoints_in_week ? '<br>' + cpTag(r) : ''}</td><td>${usd(r.nav_per_share)}</td><td>${r.mnav.toFixed(3)}</td><td><a href="${r.sec_8k}" target="_blank" rel="noopener">8-K</a>${r.x_post ? ` · <a href="${r.x_post}" target="_blank" rel="noopener">X</a>` : ''}</td></tr>`).join('');
   renderAccretion(s);
   if (!window.Chart) return;
   const labels = s.map((r) => shortDate(r.as_of));
@@ -379,7 +387,7 @@ function renderHistory() {
   S.chartM = new Chart($('mnavChart'), {
     type: 'line',
     data: { labels, datasets: [
-      { label: 'mNAV (Full NAV, at report)', data: s.map((r) => r.mnav), borderColor: '#7aa2ff', backgroundColor: 'rgba(122,162,255,.12)', tension: .25, pointRadius: ptR, fill: false },
+      { label: 'mNAV (net of preferred, at report)', data: s.map((r) => r.mnav), borderColor: '#7aa2ff', backgroundColor: 'rgba(122,162,255,.12)', tension: .25, pointRadius: ptR, fill: false },
       { label: '1.0× (price = NAV)', data: s.map(() => 1), borderColor: '#8b97b0', borderDash: [5, 4], borderWidth: 1, pointRadius: 0, pointHoverRadius: 0 },
     ] },
     options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend, tooltip: { filter: (i) => i.datasetIndex === 0, callbacks: { label: (c) => `mNAV: ${c.raw.toFixed(3)}×` } } },

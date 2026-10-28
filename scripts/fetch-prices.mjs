@@ -7,6 +7,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const OUT = new URL('../data/prices.json', import.meta.url);
 const SYMBOLS = ['BMNR', 'ORBS'];
+// Extended-hours prices are recorded only for BMNR; ORBS (Eightco) is valued at its regular-session price.
+const EXTENDED = new Set(['BMNR']);
 
 async function getJSON(url) {
   const r = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
@@ -15,6 +17,7 @@ async function getJSON(url) {
 }
 
 async function yahoo(sym) {
+  const wantExt = EXTENDED.has(sym);
   let lastErr;
   for (const host of ['query1', 'query2']) {
     try {
@@ -32,7 +35,7 @@ async function yahoo(sym) {
       // Extended-hours: last non-null 5m close after the regular-market timestamp.
       const ts = res.timestamp || [];
       const closes = res.indicators?.quote?.[0]?.close || [];
-      for (let i = ts.length - 1; i >= 0; i--) {
+      for (let i = ts.length - 1; wantExt && i >= 0; i--) {
         if (closes[i] != null) {
           if (ts[i] > m.regularMarketTime + 60) {
             out.extended = { price: +closes[i].toFixed(4), time: new Date(ts[i] * 1000).toISOString() };
