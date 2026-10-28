@@ -1,6 +1,6 @@
 {
   "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
-  "built": "2026-10-28T04:42:56.364Z",
+  "built": "2026-10-28T05:04:07.140Z",
   "models": {
     "v1": {
       "label": "v1 – original (Jul–Oct 2026)",
@@ -402,6 +402,27 @@
     "assumed_uncertainty": 0.01,
     "onchain_events": 50,
     "note": "paid_per_eth = 10-Q cost of ETH purchased ÷ units purchased; market_avg_weighted = weekly average ETH price weighted by ETH added each week; factor = paid ÷ market."
+  },
+  "out_of_sample": {
+    "from": "2026-07-09",
+    "to": "2026-08-31",
+    "label": "Jul 9 → Aug 31, 2026 (FY2026 10-K)",
+    "model": "v3, information known at the interval start",
+    "frozen_on": "2026-10-28",
+    "params_match_freeze": true,
+    "params_now": {
+      "opex_weekly": 2278000,
+      "bmnp_weekly": 646450,
+      "bmnp_start": "2026-06-10",
+      "include_investments": true,
+      "staking_lag_reports": 4,
+      "staking_realization": 1,
+      "opex_high_multiplier": 2,
+      "carry_forward": true,
+      "carry_weeks": 3,
+      "carry_max_usd": 5000000
+    },
+    "status": "pending 10-K"
   },
   "intervals": [
     {

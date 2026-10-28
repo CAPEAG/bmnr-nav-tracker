@@ -12,6 +12,8 @@ import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts } from './model
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
 const P = (f) => new URL(`../data/${f}`, import.meta.url);
+// BUILD_OUT=<dir>: write the generated files there instead of data/ (used by the tests)
+const OUTP = (f) => (process.env.BUILD_OUT ? new URL(`file://${process.env.BUILD_OUT.replace(/\/$/, '')}/${f}`) : P(f));
 const load = async (f, d) => JSON.parse(await readFile(P(f), 'utf8').catch(() => (d === undefined ? (() => { throw new Error(f); })() : JSON.stringify(d))));
 const DAY = 86400000;
 const iso = (t) => new Date(t).toISOString().slice(0, 10);
@@ -177,6 +179,8 @@ const flowsBy = Object.fromEntries(Object.entries(MODELS).filter(([, m]) => !m.w
 const filedBy = (date) => { const qs = QS.filter((q) => q.to <= date); return qs.length ? qs.at(-1).filed : QS[0].filed; };
 const wfModel = (m, date) => { const qs = QS.filter((q) => q.to <= date); return { ...m, ethPrice: ethPriceFn(qs.length ? qs : QS.slice(0, 1), false), extraCash: extraCashFn(filedBy(date)) }; };
 
+// Held-out test (checkpoints.json → out_of_sample): the first interval after the v3 freeze, reported apart from the in-sample rows.
+const OOS = C.out_of_sample || null;
 // ---------- backtest (out-of-sample: start at an official count, never use the next filing) ----------
 const cps = C.checkpoints;
 const atmFor = (a, b) => C.atm_disclosures.filter((x) => x.from > a && x.to <= b);
@@ -209,6 +213,7 @@ const backtest = intervals.map(([s, e, kind]) => {
     start_shares: s.shares, official_end_shares: e.shares, official_change: e.shares - s.shares,
     official_atm_shares: offShares, official_atm_net_usd: offNet,
     flagged: !!(s.note && s.date === '2026-04-13') || !!(e.note && e.date === '2026-04-13'),
+    out_of_sample: !!(OOS && s.date === OOS.from && e.date === OOS.to) || undefined,
     sources: [s.url, e.url], models: res,
   };
 });
@@ -395,7 +400,7 @@ V.derived = {
 console.log('valuation derived', JSON.stringify({ ...V.derived, staked_trajectory: undefined }));
 
 const summarize = (k) => {
-  const xs = backtest.filter((b) => !b.flagged && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
+  const xs = backtest.filter((b) => !b.flagged && !b.out_of_sample && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
   const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
   return { intervals: xs.length, mean_abs_error_shares: r(mean(xs.map((x) => Math.abs(x.error_shares)))), mean_abs_error_pct: r(mean(xs.map((x) => Math.abs(x.error_pct))), 2),
     mean_error_shares: r(mean(xs.map((x) => x.error_shares))), mean_error_pct: r(mean(xs.map((x) => x.error_pct)), 2), within_range: xs.filter((x) => x.within_range).length };
@@ -407,6 +412,22 @@ const current = Object.fromEntries(Object.entries({ ...MODELS, ...VARIANTS }).ma
   const o = rollForward(wk, flowsBy[k] || flowsFor(m), m, lastAnchor.date, lastAnchor.shares, null);
   return [k, { shares: r(o.shares[1]), range: [r(o.shares[0]), r(o.shares[2])] }];
 }));
+// Held-out interval: v3 with only the information known at its start (10-Q ETH factors and timing items filed by then),
+// v3 parameters as frozen in checkpoints.json. Pending until the end checkpoint (FY2026 10-K, Aug 31) is added.
+const outOfSample = (() => {
+  if (!OOS) return null;
+  const keys = Object.keys(OOS.frozen_v3_params);
+  const now = Object.fromEntries(keys.map((k) => [k, MODELS.v3[k] ?? null]));
+  const params_match_freeze = keys.every((k) => JSON.stringify(now[k]) === JSON.stringify(OOS.frozen_v3_params[k]));
+  const s = cpAt(OOS.from), e = cpAt(OOS.to);
+  const base = { from: OOS.from, to: OOS.to, label: OOS.label, model: 'v3, information known at the interval start', frozen_on: OOS.frozen_on, params_match_freeze, params_now: now };
+  if (!s || !e) return { ...base, status: 'pending 10-K' };
+  const m = wfModel(MODELS.v3, s.date);
+  const o = rollForward(wk, flowsFor(m), m, s.date, s.shares, e.date);
+  return { ...base, status: 'recorded', official_end_shares: e.shares, est_shares: r(o.shares[1]), est_range: [r(o.shares[0]), r(o.shares[2])],
+    error_shares: r(o.shares[1] - e.shares), error_pct: r(((o.shares[1] - e.shares) / e.shares) * 100, 2), within_range: e.shares >= o.shares[0] && e.shares <= o.shares[2], source: e.url };
+})();
+if (outOfSample && !outOfSample.params_match_freeze) console.warn('WARNING: v3 parameters differ from the out-of-sample freeze (checkpoints.json → out_of_sample)');
 const bt = {
   description: 'Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.',
   built: new Date().toISOString(), models: MODELS, buyback_price_calibration_k: r(kBuyback, 4),
@@ -415,6 +436,7 @@ const bt = {
   current_estimate: current, current_from: { date: lastAnchor.date, shares: lastAnchor.shares },
   eth_price: { quarters: QS, pooled_factor: r(ETH_F, 4), assumed_uncertainty: ETH_UNC, onchain_events: OC.length,
     note: 'paid_per_eth = 10-Q cost of ETH purchased ÷ units purchased; market_avg_weighted = weekly average ETH price weighted by ETH added each week; factor = paid ÷ market.' },
+  out_of_sample: outOfSample,
   intervals: backtest, diagnostics, official_cash_flows: C.cash_flow_official,
 };
 const hist = {
@@ -435,10 +457,10 @@ console.log('eth price', JSON.stringify(bt.eth_price));
 console.log(JSON.stringify(diagnostics, null, 0));
 console.log('k_buyback', kBuyback.toFixed(4));
 if (!process.argv.includes('--dry')) {
-  await writeFile(P('history.json'), JSON.stringify(hist, null, 2) + '\n');
-  await writeFile(P('backtest.json'), JSON.stringify(bt, null, 2) + '\n');
-  await writeFile(P('holdings.json'), JSON.stringify(H, null, 2) + '\n');
-  await writeFile(P('weekly-prices.json'), JSON.stringify(cache, null, 2) + '\n');
-  await writeFile(P('valuation.json'), JSON.stringify(V, null, 2) + '\n');
+  await writeFile(OUTP('history.json'), JSON.stringify(hist, null, 2) + '\n');
+  await writeFile(OUTP('backtest.json'), JSON.stringify(bt, null, 2) + '\n');
+  await writeFile(OUTP('holdings.json'), JSON.stringify(H, null, 2) + '\n');
+  await writeFile(OUTP('weekly-prices.json'), JSON.stringify(cache, null, 2) + '\n');
+  await writeFile(OUTP('valuation.json'), JSON.stringify(V, null, 2) + '\n');
   console.log('wrote history.json, backtest.json, holdings.json, weekly-prices.json');
 }
