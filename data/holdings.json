@@ -13,7 +13,7 @@
     "note": "Eightco Holdings (NASDAQ: ORBS) common stock. 100,655,143 shares per Bitmine's 10-Q (May 31, 2026, Note on Investment in Eightco: beneficially owned after the March 12, 2026 purchase). Bitmine's weekly releases report only the $ value (e.g. $76M on Oct 25 ≈ 100.66M × $0.755)."
   },
   "beast_usd": 180000000,
-  "shares_outstanding": 626766979,
+  "shares_outstanding": 626769593,
   "source": {
     "type": "official",
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
@@ -120,11 +120,11 @@
       0,
       134572
     ],
-    "other_shares_issued": 22620,
-    "shares_outstanding": 626766979,
+    "other_shares_issued": 22610,
+    "shares_outstanding": 626769593,
     "shares_outstanding_range": [
-      621929846,
-      632228434
+      621932460,
+      632231048
     ],
     "shares_basis": "estimate",
     "shares_anchor": {
@@ -141,44 +141,51 @@
       "BMNR": 22.4,
       "BMNR_date": "2026-10-23"
     },
+    "preferred_usd": 350000000,
+    "debt_usd": 0,
     "nav": {
       "full": 15045564683,
+      "net": 14695564683,
       "crypto": 14789564683,
       "eth": 14258354148,
-      "ev": 13525580330
+      "ev": 13875638883,
+      "nav_ex_cash": 14531564683
     },
-    "nav_per_share": 24.01,
+    "nav_per_share": 23.45,
+    "nav_per_share_gross": 24,
     "nav_per_share_all": {
-      "full": 24.01,
+      "full": 24,
+      "net": 23.45,
       "crypto": 23.6,
-      "eth": 22.75,
-      "ev": 21.58
+      "eth": 22.75
     },
-    "mnav": 0.933,
+    "mnav": 0.955,
+    "mnav_gross": 0.933,
     "mnav_all": {
       "full": 0.933,
+      "net": 0.955,
       "crypto": 0.949,
       "eth": 0.985,
-      "ev": 1.038
+      "ev_to_nav_ex_cash": 0.955
     },
     "eth_per_share": 0.0096558,
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
     "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-    "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s).",
+    "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s). Tsang Oct 23: 141 vested − 151 withheld = −10 (Form 4 filed Oct 26, 2026).",
     "accretion": {
       "basis": "estimate (v3 model)",
       "reanchor": false,
-      "nav_per_share_before": 24.3894,
+      "nav_per_share_before": 23.8327,
       "atm_shares": 0,
-      "mnav_at_issue": 0.929,
+      "mnav_at_issue": 0.95,
       "usd_per_share": {
-        "issuance": -0.0001,
-        "buybacks": 0.0062,
+        "issuance": 0,
+        "buybacks": 0.0044,
         "staking": 0.0094,
         "other": -0.0046,
-        "total": 0.011,
+        "total": 0.0092,
         "actual_change": -0.07,
-        "market": -0.081
+        "market": -0.0792
       },
       "eth_per_share": {
         "capital": 0.000043575,
@@ -190,7 +197,7 @@
       }
     }
   },
-  "last_updated": "2026-10-27T22:16:48.834Z",
+  "last_updated": "2026-10-28T04:35:48.478Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -199,11 +206,63 @@
     "next_expected": "Form 10-K for the fiscal year ended Aug 31, 2026 (not yet filed as of Oct 26, 2026); afterwards a 10-KT for Sep 1–Dec 31, 2026 (fiscal year-end changed to Dec 31 per 8-K of Jul 13, 2026)."
   },
   "shares_outstanding_range": [
-    621929846,
-    632228434
+    621932460,
+    632231048
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-10-27T22:16:48.835Z"
+    "built": "2026-10-28T04:35:48.479Z"
+  },
+  "preferred": {
+    "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
+    "shares": 3500000,
+    "liquidation_pref_per_share": 100,
+    "liquidation_usd": 350000000,
+    "issued": "2026-06-10",
+    "issue_price": 80,
+    "net_proceeds_usd": 273800000,
+    "source": "Certificate of Designations, 8-K Jun 10, 2026, Ex. 3.1",
+    "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226028140/ex3-1.htm",
+    "note": "Liquidation preference fixed at the $100 Stated Amount until Bitmine executes any follow-on sale of Series A shares (none on EDGAR: no 424B5 after Jun 5, 2026); thereafter the greatest of $100, the last sale price (if sold in the prior 10 trading days) and the 10-day average price. Optional redemption (Bitmine's option): 110% of $100 until Dec 10, 2027 ($385M), 105% until Jun 10, 2029, then 100%, plus accrued dividends."
+  },
+  "debt_usd": 0,
+  "debt_note": "No borrowings disclosed: no 8-K Item 2.03 since Jun 2025 and no debt on the May 31, 2026 balance sheet (10-Q). Update from the FY2026 10-K.",
+  "dilutive": [
+    {
+      "name": "Strategic advisor warrants",
+      "count": 2820774,
+      "strike": 5.4,
+      "source": "10-Q May 31, 2026 (count, Note 12 anti-dilution table; $5.40 exercise price, Note 8)"
+    },
+    {
+      "name": "Representative's warrants",
+      "count": 50875,
+      "strike": 10,
+      "source": "count: 10-Q May 31, 2026; $10.00 exercise price: 10-K FY2025 (ThinkEquity warrants, Jun 4, 2025)"
+    },
+    {
+      "name": "Options (Tsang 30,211 + Kim 264,360, granted Apr 2, 2026)",
+      "count": 294571,
+      "strike": 19.46,
+      "source": "Form 4s (Kim filed Oct 23, Tsang filed Oct 26, 2026)"
+    },
+    {
+      "name": "Other options in the 10-Q's 302,124 in-the-money options",
+      "count": 7553,
+      "strike": 19.4,
+      "source": "10-Q May 31, 2026: 359,124 options at a $21.10 weighted average, 302,124 dilutive and 57,000 out of the money; strike implied from the weighted average (≈$19.4, not disclosed)"
+    },
+    {
+      "name": "Director options (Sharbutt, Jan 23, 2026)",
+      "count": 57000,
+      "strike": 29.8,
+      "source": "Form 4 Jan 27, 2026; out of the money at current prices"
+    }
+  ],
+  "dilutive_note": "Treasury-stock method at the live BMNR price. Excluded: CVI warrants (10,435,430 at $87.50, expire Mar 22, 2027), C-3 warrants (1,280), Lee's 1,000,000 time-based RSUs (vest Jan 23, 2027/2028) and 4,500,000 performance RSUs (conditions not met), the Jan 23, 2027 director RSU tranche (22,620). Exercises after May 31, 2026 are not known until the 10-K.",
+  "staking_accrual_basis": {
+    "eth": 5067309,
+    "realization": 1,
+    "rule": "min ETH staked over the last 5 reports (staking_lag_reports = 4), as in scripts/model.mjs"
   }
 }

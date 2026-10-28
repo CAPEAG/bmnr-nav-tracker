@@ -255,7 +255,10 @@ for (let i = 0; i < wk.length; i++) {
   const prevE = est[i - 1];
   const sameSeg = prevE && e && prevE.anchor === e.anchor;
   const issued = (k) => (sameSeg ? e.shares[k] - prevE.shares[k] - (cur.other_shares_issued || 0) + (cur.buyback_shares || 0) : null);
-  const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: cur.beast_usd, shares_outstanding: Math.round(e.shares[1]) };
+  // BMNP preferred (liquidation preference) is a claim ahead of common from its Jun 10, 2026 issue date
+  const prefOn = H.preferred && cur.as_of >= H.preferred.issued;
+  const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: cur.beast_usd, shares_outstanding: Math.round(e.shares[1]),
+    preferred: prefOn ? H.preferred : null, debt_usd: H.debt_usd || 0 };
   const nav = computeNav(h, { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, ORBS: cur.orbs_value_usd });
   const row = Object.fromEntries(nav.rows.map((x) => [x.key, x]));
   const cpIn = cps.filter((c) => weekIndexOf(wk, c.date) === i).map((c) => ({ date: c.date, shares: c.shares, basis: c.basis, url: c.url, used_as_anchor: c.use_as_anchor !== false }));
@@ -295,12 +298,15 @@ for (let i = 0; i < wk.length; i++) {
     checkpoints_in_week: cpIn.length ? cpIn : undefined,
     btc: cur.btc, orbs_value: cur.orbs_value_usd, beast_value: cur.beast_usd,
     snapshot_prices: { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, BMNR_date: px.bmnr_close_date },
-    nav: { full: r(row.full.value), crypto: r(row.crypto.value), eth: r(row.eth.value), ev: r(row.ev.value) },
-    nav_per_share: r(row.full.perShare, 2),
-    nav_per_share_all: { full: r(row.full.perShare, 2), crypto: r(row.crypto.perShare, 2), eth: r(row.eth.perShare, 2), ev: r(row.ev.perShare, 2) },
-    mnav: r(row.full.mnav, 3),
-    mnav_all: { full: r(row.full.mnav, 3), crypto: r(row.crypto.mnav, 3), eth: r(row.eth.mnav, 3), ev: r(row.ev.mnav, 3) },
+    preferred_usd: nav.pref, debt_usd: nav.debt,
+    nav: { full: r(row.full.value), net: r(row.net.value), crypto: r(row.crypto.value), eth: r(row.eth.value), ev: r(row.ev.value), nav_ex_cash: r(row.ev.navExCash) },
+    // headline NAV/share and mNAV are net of the BMNP preferred (from Jun 10, 2026); gross figures kept alongside
+    nav_per_share: r(row.net.perShare, 2), nav_per_share_gross: r(row.full.perShare, 2),
+    nav_per_share_all: { full: r(row.full.perShare, 2), net: r(row.net.perShare, 2), crypto: r(row.crypto.perShare, 2), eth: r(row.eth.perShare, 2) },
+    mnav: r(row.net.mnav, 3), mnav_gross: r(row.full.mnav, 3),
+    mnav_all: { full: r(row.full.mnav, 3), net: r(row.net.mnav, 3), crypto: r(row.crypto.mnav, 3), eth: r(row.eth.mnav, 3), ev_to_nav_ex_cash: r(row.ev.mnav, 3) },
     eth_per_share: r(nav.ethPerShare, 7),
+    funding_flag: cur.funding_flag || undefined,
     sec_8k: cur.sec_8k, x_post: cur.x_post, notes: cur.notes,
   });
 }
@@ -311,7 +317,10 @@ for (let i = 1; i < out.length; i++) {
   const s = out[i], p = out[i - 1], f = F[i];
   if (!f || !s.eth_week_avg) continue;
   const S0 = p.shares_outstanding, S1 = s.shares_outstanding, ethAvg = s.eth_week_avg;
-  const navBefore = (p.nav.full - p.eth * p.snapshot_prices.ETH + p.eth * ethAvg) / S0;
+  const navBefore = (p.nav.net - p.eth * p.snapshot_prices.ETH + p.eth * ethAvg) / S0; // NAV net of preferred
+  // BMNP issued: net cash proceeds − liquidation preference added (issued at $80 vs $100 → dilutive to common)
+  const prefAdded = (s.preferred_usd || 0) - (p.preferred_usd || 0);
+  const prefUsd = prefAdded ? (s.disclosed_proceeds || 0) - prefAdded : 0;
   const reanchor = s.est_shares_issued == null;
   const atm = reanchor ? Math.max(0, f.need[1]) / f.price[1] : s.est_shares_issued;
   const other = s.other_shares_issued || 0, bb = s.buyback_shares || 0;
@@ -321,7 +330,7 @@ for (let i = 1; i < out.length; i++) {
     issuance: ((atm + other) * (issuePx - navBefore)) / S1,
     buybacks: bb ? (bb * (navBefore - s.buyback_price)) / S1 : 0,
     staking: (f.rewards * s.snapshot_prices.ETH) / S1,
-    other: -(premiumUsd + f.opex) / S1,
+    other: (prefUsd - premiumUsd - f.opex) / S1,
   };
   usd.total = usd.issuance + usd.buybacks + usd.staking + usd.other;
   usd.actual_change = s.nav_per_share - p.nav_per_share;
@@ -362,6 +371,11 @@ H.orbs.reported_value_usd = lr.orbs_value_usd;
 H.assumptions.weekly_staking_yield = lr.staking_yield_7d;
 H.assumptions.weekly_staking_yield_source = `Bitmine's stated 7-day BMNR yield in the ${lr.date} release.`;
 H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), built: new Date().toISOString() };
+// Staking accrual since the last report (Holdings card): same lagged basis as model.mjs — the smallest staked balance
+// over the last 1 + staking_lag_reports reports (newly staked ETH waits in the validator entry queue).
+{ const lag = A.staking_lag_reports || 0, hs = rel.slice(-(lag + 1)).map((x) => x.eth_staked || 0);
+  H.staking_accrual_basis = { eth: lag ? Math.min(...hs) : lr.eth_staked, realization: A.staking_realization ?? 1,
+    rule: `min ETH staked over the last ${lag + 1} reports (staking_lag_reports = ${lag}), as in scripts/model.mjs` }; }
 
 // ---------- valuation.json derived inputs (refreshed weekly) ----------
 const V = JSON.parse(await readFile(P('valuation.json'), 'utf8'));
