@@ -217,25 +217,32 @@
         "BMNR": 33.12,
         "BMNR_date": "2025-11-28"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 12144658112,
+        "net": 12144658112,
         "crypto": 12108658112,
         "eth": 11209308992,
-        "ev": 12650130618
+        "ev": 12650130618,
+        "nav_ex_cash": 11262658112
       },
       "nav_per_share": 29.72,
+      "nav_per_share_gross": 29.72,
       "nav_per_share_all": {
         "full": 29.72,
+        "net": 29.72,
         "crypto": 29.64,
-        "eth": 27.43,
-        "ev": 30.96
+        "eth": 27.43
       },
       "mnav": 1.114,
+      "mnav_gross": 1.114,
       "mnav_all": {
         "full": 1.114,
+        "net": 1.114,
         "crypto": 1.118,
         "eth": 1.207,
-        "ev": 1.07
+        "ev_to_nav_ex_cash": 1.123
       },
       "eth_per_share": 0.0091206,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225025501/ex99-1.htm",
@@ -316,25 +323,32 @@
         "BMNR": 34.06,
         "BMNR_date": "2025-12-05"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 13185528003,
+        "net": 13185528003,
         "crypto": 13149528003,
         "eth": 12132081189,
-        "ev": 13496360660
+        "ev": 13496360660,
+        "nav_ex_cash": 12185528003
       },
       "nav_per_share": 30.98,
+      "nav_per_share_gross": 30.98,
       "nav_per_share_all": {
         "full": 30.98,
+        "net": 30.98,
         "crypto": 30.9,
-        "eth": 28.5,
-        "ev": 31.71
+        "eth": 28.5
       },
       "mnav": 1.099,
+      "mnav_gross": 1.099,
       "mnav_all": {
         "full": 1.099,
+        "net": 1.099,
         "crypto": 1.102,
         "eth": 1.195,
-        "ev": 1.074
+        "ev_to_nav_ex_cash": 1.108
       },
       "eth_per_share": 0.0090809,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225026540/ex99-2.htm",
@@ -449,25 +463,32 @@
         "BMNR": 34.86,
         "BMNR_date": "2025-12-12"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 13250223052,
+        "net": 13250223052,
         "crypto": 13212223052,
         "eth": 12195203540,
-        "ev": 14154817549
+        "ev": 14154817549,
+        "nav_ex_cash": 12250223052
       },
       "nav_per_share": 30.48,
+      "nav_per_share_gross": 30.48,
       "nav_per_share_all": {
         "full": 30.48,
+        "net": 30.48,
         "crypto": 30.39,
-        "eth": 28.05,
-        "ev": 32.56
+        "eth": 28.05
       },
       "mnav": 1.144,
+      "mnav_gross": 1.144,
       "mnav_all": {
         "full": 1.144,
+        "net": 1.144,
         "crypto": 1.147,
         "eth": 1.243,
-        "ev": 1.071
+        "ev_to_nav_ex_cash": 1.155
       },
       "eth_per_share": 0.0091256,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225027660/ex99-1.htm",
@@ -581,25 +602,32 @@
         "BMNR": 31.36,
         "BMNR_date": "2025-12-19"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 13210705138,
+        "net": 13210705138,
         "crypto": 13178705138,
         "eth": 12161591442,
-        "ev": 12951251400
+        "ev": 12951251400,
+        "nav_ex_cash": 12210705138
       },
       "nav_per_share": 29.7,
+      "nav_per_share_gross": 29.7,
       "nav_per_share_all": {
         "full": 29.7,
+        "net": 29.7,
         "crypto": 29.62,
-        "eth": 27.34,
-        "ev": 29.11
+        "eth": 27.34
       },
       "mnav": 1.056,
+      "mnav_gross": 1.056,
       "mnav_all": {
         "full": 1.056,
+        "net": 1.056,
         "crypto": 1.059,
         "eth": 1.147,
-        "ev": 1.077
+        "ev_to_nav_ex_cash": 1.061
       },
       "eth_per_share": 0.0091398,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225028674/ex99-1.htm",
@@ -714,25 +742,32 @@
         "BMNR": 28.31,
         "BMNR_date": "2025-12-26"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 13157698164,
+        "net": 13157698164,
         "crypto": 13134698164,
         "eth": 12117827700,
-        "ev": 11728213454
+        "ev": 11728213454,
+        "nav_ex_cash": 12157698164
       },
       "nav_per_share": 29.27,
+      "nav_per_share_gross": 29.27,
       "nav_per_share_all": {
         "full": 29.27,
+        "net": 29.27,
         "crypto": 29.21,
-        "eth": 26.95,
-        "ev": 26.09
+        "eth": 26.95
       },
       "mnav": 0.967,
+      "mnav_gross": 0.967,
       "mnav_all": {
         "full": 0.967,
+        "net": 0.967,
         "crypto": 0.969,
         "eth": 1.05,
-        "ev": 1.085
+        "ev_to_nav_ex_cash": 0.965
       },
       "eth_per_share": 0.0091426,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225029227/ex99-3.htm",
@@ -845,25 +880,32 @@
         "BMNR": 31.19,
         "BMNR_date": "2026-01-02"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 14200273352,
+        "net": 14200273352,
         "crypto": 14175273352,
         "eth": 13242632392,
-        "ev": 13132734496
+        "ev": 13132734496,
+        "nav_ex_cash": 13285273352
       },
       "nav_per_share": 31.53,
+      "nav_per_share_gross": 31.53,
       "nav_per_share_all": {
         "full": 31.53,
+        "net": 31.53,
         "crypto": 31.47,
-        "eth": 29.4,
-        "ev": 29.16
+        "eth": 29.4
       },
       "mnav": 0.989,
+      "mnav_gross": 0.989,
       "mnav_all": {
         "full": 0.989,
+        "net": 0.989,
         "crypto": 0.991,
         "eth": 1.061,
-        "ev": 1.07
+        "ev_to_nav_ex_cash": 0.989
       },
       "eth_per_share": 0.0091998,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226000274/ex99-1.htm",
@@ -968,25 +1010,32 @@
         "BMNR": 30.06,
         "BMNR_date": "2026-01-09"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 14027803793,
+        "net": 14027803793,
         "crypto": 14004803793,
         "eth": 12999268392,
-        "ev": 12699510570
+        "ev": 12699510570,
+        "nav_ex_cash": 13039803793
       },
       "nav_per_share": 30.81,
+      "nav_per_share_gross": 30.81,
       "nav_per_share_all": {
         "full": 30.81,
+        "net": 30.81,
         "crypto": 30.76,
-        "eth": 28.55,
-        "ev": 27.89
+        "eth": 28.55
       },
       "mnav": 0.976,
+      "mnav_gross": 0.976,
       "mnav_all": {
         "full": 0.976,
+        "net": 0.976,
         "crypto": 0.977,
         "eth": 1.053,
-        "ev": 1.078
+        "ev_to_nav_ex_cash": 0.974
       },
       "eth_per_share": 0.0091531,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226001237/ex99-1.htm",
@@ -1106,25 +1155,32 @@
         "BMNR": 31.16,
         "BMNR_date": "2026-01-16"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 14514813834,
+        "net": 14514813834,
         "crypto": 14492813834,
         "eth": 13495948596,
-        "ev": 13285592410
+        "ev": 13285592410,
+        "nav_ex_cash": 13535813834
       },
       "nav_per_share": 31.71,
+      "nav_per_share_gross": 31.71,
       "nav_per_share_all": {
         "full": 31.71,
+        "net": 31.71,
         "crypto": 31.66,
-        "eth": 29.48,
-        "ev": 29.02
+        "eth": 29.48
       },
       "mnav": 0.983,
+      "mnav_gross": 0.983,
       "mnav_all": {
         "full": 0.983,
+        "net": 0.983,
         "crypto": 0.984,
         "eth": 1.057,
-        "ev": 1.074
+        "ev_to_nav_ex_cash": 0.982
       },
       "eth_per_share": 0.0091812,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002762/ex99-1.htm",
@@ -1191,19 +1247,19 @@
       "cash": 682000000,
       "cash_change": -297000000,
       "est_cash_opex": 1952571,
-      "investments": 200000000,
+      "investments": 186000000,
       "disclosed_proceeds": null,
-      "est_spending": 326176833,
-      "cash_shortfall": 29176833,
+      "est_spending": 312176833,
+      "cash_shortfall": 15176833,
       "cash_shortfall_range": [
-        27224261,
-        31129404
+        13224261,
+        17129404
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 29176833,
+      "funded_by_shares": 15176833,
       "funded_by_shares_range": [
-        27224261,
-        31129404
+        13224261,
+        17129404
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 28.8225,
@@ -1211,16 +1267,16 @@
         28.24,
         29.35
       ],
-      "est_shares_issued": 1012294,
+      "est_shares_issued": 526562,
       "est_shares_issued_range": [
-        927573,
-        1102316
+        450571,
+        606565
       ],
-      "other_shares_issued": 0,
-      "shares_outstanding": 458797673,
+      "other_shares_issued": 442463,
+      "shares_outstanding": 458754404,
       "shares_outstanding_range": [
-        458537133,
-        459006104
+        458502594,
+        458952816
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1230,42 +1286,49 @@
       },
       "btc": 193,
       "orbs_value": 19000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2839,
         "BTC": 86625,
         "BMNR": 28.8,
         "BMNR_date": "2026-01-23"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 12964555207,
+        "full": 12950555207,
+        "net": 12950555207,
         "crypto": 12745555207,
         "eth": 12046836582,
-        "ev": 12531372982
+        "ev": 12530126835,
+        "nav_ex_cash": 12268555207
       },
-      "nav_per_share": 28.26,
+      "nav_per_share": 28.23,
+      "nav_per_share_gross": 28.23,
       "nav_per_share_all": {
-        "full": 28.26,
+        "full": 28.23,
+        "net": 28.23,
         "crypto": 27.78,
-        "eth": 26.26,
-        "ev": 27.31
+        "eth": 26.26
       },
-      "mnav": 1.019,
+      "mnav": 1.02,
+      "mnav_gross": 1.02,
       "mnav_all": {
-        "full": 1.019,
+        "full": 1.02,
+        "net": 1.02,
         "crypto": 1.037,
         "eth": 1.097,
-        "ev": 1.054
+        "ev_to_nav_ex_cash": 1.021
       },
-      "eth_per_share": 0.0092488,
+      "eth_per_share": 0.0092497,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2015779597694968189",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Beast Industries investment ($200M per release; closed this week). 10-Q (May 31, 2026) later shows $180.0M cash + $6.0M costs.",
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Beast Industries investment closed Jan 15: release said \"$200 million\", but the 10-Q (May 31, 2026, Note 6) shows $180.0M cash ($160.0M Series C preferred + $20.0M secondary common) + $6.0M capitalized costs = $186.0M; the other $20M is an unexercised side-letter right for Beast to sell more preferred. Carried at $186M until Bitmine's releases switched to $180M (May 31 week). +442,463 shares from Jan 23, 2026 board grants vested on grant (174,163 director shares + Lee 500,000 less 231,700 withheld for tax; Form 4s Jan 27/Feb 17/Feb 25, 10-Q Feb 28, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
         "nav_per_share_before": 29.1504,
-        "atm_shares": 1012294,
+        "atm_shares": 526562,
         "mnav_at_issue": 0.989,
         "usd_per_share": {
           "issuance": -0.0007,
@@ -1273,16 +1336,16 @@
           "staking": 0,
           "other": -0.0019,
           "total": -0.0026,
-          "actual_change": -3.45,
-          "market": -3.4474
+          "actual_change": -3.48,
+          "market": -3.4774
         },
         "eth_per_share": {
-          "capital": 0.000066777,
+          "capital": 0.000067649,
           "staking": 0,
           "premium": 8.08e-7,
           "reanchor": 0,
-          "total": 0.000067585,
-          "actual_change": 0.000067585
+          "total": 0.000068457,
+          "actual_change": 0.000068457
         }
       }
     },
@@ -1348,10 +1411,10 @@
         1130994
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 459739862,
+      "shares_outstanding": 459696594,
       "shares_outstanding_range": [
-        459341451,
-        460137098
+        459306913,
+        460083810
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1361,45 +1424,52 @@
       },
       "btc": 193,
       "orbs_value": 20000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2317,
         "BTC": 76896,
         "BMNR": 25.1,
         "BMNR_date": "2026-01-30"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 10749475553,
+        "full": 10735475553,
+        "net": 10735475553,
         "crypto": 10529475553,
         "eth": 9928634625,
-        "ev": 10953470536
+        "ev": 10952384509,
+        "nav_ex_cash": 10149475553
       },
-      "nav_per_share": 23.38,
+      "nav_per_share": 23.35,
+      "nav_per_share_gross": 23.35,
       "nav_per_share_all": {
-        "full": 23.38,
-        "crypto": 22.9,
-        "eth": 21.6,
-        "ev": 23.83
+        "full": 23.35,
+        "net": 23.35,
+        "crypto": 22.91,
+        "eth": 21.6
       },
-      "mnav": 1.073,
+      "mnav": 1.075,
+      "mnav_gross": 1.075,
       "mnav_all": {
-        "full": 1.073,
+        "full": 1.075,
+        "net": 1.075,
         "crypto": 1.096,
         "eth": 1.162,
-        "ev": 1.053
+        "ev_to_nav_ex_cash": 1.079
       },
-      "eth_per_share": 0.0093208,
+      "eth_per_share": 0.0093216,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226004658/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2018316966134439973",
       "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 27.3604,
+        "nav_per_share_before": 27.3324,
         "atm_shares": 942189,
-        "mnav_at_issue": 1.013,
+        "mnav_at_issue": 1.014,
         "usd_per_share": {
-          "issuance": 0.0007,
+          "issuance": 0.0008,
           "buybacks": 0,
           "staking": 0.0011,
           "other": -0.0027,
@@ -1408,12 +1478,12 @@
           "market": -4.8792
         },
         "eth_per_share": {
-          "capital": 0.000070627,
+          "capital": 0.000070632,
           "staking": 4.79e-7,
           "premium": 8.32e-7,
           "reanchor": 0,
-          "total": 0.000071938,
-          "actual_change": 0.000071938
+          "total": 0.000071943,
+          "actual_change": 0.000071943
         }
       }
     },
@@ -1480,10 +1550,10 @@
         5906096
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 464602816,
+      "shares_outstanding": 464559547,
       "shares_outstanding_range": [
-        463648911,
-        466043195
+        463614372,
+        465989907
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1493,59 +1563,66 @@
       },
       "btc": 193,
       "orbs_value": 19000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2125,
         "BTC": 70398,
         "BMNR": 20.47,
         "BMNR_date": "2026-02-06"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 10019780064,
+        "full": 10005780064,
+        "net": 10005780064,
         "crypto": 9800780064,
         "eth": 9192193250,
-        "ev": 8915419644
+        "ev": 8914533927,
+        "nav_ex_cash": 9410780064
       },
-      "nav_per_share": 21.57,
+      "nav_per_share": 21.54,
+      "nav_per_share_gross": 21.54,
       "nav_per_share_all": {
-        "full": 21.57,
-        "crypto": 21.09,
-        "eth": 19.79,
-        "ev": 19.19
+        "full": 21.54,
+        "net": 21.54,
+        "crypto": 21.1,
+        "eth": 19.79
       },
-      "mnav": 0.949,
+      "mnav": 0.95,
+      "mnav_gross": 0.95,
       "mnav_all": {
-        "full": 0.949,
+        "full": 0.95,
+        "net": 0.95,
         "crypto": 0.97,
         "eth": 1.035,
-        "ev": 1.067
+        "ev_to_nav_ex_cash": 0.947
       },
-      "eth_per_share": 0.0093106,
+      "eth_per_share": 0.0093115,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226005707/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2020869755683668045",
       "notes": "Release states CESR 3.11% and Bitmine 7-day yield 3.3234%.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.4564,
+        "nav_per_share_before": 21.428,
         "atm_shares": 4862954,
-        "mnav_at_issue": 0.963,
+        "mnav_at_issue": 0.964,
         "usd_per_share": {
-          "issuance": -0.0083,
+          "issuance": -0.008,
           "buybacks": 0,
           "staking": 0.0019,
           "other": -0.0032,
-          "total": -0.0096,
+          "total": -0.0093,
           "actual_change": -1.81,
-          "market": -1.8004
+          "market": -1.8007
         },
         "eth_per_share": {
-          "capital": -0.000011845,
+          "capital": -0.000011856,
           "staking": 9.04e-7,
           "premium": 7.96e-7,
           "reanchor": 0,
-          "total": -0.000010145,
-          "actual_change": -0.000010145
+          "total": -0.000010155,
+          "actual_change": -0.000010155
         }
       }
     },
@@ -1612,10 +1689,10 @@
         9015620
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 473115699,
+      "shares_outstanding": 473072430,
       "shares_outstanding_range": [
-        471589576,
-        475058815
+        471555038,
+        475005527
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1625,59 +1702,66 @@
       },
       "btc": 193,
       "orbs_value": 17000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 1998,
         "BTC": 68860,
         "BMNR": 20.96,
         "BMNR_date": "2026-02-13"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 9634540986,
+        "full": 9620540986,
+        "net": 9620540986,
         "crypto": 9417540986,
         "eth": 8734251006,
-        "ev": 9246505051
+        "ev": 9245598133,
+        "nav_ex_cash": 8950540986
       },
-      "nav_per_share": 20.36,
+      "nav_per_share": 20.34,
+      "nav_per_share_gross": 20.34,
       "nav_per_share_all": {
-        "full": 20.36,
+        "full": 20.34,
+        "net": 20.34,
         "crypto": 19.91,
-        "eth": 18.46,
-        "ev": 19.54
+        "eth": 18.46
       },
-      "mnav": 1.029,
+      "mnav": 1.031,
+      "mnav_gross": 1.031,
       "mnav_all": {
-        "full": 1.029,
+        "full": 1.031,
+        "net": 1.031,
         "crypto": 1.053,
         "eth": 1.135,
-        "ev": 1.072
+        "ev_to_nav_ex_cash": 1.033
       },
-      "eth_per_share": 0.0092398,
+      "eth_per_share": 0.0092407,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226006953/ex99-2.htm",
       "x_post": "https://x.com/BitMNR/status/2023767872158261289",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.5427,
+        "nav_per_share_before": 20.5145,
         "atm_shares": 8512883,
-        "mnav_at_issue": 0.989,
+        "mnav_at_issue": 0.99,
         "usd_per_share": {
-          "issuance": -0.0041,
+          "issuance": -0.0036,
           "buybacks": 0,
           "staking": 0.0034,
           "other": -0.0037,
-          "total": -0.0045,
-          "actual_change": -1.21,
-          "market": -1.2055
+          "total": -0.004,
+          "actual_change": -1.2,
+          "market": -1.196
         },
         "eth_per_share": {
-          "capital": -0.000073366,
+          "capital": -0.000073388,
           "staking": 0.000001682,
           "premium": 8.74e-7,
           "reanchor": 0,
-          "total": -0.00007081,
-          "actual_change": -0.00007081
+          "total": -0.000070832,
+          "actual_change": -0.000070832
         }
       }
     },
@@ -1746,10 +1830,10 @@
         6468178
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 479423304,
+      "shares_outstanding": 479380035,
       "shares_outstanding_range": [
-        477758020,
-        481526993
+        477723481,
+        481473705
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1759,59 +1843,66 @@
       },
       "btc": 193,
       "orbs_value": 17000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 1958,
         "BTC": 65192,
         "BMNR": 20.13,
         "BMNR_date": "2026-02-20"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 9580148378,
+        "full": 9566148378,
+        "net": 9566148378,
         "crypto": 9363148378,
         "eth": 8659566322,
-        "ev": 8959791110
+        "ev": 8958920105,
+        "nav_ex_cash": 8875148378
       },
-      "nav_per_share": 19.98,
+      "nav_per_share": 19.96,
+      "nav_per_share_gross": 19.96,
       "nav_per_share_all": {
-        "full": 19.98,
+        "full": 19.96,
+        "net": 19.96,
         "crypto": 19.53,
-        "eth": 18.06,
-        "ev": 18.69
+        "eth": 18.06
       },
-      "mnav": 1.007,
+      "mnav": 1.009,
+      "mnav_gross": 1.009,
       "mnav_all": {
-        "full": 1.007,
+        "full": 1.009,
+        "net": 1.009,
         "crypto": 1.031,
         "eth": 1.114,
-        "ev": 1.077
+        "ev_to_nav_ex_cash": 1.009
       },
-      "eth_per_share": 0.009225,
+      "eth_per_share": 0.0092258,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226007694/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2025933063797014919",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.9416,
+        "nav_per_share_before": 19.9138,
         "atm_shares": 6307605,
-        "mnav_at_issue": 1.004,
+        "mnav_at_issue": 1.005,
         "usd_per_share": {
-          "issuance": 0.001,
+          "issuance": 0.0013,
           "buybacks": 0,
           "staking": 0.0036,
           "other": -0.0022,
-          "total": 0.0023,
+          "total": 0.0027,
           "actual_change": -0.38,
-          "market": -0.3823
+          "market": -0.3827
         },
         "eth_per_share": {
-          "capital": -0.000017636,
+          "capital": -0.000017648,
           "staking": 0.000001821,
           "premium": 9.65e-7,
           "reanchor": 0,
-          "total": -0.000014849,
-          "actual_change": -0.000014849
+          "total": -0.000014862,
+          "actual_change": -0.000014862
         }
       }
     },
@@ -1888,32 +1979,39 @@
       ],
       "btc": 195,
       "orbs_value": 14000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 1976,
         "BTC": 65824,
         "BMNR": 18.98,
         "BMNR_date": "2026-02-27"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 9934643592,
+        "full": 9920643592,
+        "net": 9920643592,
         "crypto": 9720643592,
         "eth": 8839807912,
-        "ev": 8506321208
+        "ev": 8506321208,
+        "nav_ex_cash": 9052643592
       },
-      "nav_per_share": 20.11,
+      "nav_per_share": 20.09,
+      "nav_per_share_gross": 20.09,
       "nav_per_share_all": {
-        "full": 20.11,
+        "full": 20.09,
+        "net": 20.09,
         "crypto": 19.68,
-        "eth": 17.9,
-        "ev": 17.22
+        "eth": 17.9
       },
-      "mnav": 0.944,
+      "mnav": 0.945,
+      "mnav_gross": 0.945,
       "mnav_all": {
-        "full": 0.944,
+        "full": 0.945,
+        "net": 0.945,
         "crypto": 0.964,
         "eth": 1.06,
-        "ev": 1.102
+        "ev_to_nav_ex_cash": 0.94
       },
       "eth_per_share": 0.0090576,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226008462/ex99-1.htm",
@@ -1922,25 +2020,25 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 19.8819,
+        "nav_per_share_before": 19.8545,
         "atm_shares": 14128166,
-        "mnav_at_issue": 1.002,
+        "mnav_at_issue": 1.003,
         "usd_per_share": {
-          "issuance": 0.001,
+          "issuance": 0.0018,
           "buybacks": 0,
           "staking": 0.0044,
           "other": -0.0028,
-          "total": 0.0026,
+          "total": 0.0034,
           "actual_change": 0.13,
-          "market": 0.1274
+          "market": 0.1266
         },
         "eth_per_share": {
-          "capital": -0.000163927,
+          "capital": -0.00016395,
           "staking": 0.000002231,
           "premium": 9.28e-7,
-          "reanchor": -0.000006607,
-          "total": -0.000167374,
-          "actual_change": -0.000167374
+          "reanchor": -0.000007416,
+          "total": -0.000168207,
+          "actual_change": -0.000168207
         }
       }
     },
@@ -2011,32 +2109,39 @@
       },
       "btc": 195,
       "orbs_value": 14000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 1965,
         "BTC": 66043,
         "BMNR": 18.88,
         "BMNR_date": "2026-03-06"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 10337294680,
+        "full": 10323294680,
+        "net": 10323294680,
         "crypto": 10123294680,
         "eth": 8910416295,
-        "ev": 8558951753
+        "ev": 8558951753,
+        "nav_ex_cash": 9123294680
       },
-      "nav_per_share": 20,
+      "nav_per_share": 19.97,
+      "nav_per_share_gross": 19.97,
       "nav_per_share_all": {
-        "full": 20,
+        "full": 19.97,
+        "net": 19.97,
         "crypto": 19.58,
-        "eth": 17.24,
-        "ev": 16.56
+        "eth": 17.24
       },
-      "mnav": 0.944,
+      "mnav": 0.945,
+      "mnav_gross": 0.945,
       "mnav_all": {
-        "full": 0.944,
+        "full": 0.945,
+        "net": 0.945,
         "crypto": 0.964,
         "eth": 1.095,
-        "ev": 1.14
+        "ev_to_nav_ex_cash": 0.938
       },
       "eth_per_share": 0.0087727,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226009312/ex99-1.htm",
@@ -2045,17 +2150,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.4644,
+        "nav_per_share_before": 20.436,
         "atm_shares": 22988404,
-        "mnav_at_issue": 0.98,
+        "mnav_at_issue": 0.982,
         "usd_per_share": {
-          "issuance": -0.0178,
+          "issuance": -0.0165,
           "buybacks": 0,
           "staking": 0.0061,
           "other": -0.0057,
-          "total": -0.0174,
-          "actual_change": -0.11,
-          "market": -0.0926
+          "total": -0.0162,
+          "actual_change": -0.12,
+          "market": -0.1038
         },
         "eth_per_share": {
           "capital": -0.00028731,
@@ -2143,32 +2248,39 @@
       },
       "btc": 196,
       "orbs_value": 83000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2185,
         "BTC": 72934,
         "BMNR": 20.54,
         "BMNR_date": "2026-03-13"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 11538598034,
+        "full": 11524598034,
+        "net": 11524598034,
         "crypto": 11255598034,
         "eth": 10041302970,
-        "ev": 9628334281
+        "ev": 9628334281,
+        "nav_ex_cash": 10324598034
       },
-      "nav_per_share": 21.89,
+      "nav_per_share": 21.86,
+      "nav_per_share_gross": 21.86,
       "nav_per_share_all": {
-        "full": 21.89,
+        "full": 21.86,
+        "net": 21.86,
         "crypto": 21.35,
-        "eth": 19.05,
-        "ev": 18.26
+        "eth": 19.05
       },
-      "mnav": 0.938,
+      "mnav": 0.94,
+      "mnav_gross": 0.94,
       "mnav_all": {
-        "full": 0.938,
+        "full": 0.94,
+        "net": 0.94,
         "crypto": 0.962,
         "eth": 1.078,
-        "ev": 1.125
+        "ev_to_nav_ex_cash": 0.933
       },
       "eth_per_share": 0.0087172,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226010193/ex99-1.htm",
@@ -2177,17 +2289,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9565,
+        "nav_per_share_before": 20.9294,
         "atm_shares": 10289149,
-        "mnav_at_issue": 0.988,
+        "mnav_at_issue": 0.99,
         "usd_per_share": {
-          "issuance": -0.0047,
+          "issuance": -0.0042,
           "buybacks": 0,
           "staking": 0.0065,
           "other": -0.0057,
-          "total": -0.0039,
+          "total": -0.0034,
           "actual_change": 1.89,
-          "market": 1.8939
+          "market": 1.8934
         },
         "eth_per_share": {
           "capital": -0.000057831,
@@ -2266,32 +2378,39 @@
       },
       "btc": 196,
       "orbs_value": 95000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2072,
         "BTC": 67933,
         "BMNR": 20.94,
         "BMNR_date": "2026-03-20"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 11065705884,
+        "full": 11051705884,
+        "net": 11051705884,
         "crypto": 10770705884,
         "eth": 9657391016,
-        "ev": 9986556020
+        "ev": 9986556020,
+        "nav_ex_cash": 9951705884
       },
-      "nav_per_share": 20.9,
+      "nav_per_share": 20.87,
+      "nav_per_share_gross": 20.87,
       "nav_per_share_all": {
-        "full": 20.9,
+        "full": 20.87,
+        "net": 20.87,
         "crypto": 20.34,
-        "eth": 18.24,
-        "ev": 18.86
+        "eth": 18.24
       },
-      "mnav": 1.002,
+      "mnav": 1.003,
+      "mnav_gross": 1.003,
       "mnav_all": {
-        "full": 1.002,
+        "full": 1.003,
+        "net": 1.003,
         "crypto": 1.029,
         "eth": 1.148,
-        "ev": 1.11
+        "ev_to_nav_ex_cash": 1.004
       },
       "eth_per_share": 0.0088034,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226012078/ex99-1.htm",
@@ -2300,17 +2419,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.863,
+        "nav_per_share_before": 21.8365,
         "atm_shares": 2261156,
-        "mnav_at_issue": 1.007,
+        "mnav_at_issue": 1.008,
         "usd_per_share": {
-          "issuance": 0.0007,
+          "issuance": 0.0008,
           "buybacks": 0,
           "staking": 0.0065,
           "other": -0.0058,
-          "total": 0.0013,
+          "total": 0.0015,
           "actual_change": -0.99,
-          "market": -0.9913
+          "market": -0.9915
         },
         "eth_per_share": {
           "capital": 0.000083754,
@@ -2398,32 +2517,39 @@
       },
       "btc": 197,
       "orbs_value": 102000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2005,
         "BTC": 65947,
         "BMNR": 18.39,
         "BMNR_date": "2026-03-27"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 10763815969,
+        "full": 10749815969,
+        "net": 10749815969,
         "crypto": 10461815969,
         "eth": 9487824410,
-        "ev": 8804893937
+        "ev": 8804893937,
+        "nav_ex_cash": 9788815969
       },
-      "nav_per_share": 20.27,
+      "nav_per_share": 20.24,
+      "nav_per_share_gross": 20.24,
       "nav_per_share_all": {
-        "full": 20.27,
+        "full": 20.24,
+        "net": 20.24,
         "crypto": 19.7,
-        "eth": 17.87,
-        "ev": 16.58
+        "eth": 17.87
       },
-      "mnav": 0.907,
+      "mnav": 0.908,
+      "mnav_gross": 0.908,
       "mnav_all": {
-        "full": 0.907,
+        "full": 0.908,
+        "net": 0.908,
         "crypto": 0.933,
         "eth": 1.029,
-        "ev": 1.109
+        "ev_to_nav_ex_cash": 0.899
       },
       "eth_per_share": 0.0089109,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226013487/ex99-1.htm",
@@ -2432,17 +2558,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9029,
+        "nav_per_share_before": 20.8765,
         "atm_shares": 1098235,
-        "mnav_at_issue": 0.968,
+        "mnav_at_issue": 0.969,
         "usd_per_share": {
-          "issuance": -0.002,
+          "issuance": -0.0019,
           "buybacks": 0,
           "staking": 0.0062,
           "other": -0.0058,
-          "total": -0.0017,
+          "total": -0.0016,
           "actual_change": -0.63,
-          "market": -0.6283
+          "market": -0.6284
         },
         "eth_per_share": {
           "capital": 0.000105188,
@@ -2530,32 +2656,39 @@
       },
       "btc": 198,
       "orbs_value": 92000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2123,
         "BTC": 69002,
         "BMNR": 19.45,
         "BMNR_date": "2026-04-02"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 11367140478,
+        "full": 11353140478,
+        "net": 11353140478,
         "crypto": 11075140478,
         "eth": 10197478082,
-        "ev": 9523907387
+        "ev": 9523907387,
+        "nav_ex_cash": 10489140478
       },
-      "nav_per_share": 21.28,
+      "nav_per_share": 21.26,
+      "nav_per_share_gross": 21.26,
       "nav_per_share_all": {
-        "full": 21.28,
+        "full": 21.26,
+        "net": 21.26,
         "crypto": 20.74,
-        "eth": 19.09,
-        "ev": 17.83
+        "eth": 19.09
       },
-      "mnav": 0.914,
+      "mnav": 0.915,
+      "mnav_gross": 0.915,
       "mnav_all": {
-        "full": 0.914,
+        "full": 0.915,
+        "net": 0.915,
         "crypto": 0.938,
         "eth": 1.019,
-        "ev": 1.091
+        "ev_to_nav_ex_cash": 0.908
       },
       "eth_per_share": 0.0089936,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226015247/ex99-1.htm",
@@ -2564,17 +2697,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.8999,
+        "nav_per_share_before": 20.8735,
         "atm_shares": 3038925,
-        "mnav_at_issue": 0.924,
+        "mnav_at_issue": 0.925,
         "usd_per_share": {
-          "issuance": -0.0091,
+          "issuance": -0.0089,
           "buybacks": 0,
           "staking": 0.0064,
           "other": -0.0058,
-          "total": -0.0084,
-          "actual_change": 1.01,
-          "market": 1.0184
+          "total": -0.0083,
+          "actual_change": 1.02,
+          "market": 1.0283
         },
         "eth_per_share": {
           "capital": 0.000080415,
@@ -2639,11 +2772,11 @@
         844832,
         1127258
       ],
-      "other_shares_issued": 0,
-      "shares_outstanding": 535060128,
+      "other_shares_issued": 9577,
+      "shares_outstanding": 535069705,
       "shares_outstanding_range": [
-        532819366,
-        537721261
+        532828943,
+        537730838
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2653,59 +2786,66 @@
       },
       "btc": 198,
       "orbs_value": 85000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2206,
         "BTC": 70661,
         "BMNR": 21.28,
         "BMNR_date": "2026-04-10"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 11771927626,
+        "full": 11757927626,
+        "net": 11757927626,
         "crypto": 11486927626,
         "eth": 10753936748,
-        "ev": 10667079524
+        "ev": 10667283322,
+        "nav_ex_cash": 11038927626
       },
-      "nav_per_share": 22,
+      "nav_per_share": 21.97,
+      "nav_per_share_gross": 21.97,
       "nav_per_share_all": {
-        "full": 22,
+        "full": 21.97,
+        "net": 21.97,
         "crypto": 21.47,
-        "eth": 20.1,
-        "ev": 19.94
+        "eth": 20.1
       },
-      "mnav": 0.967,
+      "mnav": 0.968,
+      "mnav_gross": 0.968,
       "mnav_all": {
-        "full": 0.967,
+        "full": 0.968,
+        "net": 0.968,
         "crypto": 0.991,
         "eth": 1.059,
-        "ev": 1.067
+        "ev_to_nav_ex_cash": 0.966
       },
-      "eth_per_share": 0.0091109,
+      "eth_per_share": 0.0091107,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016296/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2043682564460712352",
-      "notes": "Release does not state weekly ETH acquired.",
+      "notes": "Release does not state weekly ETH acquired. +9,577 net shares from officer RSUs vested Apr 7 (Tsang 4,186 − 1,496 withheld, Kim 10,032 − 3,145 withheld; Form 4s filed Oct 23/26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.9907,
+        "nav_per_share_before": 21.9644,
         "atm_shares": 977487,
-        "mnav_at_issue": 0.952,
+        "mnav_at_issue": 0.953,
         "usd_per_share": {
           "issuance": -0.0019,
           "buybacks": 0,
           "staking": 0.0069,
           "other": -0.0059,
           "total": -0.0009,
-          "actual_change": 0.72,
-          "market": 0.7209
+          "actual_change": 0.71,
+          "market": 0.7109
         },
         "eth_per_share": {
-          "capital": 0.000114839,
-          "staking": 0.00000315,
+          "capital": 0.000114676,
+          "staking": 0.000003149,
           "premium": -7.44e-7,
           "reanchor": 0,
-          "total": 0.000117245,
-          "actual_change": 0.000117245
+          "total": 0.000117081,
+          "actual_change": 0.000117081
         }
       }
     },
@@ -2763,10 +2903,10 @@
         30478468
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 564521810,
+      "shares_outstanding": 564531387,
       "shares_outstanding_range": [
-        561147099,
-        568199728
+        561156676,
+        568209305
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2785,59 +2925,66 @@
       ],
       "btc": 199,
       "orbs_value": 107000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2301,
         "BTC": 73841,
         "BMNR": 22.95,
         "BMNR_date": "2026-04-17"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 12892586344,
+        "full": 12878586344,
+        "net": 12878586344,
         "crypto": 12585586344,
         "eth": 11450891985,
-        "ev": 11835775540
+        "ev": 11835995332,
+        "nav_ex_cash": 11758586344
       },
-      "nav_per_share": 22.84,
+      "nav_per_share": 22.81,
+      "nav_per_share_gross": 22.81,
       "nav_per_share_all": {
-        "full": 22.84,
+        "full": 22.81,
+        "net": 22.81,
         "crypto": 22.29,
-        "eth": 20.28,
-        "ev": 20.97
+        "eth": 20.28
       },
-      "mnav": 1.005,
+      "mnav": 1.006,
+      "mnav_gross": 1.006,
       "mnav_all": {
-        "full": 1.005,
+        "full": 1.006,
+        "net": 1.006,
         "crypto": 1.029,
         "eth": 1.131,
-        "ev": 1.095
+        "ev_to_nav_ex_cash": 1.007
       },
-      "eth_per_share": 0.0088154,
+      "eth_per_share": 0.0088152,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226018015/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2046228709061927060",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.3084,
+        "nav_per_share_before": 23.2819,
         "atm_shares": 29461682,
-        "mnav_at_issue": 0.95,
+        "mnav_at_issue": 0.951,
         "usd_per_share": {
-          "issuance": -0.0608,
+          "issuance": -0.0594,
           "buybacks": 0,
           "staking": 0.0068,
           "other": -0.0064,
-          "total": -0.0603,
+          "total": -0.0589,
           "actual_change": 0.84,
-          "market": 0.9003
+          "market": 0.8989
         },
         "eth_per_share": {
-          "capital": -0.000297427,
+          "capital": -0.000297413,
           "staking": 0.000002975,
           "premium": -0.000001009,
           "reanchor": 0,
-          "total": -0.000295461,
-          "actual_change": -0.000295461
+          "total": -0.000295448,
+          "actual_change": -0.000295448
         }
       }
     },
@@ -2894,11 +3041,11 @@
         2918761,
         3343728
       ],
-      "other_shares_issued": 0,
-      "shares_outstanding": 567669555,
+      "other_shares_issued": 22762,
+      "shares_outstanding": 567701894,
       "shares_outstanding_range": [
-        564065861,
-        571543456
+        564098200,
+        571575795
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2908,59 +3055,66 @@
       },
       "btc": 200,
       "orbs_value": 91000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2369,
         "BTC": 78638,
         "BMNR": 22.14,
         "BMNR_date": "2026-04-24"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 13277424034,
+        "full": 13263424034,
+        "net": 13263424034,
         "crypto": 12986424034,
         "eth": 12030696434,
-        "ev": 11628203948
+        "ev": 11628919933,
+        "nav_ex_cash": 12323424034
       },
-      "nav_per_share": 23.39,
+      "nav_per_share": 23.36,
+      "nav_per_share_gross": 23.36,
       "nav_per_share_all": {
-        "full": 23.39,
+        "full": 23.36,
+        "net": 23.36,
         "crypto": 22.88,
-        "eth": 21.19,
-        "ev": 20.48
+        "eth": 21.19
       },
-      "mnav": 0.947,
+      "mnav": 0.948,
+      "mnav_gross": 0.948,
       "mnav_all": {
-        "full": 0.947,
+        "full": 0.948,
+        "net": 0.948,
         "crypto": 0.968,
         "eth": 1.045,
-        "ev": 1.081
+        "ev_to_nav_ex_cash": 0.944
       },
-      "eth_per_share": 0.008946,
+      "eth_per_share": 0.0089455,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226019080/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2048781360928641404",
-      "notes": "",
+      "notes": "+22,762 shares from RSU vesting Apr 23: directors 22,620 (five Form 4s Apr 23, 2026) + Tsang 142.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.1479,
+        "nav_per_share_before": 23.1227,
         "atm_shares": 3147745,
-        "mnav_at_issue": 0.965,
+        "mnav_at_issue": 0.966,
         "usd_per_share": {
-          "issuance": -0.0045,
+          "issuance": -0.0044,
           "buybacks": 0,
           "staking": 0.0076,
           "other": -0.0064,
-          "total": -0.0032,
+          "total": -0.0031,
           "actual_change": 0.55,
-          "market": 0.5532
+          "market": 0.5531
         },
         "eth_per_share": {
-          "capital": 0.000128411,
+          "capital": 0.000128051,
           "staking": 0.00000322,
           "premium": -0.000001005,
           "reanchor": 0,
-          "total": 0.000130626,
-          "actual_change": 0.000130626
+          "total": 0.000130266,
+          "actual_change": 0.000130266
         }
       }
     },
@@ -3028,10 +3182,10 @@
         368586
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 567919017,
+      "shares_outstanding": 567951356,
       "shares_outstanding_range": [
-        564205668,
-        571912042
+        564238007,
+        571944381
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3041,43 +3195,50 @@
       },
       "btc": 200,
       "orbs_value": 83000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2336,
         "BTC": 78512,
         "BMNR": 21.88,
         "BMNR_date": "2026-05-01"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 13099488416,
+        "full": 13085488416,
+        "net": 13085488416,
         "crypto": 12816488416,
         "eth": 12100786016,
-        "ev": 11726068092
+        "ev": 11726775669,
+        "nav_ex_cash": 12385488416
       },
-      "nav_per_share": 23.07,
+      "nav_per_share": 23.04,
+      "nav_per_share_gross": 23.04,
       "nav_per_share_all": {
-        "full": 23.07,
+        "full": 23.04,
+        "net": 23.04,
         "crypto": 22.57,
-        "eth": 21.31,
-        "ev": 20.65
+        "eth": 21.31
       },
-      "mnav": 0.949,
+      "mnav": 0.95,
+      "mnav_gross": 0.95,
       "mnav_all": {
-        "full": 0.949,
+        "full": 0.95,
+        "net": 0.95,
         "crypto": 0.97,
         "eth": 1.027,
-        "ev": 1.06
+        "ev_to_nav_ex_cash": 0.947
       },
-      "eth_per_share": 0.0091212,
+      "eth_per_share": 0.0091207,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226021027/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2051327373983846710",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.6936,
+        "nav_per_share_before": 22.6677,
         "atm_shares": 249462,
-        "mnav_at_issue": 0.943,
+        "mnav_at_issue": 0.944,
         "usd_per_share": {
           "issuance": -0.0006,
           "buybacks": 0,
@@ -3088,12 +3249,12 @@
           "market": -0.3203
         },
         "eth_per_share": {
-          "capital": 0.00017314,
+          "capital": 0.00017313,
           "staking": 0.000003088,
           "premium": -0.000001004,
           "reanchor": 0,
-          "total": 0.000175224,
-          "actual_change": 0.000175224
+          "total": 0.000175215,
+          "actual_change": 0.000175215
         }
       }
     },
@@ -3159,10 +3320,10 @@
         6421611
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 574070979,
+      "shares_outstanding": 574103318,
       "shares_outstanding_range": [
-        570124258,
-        578333653
+        570156597,
+        578365992
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3172,59 +3333,66 @@
       },
       "btc": 201,
       "orbs_value": 88000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2366,
         "BTC": 82018,
         "BMNR": 22.17,
         "BMNR_date": "2026-05-08"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 13398750758,
+        "full": 13384750758,
+        "net": 13384750758,
         "crypto": 13110750758,
         "eth": 12319265140,
-        "ev": 11952153604
+        "ev": 11952870560,
+        "nav_ex_cash": 12609750758
       },
-      "nav_per_share": 23.34,
+      "nav_per_share": 23.31,
+      "nav_per_share_gross": 23.31,
       "nav_per_share_all": {
-        "full": 23.34,
+        "full": 23.31,
+        "net": 23.31,
         "crypto": 22.84,
-        "eth": 21.46,
-        "ev": 20.82
+        "eth": 21.46
       },
-      "mnav": 0.95,
+      "mnav": 0.951,
+      "mnav_gross": 0.951,
       "mnav_all": {
-        "full": 0.95,
+        "full": 0.951,
+        "net": 0.951,
         "crypto": 0.971,
         "eth": 1.033,
-        "ev": 1.065
+        "ev_to_nav_ex_cash": 0.948
       },
-      "eth_per_share": 0.0090699,
+      "eth_per_share": 0.0090694,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226022150/ex99-3.htm",
       "x_post": "https://x.com/BitMNR/status/2053835778485006606",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.068,
+        "nav_per_share_before": 23.0421,
         "atm_shares": 6151962,
-        "mnav_at_issue": 0.979,
+        "mnav_at_issue": 0.981,
         "usd_per_share": {
-          "issuance": -0.0051,
+          "issuance": -0.0048,
           "buybacks": 0,
           "staking": 0.0075,
           "other": -0.0045,
-          "total": -0.0021,
+          "total": -0.0018,
           "actual_change": 0.27,
-          "market": 0.2721
+          "market": 0.2718
         },
         "eth_per_share": {
-          "capital": -0.000054248,
+          "capital": -0.000054239,
           "staking": 0.000003186,
           "premium": -2.47e-7,
           "reanchor": 0,
-          "total": -0.000051308,
-          "actual_change": -0.000051308
+          "total": -0.0000513,
+          "actual_change": -0.0000513
         }
       }
     },
@@ -3290,10 +3458,10 @@
         4066572
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 577715159,
+      "shares_outstanding": 577747498,
       "shares_outstanding_range": [
-        573436456,
-        582400224
+        573468795,
+        582432563
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3303,59 +3471,66 @@
       },
       "btc": 202,
       "orbs_value": 83000000,
-      "beast_value": 200000000,
+      "beast_value": 186000000,
       "snapshot_prices": {
         "ETH": 2191,
         "BTC": 77429,
         "BMNR": 19.87,
         "BMNR_date": "2026-05-15"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
-        "full": 12548750900,
+        "full": 12534750900,
+        "net": 12534750900,
         "crypto": 12265750900,
         "eth": 11565110242,
-        "ev": 10794200209
+        "ev": 10794842785,
+        "nav_ex_cash": 11849750900
       },
-      "nav_per_share": 21.72,
+      "nav_per_share": 21.7,
+      "nav_per_share_gross": 21.7,
       "nav_per_share_all": {
-        "full": 21.72,
+        "full": 21.7,
+        "net": 21.7,
         "crypto": 21.23,
-        "eth": 20.02,
-        "ev": 18.68
+        "eth": 20.02
       },
-      "mnav": 0.915,
+      "mnav": 0.916,
+      "mnav_gross": 0.916,
       "mnav_all": {
-        "full": 0.915,
+        "full": 0.916,
+        "net": 0.916,
         "crypto": 0.936,
         "eth": 0.993,
-        "ev": 1.063
+        "ev_to_nav_ex_cash": 0.911
       },
-      "eth_per_share": 0.0091368,
+      "eth_per_share": 0.0091363,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226024088/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2056454152197124490",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.2103,
+        "nav_per_share_before": 22.1847,
         "atm_shares": 3644179,
-        "mnav_at_issue": 0.97,
+        "mnav_at_issue": 0.971,
         "usd_per_share": {
-          "issuance": -0.0042,
+          "issuance": -0.004,
           "buybacks": 0,
           "staking": 0.0068,
           "other": -0.0055,
-          "total": -0.0029,
-          "actual_change": -1.62,
-          "market": -1.6171
+          "total": -0.0027,
+          "actual_change": -1.61,
+          "market": -1.6073
         },
         "eth_per_share": {
-          "capital": 0.000064439,
-          "staking": 0.0000031,
+          "capital": 0.000064438,
+          "staking": 0.000003099,
           "premium": -6.89e-7,
           "reanchor": 0,
-          "total": 0.000066849,
-          "actual_change": 0.000066849
+          "total": 0.000066848,
+          "actual_change": 0.000066848
         }
       }
     },
@@ -3421,10 +3596,10 @@
         558168
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 578124401,
+      "shares_outstanding": 578156740,
       "shares_outstanding_range": [
-        573701209,
-        582958392
+        573733548,
+        582990731
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3441,52 +3616,59 @@
         "BMNR": 18.88,
         "BMNR_date": "2026-05-22"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 12257805510,
+        "net": 12257805510,
         "crypto": 11962805510,
         "eth": 11503122136,
-        "ev": 10470988691
+        "ev": 10471599251,
+        "nav_ex_cash": 11813805510
       },
       "nav_per_share": 21.2,
+      "nav_per_share_gross": 21.2,
       "nav_per_share_all": {
         "full": 21.2,
+        "net": 21.2,
         "crypto": 20.69,
-        "eth": 19.9,
-        "ev": 18.11
+        "eth": 19.9
       },
-      "mnav": 0.89,
+      "mnav": 0.891,
+      "mnav_gross": 0.891,
       "mnav_all": {
-        "full": 0.89,
+        "full": 0.891,
+        "net": 0.891,
         "crypto": 0.912,
         "eth": 0.949,
-        "ev": 1.042
+        "ev_to_nav_ex_cash": 0.886
       },
-      "eth_per_share": 0.009324,
+      "eth_per_share": 0.0093234,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226025174/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2059257593390850301",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9888,
+        "nav_per_share_before": 20.9634,
         "atm_shares": 409242,
-        "mnav_at_issue": 0.908,
+        "mnav_at_issue": 0.909,
         "usd_per_share": {
           "issuance": -0.0014,
           "buybacks": 0,
           "staking": 0.0074,
           "other": -0.0068,
           "total": -0.0007,
-          "actual_change": -0.52,
-          "market": -0.5193
+          "actual_change": -0.5,
+          "market": -0.4993
         },
         "eth_per_share": {
-          "capital": 0.000184769,
-          "staking": 0.000003477,
+          "capital": 0.000184759,
+          "staking": 0.000003476,
           "premium": -0.000001084,
           "reanchor": 0,
-          "total": 0.000187162,
-          "actual_change": 0.000187162
+          "total": 0.000187152,
+          "actual_change": 0.000187152
         }
       }
     },
@@ -3578,25 +3760,32 @@
         "BMNR": 19.27,
         "BMNR_date": "2026-05-29"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 11583993300,
+        "net": 11583993300,
         "crypto": 11310993300,
         "eth": 10850052703,
-        "ev": 10723902365
+        "ev": 10723902365,
+        "nav_ex_cash": 11137993300
       },
       "nav_per_share": 19.98,
+      "nav_per_share_gross": 19.98,
       "nav_per_share_all": {
         "full": 19.98,
+        "net": 19.98,
         "crypto": 19.51,
-        "eth": 18.72,
-        "ev": 18.5
+        "eth": 18.72
       },
       "mnav": 0.964,
+      "mnav_gross": 0.964,
       "mnav_all": {
         "full": 0.964,
+        "net": 0.964,
         "crypto": 0.988,
         "eth": 1.029,
-        "ev": 1.042
+        "ev_to_nav_ex_cash": 0.963
       },
       "eth_per_share": 0.0093451,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226026543/ex99-1.htm",
@@ -3605,9 +3794,9 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 20.1743,
+        "nav_per_share_before": 20.1732,
         "atm_shares": 3000218,
-        "mnav_at_issue": 0.948,
+        "mnav_at_issue": 0.949,
         "usd_per_share": {
           "issuance": -0.0054,
           "buybacks": 0,
@@ -3618,12 +3807,12 @@
           "market": -1.2165
         },
         "eth_per_share": {
-          "capital": -0.000005169,
+          "capital": -0.000005167,
           "staking": 0.000002866,
           "premium": -2.44e-7,
-          "reanchor": 0.000023681,
-          "total": 0.000021133,
-          "actual_change": 0.000021133
+          "reanchor": 0.0000242,
+          "total": 0.000021654,
+          "actual_change": 0.000021654
         }
       }
     },
@@ -3702,25 +3891,32 @@
         "BMNR": 15.9,
         "BMNR_date": "2026-06-05"
       },
+      "preferred_usd": 0,
+      "debt_usd": 0,
       "nav": {
         "full": 9564419256,
+        "net": 9564419256,
         "crypto": 9296419256,
         "eth": 9036511360,
-        "ev": 8988739985
+        "ev": 8988739985,
+        "nav_ex_cash": 9317419256
       },
       "nav_per_share": 16.47,
+      "nav_per_share_gross": 16.47,
       "nav_per_share_all": {
         "full": 16.47,
+        "net": 16.47,
         "crypto": 16,
-        "eth": 15.56,
-        "ev": 15.47
+        "eth": 15.56
       },
       "mnav": 0.966,
+      "mnav_gross": 0.966,
       "mnav_all": {
         "full": 0.966,
+        "net": 0.966,
         "crypto": 0.993,
         "eth": 1.022,
-        "ev": 1.027
+        "ev_to_nav_ex_cash": 0.965
       },
       "eth_per_share": 0.0095442,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226027647/ex99-1.htm",
@@ -3836,25 +4032,32 @@
         "BMNR": 16.11,
         "BMNR_date": "2026-06-12"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 10439860008,
+        "net": 10089860008,
         "crypto": 10171860008,
         "eth": 9656455372,
-        "ev": 8962780687
+        "ev": 9312780687,
+        "nav_ex_cash": 9937860008
       },
-      "nav_per_share": 17.77,
+      "nav_per_share": 17.17,
+      "nav_per_share_gross": 17.77,
       "nav_per_share_all": {
         "full": 17.77,
+        "net": 17.17,
         "crypto": 17.31,
-        "eth": 16.44,
-        "ev": 15.26
+        "eth": 16.44
       },
-      "mnav": 0.907,
+      "mnav": 0.938,
+      "mnav_gross": 0.907,
       "mnav_all": {
         "full": 0.907,
+        "net": 0.938,
         "crypto": 0.93,
         "eth": 0.98,
-        "ev": 1.056
+        "ev_to_nav_ex_cash": 0.937
       },
       "eth_per_share": 0.0095671,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226028622/ex99-1.htm",
@@ -3870,10 +4073,10 @@
           "issuance": -0.0067,
           "buybacks": 0,
           "staking": 0.0074,
-          "other": -0.0045,
-          "total": -0.0038,
-          "actual_change": 1.3,
-          "market": 1.3038
+          "other": -0.1342,
+          "total": -0.1335,
+          "actual_change": 0.7,
+          "market": 0.8335
         },
         "eth_per_share": {
           "capital": 0.000018347,
@@ -3968,25 +4171,32 @@
         "BMNR": 16.14,
         "BMNR_date": "2026-06-18"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 10729200023,
+        "net": 10379200023,
         "crypto": 10445200023,
         "eth": 9831232748,
-        "ev": 9068082524
+        "ev": 9418082524,
+        "nav_ex_cash": 10128200023
       },
-      "nav_per_share": 17.91,
+      "nav_per_share": 17.33,
+      "nav_per_share_gross": 17.91,
       "nav_per_share_all": {
         "full": 17.91,
+        "net": 17.33,
         "crypto": 17.44,
-        "eth": 16.41,
-        "ev": 15.14
+        "eth": 16.41
       },
-      "mnav": 0.901,
+      "mnav": 0.932,
+      "mnav_gross": 0.901,
       "mnav_all": {
         "full": 0.901,
+        "net": 0.932,
         "crypto": 0.926,
         "eth": 0.984,
-        "ev": 1.066
+        "ev_to_nav_ex_cash": 0.93
       },
       "eth_per_share": 0.0094695,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226029507/ex99-1.htm",
@@ -3995,17 +4205,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.0051,
+        "nav_per_share_before": 17.4094,
         "atm_shares": 11566082,
-        "mnav_at_issue": 0.905,
+        "mnav_at_issue": 0.936,
         "usd_per_share": {
-          "issuance": -0.0331,
+          "issuance": -0.0216,
           "buybacks": 0,
           "staking": 0.0071,
           "other": -0.0046,
-          "total": -0.0306,
-          "actual_change": 0.14,
-          "market": 0.1706
+          "total": -0.0191,
+          "actual_change": 0.16,
+          "market": 0.1791
         },
         "eth_per_share": {
           "capital": -0.000101862,
@@ -4100,25 +4310,32 @@
         "BMNR": 13.56,
         "BMNR_date": "2026-06-26"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 9764618730,
+        "net": 9414618730,
         "crypto": 9510618730,
         "eth": 8943362760,
-        "ev": 7568467102
+        "ev": 7918467102,
+        "nav_ex_cash": 9209618730
       },
-      "nav_per_share": 16.3,
+      "nav_per_share": 15.72,
+      "nav_per_share_gross": 16.3,
       "nav_per_share_all": {
         "full": 16.3,
+        "net": 15.72,
         "crypto": 15.88,
-        "eth": 14.93,
-        "ev": 12.63
+        "eth": 14.93
       },
-      "mnav": 0.832,
+      "mnav": 0.863,
+      "mnav_gross": 0.832,
       "mnav_all": {
         "full": 0.832,
+        "net": 0.863,
         "crypto": 0.854,
         "eth": 0.908,
-        "ev": 1.073
+        "ev_to_nav_ex_cash": 0.86
       },
       "eth_per_share": 0.0095147,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226030428/ex99-1.htm",
@@ -4127,9 +4344,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.7806,
+        "nav_per_share_before": 16.1964,
         "atm_shares": 0,
-        "mnav_at_issue": 0.857,
+        "mnav_at_issue": 0.888,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -4203,11 +4420,11 @@
         2317349,
         3405230
       ],
-      "other_shares_issued": 0,
-      "shares_outstanding": 601837997,
+      "other_shares_issued": 2504,
+      "shares_outstanding": 601840501,
       "shares_outstanding_range": [
-        599815968,
-        604090785
+        599818472,
+        604093289
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4224,52 +4441,59 @@
         "BMNR": 14.36,
         "BMNR_date": "2026-07-02"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11127125316,
+        "net": 10777125316,
         "crypto": 10876125316,
         "eth": 10336026600,
-        "ev": 8115393637
+        "ev": 8465429594,
+        "nav_ex_cash": 10600125316
       },
-      "nav_per_share": 18.49,
+      "nav_per_share": 17.91,
+      "nav_per_share_gross": 18.49,
       "nav_per_share_all": {
         "full": 18.49,
+        "net": 17.91,
         "crypto": 18.07,
-        "eth": 17.17,
-        "ev": 13.48
+        "eth": 17.17
       },
-      "mnav": 0.777,
+      "mnav": 0.802,
+      "mnav_gross": 0.777,
       "mnav_all": {
         "full": 0.777,
+        "net": 0.802,
         "crypto": 0.795,
         "eth": 0.836,
-        "ev": 1.065
+        "ev_to_nav_ex_cash": 0.799
       },
-      "eth_per_share": 0.0095412,
+      "eth_per_share": 0.0095411,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032090/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2074117201385111723",
-      "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings − 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5.",
+      "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings − 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5. +2,504 net shares from Tsang RSUs vested Jun 30 (3,776 − 1,272 withheld; Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 17.4202,
+        "nav_per_share_before": 16.836,
         "atm_shares": 2762252,
-        "mnav_at_issue": 0.798,
+        "mnav_at_issue": 0.826,
         "usd_per_share": {
-          "issuance": -0.0161,
+          "issuance": -0.0135,
           "buybacks": 0,
           "staking": 0.0073,
           "other": -0.0046,
-          "total": -0.0135,
+          "total": -0.0108,
           "actual_change": 2.19,
-          "market": 2.2035
+          "market": 2.2008
         },
         "eth_per_share": {
-          "capital": 0.000022276,
+          "capital": 0.000022237,
           "staking": 0.00000403,
           "premium": 1.38e-7,
           "reanchor": 0,
-          "total": 0.000026444,
-          "actual_change": 0.000026444
+          "total": 0.000026404,
+          "actual_change": 0.000026404
         }
       }
     },
@@ -4363,25 +4587,32 @@
         "BMNR": 14.98,
         "BMNR_date": "2026-07-10"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11245601042,
+        "net": 10895601042,
         "crypto": 10996601042,
         "eth": 10501469160,
-        "ev": 8554914329
+        "ev": 8904914329,
+        "nav_ex_cash": 10763601042
       },
-      "nav_per_share": 18.64,
+      "nav_per_share": 18.06,
+      "nav_per_share_gross": 18.64,
       "nav_per_share_all": {
         "full": 18.64,
+        "net": 18.06,
         "crypto": 18.23,
-        "eth": 17.41,
-        "ev": 14.18
+        "eth": 17.41
       },
-      "mnav": 0.804,
+      "mnav": 0.829,
+      "mnav_gross": 0.804,
       "mnav_all": {
         "full": 0.804,
+        "net": 0.829,
         "crypto": 0.822,
         "eth": 0.861,
-        "ev": 1.056
+        "ev_to_nav_ex_cash": 0.827
       },
       "eth_per_share": 0.0095647,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032951/ex99-1.htm",
@@ -4390,25 +4621,25 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 18.2778,
+        "nav_per_share_before": 17.6962,
         "atm_shares": 194576,
-        "mnav_at_issue": 0.819,
+        "mnav_at_issue": 0.846,
         "usd_per_share": {
-          "issuance": -0.0011,
+          "issuance": -0.0009,
           "buybacks": 0,
           "staking": 0.0074,
           "other": -0.0047,
-          "total": 0.0016,
+          "total": 0.0018,
           "actual_change": 0.15,
-          "market": 0.1484
+          "market": 0.1482
         },
         "eth_per_share": {
           "capital": 0.000038869,
           "staking": 0.00000405,
           "premium": 8.8e-8,
-          "reanchor": -0.000019497,
-          "total": 0.00002351,
-          "actual_change": 0.00002351
+          "reanchor": -0.000019457,
+          "total": 0.00002355,
+          "actual_change": 0.00002355
         }
       }
     },
@@ -4495,25 +4726,32 @@
         "BMNR": 15.69,
         "BMNR_date": "2026-07-17"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11492249062,
+        "net": 11142249062,
         "crypto": 11254249062,
         "eth": 10855862372,
-        "ev": 8995061746
+        "ev": 9345061746,
+        "nav_ex_cash": 11107249062
       },
-      "nav_per_share": 19.22,
+      "nav_per_share": 18.64,
+      "nav_per_share_gross": 19.22,
       "nav_per_share_all": {
         "full": 19.22,
+        "net": 18.64,
         "crypto": 18.82,
-        "eth": 18.16,
-        "ev": 15.05
+        "eth": 18.16
       },
-      "mnav": 0.816,
+      "mnav": 0.842,
+      "mnav_gross": 0.816,
       "mnav_all": {
         "full": 0.816,
+        "net": 0.842,
         "crypto": 0.833,
         "eth": 0.864,
-        "ev": 1.043
+        "ev_to_nav_ex_cash": 0.841
       },
       "eth_per_share": 0.009664,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226033855/ex99-1.htm",
@@ -4522,17 +4760,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.0211,
+        "nav_per_share_before": 18.441,
         "atm_shares": 71641,
-        "mnav_at_issue": 0.818,
+        "mnav_at_issue": 0.844,
         "usd_per_share": {
-          "issuance": -0.0004,
-          "buybacks": 0.0313,
+          "issuance": -0.0003,
+          "buybacks": 0.026,
           "staking": 0.0076,
           "other": -0.0049,
-          "total": 0.0337,
+          "total": 0.0284,
           "actual_change": 0.58,
-          "market": 0.5463
+          "market": 0.5516
         },
         "eth_per_share": {
           "capital": 0.000095216,
@@ -4598,11 +4836,11 @@
         0,
         398558
       ],
-      "other_shares_issued": 22620,
-      "shares_outstanding": 591951602,
+      "other_shares_issued": 22762,
+      "shares_outstanding": 591951744,
       "shares_outstanding_range": [
-        591649014,
-        592416041
+        591649156,
+        592416183
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4619,52 +4857,59 @@
         "BMNR": 15.79,
         "BMNR_date": "2026-07-24"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11796474024,
+        "net": 11446474024,
         "crypto": 11555474024,
         "eth": 11273882472,
-        "ev": 9078915796
+        "ev": 9428918038,
+        "nav_ex_cash": 11528474024
       },
-      "nav_per_share": 19.93,
+      "nav_per_share": 19.34,
+      "nav_per_share_gross": 19.93,
       "nav_per_share_all": {
         "full": 19.93,
+        "net": 19.34,
         "crypto": 19.52,
-        "eth": 19.05,
-        "ev": 15.34
+        "eth": 19.05
       },
-      "mnav": 0.792,
+      "mnav": 0.817,
+      "mnav_gross": 0.792,
       "mnav_all": {
         "full": 0.792,
+        "net": 0.817,
         "crypto": 0.809,
         "eth": 0.829,
-        "ev": 1.03
+        "ev_to_nav_ex_cash": 0.818
       },
       "eth_per_share": 0.0097768,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2081719755296133365",
-      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s).",
+      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s). +142 Tsang RSU vest Jul 23 (Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.4662,
+        "nav_per_share_before": 18.8808,
         "atm_shares": 192031,
-        "mnav_at_issue": 0.863,
+        "mnav_at_issue": 0.89,
         "usd_per_share": {
-          "issuance": -0.001,
-          "buybacks": 0.0267,
+          "issuance": -0.0008,
+          "buybacks": 0.0206,
           "staking": 0.0079,
           "other": -0.0049,
-          "total": 0.0287,
-          "actual_change": 0.71,
-          "market": 0.6813
+          "total": 0.0229,
+          "actual_change": 0.7,
+          "market": 0.6771
         },
         "eth_per_share": {
-          "capital": 0.000108806,
+          "capital": 0.000108804,
           "staking": 0.000004051,
           "premium": 2.7e-8,
           "reanchor": 0,
-          "total": 0.000112884,
-          "actual_change": 0.000112884
+          "total": 0.000112881,
+          "actual_change": 0.000112881
         }
       }
     },
@@ -4732,10 +4977,10 @@
         299854
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 587560316,
+      "shares_outstanding": 587560458,
       "shares_outstanding_range": [
-        587149014,
-        588215896
+        587149156,
+        588216038
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4752,25 +4997,32 @@
         "BMNR": 17.28,
         "BMNR_date": "2026-07-31"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11327160776,
+        "net": 10977160776,
         "crypto": 11086160776,
         "eth": 10899888440,
-        "ev": 9980042260
+        "ev": 10330044714,
+        "nav_ex_cash": 11154160776
       },
-      "nav_per_share": 19.28,
+      "nav_per_share": 18.68,
+      "nav_per_share_gross": 19.28,
       "nav_per_share_all": {
         "full": 19.28,
+        "net": 18.68,
         "crypto": 18.87,
-        "eth": 18.55,
-        "ev": 16.99
+        "eth": 18.55
       },
-      "mnav": 0.896,
+      "mnav": 0.925,
+      "mnav_gross": 0.896,
       "mnav_all": {
         "full": 0.896,
+        "net": 0.925,
         "crypto": 0.916,
         "eth": 0.931,
-        "ev": 1.017
+        "ev_to_nav_ex_cash": 0.926
       },
       "eth_per_share": 0.0098676,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226035752/ex99-1.htm",
@@ -4779,17 +5031,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.3529,
+        "nav_per_share_before": 18.7617,
         "atm_shares": 108714,
-        "mnav_at_issue": 0.904,
+        "mnav_at_issue": 0.932,
         "usd_per_share": {
-          "issuance": -0.0003,
-          "buybacks": 0.0136,
+          "issuance": -0.0002,
+          "buybacks": 0.0091,
           "staking": 0.008,
           "other": -0.0049,
-          "total": 0.0164,
-          "actual_change": -0.65,
-          "market": -0.6664
+          "total": 0.0119,
+          "actual_change": -0.66,
+          "market": -0.6719
         },
         "eth_per_share": {
           "capital": 0.000086488,
@@ -4856,10 +5108,10 @@
         71568
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 584560316,
+      "shares_outstanding": 584560458,
       "shares_outstanding_range": [
-        584149014,
-        585287464
+        584149156,
+        585287606
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4876,25 +5128,32 @@
         "BMNR": 18.82,
         "BMNR_date": "2026-08-07"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11559053768,
+        "net": 11209053768,
         "crypto": 11310053768,
         "eth": 11192498864,
-        "ev": 10897425147
+        "ev": 11247427820,
+        "nav_ex_cash": 11455053768
       },
-      "nav_per_share": 19.77,
+      "nav_per_share": 19.18,
+      "nav_per_share_gross": 19.77,
       "nav_per_share_all": {
         "full": 19.77,
+        "net": 19.18,
         "crypto": 19.35,
-        "eth": 19.15,
-        "ev": 18.64
+        "eth": 19.15
       },
-      "mnav": 0.952,
+      "mnav": 0.981,
+      "mnav_gross": 0.952,
       "mnav_all": {
         "full": 0.952,
+        "net": 0.981,
         "crypto": 0.973,
         "eth": 0.983,
-        "ev": 1.01
+        "ev_to_nav_ex_cash": 0.982
       },
       "eth_per_share": 0.0099309,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
@@ -4903,17 +5162,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.4391,
+        "nav_per_share_before": 18.8434,
         "atm_shares": 0,
-        "mnav_at_issue": 0.937,
+        "mnav_at_issue": 0.967,
         "usd_per_share": {
           "issuance": 0,
-          "buybacks": 0.0058,
+          "buybacks": 0.0028,
           "staking": 0.0081,
           "other": -0.005,
-          "total": 0.009,
-          "actual_change": 0.49,
-          "market": 0.481
+          "total": 0.0059,
+          "actual_change": 0.5,
+          "market": 0.4941
         },
         "eth_per_share": {
           "capital": 0.000059115,
@@ -4988,10 +5247,10 @@
         1391069
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 583968672,
+      "shares_outstanding": 583968814,
       "shares_outstanding_range": [
-        583201198,
-        584978533
+        583201340,
+        584978675
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5008,25 +5267,32 @@
         "BMNR": 18.08,
         "BMNR_date": "2026-08-14"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 11352302692,
+        "net": 11002302692,
         "crypto": 11099302692,
         "eth": 11008105452,
-        "ev": 10480153590
+        "ev": 10830156157,
+        "nav_ex_cash": 11274302692
       },
-      "nav_per_share": 19.44,
+      "nav_per_share": 18.84,
+      "nav_per_share_gross": 19.44,
       "nav_per_share_all": {
         "full": 19.44,
+        "net": 18.84,
         "crypto": 19.01,
-        "eth": 18.85,
-        "ev": 17.95
+        "eth": 18.85
       },
-      "mnav": 0.93,
+      "mnav": 0.96,
+      "mnav_gross": 0.93,
       "mnav_all": {
         "full": 0.93,
+        "net": 0.96,
         "crypto": 0.951,
         "eth": 0.959,
-        "ev": 1.007
+        "ev_to_nav_ex_cash": 0.961
       },
       "eth_per_share": 0.009958,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038652/ex99-1.htm",
@@ -5035,17 +5301,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.2826,
+        "nav_per_share_before": 18.6839,
         "atm_shares": 1108356,
-        "mnav_at_issue": 0.938,
+        "mnav_at_issue": 0.968,
         "usd_per_share": {
-          "issuance": -0.0023,
-          "buybacks": 0.0032,
+          "issuance": -0.0011,
+          "buybacks": 0.0015,
           "staking": 0.008,
           "other": -0.005,
-          "total": 0.004,
-          "actual_change": -0.33,
-          "market": -0.334
+          "total": 0.0034,
+          "actual_change": -0.34,
+          "market": -0.3434
         },
         "eth_per_share": {
           "capital": 0.000022818,
@@ -5112,10 +5378,10 @@
         16628546
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 598743433,
+      "shares_outstanding": 598743575,
       "shares_outstanding_range": [
-        596200409,
-        601607078
+        596200551,
+        601607220
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5132,44 +5398,52 @@
         "BMNR": 22.83,
         "BMNR_date": "2026-08-21"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 14861490360,
+        "net": 14511490360,
         "crypto": 14592490360,
         "eth": 14268170840,
-        "ev": 13361312575
+        "ev": 13711315817,
+        "nav_ex_cash": 14553490360
       },
-      "nav_per_share": 24.82,
+      "nav_per_share": 24.24,
+      "nav_per_share_gross": 24.82,
       "nav_per_share_all": {
         "full": 24.82,
+        "net": 24.24,
         "crypto": 24.37,
-        "eth": 23.83,
-        "ev": 22.32
+        "eth": 23.83
       },
-      "mnav": 0.92,
+      "mnav": 0.942,
+      "mnav_gross": 0.92,
       "mnav_all": {
         "full": 0.92,
+        "net": 0.942,
         "crypto": 0.937,
         "eth": 0.958,
-        "ev": 1.023
+        "ev_to_nav_ex_cash": 0.942
       },
       "eth_per_share": 0.0097665,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226039789/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2091866729651552553",
-      "notes": "Cash rose $230M while buying ETH and no buyback → implied equity issuance (no raise disclosed).",
+      "notes": "Cash rose $230M while buying ETH and no buyback → implied equity issuance (no raise disclosed). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt — no evidence of debt). Resolve from the FY2026 10-K.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.0771,
+        "nav_per_share_before": 22.4777,
         "atm_shares": 14774761,
-        "mnav_at_issue": 0.881,
+        "mnav_at_issue": 0.904,
         "usd_per_share": {
-          "issuance": -0.0678,
+          "issuance": -0.053,
           "buybacks": 0,
           "staking": 0.0103,
           "other": -0.0046,
-          "total": -0.0622,
-          "actual_change": 5.38,
-          "market": 5.4422
+          "total": -0.0474,
+          "actual_change": 5.4,
+          "market": 5.4474
         },
         "eth_per_share": {
           "capital": -0.000195844,
@@ -5245,10 +5519,10 @@
         15358497
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 613396859,
+      "shares_outstanding": 613397001,
       "shares_outstanding_range": [
-        610136217,
-        616965575
+        610136359,
+        616965717
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5265,44 +5539,52 @@
         "BMNR": 23.8,
         "BMNR_date": "2026-08-28"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 15636078070,
+        "net": 15286078070,
         "crypto": 15375078070,
         "eth": 14817692232,
-        "ev": 14057845244
+        "ev": 14407848624,
+        "nav_ex_cash": 15095078070
       },
-      "nav_per_share": 25.49,
+      "nav_per_share": 24.92,
+      "nav_per_share_gross": 25.49,
       "nav_per_share_all": {
         "full": 25.49,
+        "net": 24.92,
         "crypto": 25.07,
-        "eth": 24.16,
-        "ev": 22.92
+        "eth": 24.16
       },
-      "mnav": 0.934,
+      "mnav": 0.955,
+      "mnav_gross": 0.934,
       "mnav_all": {
         "full": 0.934,
+        "net": 0.955,
         "crypto": 0.95,
         "eth": 0.985,
-        "ev": 1.038
+        "ev_to_nav_ex_cash": 0.954
       },
       "eth_per_share": 0.0096204,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226040741/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2094412891323593143",
-      "notes": "Cash rose $233M while buying 53.5k ETH → implied equity issuance (no raise disclosed).",
+      "notes": "Cash rose $233M while buying 53.5k ETH → implied equity issuance (no raise disclosed). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt — no evidence of debt). Resolve from the FY2026 10-K.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.0687,
+        "nav_per_share_before": 24.4841,
         "atm_shares": 14653426,
-        "mnav_at_issue": 0.984,
+        "mnav_at_issue": 1.007,
         "usd_per_share": {
-          "issuance": -0.0098,
+          "issuance": 0.0042,
           "buybacks": 0,
           "staking": 0.0103,
           "other": -0.0043,
-          "total": -0.0038,
-          "actual_change": 0.67,
-          "market": 0.6738
+          "total": 0.0102,
+          "actual_change": 0.68,
+          "market": 0.6698
         },
         "eth_per_share": {
           "capital": -0.000150368,
@@ -5386,10 +5668,10 @@
         5268050
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 618167390,
+      "shares_outstanding": 618167532,
       "shares_outstanding_range": [
-        614429346,
-        622233625
+        614429488,
+        622233767
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5406,44 +5688,52 @@
         "BMNR": 24.97,
         "BMNR_date": "2026-09-04"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 15674037633,
+        "net": 15324037633,
         "crypto": 15403037633,
         "eth": 14793349010,
-        "ev": 14842639728
+        "ev": 15192643274,
+        "nav_ex_cash": 15081037633
       },
-      "nav_per_share": 25.36,
+      "nav_per_share": 24.79,
+      "nav_per_share_gross": 25.36,
       "nav_per_share_all": {
         "full": 25.36,
+        "net": 24.79,
         "crypto": 24.92,
-        "eth": 23.93,
-        "ev": 24.01
+        "eth": 23.93
       },
-      "mnav": 0.985,
+      "mnav": 1.007,
+      "mnav_gross": 0.985,
       "mnav_all": {
         "full": 0.985,
+        "net": 1.007,
         "crypto": 1.002,
         "eth": 1.043,
-        "ev": 1.04
+        "ev_to_nav_ex_cash": 1.007
       },
       "eth_per_share": 0.0095916,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2097322402325663994",
-      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02).",
+      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt — no evidence of debt). Resolve from the FY2026 10-K.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.051,
+        "nav_per_share_before": 24.4804,
         "atm_shares": 4770531,
-        "mnav_at_issue": 0.983,
+        "mnav_at_issue": 1.006,
         "usd_per_share": {
-          "issuance": -0.0032,
+          "issuance": 0.0012,
           "buybacks": 0,
           "staking": 0.0114,
           "other": -0.0052,
-          "total": 0.0029,
+          "total": 0.0073,
           "actual_change": -0.13,
-          "market": -0.1329
+          "market": -0.1373
         },
         "eth_per_share": {
           "capital": -0.000033444,
@@ -5519,10 +5809,10 @@
         975611
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 619001658,
+      "shares_outstanding": 619001800,
       "shares_outstanding_range": [
-        615122791,
-        623209236
+        615122933,
+        623209378
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5539,44 +5829,52 @@
         "BMNR": 25.03,
         "BMNR_date": "2026-09-11"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 15811663542,
+        "net": 15461663542,
         "crypto": 15533663542,
         "eth": 14968377914,
-        "ev": 14944611500
+        "ev": 15294615054,
+        "nav_ex_cash": 15262663542
       },
-      "nav_per_share": 25.54,
+      "nav_per_share": 24.98,
+      "nav_per_share_gross": 25.54,
       "nav_per_share_all": {
         "full": 25.54,
+        "net": 24.98,
         "crypto": 25.09,
-        "eth": 24.18,
-        "ev": 24.14
+        "eth": 24.18
       },
-      "mnav": 0.98,
+      "mnav": 1.002,
+      "mnav_gross": 0.98,
       "mnav_all": {
         "full": 0.98,
+        "net": 1.002,
         "crypto": 0.997,
         "eth": 1.035,
-        "ev": 1.037
+        "ev_to_nav_ex_cash": 1.002
       },
       "eth_per_share": 0.0096226,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226042492/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2099482412862640134",
-      "notes": "",
+      "notes": "Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt — no evidence of debt). Resolve from the FY2026 10-K.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.2548,
+        "nav_per_share_before": 24.6886,
         "atm_shares": 834268,
-        "mnav_at_issue": 0.972,
+        "mnav_at_issue": 0.994,
         "usd_per_share": {
-          "issuance": -0.0009,
+          "issuance": -0.0002,
           "buybacks": 0,
           "staking": 0.0089,
           "other": -0.0038,
-          "total": 0.0041,
-          "actual_change": 0.18,
-          "market": 0.1759
+          "total": 0.0048,
+          "actual_change": 0.19,
+          "market": 0.1852
         },
         "eth_per_share": {
           "capital": 0.000027372,
@@ -5652,10 +5950,10 @@
         10279180
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628461459,
+      "shares_outstanding": 628461601,
       "shares_outstanding_range": [
-        623870748,
-        633488416
+        623870890,
+        633488558
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5672,44 +5970,52 @@
         "BMNR": 25.99,
         "BMNR_date": "2026-09-18"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 17101038548,
+        "net": 16751038548,
         "crypto": 16816038548,
         "eth": 16084830720,
-        "ev": 15619713319
+        "ev": 15969717010,
+        "nav_ex_cash": 16387038548
       },
-      "nav_per_share": 27.21,
+      "nav_per_share": 26.65,
+      "nav_per_share_gross": 27.21,
       "nav_per_share_all": {
         "full": 27.21,
+        "net": 26.65,
         "crypto": 26.76,
-        "eth": 25.59,
-        "ev": 24.85
+        "eth": 25.59
       },
-      "mnav": 0.955,
+      "mnav": 0.975,
+      "mnav_gross": 0.955,
       "mnav_all": {
         "full": 0.955,
+        "net": 0.975,
         "crypto": 0.971,
         "eth": 1.015,
-        "ev": 1.046
+        "ev_to_nav_ex_cash": 0.975
       },
       "eth_per_share": 0.0095216,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226043486/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2102015712634032381",
-      "notes": "Cash rose $165M → implied equity issuance (no raise disclosed).",
+      "notes": "Cash rose $165M → implied equity issuance (no raise disclosed). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt — no evidence of debt). Resolve from the FY2026 10-K.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.6423,
+        "nav_per_share_before": 25.0769,
         "atm_shares": 9459802,
-        "mnav_at_issue": 0.952,
+        "mnav_at_issue": 0.973,
         "usd_per_share": {
-          "issuance": -0.0185,
+          "issuance": -0.01,
           "buybacks": 0,
           "staking": 0.0109,
           "other": -0.0044,
-          "total": -0.0121,
+          "total": -0.0036,
           "actual_change": 1.67,
-          "market": 1.6821
+          "market": 1.6736
         },
         "eth_per_share": {
           "capital": -0.00010512,
@@ -5793,10 +6099,10 @@
         157457
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628497108,
+      "shares_outstanding": 628497250,
       "shares_outstanding_range": [
-        623870748,
-        633645874
+        623870890,
+        633646016
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5813,25 +6119,32 @@
         "BMNR": 27.56,
         "BMNR_date": "2026-09-25"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 17176500433,
+        "net": 16826500433,
         "crypto": 16881500433,
         "eth": 16191512796,
-        "ev": 16649380296
+        "ev": 16999384210,
+        "nav_ex_cash": 16504500433
       },
-      "nav_per_share": 27.33,
+      "nav_per_share": 26.77,
+      "nav_per_share_gross": 27.33,
       "nav_per_share_all": {
         "full": 27.33,
+        "net": 26.77,
         "crypto": 26.86,
-        "eth": 25.76,
-        "ev": 26.49
+        "eth": 25.76
       },
-      "mnav": 1.008,
+      "mnav": 1.029,
+      "mnav_gross": 1.008,
       "mnav_all": {
         "full": 1.008,
+        "net": 1.029,
         "crypto": 1.026,
         "eth": 1.07,
-        "ev": 1.04
+        "ev_to_nav_ex_cash": 1.03
       },
       "eth_per_share": 0.0095487,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226044459/ex99-1.htm",
@@ -5840,17 +6153,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 27.4249,
+        "nav_per_share_before": 26.868,
         "atm_shares": 35649,
-        "mnav_at_issue": 1.021,
+        "mnav_at_issue": 1.043,
         "usd_per_share": {
-          "issuance": 0,
+          "issuance": 0.0001,
           "buybacks": 0,
           "staking": 0.0109,
           "other": -0.0045,
-          "total": 0.0064,
+          "total": 0.0065,
           "actual_change": 0.12,
-          "market": 0.1136
+          "market": 0.1135
         },
         "eth_per_share": {
           "capital": 0.000022984,
@@ -5925,11 +6238,11 @@
         76478,
         415017
       ],
-      "other_shares_issued": 0,
-      "shares_outstanding": 628784359,
+      "other_shares_issued": 2482,
+      "shares_outstanding": 628786983,
       "shares_outstanding_range": [
-        623947226,
-        634060891
+        623949850,
+        634063515
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5946,52 +6259,59 @@
         "BMNR": 26.27,
         "BMNR_date": "2026-10-02"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 17359253424,
+        "net": 17009253424,
         "crypto": 17062253424,
         "eth": 16400744564,
-        "ev": 15875165111
+        "ev": 16225234043,
+        "nav_ex_cash": 16716253424
       },
-      "nav_per_share": 27.61,
+      "nav_per_share": 27.05,
+      "nav_per_share_gross": 27.61,
       "nav_per_share_all": {
         "full": 27.61,
+        "net": 27.05,
         "crypto": 27.14,
-        "eth": 26.08,
-        "ev": 25.25
+        "eth": 26.08
       },
-      "mnav": 0.952,
+      "mnav": 0.971,
+      "mnav_gross": 0.952,
       "mnav_all": {
         "full": 0.952,
+        "net": 0.971,
         "crypto": 0.968,
         "eth": 1.007,
-        "ev": 1.041
+        "ev_to_nav_ex_cash": 0.971
       },
       "eth_per_share": 0.0095683,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226045699/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2107086256010408071",
-      "notes": "",
+      "notes": "+2,482 net shares from Tsang RSUs vested Sep 30 (3,776 − 1,294 withheld; Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 27.2614,
+        "nav_per_share_before": 26.7045,
         "atm_shares": 287251,
-        "mnav_at_issue": 0.976,
+        "mnav_at_issue": 0.996,
         "usd_per_share": {
-          "issuance": -0.0003,
+          "issuance": 0,
           "buybacks": 0,
           "staking": 0.0111,
           "other": -0.0045,
-          "total": 0.0062,
+          "total": 0.0065,
           "actual_change": 0.28,
-          "market": 0.2738
+          "market": 0.2735
         },
         "eth_per_share": {
-          "capital": 0.000015565,
+          "capital": 0.000015527,
           "staking": 0.000004065,
           "premium": 4.2e-8,
           "reanchor": 0,
-          "total": 0.000019672,
-          "actual_change": 0.000019672
+          "total": 0.000019634,
+          "actual_change": 0.000019634
         }
       }
     },
@@ -6067,10 +6387,10 @@
         30097
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628784359,
+      "shares_outstanding": 628786983,
       "shares_outstanding_range": [
-        623947226,
-        634090988
+        623949850,
+        634093612
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6087,36 +6407,43 @@
         "BMNR": 24.03,
         "BMNR_date": "2026-10-09"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 16232548498,
+        "net": 15882548498,
         "crypto": 15967548498,
         "eth": 15337638624,
-        "ev": 14497688147
+        "ev": 14847751201,
+        "nav_ex_cash": 15620548498
       },
-      "nav_per_share": 25.82,
+      "nav_per_share": 25.26,
+      "nav_per_share_gross": 25.82,
       "nav_per_share_all": {
         "full": 25.82,
+        "net": 25.26,
         "crypto": 25.39,
-        "eth": 24.39,
-        "ev": 23.06
+        "eth": 24.39
       },
-      "mnav": 0.931,
+      "mnav": 0.951,
+      "mnav_gross": 0.931,
       "mnav_all": {
         "full": 0.931,
+        "net": 0.951,
         "crypto": 0.946,
         "eth": 0.985,
-        "ev": 1.042
+        "ev_to_nav_ex_cash": 0.951
       },
-      "eth_per_share": 0.0095883,
+      "eth_per_share": 0.0095882,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226046744/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2109629888378667207",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 26.0988,
+        "nav_per_share_before": 25.5421,
         "atm_shares": 0,
-        "mnav_at_issue": 0.963,
+        "mnav_at_issue": 0.984,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -6131,8 +6458,8 @@
           "staking": 0.000004034,
           "premium": 3.3e-8,
           "reanchor": 0,
-          "total": 0.000019931,
-          "actual_change": 0.000019931
+          "total": 0.00001993,
+          "actual_change": 0.00001993
         }
       }
     },
@@ -6201,10 +6528,10 @@
         20255
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628784359,
+      "shares_outstanding": 628786983,
       "shares_outstanding_range": [
-        623947226,
-        634111243
+        623949850,
+        634113867
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6221,25 +6548,32 @@
         "BMNR": 21.66,
         "BMNR_date": "2026-10-16"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 15141736865,
+        "net": 14791736865,
         "crypto": 14887736865,
         "eth": 14288102565,
-        "ev": 13037469216
+        "ev": 13387526052,
+        "nav_ex_cash": 14559736865
       },
-      "nav_per_share": 24.08,
+      "nav_per_share": 23.52,
+      "nav_per_share_gross": 24.08,
       "nav_per_share_all": {
         "full": 24.08,
+        "net": 23.52,
         "crypto": 23.68,
-        "eth": 22.72,
-        "ev": 20.73
+        "eth": 22.72
       },
-      "mnav": 0.899,
+      "mnav": 0.921,
+      "mnav_gross": 0.899,
       "mnav_all": {
         "full": 0.899,
+        "net": 0.921,
         "crypto": 0.915,
         "eth": 0.953,
-        "ev": 1.045
+        "ev_to_nav_ex_cash": 0.919
       },
       "eth_per_share": 0.0096082,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226047517/ex99-1.htm",
@@ -6248,9 +6582,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.7513,
+        "nav_per_share_before": 24.1945,
         "atm_shares": 0,
-        "mnav_at_issue": 0.926,
+        "mnav_at_issue": 0.947,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -6261,7 +6595,7 @@
           "market": -1.7449
         },
         "eth_per_share": {
-          "capital": 0.000015915,
+          "capital": 0.000015914,
           "staking": 0.000003987,
           "premium": 3.3e-8,
           "reanchor": 0,
@@ -6334,11 +6668,11 @@
         0,
         134572
       ],
-      "other_shares_issued": 22620,
-      "shares_outstanding": 626766979,
+      "other_shares_issued": 22610,
+      "shares_outstanding": 626769593,
       "shares_outstanding_range": [
-        621929846,
-        632228434
+        621932460,
+        632231048
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6355,44 +6689,51 @@
         "BMNR": 22.4,
         "BMNR_date": "2026-10-23"
       },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
       "nav": {
         "full": 15045564683,
+        "net": 14695564683,
         "crypto": 14789564683,
         "eth": 14258354148,
-        "ev": 13525580330
+        "ev": 13875638883,
+        "nav_ex_cash": 14531564683
       },
-      "nav_per_share": 24.01,
+      "nav_per_share": 23.45,
+      "nav_per_share_gross": 24,
       "nav_per_share_all": {
-        "full": 24.01,
+        "full": 24,
+        "net": 23.45,
         "crypto": 23.6,
-        "eth": 22.75,
-        "ev": 21.58
+        "eth": 22.75
       },
-      "mnav": 0.933,
+      "mnav": 0.955,
+      "mnav_gross": 0.933,
       "mnav_all": {
         "full": 0.933,
+        "net": 0.955,
         "crypto": 0.949,
         "eth": 0.985,
-        "ev": 1.038
+        "ev_to_nav_ex_cash": 0.955
       },
       "eth_per_share": 0.0096558,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s).",
+      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s). Tsang Oct 23: 141 vested − 151 withheld = −10 (Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.3894,
+        "nav_per_share_before": 23.8327,
         "atm_shares": 0,
-        "mnav_at_issue": 0.929,
+        "mnav_at_issue": 0.95,
         "usd_per_share": {
-          "issuance": -0.0001,
-          "buybacks": 0.0062,
+          "issuance": 0,
+          "buybacks": 0.0044,
           "staking": 0.0094,
           "other": -0.0046,
-          "total": 0.011,
+          "total": 0.0092,
           "actual_change": -0.07,
-          "market": -0.081
+          "market": -0.0792
         },
         "eth_per_share": {
           "capital": 0.000043575,
