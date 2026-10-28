@@ -1,0 +1,25 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['data/prices.json']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Syntax check
+        run: for f in assets/*.js scripts/*.mjs; do node --check "$f"; done
+      - name: Unit tests (calc.js, model.mjs, build, anchor reconciliations)
+        run: npm test

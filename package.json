@@ -1,0 +1,11 @@
+{
+  "name": "bmnr-nav-tracker",
+  "private": true,
+  "type": "module",
+  "description": "BMNR NAV / mNAV tracker (static site + build scripts)",
+  "scripts": {
+    "build": "node scripts/build-history.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
