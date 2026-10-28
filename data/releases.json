@@ -1,5 +1,5 @@
 {
-  "description": "Official weekly inputs from every Bitmine holdings release (8-K Ex. 99 / @BitMNR) since Nov 30, 2025. Share-count checkpoints live in checkpoints.json. Fields: eth/btc/cash/staked/yield/orbs/beast as reported; investments_usd = disclosed cash spent on non-ETH investments that week; other_shares_issued = disclosed non-ATM issuance (RSUs, acquisition stock); disclosed_proceeds_usd = disclosed non-common financing (e.g. BMNP preferred).",
+  "description": "Official weekly inputs from every Bitmine holdings release (8-K Ex. 99 / @BitMNR) since Nov 30, 2025. Share-count checkpoints live in checkpoints.json. Fields: eth/btc/cash/staked/yield/orbs/beast as reported; investments_usd = disclosed cash spent on non-ETH investments that week; other_shares_issued = disclosed non-ATM issuance (RSU/award shares net of tax withholding per Form 4s, acquisition stock); disclosed_proceeds_usd = disclosed non-common financing (e.g. BMNP preferred).",
   "buyback_aggregate": {
     "shares": 22900000,
     "avg_price": 17.48,
@@ -202,19 +202,20 @@
       "btc": 193,
       "cash_usd": 682000000,
       "orbs_value_usd": 19000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 2009267,
       "staking_yield_7d": 0.0281,
       "buyback_shares": 0,
       "buyback_price": null,
-      "other_shares_issued": 0,
+      "other_shares_issued": 442463,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
-      "investments_usd": 200000000,
+      "investments_usd": 186000000,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2015779597694968189",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Beast Industries investment ($200M per release; closed this week). 10-Q (May 31, 2026) later shows $180.0M cash + $6.0M costs."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release). Beast Industries investment closed Jan 15: release said \"$200 million\", but the 10-Q (May 31, 2026, Note 6) shows $180.0M cash ($160.0M Series C preferred + $20.0M secondary common) + $6.0M capitalized costs = $186.0M; the other $20M is an unexercised side-letter right for Beast to sell more preferred. Carried at $186M until Bitmine's releases switched to $180M (May 31 week). +442,463 shares from Jan 23, 2026 board grants vested on grant (174,163 director shares + Lee 500,000 less 231,700 withheld for tax; Form 4s Jan 27/Feb 17/Feb 25, 10-Q Feb 28, 2026).",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-02-02",
@@ -225,7 +226,7 @@
       "btc": 193,
       "cash_usd": 586000000,
       "orbs_value_usd": 20000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 2873459,
       "staking_yield_7d": 0.0281,
       "buyback_shares": 0,
@@ -237,7 +238,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226004658/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2018316966134439973",
-      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release)."
+      "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-02-09",
@@ -248,7 +250,7 @@
       "btc": 193,
       "cash_usd": 595000000,
       "orbs_value_usd": 19000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 2897459,
       "staking_yield_7d": 0.033234,
       "buyback_shares": 0,
@@ -260,7 +262,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226005707/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2020869755683668045",
-      "notes": "Release states CESR 3.11% and Bitmine 7-day yield 3.3234%."
+      "notes": "Release states CESR 3.11% and Bitmine 7-day yield 3.3234%.",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-02-17",
@@ -271,7 +274,7 @@
       "btc": 193,
       "cash_usd": 670000000,
       "orbs_value_usd": 17000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0289,
       "buyback_shares": 0,
@@ -283,7 +286,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226006953/ex99-2.htm",
       "x_post": "https://x.com/BitMNR/status/2023767872158261289",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-02-23",
@@ -294,7 +298,7 @@
       "btc": 193,
       "cash_usd": 691000000,
       "orbs_value_usd": 17000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0289,
       "buyback_shares": 0,
@@ -306,7 +310,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226007694/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2025933063797014919",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-03-02",
@@ -317,7 +322,7 @@
       "btc": 195,
       "cash_usd": 868000000,
       "orbs_value_usd": 14000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0286,
       "buyback_shares": 0,
@@ -329,7 +334,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226008462/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2028469808816173532",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-03-09",
@@ -340,7 +346,7 @@
       "btc": 195,
       "cash_usd": 1200000000,
       "orbs_value_usd": 14000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0291,
       "buyback_shares": 0,
@@ -352,7 +358,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226009312/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2030994056935887025",
-      "notes": "Cash reported rounded ($1.2 billion) \u2192 \u00b1$50M input uncertainty. X thread is titled 'March 2nd' but is the Mar 9 update."
+      "notes": "Cash reported rounded ($1.2 billion) \u2192 \u00b1$50M input uncertainty. X thread is titled 'March 2nd' but is the Mar 9 update.",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-03-16",
@@ -363,7 +370,7 @@
       "btc": 196,
       "cash_usd": 1200000000,
       "orbs_value_usd": 83000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3040515,
       "staking_yield_7d": 0.0281,
       "buyback_shares": 0,
@@ -375,7 +382,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226010193/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2033522801576173968",
-      "notes": "Cash reported rounded ($1.2 billion) \u2192 \u00b1$50M input uncertainty. Additional ~$80M investment in Eightco (ORBS) disclosed in this release (10-Q: $80.434M, settled Mar 13). Includes 5,000 ETH bought from the Ethereum Foundation."
+      "notes": "Cash reported rounded ($1.2 billion) \u2192 \u00b1$50M input uncertainty. Additional ~$80M investment in Eightco (ORBS) disclosed in this release (10-Q: $80.434M, settled Mar 13). Includes 5,000 ETH bought from the Ethereum Foundation.",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-03-23",
@@ -386,7 +394,7 @@
       "btc": 196,
       "cash_usd": 1100000000,
       "orbs_value_usd": 95000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3142643,
       "staking_yield_7d": 0.0283,
       "buyback_shares": 0,
@@ -398,7 +406,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226012078/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2036077774784315433",
-      "notes": "Cash reported rounded ($1.1 billion) \u2192 \u00b1$50M input uncertainty."
+      "notes": "Cash reported rounded ($1.1 billion) \u2192 \u00b1$50M input uncertainty.",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-03-30",
@@ -409,7 +418,7 @@
       "btc": 197,
       "cash_usd": 961000000,
       "orbs_value_usd": 102000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3142643,
       "staking_yield_7d": 0.028,
       "buyback_shares": 0,
@@ -421,7 +430,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226013487/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2038617414951149827",
-      "notes": "Pier Two acquisition closed Mar 24: 501,545 shares issued as stock consideration (8-K Mar 30, Item 3.02) + ~$6M cash (10-Q)."
+      "notes": "Pier Two acquisition closed Mar 24: 501,545 shares issued as stock consideration (8-K Mar 30, Item 3.02) + ~$6M cash (10-Q).",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-04-06",
@@ -432,7 +442,7 @@
       "btc": 198,
       "cash_usd": 864000000,
       "orbs_value_usd": 92000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3334637,
       "staking_yield_7d": 0.0278,
       "buyback_shares": 0,
@@ -444,7 +454,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226015247/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2041131990649331839",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-04-13",
@@ -455,19 +466,20 @@
       "btc": 198,
       "cash_usd": 719000000,
       "orbs_value_usd": 85000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3334637,
       "staking_yield_7d": 0.0289,
       "buyback_shares": 0,
       "buyback_price": null,
-      "other_shares_issued": 0,
+      "other_shares_issued": 9577,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
       "investments_usd": 0,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016296/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2043682564460712352",
-      "notes": "Release does not state weekly ETH acquired."
+      "notes": "Release does not state weekly ETH acquired. +9,577 net shares from officer RSUs vested Apr 7 (Tsang 4,186 \u2212 1,496 withheld, Kim 10,032 \u2212 3,145 withheld; Form 4s filed Oct 23/26, 2026).",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-04-20",
@@ -478,7 +490,7 @@
       "btc": 199,
       "cash_usd": 1120000000,
       "orbs_value_usd": 107000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3334637,
       "staking_yield_7d": 0.0288,
       "buyback_shares": 0,
@@ -490,7 +502,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226018015/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2046228709061927060",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-04-27",
@@ -501,19 +514,20 @@
       "btc": 200,
       "cash_usd": 940000000,
       "orbs_value_usd": 91000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 3701589,
       "staking_yield_7d": 0.03033,
       "buyback_shares": 0,
       "buyback_price": null,
-      "other_shares_issued": 0,
+      "other_shares_issued": 22762,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
       "investments_usd": 0,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226019080/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2048781360928641404",
-      "notes": ""
+      "notes": "+22,762 shares from RSU vesting Apr 23: directors 22,620 (five Form 4s Apr 23, 2026) + Tsang 142.",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-05-04",
@@ -524,7 +538,7 @@
       "btc": 200,
       "cash_usd": 700000000,
       "orbs_value_usd": 83000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 4362757,
       "staking_yield_7d": 0.0291,
       "buyback_shares": 0,
@@ -536,7 +550,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226021027/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2051327373983846710",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-05-11",
@@ -547,7 +562,7 @@
       "btc": 201,
       "cash_usd": 775000000,
       "orbs_value_usd": 88000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 4712917,
       "staking_yield_7d": 0.0286,
       "buyback_shares": 0,
@@ -559,7 +574,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226022150/ex99-3.htm",
       "x_post": "https://x.com/BitMNR/status/2053835778485006606",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-05-18",
@@ -570,7 +586,7 @@
       "btc": 202,
       "cash_usd": 685000000,
       "orbs_value_usd": 83000000,
-      "beast_usd": 200000000,
+      "beast_usd": 186000000,
       "eth_staked": 4712917,
       "staking_yield_7d": 0.028,
       "buyback_shares": 0,
@@ -582,7 +598,8 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226024088/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2056454152197124490",
-      "notes": ""
+      "notes": "",
+      "beast_reported_usd": 200000000
     },
     {
       "date": "2026-05-26",
@@ -736,13 +753,13 @@
       "staking_yield_7d": 0.0268,
       "buyback_shares": 0,
       "buyback_price": null,
-      "other_shares_issued": 0,
+      "other_shares_issued": 2504,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032090/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2074117201385111723",
-      "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings \u2212 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5.",
+      "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings \u2212 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5. +2,504 net shares from Tsang RSUs vested Jun 30 (3,776 \u2212 1,272 withheld; Form 4 filed Oct 26, 2026).",
       "investments_usd": 0
     },
     {
@@ -805,13 +822,13 @@
       "staking_yield_7d": 0.0265,
       "buyback_shares": 6100000,
       "buyback_price": null,
-      "other_shares_issued": 22620,
+      "other_shares_issued": 22762,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2081719755296133365",
-      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s).",
+      "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s). +142 Tsang RSU vest Jul 23 (Form 4 filed Oct 26, 2026).",
       "investments_usd": 0
     },
     {
@@ -903,8 +920,9 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226039789/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2091866729651552553",
-      "notes": "Cash rose $230M while buying ETH and no buyback \u2192 implied equity issuance (no raise disclosed).",
-      "investments_usd": 0
+      "notes": "Cash rose $230M while buying ETH and no buyback \u2192 implied equity issuance (no raise disclosed). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt \u2014 no evidence of debt). Resolve from the FY2026 10-K.",
+      "investments_usd": 0,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity"
     },
     {
       "date": "2026-08-31",
@@ -926,8 +944,9 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226040741/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2094412891323593143",
-      "notes": "Cash rose $233M while buying 53.5k ETH \u2192 implied equity issuance (no raise disclosed).",
-      "investments_usd": 0
+      "notes": "Cash rose $233M while buying 53.5k ETH \u2192 implied equity issuance (no raise disclosed). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt \u2014 no evidence of debt). Resolve from the FY2026 10-K.",
+      "investments_usd": 0,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity"
     },
     {
       "date": "2026-09-08",
@@ -949,8 +968,9 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2097322402325663994",
-      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02).",
-      "investments_usd": 0
+      "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt \u2014 no evidence of debt). Resolve from the FY2026 10-K.",
+      "investments_usd": 0,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity"
     },
     {
       "date": "2026-09-14",
@@ -972,8 +992,9 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226042492/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2099482412862640134",
-      "notes": "",
-      "investments_usd": 0
+      "notes": "Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt \u2014 no evidence of debt). Resolve from the FY2026 10-K.",
+      "investments_usd": 0,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity"
     },
     {
       "date": "2026-09-21",
@@ -995,8 +1016,9 @@
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226043486/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2102015712634032381",
-      "notes": "Cash rose $165M \u2192 implied equity issuance (no raise disclosed).",
-      "investments_usd": 0
+      "notes": "Cash rose $165M \u2192 implied equity issuance (no raise disclosed). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt \u2014 no evidence of debt). Resolve from the FY2026 10-K.",
+      "investments_usd": 0,
+      "funding_flag": "funding source undisclosed; modeled as ATM equity"
     },
     {
       "date": "2026-09-28",
@@ -1035,13 +1057,13 @@
       "staking_yield_7d": 0.0263,
       "buyback_shares": 0,
       "buyback_price": null,
-      "other_shares_issued": 0,
+      "other_shares_issued": 2482,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226045699/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2107086256010408071",
-      "notes": "",
+      "notes": "+2,482 net shares from Tsang RSUs vested Sep 30 (3,776 \u2212 1,294 withheld; Form 4 filed Oct 26, 2026).",
       "investments_usd": 0
     },
     {
@@ -1104,13 +1126,13 @@
       "staking_yield_7d": 0.0258,
       "buyback_shares": 2040000,
       "buyback_price": 22.48,
-      "other_shares_issued": 22620,
+      "other_shares_issued": 22610,
       "disclosed_shares_issued": null,
       "disclosed_proceeds_usd": null,
       "shares_outstanding_official": null,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s).",
+      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s). Tsang Oct 23: 141 vested \u2212 151 withheld = \u221210 (Form 4 filed Oct 26, 2026).",
       "investments_usd": 0
     }
   ]
