@@ -1,4 +1,4 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610280100';
+import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610280215';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
@@ -135,6 +135,13 @@ function px() {
   return out;
 }
 
+// One-line note when weeks since the last official count rest on an undisclosed funding source (‡ in the history table)
+function fundFlag() {
+  const s = S.history.snapshots, a = s.findLastIndex((r) => r.shares_basis === 'official');
+  const f = s.slice(a + 1).filter((r) => r.funding_flag), md = (d) => fmtDate(d).replace(/, \d{4}$/, '');
+  return f.length ? `<br><span class="fine">‡ Share estimate assumes ATM equity funded the ${md(f[0].as_of)}–${md(f.at(-1).as_of)} cash build; source undisclosed until the 10-K.</span>` : '';
+}
+
 // ETH purchase price basis, in plain words
 function ethBasisTxt(r) {
   if (r.eth_price_basis === 'disclosed') return r.eth_price_factor ? `week avg ${usd(r.eth_week_avg, 0)} × ${r.eth_price_factor} (that quarter's 10-Q paid ÷ market)` : 'stated in the release';
@@ -180,7 +187,7 @@ function render() {
     nav.rows.map((r) => `<tr class="${r.key === 'net' ? 'hl' : ''}${r.sensitivity ? ' sens' : ''}" title="${r.note}"><td>${r.label}</td><td>${big(r.value)}</td><td>${r.perShare == null ? '—' : usd(r.perShare)}</td><td>${r.mnav.toFixed(3)}${r.key === 'ev' ? '×' : ''}</td></tr>`).join('');
   const sr = h.shares_outstanding_range;
   $('navRange').innerHTML = sr ? (() => { const hiPs = full.value / sr[0], loPs = full.value / sr[1];
-    return `NAV / share (net of preferred) low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices`; })() : '';
+    return `NAV / share (net of preferred) low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices${fundFlag()}`; })() : '';
 
   const rows = [
     ['ETH', n(h.eth), usd(p.ETH), nav.ethVal, P.ETH],

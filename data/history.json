@@ -6719,7 +6719,7 @@
       "eth_per_share": 0.0096558,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2114706044198785282",
-      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s). Tsang Oct 23: 141 vested − 151 withheld = −10 (Form 4 filed Oct 26, 2026).",
+      "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s). Tsang Oct 23: 141 vested − 151 withheld = −10 (Form 4 filed Oct 26, 2026). other_shares_issued 22,610 = 22,620 (directors) − 10 (Tsang net).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
