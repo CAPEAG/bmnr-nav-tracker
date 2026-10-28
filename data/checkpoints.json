@@ -8,7 +8,9 @@
       "source": "10-Q quarter ended Nov 30, 2025 (filed 2026-01-13)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
       "note": "Later revised to 405,398,823 on a settlement-date basis (10-Q filed 2026-04-14, Note 2). The trade-date figure is used because the Jan 12 cover count (454,862,451) is on the same basis (408,578,823 + 46,169,850 ATM = 454,748,673).",
-      "use_as_anchor": true
+      "use_as_anchor": true,
+      "shares_settlement_basis": 405398823,
+      "basis_note": "Kept on the trade-date basis (408,578,823, as filed in the Nov 30, 2025 10-Q) because the weekly model counts ATM shares when sold, the same way the cover-page counts and Bitmine's weekly releases do. The Feb 28, 2026 10-Q (Note 2) revised it to 405,398,823 on a settlement-date basis; the 3,180,000 difference is shares sold but not yet settled at Nov 30, 2025. The Feb 28 and May 31, 2026 balance-sheet counts are settlement-date, so a trade-date roll-forward ends above them by the shares sold but unsettled at those dates (200,000 at Feb 28; 2,100,000 at May 31). See reconciliation_check on those checkpoints for both bases."
     },
     {
       "date": "2026-01-12",
@@ -25,7 +27,48 @@
       "source": "10-Q quarter ended Feb 28, 2026 (filed 2026-04-14)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
       "use_as_anchor": true,
-      "reconciliation": "Reconciliation (10-Q May 31, 2026 equity statement, settlement-date basis): Nov 30, 2025 405,398,823 + 87,940,590 ATM + 469,546 stock comp + 94,518 warrant exercises + 1,750 to settle liabilities = 493,905,227. Repo roll-forward (trade-date Nov 30 anchor 408,578,823 + 84,960,590 ATM sold + 442,463 Jan 23 award vest) = 493,981,876, residual +76,649 (+0.016%) = 200,000 shares sold but unsettled at Feb 28 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 27,083 other stock comp, 94,518 warrant exercises and 1,750 issued to settle liabilities."
+      "reconciliation": "Reconciliation (10-Q May 31, 2026 equity statement, settlement-date basis): Nov 30, 2025 405,398,823 + 87,940,590 ATM + 469,546 stock comp + 94,518 warrant exercises + 1,750 to settle liabilities = 493,905,227. Repo roll-forward (trade-date Nov 30 anchor 408,578,823 + 84,960,590 ATM sold + 442,463 Jan 23 award vest) = 493,981,876, residual +76,649 (+0.016%) = 200,000 shares sold but unsettled at Feb 28 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 27,083 other stock comp, 94,518 warrant exercises and 1,750 issued to settle liabilities.",
+      "reconciliation_check": {
+        "trade_date_basis": {
+          "from": "2025-11-30",
+          "start_shares": 408578823,
+          "atm_shares_sold": 84960590,
+          "award_vests_and_other_recorded": 442463,
+          "total": 493981876
+        },
+        "official": 493905227,
+        "residual": 76649,
+        "residual_pct": 0.016,
+        "explained_by": [
+          {
+            "what": "ATM shares sold but unsettled at Feb 28, 2026 (in the repo, not yet in the 10-Q count)",
+            "shares": 200000
+          },
+          {
+            "what": "other stock-comp shares in the 10-Q that the repo omits (469,546 − 442,463)",
+            "shares": -27083
+          },
+          {
+            "what": "warrant exercises in the 10-Q that the repo omits",
+            "shares": -94518
+          },
+          {
+            "what": "shares issued to settle liabilities that the repo omits",
+            "shares": -1750
+          }
+        ],
+        "settlement_date_basis": {
+          "from": "2025-11-30",
+          "start_shares": 405398823,
+          "atm_shares_settled": 87940590,
+          "stock_comp": 469546,
+          "warrant_exercises": 94518,
+          "settle_liabilities": 1750,
+          "total": 493905227,
+          "note": "87,940,590 settled = 84,960,590 sold (trade date) + 3,180,000 unsettled at Nov 30 − 200,000 unsettled at Feb 28. No plug on this basis."
+        },
+        "source": "10-Q May 31, 2026, condensed consolidated statement of stockholders’ equity"
+      }
     },
     {
       "date": "2026-04-13",
@@ -43,7 +86,45 @@
       "source": "10-Q quarter ended May 31, 2026 (filed 2026-07-14)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
       "use_as_anchor": true,
-      "reconciliation": "Reconciliation (same equity statement): Feb 28 493,905,227 + 85,155,648 ATM settled + 35,551 stock comp + 54,461 warrant exercises + 501,545 Pier Two = 579,652,432. Repo roll-forward (Feb 28 + 87,255,648 ATM sold per Note 8 + 501,545 Pier Two + 9,577 Apr 7 + 22,762 Apr 23 award vests) = 581,694,759, residual +2,042,327 (+0.35%) = 2,100,000 shares sold but unsettled at May 31 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 3,212 other stock comp and 54,461 warrant exercises."
+      "reconciliation": "Reconciliation (same equity statement): Feb 28 493,905,227 + 85,155,648 ATM settled + 35,551 stock comp + 54,461 warrant exercises + 501,545 Pier Two = 579,652,432. Repo roll-forward (Feb 28 + 87,255,648 ATM sold per Note 8 + 501,545 Pier Two + 9,577 Apr 7 + 22,762 Apr 23 award vests) = 581,694,759, residual +2,042,327 (+0.35%) = 2,100,000 shares sold but unsettled at May 31 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 3,212 other stock comp and 54,461 warrant exercises.",
+      "reconciliation_check": {
+        "trade_date_basis": {
+          "from": "2026-02-28",
+          "start_shares": 493905227,
+          "atm_shares_sold": 87255648,
+          "award_vests_and_other_recorded": 533884,
+          "total": 581694759,
+          "note": "award_vests_and_other_recorded = Pier Two 501,545 + Apr 7 vests 9,577 + Apr 23 vests 22,762 (releases.json other_shares_issued)"
+        },
+        "official": 579652432,
+        "residual": 2042327,
+        "residual_pct": 0.352,
+        "explained_by": [
+          {
+            "what": "ATM shares sold but unsettled at May 31, 2026 (87,255,648 sold − 85,155,648 settled)",
+            "shares": 2100000
+          },
+          {
+            "what": "other stock-comp shares in the 10-Q that the repo omits (35,551 − 32,339)",
+            "shares": -3212
+          },
+          {
+            "what": "warrant exercises in the 10-Q that the repo omits",
+            "shares": -54461
+          }
+        ],
+        "settlement_date_basis": {
+          "from": "2026-02-28",
+          "start_shares": 493905227,
+          "atm_shares_settled": 85155648,
+          "stock_comp": 35551,
+          "warrant_exercises": 54461,
+          "pier_two": 501545,
+          "total": 579652432,
+          "note": "The Feb 28 start is already settlement-date, so the only basis difference is the 2,100,000 unsettled at May 31."
+        },
+        "source": "10-Q May 31, 2026, condensed consolidated statement of stockholders’ equity"
+      }
     },
     {
       "date": "2026-07-09",
@@ -246,6 +327,57 @@
         }
       ],
       "after_last_filing": "None assumed: over the three filed quarters together cash paid exceeded additions by only 1.0% ($11,687,493K vs $11,574,973K), and the 10-K for FY ended Aug 31, 2026 will show whether any Jun–Aug timing gap exists."
+    }
+  },
+  "warrant_exercises": {
+    "description": "Common shares issued on warrant exercises per quarter, from the 10-Q statements of stockholders’ equity. Documented reconciling items only: not added to the weekly roll-forward (no weekly or dated disclosure) and no rate is assumed for later quarters.",
+    "quarters": [
+      {
+        "period": "Sep 1 – Nov 30, 2025",
+        "from": "2025-08-31",
+        "to": "2025-11-30",
+        "shares": 63460,
+        "usd_thousands": 343,
+        "source": "10-Q quarter ended Nov 30, 2025 (also in the Feb 28 and May 31, 2026 10-Qs)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+      },
+      {
+        "period": "Dec 1, 2025 – Feb 28, 2026",
+        "from": "2025-11-30",
+        "to": "2026-02-28",
+        "shares": 94518,
+        "usd_thousands": 212,
+        "source": "10-Q quarter ended Feb 28, 2026 (also in the May 31, 2026 10-Q)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+      },
+      {
+        "period": "Mar 1 – May 31, 2026",
+        "from": "2026-02-28",
+        "to": "2026-05-31",
+        "shares": 54461,
+        "usd_thousands": 293,
+        "source": "10-Q quarter ended May 31, 2026",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      }
+    ]
+  },
+  "out_of_sample": {
+    "label": "Jul 9 → Aug 31, 2026 (FY2026 10-K)",
+    "from": "2026-07-09",
+    "to": "2026-08-31",
+    "frozen_on": "2026-10-28",
+    "rule": "Held-out test of the share model: record the error when the FY2026 10-K adds the Aug 31, 2026 checkpoint, before any change to the v3 parameters below. Reported separately from the in-sample rows and excluded from the summary.",
+    "frozen_v3_params": {
+      "opex_weekly": 2278000,
+      "bmnp_weekly": 646450,
+      "bmnp_start": "2026-06-10",
+      "include_investments": true,
+      "staking_lag_reports": 4,
+      "staking_realization": 1,
+      "opex_high_multiplier": 2,
+      "carry_forward": true,
+      "carry_weeks": 3,
+      "carry_max_usd": 5000000
     }
   }
 }

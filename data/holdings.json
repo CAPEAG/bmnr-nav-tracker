@@ -37,7 +37,7 @@
       "staking_lag_reports": 4,
       "staking_realization": 1,
       "carry_forward": true,
-      "investments_source": "Disclosed cash spent on non-ETH investments in the weekly releases (Beast Industries $200M wk of Jan 25, Eightco/ORBS ~$80M wk of Mar 15, Pier Two ~$6M cash wk of Mar 29) — releases.json investments_usd.",
+      "investments_source": "Disclosed cash spent on non-ETH investments in the weekly releases (Beast Industries $186M wk of Jan 25 = $180M cash + $6M costs per the 10-Q, Eightco/ORBS ~$80M wk of Mar 15, Pier Two ~$6M cash wk of Mar 29) — releases.json investments_usd.",
       "staking_source": "Rewards accrue only on ETH that was already staked 4 weekly reports earlier (validator entry-queue lag). Fitted to the 10-Q staking revenue: model $55.6M vs reported non-cash staking revenue $52.5M for Dec 2025–May 2026 (lag 0 gave $80.0M).",
       "carry_forward_source": "A week whose cash fell by less than its spending (or rose) leaves a surplus that offsets the next weeks' shortfalls, for at most 3 weeks and $5M in total (oldest used first; anything older or above the cap is dropped). Noise-sized: releases round cash to the nearest $1M and the ETH price assumption alone is ±1%.",
       "eth_price_uncertainty": 0.01,
@@ -197,7 +197,7 @@
       }
     }
   },
-  "last_updated": "2026-10-28T04:42:56.350Z",
+  "last_updated": "2026-10-28T05:04:07.123Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -211,7 +211,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-10-28T04:42:56.351Z"
+    "built": "2026-10-28T05:04:07.123Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
