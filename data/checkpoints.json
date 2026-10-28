@@ -27,6 +27,7 @@
       "source": "10-Q quarter ended Feb 28, 2026 (filed 2026-04-14)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
       "use_as_anchor": true,
+      "note": "Known inconsistency in the filing: the Feb 28, 2026 10-Q's own statement of stockholders' equity totals 494,105,227 shares at Feb 28, while its balance sheet and Note 8 say 493,905,227 (200,000 fewer). 494,105,227 equals the trade-date roll-forward plus the items the repo omits, so the 200,000 matches the shares sold but unsettled at Feb 28. The May 31, 2026 10-Q uses 493,905,227, which is what this anchor uses. Already investigated; no action needed.",
       "reconciliation": "Reconciliation (10-Q May 31, 2026 equity statement, settlement-date basis): Nov 30, 2025 405,398,823 + 87,940,590 ATM + 469,546 stock comp + 94,518 warrant exercises + 1,750 to settle liabilities = 493,905,227. Repo roll-forward (trade-date Nov 30 anchor 408,578,823 + 84,960,590 ATM sold + 442,463 Jan 23 award vest) = 493,981,876, residual +76,649 (+0.016%) = 200,000 shares sold but unsettled at Feb 28 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 27,083 other stock comp, 94,518 warrant exercises and 1,750 issued to settle liabilities.",
       "reconciliation_check": {
         "trade_date_basis": {
