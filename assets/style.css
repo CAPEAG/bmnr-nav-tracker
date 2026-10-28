@@ -140,3 +140,7 @@ table.val-t{table-layout:fixed;width:100%}
 /* sensitivity row in the NAV table */
 .t tr.sens td{color:var(--mut);font-style:italic}
 #navTable td:first-child{white-space:normal}
+.shareline{margin:-4px 0 14px;padding:9px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:13px;color:var(--mut);line-height:1.5}
+.shareline b{color:var(--txt,#e6ecf7);font-weight:600}
+.sens-t{max-width:640px}
+.sens-t td,.sens-t th{white-space:normal}

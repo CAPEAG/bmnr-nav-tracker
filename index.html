@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BMNR NAV / mNAV Tracker — Bitmine Immersion Technologies</title>
 <meta name="description" content="Live NAV, NAV per share and mNAV tracker for Bitmine Immersion Technologies (BMNR), updated weekly from Bitmine's holdings announcements.">
-<link rel="stylesheet" href="assets/style.css?v=202610280230">
+<link rel="stylesheet" href="assets/style.css?v=202610280300">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⟠</text></svg>">
 </head>
 <body>
@@ -18,6 +18,7 @@
 
 <main class="wrap">
   <section class="hero" id="hero"></section>
+  <p class="shareline" id="shareLine"></p>
 
   <section class="cards">
     <div class="card">
@@ -30,6 +31,11 @@
       <div class="table-wrap"><table class="t" id="holdTable"></table></div>
     </div>
     <div class="card" id="weekCard"></div>
+  </section>
+
+  <section class="card" id="ethSens">
+    <div class="card-h"><h2>ETH sensitivity</h2><button type="button" class="toggle" aria-expanded="false" aria-controls="sensBody" data-label="grid"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show grid</span></button></div>
+    <div id="sensBody" class="collapse" hidden><div class="table-wrap"><table class="t small sens-t" id="sensTable"></table></div><p class="fine" id="sensNote"></p></div>
   </section>
 
   <section class="card" id="history">
@@ -111,6 +117,7 @@
           <li><b>Other digital-asset cash (10-Q)</b>: cash paid for digital assets beyond the cost of ETH added — $125M in Dec–Feb (Sep–Nov purchases paid later) and $112M in Mar–May — spread over that quarter's weeks by ETH bought. None assumed after May 31, 2026.</li>
           <li><b>Buyback price</b>: disclosed if given; otherwise the week's average BMNR close × a factor (≈1.005) calibrated so all buybacks sum to the disclosed $399.6M for 22.9M shares.</li>
           <li><b>Cash shortfall</b> = spending (ETH + other digital-asset cash + buybacks + disclosed investments + operating cash burn $2.28M/wk + BMNP dividends $0.65M/wk from Jun 10) − cash drop − disclosed non-common proceeds. The option book is not modeled (no weekly data; see Option book).</li>
+          <li><b>Anchor basis</b>: the Nov 30, 2025 anchor is the trade-date count (408,578,823; settlement-date 405,398,823), matching how the model and Bitmine's releases count ATM shares when sold. Balance-sheet counts are settlement-date, so the roll-forward ends above them by shares sold but unsettled (200,000 at Feb 28, 2,100,000 at May 31, 2026); warrant exercises (54,000–95,000 a quarter) are not modeled.</li>
           <li><b>Award shares</b>: RSU and award shares from Form 4s are added in their week, net of shares withheld for tax (e.g. 22,620 per quarterly director vest; Tsang +2,614 net since Jul 9). Unvested awards are excluded.</li>
           <li><b>Funded by share sales (est.)</b> = shortfall − surplus carried from prior weeks. A negative shortfall (surplus) is carried for at most 3 weeks and $5M in total (cash in releases is rounded to $1M); anything older or larger is dropped. <b>Shares issued (est.)</b> = funded amount ÷ the week's average BMNR close; plus disclosed RSU/acquisition shares, minus disclosed buybacks.</li>
           <li><b>Low–high est.</b> (shares issued, shares outstanding, funded amount): low = no operating cash costs, ETH price 1% below the assumption and issuance at the week's highest close; high = 2× operating costs, ETH price 1% above and the week's lowest close. Weeks with a disclosed (10-Q) ETH price use no ETH-price spread. Ranges accumulate from the last official count.</li>
@@ -151,6 +158,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script type="module" src="assets/app.js?v=202610280230"></script>
+<script type="module" src="assets/app.js?v=202610280300"></script>
 </body>
 </html>

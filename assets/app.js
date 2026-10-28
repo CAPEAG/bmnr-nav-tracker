@@ -1,4 +1,4 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610280230';
+import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202610280300';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
@@ -142,6 +142,30 @@ function fundFlag() {
   return f.length ? `<br><span class="fine">‡ Share estimate assumes ATM equity funded the ${md(f[0].as_of)}–${md(f.at(-1).as_of)} cash build; source undisclosed until the 10-K.</span>` : '';
 }
 
+// Share count line under the KPIs: the point estimate, its range and how long since the last official count
+function renderShareLine(h) {
+  const cps = S.history?.method?.checkpoints?.filter((c) => c.use_as_anchor !== false) || [];
+  const a = cps.at(-1), sr = h.shares_outstanding_range;
+  if (!a || !sr) { $('shareLine').hidden = true; return; }
+  const wks = Math.floor((Date.parse(h.as_of) - Date.parse(a.date)) / (7 * 864e5));
+  $('shareLine').innerHTML = `Shares <b>${(h.shares_outstanding / 1e6).toFixed(1)}M</b> <span class="tag a">est.</span> (${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M) · <b>${wks} week${wks === 1 ? '' : 's'}</b> since the last official count (<a href="${a.url}" target="_blank" rel="noopener" title="${a.basis}, ${n(a.shares)} shares">${fmtDate(a.date).replace(/, \d{4}$/, '')}</a>)`;
+}
+
+// ETH sensitivity grid: net NAV/share and mNAV at ETH ±10/20/30% (BMNR price held constant)
+function renderEthSens(h, p, sr) {
+  const moves = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3];
+  const rng = (a, b, f) => `<br><span class="fine">${f(a)}–${f(b)}</span>`;
+  const x3 = (v) => v.toFixed(3) + '×';
+  $('sensTable').innerHTML = '<tr><th>ETH move</th><th>ETH price</th><th>NAV / share (net)</th><th>mNAV</th></tr>' + moves.map((m) => {
+    const q = { ...p, ETH: p.ETH * (1 + m) };
+    const net = computeNav(h, q).rows.find((r) => r.key === 'net');
+    const ps = net.perShare, lo = sr ? net.value / sr[1] : null, hi = sr ? net.value / sr[0] : null;
+    return `<tr class="${m === 0 ? 'hl' : ''}"><td>${m === 0 ? 'live' : `${m > 0 ? '+' : '−'}${Math.abs(m * 100)}%`}</td><td>${usd(q.ETH, 0)}</td>
+      <td>${usd(ps)}${sr ? rng(lo, hi, usd) : ''}</td><td>${x3(p.BMNR / ps)}${sr ? rng(p.BMNR / hi, p.BMNR / lo, x3) : ''}</td></tr>`;
+  }).join('');
+  $('sensNote').textContent = `ETH moved from the live ${usd(p.ETH, 0)}; BMNR held at ${usd(p.BMNR)} for mNAV; BTC, ORBS, cash and shares unchanged. Small figures = low–high share estimate.`;
+}
+
 // ETH purchase price basis, in plain words
 function ethBasisTxt(r) {
   if (r.eth_price_basis === 'disclosed') return r.eth_price_factor ? `week avg ${usd(r.eth_week_avg, 0)} × ${r.eth_price_factor} (that quarter's 10-Q paid ÷ market)` : 'stated in the release';
@@ -186,6 +210,8 @@ function render() {
   $('navTable').innerHTML = `<tr><th></th><th>NAV</th><th>NAV / share</th><th>mNAV</th></tr>` +
     nav.rows.map((r) => `<tr class="${r.key === 'net' ? 'hl' : ''}${r.sensitivity ? ' sens' : ''}" title="${r.note}"><td>${r.label}</td><td>${big(r.value)}</td><td>${r.perShare == null ? '—' : usd(r.perShare)}</td><td>${r.mnav.toFixed(3)}${r.key === 'ev' ? '×' : ''}</td></tr>`).join('');
   const sr = h.shares_outstanding_range;
+  renderShareLine(h);
+  renderEthSens(h, p, sr);
   $('navRange').innerHTML = sr ? (() => { const hiPs = full.value / sr[0], loPs = full.value / sr[1];
     return `NAV / share (net of preferred) low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices${fundFlag()}`; })() : '';
 
@@ -395,9 +421,10 @@ function renderHistory() {
     type: 'line',
     data: { labels, datasets: [
       { label: 'mNAV (net of preferred, at report)', data: s.map((r) => r.mnav), borderColor: '#7aa2ff', backgroundColor: 'rgba(122,162,255,.12)', tension: .25, pointRadius: ptR, fill: false },
+      { label: 'mNAV (gross, before preferred)', data: s.map((r) => r.mnav_gross ?? r.mnav), borderColor: '#c9a5ff', borderDash: [4, 3], borderWidth: 1.5, tension: .25, pointRadius: 0, fill: false },
       { label: '1.0× (price = NAV)', data: s.map(() => 1), borderColor: '#8b97b0', borderDash: [5, 4], borderWidth: 1, pointRadius: 0, pointHoverRadius: 0 },
     ] },
-    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend, tooltip: { filter: (i) => i.datasetIndex === 0, callbacks: { label: (c) => `mNAV: ${c.raw.toFixed(3)}×` } } },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend, tooltip: { filter: (i) => i.datasetIndex < 2, callbacks: { label: (c) => `${c.datasetIndex ? 'gross' : 'net'}: ${c.raw.toFixed(3)}×` } } },
       scales: { x: { ticks: tick, grid }, y: { ticks: { color: '#7aa2ff', callback: (v) => v.toFixed(2) + '×' }, grid } } },
   });
   S.chart = new Chart($('histChart'), {
@@ -473,10 +500,12 @@ function renderBacktest() {
   const sg = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(x).toFixed(2)}%`;
   const sm = B.summary;
   $('btSummary').innerHTML = ['v1', 'v2', 'v3', 'v3_walkforward'].filter((k) => sm[k]).map((k) => `<div class="kpi"><div class="l">${B.models[k].label}</div><div class="v">${sm[k].mean_abs_error_pct.toFixed(2)}%</div><div class="s">mean |error| · bias ${sg(sm[k].mean_error_pct)} · ${sm[k].within_range}/${sm[k].intervals} inside low–high est.${B.current_estimate?.[k] ? `<br>now ${(B.current_estimate[k].shares / 1e6).toFixed(1)}M sh` : ''}</div></div>`).join('');
+  const O = B.out_of_sample;
+  if (O) $('btSummary').innerHTML += `<div class="kpi"><div class="l">Held-out test, v3 frozen: ${O.label}</div><div class="v">${O.status === 'recorded' ? sg(O.error_pct) : 'pending 10-K'}</div><div class="s">${O.status === 'recorded' ? `est. ${n(O.est_shares)} vs official ${n(O.official_end_shares)} · ${O.within_range ? 'inside' : 'outside'} low–high est.` : 'out-of-sample error recorded when the FY2026 10-K adds the Aug 31 count'}${O.params_match_freeze ? '' : '<br>⚠ v3 parameters changed since the freeze'}; not in the averages</div></div>`;
   const cell = (v) => `${n(v.est_shares)}<br><span class="${Math.abs(v.error_pct) < 0.5 ? 'up' : 'down'}">${m(v.error_shares)}${p(v.error_pct)}</span>`;
   $('btTable').innerHTML = `<tr><th>Interval (official → official)</th><th>Official Δ shares</th><th>Official ATM shares</th><th>v1 est. end · error</th><th>v2 est. end · error</th><th>v3 est. end · error</th><th>v3 walk-forward · error</th><th>v3 est. ATM shares</th><th>v3 est. proceeds vs official</th></tr>` +
     B.intervals.map((b) => { const v3 = b.models.v3;
-      return `<tr class="${b.flagged ? 'flag' : ''}"><td>${shortDate(b.from)} → ${shortDate(b.to)}${b.kind !== 'consecutive' ? `<br><span class="fine">${b.kind}</span>` : ''}${b.flagged ? '<br><span class="fine">⚠ uses the Apr 13 cover count</span>' : ''}<br><span class="fine"><a href="${b.sources[0]}" target="_blank" rel="noopener">start</a> · <a href="${b.sources[1]}" target="_blank" rel="noopener">end</a></span></td>
+      return `<tr class="${b.flagged ? 'flag' : ''}"><td>${shortDate(b.from)} → ${shortDate(b.to)}${b.kind !== 'consecutive' ? `<br><span class="fine">${b.kind}</span>` : ''}${b.flagged ? '<br><span class="fine">⚠ uses the Apr 13 cover count</span>' : ''}${b.out_of_sample ? '<br><span class="fine">held-out (not in the averages)</span>' : ''}<br><span class="fine"><a href="${b.sources[0]}" target="_blank" rel="noopener">start</a> · <a href="${b.sources[1]}" target="_blank" rel="noopener">end</a></span></td>
       <td>${n(b.official_change)}</td><td>${b.official_atm_shares == null ? 'n/d' : n(b.official_atm_shares)}</td>
       <td>${cell(b.models.v1)}</td><td>${cell(b.models.v2)}</td><td>${cell(v3)}</td><td>${cell(b.models.v3_walkforward)}</td>
       <td>${n(v3.est_issued)}${v3.issued_error == null ? '' : `<br><span class="fine">${m(v3.issued_error)} (${v3.issued_error_pct > 0 ? '+' : ''}${v3.issued_error_pct}%)</span>`}</td>

@@ -41,6 +41,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `scripts/model.mjs` | The share-count estimator (weekly cash shortfall → share-funded amount → issuance, capped surplus carry-forward, roll-forward from an official count). |
 | `data/onchain-wallets.json` / `data/onchain-check.json` | Bitmine-attributed wallets (with evidence) and the weekly wallet-based ETH-price cross-check written by `scripts/onchain-check.mjs`. |
 | `data/onchain-purchases.json` | Bitmine-linked on-chain ETH receipts posted by trackers (Lookonchain etc.) — cross-check only, see below. |
+| `test/`, `package.json` | `npm test`: unit tests for `calc.js` / `model.mjs`, build and reconciliation checks (see Tests). |
 | `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
 | `scripts/fetch-prices.mjs` | Price fetcher used by the Action (backup feed). |
@@ -290,6 +291,39 @@ when ETH purchases settled) and rounded cash figures in some releases ("$1.0 bil
 Current estimate (Oct 25, 2026): **v3 626,769,593** (low–high est. since the Jul 9 official count 621.9–632.2M);
 v2 was 627,963,701 (623.1–633.4M).
 
+**Held-out test (Jul 9 → Aug 31, 2026).** When the FY2026 10-K adds the Aug 31, 2026 count, that interval is scored
+as a pure out-of-sample error (`backtest.json → out_of_sample`, "Held-out test" tile on the site): v3 with only the
+information known at Jul 9 and the parameters frozen in `checkpoints.json → out_of_sample.frozen_v3_params`. It is
+reported apart from the in-sample rows and excluded from the averages; until then it shows "pending 10-K".
+**Do not re-tune v3 (opex, staking lag, carry-forward, ETH-price rules) before that error is recorded.** The build
+warns, and `npm test` fails, if the v3 parameters differ from the freeze while the test is pending.
+
+### Anchor basis and reconciliations
+
+The Nov 30, 2025 anchor stays on the **trade-date** count (408,578,823, as filed) because the weekly model counts ATM
+shares when sold, as do the cover-page counts and Bitmine's weekly releases. The settlement-date figure the later
+10-Qs use (405,398,823) is stored alongside it (`shares_settlement_basis`); the 3,180,000 difference is shares sold but
+not settled at Nov 30. The Feb 28 and May 31, 2026 balance-sheet counts are settlement-date, so a trade-date roll-forward
+ends above them by the shares sold but unsettled at those dates. `checkpoints.json → reconciliation_check` shows both:
+
+| Anchor | Trade-date roll-forward (repo) | Official | Residual | Explained by |
+| --- | --- | --- | --- | --- |
+| Feb 28, 2026 | 408,578,823 + 84,960,590 ATM sold + 442,463 award vests = 493,981,876 | 493,905,227 | +76,649 (+0.016%) | +200,000 unsettled at Feb 28 − 27,083 other stock comp − 94,518 warrant exercises − 1,750 to settle liabilities |
+| May 31, 2026 | 493,905,227 + 87,255,648 ATM sold + 533,884 (Pier Two 501,545 + vests 32,339) = 581,694,759 | 579,652,432 | +2,042,327 (+0.35%) | +2,100,000 unsettled at May 31 − 3,212 other stock comp − 54,461 warrant exercises |
+
+On the settlement-date basis both close with no plug (Nov 30 405,398,823 + 87,940,590 + 469,546 + 94,518 + 1,750 =
+493,905,227; Feb 28 + 85,155,648 + 35,551 + 54,461 + 501,545 = 579,652,432). Warrant exercises per quarter
+(`checkpoints.json → warrant_exercises`, 10-Q equity statements): Sep–Nov 2025 63,460; Dec 2025–Feb 2026 94,518;
+Mar–May 2026 54,461. They are documented reconciling items, not added to the weekly roll-forward (no dated disclosure).
+
+### Tests
+
+`npm test` (Node ≥ 20, no dependencies; runs in `.github/workflows/test.yml` on every push and PR) checks `assets/calc.js`
+against the frozen Oct 25, 2026 week (`test/fixtures/oct25.json`: net NAV/share, mNAV and ranges, EV ÷ NAV ex cash,
+TSM shares, SOTP under both preferred treatments), unit-tests `scripts/model.mjs`, rebuilds into a temp directory and
+checks the Oct 25 share count and range, the v3 backtest summary, the held-out freeze, that the committed
+`history.json`/`backtest.json` match the build, and that each anchor reconciliation's residual and its explanation sum to zero.
+
 ## Weekly update procedure (Mondays, after Bitmine posts)
 
 1. Open the release: **[@BitMNR](https://x.com/BitMNR)** thread "BitMine provided its latest holdings update for …" (~8:30 AM ET),
@@ -330,7 +364,7 @@ v2 was 627,963,701 (623.1–633.4M).
    `cash_timing_items` entry. Weeks in that quarter switch from "assumed" to "disclosed" and the pooled factor updates.
 4. Check the printed table and the "This week" card: ETH price paid + basis, cash shortfall (spending − cash drop),
    surplus carried from prior weeks (max 3 weeks / $5M), funded by share sales, shares issued (low–high est.). The build also refreshes `valuation.json → derived` and each week's accretion. Then
-   `git add data && git commit -m "week of <date>" && git push`. Pages redeploys in ~1 min.
+   `npm test`, then `git add data && git commit -m "week of <date>" && git push`. Pages redeploys in ~1 min.
    Review `data/valuation.json` inputs when a new 10-Q/10-K is filed (opex run-rate, MAVAN revenue, preferred dividends).
 
 ## Notes / caveats
