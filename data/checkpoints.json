@@ -25,7 +25,7 @@
       "source": "10-Q quarter ended Feb 28, 2026 (filed 2026-04-14)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
       "use_as_anchor": true,
-      "reconciliation": "Reconciliation (10-Q May 31, 2026 equity statement, settlement-date basis): Nov 30, 2025 405,398,823 + 87,940,590 ATM + 469,546 stock comp + 94,518 warrant exercises + 1,750 to settle liabilities = 493,905,227. Repo roll-forward (trade-date Nov 30 anchor 408,578,823 + 84,960,590 ATM sold + 442,463 Jan 23 award vest) = 493,981,876, residual +76,649 (+0.016%) = 200,000 shares sold but unsettled at Feb 28 − 27,083 other stock comp − 94,518 warrants − 1,750."
+      "reconciliation": "Reconciliation (10-Q May 31, 2026 equity statement, settlement-date basis): Nov 30, 2025 405,398,823 + 87,940,590 ATM + 469,546 stock comp + 94,518 warrant exercises + 1,750 to settle liabilities = 493,905,227. Repo roll-forward (trade-date Nov 30 anchor 408,578,823 + 84,960,590 ATM sold + 442,463 Jan 23 award vest) = 493,981,876, residual +76,649 (+0.016%) = 200,000 shares sold but unsettled at Feb 28 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 27,083 other stock comp, 94,518 warrant exercises and 1,750 issued to settle liabilities."
     },
     {
       "date": "2026-04-13",
@@ -43,7 +43,7 @@
       "source": "10-Q quarter ended May 31, 2026 (filed 2026-07-14)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
       "use_as_anchor": true,
-      "reconciliation": "Reconciliation (same equity statement): Feb 28 493,905,227 + 85,155,648 ATM settled + 35,551 stock comp + 54,461 warrant exercises + 501,545 Pier Two = 579,652,432. Repo roll-forward (Feb 28 + 87,255,648 ATM sold per Note 8 + 501,545 Pier Two + 9,577 Apr 7 + 22,762 Apr 23 award vests) = 581,694,759, residual +2,042,327 (+0.35%) = 2,100,000 shares sold but unsettled at May 31 − 3,212 other stock comp − 54,461 warrants."
+      "reconciliation": "Reconciliation (same equity statement): Feb 28 493,905,227 + 85,155,648 ATM settled + 35,551 stock comp + 54,461 warrant exercises + 501,545 Pier Two = 579,652,432. Repo roll-forward (Feb 28 + 87,255,648 ATM sold per Note 8 + 501,545 Pier Two + 9,577 Apr 7 + 22,762 Apr 23 award vests) = 581,694,759, residual +2,042,327 (+0.35%) = 2,100,000 shares sold but unsettled at May 31 (in the repo, not yet in the 10-Q count), less shares the 10-Q includes but the repo omits: 3,212 other stock comp and 54,461 warrant exercises."
     },
     {
       "date": "2026-07-09",
