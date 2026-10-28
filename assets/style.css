@@ -139,3 +139,4 @@ table.val-t{table-layout:fixed;width:100%}
 
 /* sensitivity row in the NAV table */
 .t tr.sens td{color:var(--mut);font-style:italic}
+#navTable td:first-child{white-space:normal}

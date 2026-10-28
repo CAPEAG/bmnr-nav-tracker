@@ -34,7 +34,7 @@ export function computeNav(h, px) {
     { label: 'EV ÷ NAV ex cash', key: 'ev', value: ev, perShare: null, mnav: ev / navExCash, navExCash,
       note: 'EV = market cap + preferred + debt − cash; multiple = EV ÷ (Full NAV − cash)' },
   ];
-  if (h.dilutive?.length) rows.push({ ...row('Net NAV/share, fully diluted (TSM)', 'diluted', net, 'NAV net of preferred ÷ (shares + treasury-stock-method shares from in-the-money warrants and options). Strike on 7,553 of the options is implied (about $19.40, from the 10-Q weighted average), not disclosed.', shares + dil.added), sensitivity: true, dilution: dil });
+  if (h.dilutive?.length) rows.push({ ...row('Fully diluted (TSM)', 'diluted', net, 'NAV net of preferred ÷ (shares + treasury-stock-method shares from in-the-money warrants and options). Strike on 7,553 of the options is implied (about $19.40, from the 10-Q weighted average), not disclosed.', shares + dil.added), sensitivity: true, dilution: dil });
   return { shares, mcap, ethVal, btcVal, cash, orbsVal, beast, pref, debt, full, net, ev, navExCash, dilution: dil, ethPerShare: h.eth / shares, rows };
 }
 
