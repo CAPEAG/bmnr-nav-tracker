@@ -32,26 +32,6 @@
     <div class="card" id="weekCard"></div>
   </section>
 
-  <section class="card" id="valuation">
-    <div class="card-h"><h2>Valuation: Bear / Base / Bull (sum of the parts)</h2><span class="pill" id="valBasis"></span></div>
-    <div class="val-cases" id="valSummary"></div>
-    <div class="val-stack">
-      <div><h3>Result (live ETH &amp; estimated shares)</h3><div class="table-wrap val-wrap"><table class="t small val-t" id="valTable"></table></div></div>
-      <div>
-        <div class="val-sub-h"><h3>Assumptions</h3><button type="button" class="toggle" aria-expanded="false" aria-controls="valAssum" data-label="assumptions"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show assumptions</span></button></div>
-        <div id="valAssum" class="collapse" hidden><div class="table-wrap val-wrap"><table class="t small val-t assum" id="valInputs"></table></div></div>
-      </div>
-    </div>
-    <button type="button" class="toggle" aria-expanded="false" aria-controls="valWhy" data-label="sources &amp; rationale"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show sources &amp; rationale</span></button>
-    <div id="valWhy" class="collapse" hidden>
-      <div id="valCases" class="cases"></div>
-      <h3>Avoiding double counting</h3><p class="fine" id="valNoDouble"></p>
-      <h3>Why each input</h3><ul class="fine why-list" id="valWhyList"></ul>
-      <h3>Sources</h3><ol class="fine srcs" id="valSources"></ol>
-    </div>
-  </section>
-
-
   <section class="card" id="history">
     <div class="card-h"><h2>Weekly history</h2><div class="seg range-sel" id="rangeSel" role="group" aria-label="Chart time range"></div></div>
     <div class="charts">
@@ -73,6 +53,25 @@
     </div>
     <button type="button" class="toggle" aria-expanded="false" aria-controls="accData" data-label="data"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show data</span></button>
     <div id="accData" class="collapse" hidden><div class="table-wrap tall"><table class="t small" id="accTable"></table></div></div>
+  </section>
+
+  <section class="card" id="valuation">
+    <div class="card-h"><h2>Valuation: Bear / Base / Bull (sum of the parts)</h2><span class="pill" id="valBasis"></span></div>
+    <div class="val-cases" id="valSummary"></div>
+    <div class="val-stack">
+      <div><h3>Result (live ETH &amp; estimated shares)</h3><div class="table-wrap val-wrap"><table class="t small val-t" id="valTable"></table></div></div>
+      <div>
+        <div class="val-sub-h"><h3>Assumptions</h3><button type="button" class="toggle" aria-expanded="false" aria-controls="valAssum" data-label="assumptions"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show assumptions</span></button></div>
+        <div id="valAssum" class="collapse" hidden><div class="table-wrap val-wrap"><table class="t small val-t assum" id="valInputs"></table></div></div>
+      </div>
+    </div>
+    <button type="button" class="toggle" aria-expanded="false" aria-controls="valWhy" data-label="sources &amp; rationale"><span class="chev" aria-hidden="true">▸</span> <span class="tl">Show sources &amp; rationale</span></button>
+    <div id="valWhy" class="collapse" hidden>
+      <div id="valCases" class="cases"></div>
+      <h3>Avoiding double counting</h3><p class="fine" id="valNoDouble"></p>
+      <h3>Why each input</h3><ul class="fine why-list" id="valWhyList"></ul>
+      <h3>Sources</h3><ol class="fine srcs" id="valSources"></ol>
+    </div>
   </section>
 
   <section class="card" id="backtest">
