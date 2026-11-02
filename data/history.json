@@ -6744,6 +6744,147 @@
           "actual_change": 0.000047602
         }
       }
+    },
+    {
+      "date": "2026-11-02",
+      "as_of": "2026-11-01",
+      "days": 7,
+      "eth": 6060506,
+      "eth_change": 8573,
+      "eth_acquired_reported": 8573,
+      "eth_staked": 5227037,
+      "staking_yield_7d": 0.0303,
+      "est_staking_eth": 2945,
+      "est_purchased_eth": 5628,
+      "eth_week_avg": 2292.21,
+      "eth_price_used": 2287.43,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9979 (pooled 10-Q factor, 3 quarters)",
+      "eth_price_factor": 0.9979,
+      "eth_price_range": [
+        2264.55,
+        2310.3
+      ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 2287.43,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
+      "est_purchase_cost": 12874576,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 514000000,
+      "cash": 498000000,
+      "cash_change": -16000000,
+      "est_cash_opex": 2924450,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 15799026,
+      "cash_shortfall": -200974,
+      "cash_shortfall_range": [
+        -3254170,
+        2852222
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 0,
+      "funded_by_shares_range": [
+        0,
+        2852222
+      ],
+      "surplus_carried_out": 5000000,
+      "surplus_dropped": 200974,
+      "assumed_issue_price": 21.292,
+      "bmnr_week_range": [
+        20.18,
+        22.05
+      ],
+      "est_shares_issued": 0,
+      "est_shares_issued_range": [
+        0,
+        141339
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 626769593,
+      "shares_outstanding_range": [
+        621932460,
+        632372388
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2026-07-09",
+        "shares": 603226394,
+        "weeks_since": 16
+      },
+      "btc": 216,
+      "orbs_value": 82000000,
+      "beast_value": 180000000,
+      "snapshot_prices": {
+        "ETH": 2261,
+        "BTC": 78294,
+        "BMNR": 20.18,
+        "BMNR_date": "2026-10-30"
+      },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
+      "nav": {
+        "full": 14479715570,
+        "net": 14129715570,
+        "crypto": 14217715570,
+        "eth": 13702804066,
+        "ev": 12500210387,
+        "nav_ex_cash": 13981715570
+      },
+      "nav_per_share": 22.54,
+      "nav_per_share_gross": 23.1,
+      "nav_per_share_all": {
+        "full": 23.1,
+        "net": 22.54,
+        "crypto": 22.68,
+        "eth": 21.86
+      },
+      "mnav": 0.895,
+      "mnav_gross": 0.874,
+      "mnav_all": {
+        "full": 0.874,
+        "net": 0.895,
+        "crypto": 0.89,
+        "eth": 0.923,
+        "ev_to_nav_ex_cash": 0.894
+      },
+      "eth_per_share": 0.0096694,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2117251777951101202",
+      "notes": "No buyback disclosed this week. Stated 7-day BMNR yield 3.03% per the 8-K (source of record; consistent with $415M ÷ (6,060,506 × $2,261) and $358M ÷ (5,227,037 × $2,261)); the @BitMNR X thread says 2.58%, which repeats last week's figure. Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 22.8306,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.933,
+        "usd_per_share": {
+          "issuance": 0,
+          "buybacks": 0,
+          "staking": 0.0106,
+          "other": -0.0046,
+          "total": 0.006,
+          "actual_change": -0.91,
+          "market": -0.916
+        },
+        "eth_per_share": {
+          "capital": 0.000008961,
+          "staking": 0.000004698,
+          "premium": 1.9e-8,
+          "reanchor": 0,
+          "total": 0.000013678,
+          "actual_change": 0.000013678
+        }
+      }
     }
   ]
 }

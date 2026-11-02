@@ -1,6 +1,6 @@
 {
   "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
-  "built": "2026-10-28T05:04:07.140Z",
+  "built": "2026-11-02T14:17:20.407Z",
   "models": {
     "v1": {
       "label": "v1 – original (Jul–Oct 2026)",
@@ -102,7 +102,7 @@
         "shares": 626867529,
         "range": [
           622301395,
-          632231048
+          632372388
         ]
       }
     },
@@ -117,7 +117,7 @@
         "shares": 626769593,
         "range": [
           621779408,
-          632231048
+          632372388
         ]
       }
     },
@@ -132,7 +132,7 @@
         "shares": 626769593,
         "range": [
           621932460,
-          632231048
+          632372388
         ]
       }
     },
@@ -147,7 +147,7 @@
         "shares": 626769593,
         "range": [
           621932460,
-          632231048
+          632372388
         ]
       }
     },
@@ -162,7 +162,7 @@
         "shares": 626769593,
         "range": [
           621779408,
-          632231048
+          632372388
         ]
       }
     },
@@ -177,7 +177,7 @@
         "shares": 626769593,
         "range": [
           621779408,
-          632231048
+          632372388
         ]
       }
     },
@@ -192,7 +192,7 @@
         "shares": 626769593,
         "range": [
           621932460,
-          632231048
+          632372388
         ]
       }
     },
@@ -207,7 +207,7 @@
         "shares": 626817527,
         "range": [
           622158576,
-          632016156
+          632152449
         ]
       }
     },
@@ -222,7 +222,7 @@
         "shares": 627966315,
         "range": [
           623149725,
-          633377468
+          633545727
         ]
       }
     },
@@ -237,108 +237,108 @@
         "shares": 626806853,
         "range": [
           622057682,
-          632189128
+          632330467
         ]
       }
     }
   },
   "current_estimate": {
     "v1": {
-      "shares": 627413710,
+      "shares": 627441548,
       "range": [
         622476610,
-        633425660
+        633648490
       ]
     },
     "v2": {
       "shares": 627966315,
       "range": [
         623134730,
-        633377468
+        633545727
       ]
     },
     "v3": {
       "shares": 626769593,
       "range": [
         621932460,
-        632231048
+        632372388
       ]
     },
     "v3_walkforward": {
       "shares": 626769593,
       "range": [
         621932460,
-        632231048
+        632372388
       ]
     },
     "v3, no carry-forward": {
       "shares": 626867529,
       "range": [
         622301395,
-        632231048
+        632372388
       ]
     },
     "v3, unlimited carry": {
       "shares": 626769593,
       "range": [
         621779408,
-        632231048
+        632372388
       ]
     },
     "v3, carry 2 wk / $5M": {
       "shares": 626769593,
       "range": [
         621932460,
-        632231048
+        632372388
       ]
     },
     "v3, carry 3 wk / $5M": {
       "shares": 626769593,
       "range": [
         621932460,
-        632231048
+        632372388
       ]
     },
     "v3, carry 4 wk / $10M": {
       "shares": 626769593,
       "range": [
         621779408,
-        632231048
+        632372388
       ]
     },
     "v3, carry 8 wk / $25M": {
       "shares": 626769593,
       "range": [
         621779408,
-        632231048
+        632372388
       ]
     },
     "v3 without 10-Q digital-asset timing items": {
       "shares": 626769593,
       "range": [
         621932460,
-        632231048
+        632372388
       ]
     },
     "v3 but ETH = weekly avg × 1.00, no timing items": {
       "shares": 626817527,
       "range": [
         622158576,
-        632016156
+        632152449
       ]
     },
     "v3 but ETH = weekly avg × 1.05, no timing items": {
       "shares": 627966315,
       "range": [
         623149725,
-        633377468
+        633545727
       ]
     },
     "v3 but on-chain prices where tracked": {
       "shares": 626806853,
       "range": [
         622057682,
-        632189128
+        632330467
       ]
     }
   },

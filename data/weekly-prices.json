@@ -1044,5 +1044,27 @@
     "bmnr_close": 13.56,
     "bmnr_close_date": "2026-06-26",
     "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2026-11-01": {
+    "window": [
+      "2026-10-26",
+      "2026-11-01"
+    ],
+    "eth_avg": 2292.21,
+    "eth_days": 7,
+    "btc_close": 78294,
+    "bmnr_avg": 21.292,
+    "bmnr_min": 20.18,
+    "bmnr_max": 22.05,
+    "bmnr_trading_days": [
+      "2026-10-26",
+      "2026-10-27",
+      "2026-10-28",
+      "2026-10-29",
+      "2026-10-30"
+    ],
+    "bmnr_close": 20.18,
+    "bmnr_close_date": "2026-10-30",
+    "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
   }
 }

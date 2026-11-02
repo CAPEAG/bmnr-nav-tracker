@@ -121,28 +121,28 @@
     }
   },
   "derived": {
-    "as_of": "2026-10-25",
-    "source": "Bitmine weekly releases in data/releases.json (latest: https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm)",
-    "eth_held": 6051933,
+    "as_of": "2026-11-01",
+    "source": "Bitmine weekly releases in data/releases.json (latest: https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm)",
+    "eth_held": 6060506,
     "eth_staked": 5227037,
     "staked_share_current": {
-      "value": 0.8637,
-      "label": "current: 5,227,037 ÷ 6,051,933 ETH (2026-10-25)"
+      "value": 0.8625,
+      "label": "current: 5,227,037 ÷ 6,060,506 ETH (2026-11-01)"
     },
     "yield_latest_7d": {
-      "value": 0.0258,
-      "label": "latest stated 7-day yield (2026-10-25)"
+      "value": 0.0303,
+      "label": "latest stated 7-day yield (2026-11-01)"
     },
     "yield_trailing_4w": {
-      "value": 0.026,
+      "value": 0.027,
       "label": "4-week average of stated 7-day yields"
     },
     "yield_trailing_13w": {
-      "value": 0.02625,
+      "value": 0.02652,
       "label": "13-week average of stated 7-day yields"
     },
     "yield_trailing_26w": {
-      "value": 0.02697,
+      "value": 0.02702,
       "label": "26-week average of stated 7-day yields"
     },
     "staked_trajectory": [
@@ -202,9 +202,9 @@
         "pct": 0.8422
       },
       {
-        "as_of": "2026-10-25",
+        "as_of": "2026-11-01",
         "staked": 5227037,
-        "pct": 0.8637
+        "pct": 0.8625
       }
     ]
   },
