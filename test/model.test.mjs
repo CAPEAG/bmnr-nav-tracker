@@ -79,42 +79,45 @@ const built = (f) => JSON.parse(readFileSync(join(out, f), 'utf8'));
 const H = built('history.json'), B = built('backtest.json');
 process.on('exit', () => rmSync(out, { recursive: true, force: true }));
 
-// Nov 2, 2026: the staking-yield INPUT changed from Bitmine's stated 7-day yields to the independent weekly Lido
-// average (data/staking_yield.json); v3 parameters are unchanged. Before the switch: 626,769,593 [621,932,460, 632,231,048]
-// and mean error 0.06% — still reproduced exactly by the stated-yield variant below.
-test('Oct 25, 2026 week: v3 share count and range (independent staking yield)', () => {
+// Staking-yield input = Bitmine's stated 7-day yield (CESR stand-in where recorded). The Lido weekly average
+// (data/staking_yield.json) is a check only; cf594cf briefly used it as the input and was reverted the same day.
+test('Oct 25, 2026 week: v3 share count and range', () => {
   const s = H.snapshots.find((x) => x.as_of === '2026-10-25');
-  assert.equal(s.shares_outstanding, 626981473);
-  assert.deepEqual(s.shares_outstanding_range, [622045028, 632480435]);
+  assert.equal(s.shares_outstanding, 626769593);
+  assert.deepEqual(s.shares_outstanding_range, [621932460, 632231048]);
 });
 
-test('backtest: v3 in-sample summary (independent staking yield)', () => {
+test('backtest: v3 in-sample summary unchanged', () => {
   const v3 = B.summary.v3;
   assert.equal(v3.intervals, 4);
   assert.equal(v3.mean_abs_error_pct, 0.2);
-  assert.equal(v3.mean_error_pct, 0.07);
+  assert.equal(v3.mean_error_pct, 0.06);
   assert.equal(v3.within_range, 4);
 });
 
-test('v3 with Bitmine-stated yields reproduces the pre-switch results exactly', () => {
-  const v = B.variants['v3 with Bitmine-stated 7-day yields'];
-  assert.deepEqual([v.intervals, v.mean_abs_error_shares, v.mean_abs_error_pct, v.mean_error_pct, v.within_range], [4, 1084934, 0.2, 0.06, 4]);
-  assert.deepEqual(v.current, { shares: 626769593, range: [621932460, 632372388] });
-});
-
-test('staking yield: every release week uses the independent Lido average; stated yield kept as reported', () => {
+test('staking yield: model input is the stated yield; Lido weekly average is a flagged check', () => {
   const Y = data('staking_yield.json');
   for (const s of H.snapshots) {
-    const y = s.staking_yield_independent;
-    assert.ok(y, `${s.as_of}: no Lido report in the window`);
-    const days = (Date.parse(y.window[1]) - Date.parse(y.window[0])) / 864e5 + 1;
-    assert.equal(y.reports, days, `${s.as_of}: one Lido report per day of the window`);
-    if (s.days != null) assert.equal(s.staking_yield_used, y.gross, `${s.as_of}: model input`);
+    const c = s.staking_yield_check;
+    assert.ok(c, `${s.as_of}: no Lido check in the window`);
+    const days = (Date.parse(c.window[1]) - Date.parse(c.window[0])) / 864e5 + 1;
+    assert.equal(c.reports, days, `${s.as_of}: one Lido report per day of the window`);
+    if (s.days == null) continue;
+    if (s.staking_yield_7d != null) {
+      assert.equal(s.staking_yield_used, s.staking_yield_7d, `${s.as_of}: stated yield is the input`);
+      assert.equal(s.staking_yield_basis, s.staking_yield_source ? 'CESR stand-in' : 'Bitmine stated');
+      assert.equal(c.flagged, Math.abs(c.lido_gross - s.staking_yield_7d) > 0.003, `${s.as_of}: 0.3 pt flag`);
+    } else {
+      assert.equal(s.staking_yield_basis, 'Lido fallback');
+      assert.ok(Math.abs(s.staking_yield_used - c.lido_gross) < 1e-5, `${s.as_of}: Lido fallback`);
+    }
   }
   const n = H.snapshots.find((x) => x.as_of === '2026-11-01');
-  assert.equal(n.staking_yield_7d, 0.0303);
-  assert.match(n.staking_yield_note, /one-week spike/);
+  assert.equal(n.staking_yield_used, 0.0303);
+  assert.ok(n.staking_yield_check.flagged && /fee spike/.test(n.staking_yield_check.note));
   for (const r of Y.reports) assert.ok(r.apr_gross > r.apr_net && r.fee_share > 0.05 && r.fee_share < 0.15, `${r.date}: gross > net, fee share ~10%`);
+  const h = data('holdings.json'), ys = R.releases.filter((x) => x.staking_yield_7d).map((x) => x.staking_yield_7d).slice(-13);
+  assert.equal(h.assumptions.weekly_staking_yield, Number((ys.reduce((t, x) => t + x, 0) / 13).toFixed(5)), 'accrual = 13-week stated average');
 });
 
 test('held-out interval Jul 9 → Aug 31, 2026: reported separately, v3 not re-tuned while pending', () => {
@@ -125,7 +128,8 @@ test('held-out interval Jul 9 → Aug 31, 2026: reported separately, v3 not re-t
   // the held-out prediction keeps the input in use at the freeze (Bitmine-stated yields); the new input is reported apart
   assert.equal(O.staking_yield_input, 'bitmine_stated_7d (as frozen)');
   assert.deepEqual(O.prediction, { est_shares: 614351108, est_range: [610994985, 618019327] });
-  assert.ok(O.with_independent_yield && O.with_independent_yield.est_shares !== O.prediction.est_shares);
+  assert.equal(O.current_model_matches_prediction, true);
+  assert.match(O.superseded_lido_input.note, /Superseded/);
   assert.ok(!B.intervals.some((b) => b.out_of_sample && B.summary.v3.intervals > 4), 'held-out interval excluded from the summary');
 });
 

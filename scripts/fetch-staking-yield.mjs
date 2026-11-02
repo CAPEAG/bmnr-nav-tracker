@@ -6,7 +6,8 @@
 //   gross APR = the same with the fee shares minted in that report added back
 //               (post share rate = postTotalEther ÷ (postTotalShares − sharesMintedAsFees)), i.e. the validators'
 //               consensus + execution-layer rewards before Lido's fee — the figure comparable to Bitmine's own yield.
-// The model (scripts/model.mjs → weekStakingYield) uses the time-weighted average gross APR over each release window.
+// The build averages apr_gross over each release window (scripts/model.mjs → weekStakingYield) as an independent check
+// next to Bitmine's stated 7-day yield (the model input); it is the input only for weeks where Bitmine stated none.
 // Keyless public RPCs (archive eth_getLogs): rpc.mevblocker.io, Tenderly public gateway, Flashbots (recent only).
 // Incremental: re-fetches from the last stored block. Usage: node scripts/fetch-staking-yield.mjs [--from-block N] [--full]
 import { readFile, writeFile } from 'node:fs/promises';
@@ -65,7 +66,7 @@ for (let b = from; b <= head; b += CHUNK) {
 }
 reports.sort((a, b) => a.block - b.block);
 const out = {
-  description: 'Daily Lido oracle reports (stETH TokenRebased events) since Nov 2025: the independent ETH staking yield used by the share model. apr_gross (before Lido\'s fee, the fee shares minted in each report added back) is the model input; apr_net = Lido\'s published stETH APR. Each release week uses the time-weighted average apr_gross of the reports dated inside its window (previous as-of + 1 day … as-of).',
+  description: 'Daily Lido oracle reports (stETH TokenRebased events) since Nov 2025: an independent check on Bitmine\'s stated 7-day yield (the share-model input; Lido is used only for weeks with no stated yield). apr_gross = before Lido\'s fee (the fee shares minted in each report added back); apr_net = Lido\'s published stETH APR. Each release week uses the time-weighted average apr_gross of the reports dated inside its window (previous as-of + 1 day … as-of).',
   source: {
     contract: `stETH ${STETH} (Ethereum mainnet), event TokenRebased(reportTimestamp, timeElapsed, preTotalShares, preTotalEther, postTotalShares, postTotalEther, sharesMintedAsFees)`,
     formula_net: 'apr_net = (postTotalEther/postTotalShares ÷ preTotalEther/preTotalShares − 1) × 31,536,000 ÷ timeElapsed (Lido docs: "APR for stETH")',

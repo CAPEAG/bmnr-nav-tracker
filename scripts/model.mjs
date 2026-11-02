@@ -30,8 +30,8 @@ export function weekFlows(wk, i, P, kBuyback = 1) {
   const lag = P.staking_lag_reports || 0;
   const hist = wk.slice(Math.max(0, i - 1 - lag), i).map((w) => w.cur.eth_staked || 0);
   const stakedBasis = lag ? Math.min(...hist) : prev.eth_staked || 0;
-  // Annual yield for the week: P.stakingYield(i) (v3: independent Lido on-chain weekly average, data/staking_yield.json)
-  // when available, otherwise Bitmine's stated 7-day yield.
+  // Annual yield for the week: P.stakingYield(i) when it returns a value (v3: Bitmine's stated 7-day yield, Lido weekly
+  // average only for weeks with no stated yield), otherwise the stated 7-day yield.
   const stated = cur.staking_yield_7d ?? prev.staking_yield_7d ?? 0;
   const yld = (P.stakingYield && P.stakingYield(i)) ?? stated;
   const rewards = weeklyStakingEth(stakedBasis, yld, days) * (P.staking_realization ?? 1);

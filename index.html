@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BMNR NAV / mNAV Tracker — Bitmine Immersion Technologies</title>
 <meta name="description" content="Live NAV, NAV per share and mNAV tracker for Bitmine Immersion Technologies (BMNR), updated weekly from Bitmine's holdings announcements.">
-<link rel="stylesheet" href="assets/style.css?v=202611021000">
+<link rel="stylesheet" href="assets/style.css?v=202611021100">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⟠</text></svg>">
 </head>
 <body>
@@ -103,7 +103,7 @@
         <ul>
           <li><b>ETH &amp; BTC</b>: CoinGecko public API, fetched in your browser on load and every 60 s. If it fails, the page falls back to the last prices saved by the GitHub Action, then to the last announcement's prices.</li>
           <li><b>BMNR, ORBS</b>: CNBC quotes fetched in your browser every 60 s, falling back to Yahoo Finance quotes saved to <code>data/prices.json</code> by a GitHub Action. BMNR uses the newer of the regular-session and pre-market/after-hours price; ORBS always uses its regular-session price (thin after-hours trading; Bitmine's releases value it at the close).</li>
-          <li><b>Holdings</b> (ETH, staked ETH, stated staking yield (shown as reported; the model uses the independent weekly yield), BTC, cash &amp; marketable securities, Eightco and Beast stakes, buybacks, disclosed investments) are transcribed from every Bitmine Monday release since Nov 30, 2025 (8-K Ex. 99 / @BitMNR) into <code>data/releases.json</code>. Official share counts and ATM sales come from the 10-Qs (<code>data/checkpoints.json</code>).</li>
+          <li><b>Holdings</b> (ETH, staked ETH, stated staking yield, BTC, cash &amp; marketable securities, Eightco and Beast stakes, buybacks, disclosed investments) are transcribed from every Bitmine Monday release since Nov 30, 2025 (8-K Ex. 99 / @BitMNR) into <code>data/releases.json</code>. Official share counts and ATM sales come from the 10-Qs (<code>data/checkpoints.json</code>).</li>
           <li><b>Weekly NAV snapshots</b> use the release's ETH price, BTC (CoinGecko) on the as-of date, the last BMNR close on/before the as-of date, and the reported Eightco stake value.</li>
         </ul>
       </div>
@@ -111,8 +111,8 @@
         <h3>Share-count reconstruction (model v3)</h3>
         <ul>
           <li><b>Anchors</b>: official 10-Q counts — 408.58M (Nov 30, 2025), 454.86M (Jan 12), 493.91M (Feb 28), 579.65M (May 31), <b>603,226,394 (Jul 9, 2026, latest)</b>. Between them the count is rolled forward weekly.</li>
-          <li><b>Staking rewards (est.)</b> = ETH that was already staked 4 reports earlier × the week's average staking yield × days/365 (validator entry-queue lag; fitted to 10-Q staking revenue). Rewards arrive in ETH and are inside reported holdings.</li>
-          <li><b>Staking yield</b>: the time-weighted average of Lido's daily on-chain oracle reports (stETH <code>TokenRebased</code> events) dated in each release week, grossed up by adding back the fee shares Lido mints in each report (≈10% of rewards), so it is the validators' consensus + execution-layer yield before any fee, comparable to Bitmine's own staking. It is an independent, reproducible network benchmark from a pool of ~9.7M staked ETH (<code>data/staking_yield.json</code>, <code>scripts/fetch-staking-yield.mjs</code>); it runs ~0.1 pt below Bitmine's stated yields in normal weeks. Bitmine's stated 7-day yield is kept as the reported figure; the Nov 1, 2026 week's 3.03% is a one-week spike (an Oct 30 execution-layer reward surge, larger in Lido's weekly average).</li>
+          <li><b>Staking rewards (est.)</b> = ETH that was already staked 4 reports earlier × Bitmine's stated 7-day BMNR yield for the week × days/365 (validator entry-queue lag; fitted to 10-Q staking revenue). Rewards arrive in ETH and are inside reported holdings.</li>
+          <li><b>Staking yield</b>: the model uses Bitmine's stated 7-day yield, its own realized rate (CESR where a release gave none). Lido's on-chain weekly average (before Lido's fee; <code>data/staking_yield.json</code>) is shown as an independent check, flagged ⚑ when it differs by more than 0.3 pt, and is used only for weeks where Bitmine states no yield.</li>
           <li><b>ETH bought (est.)</b> = change in ETH − est. rewards.</li>
           <li><b>ETH price paid</b>, with its basis per week: <i>disclosed</i> = inside a quarter with a filed 10-Q, the week's average ETH price × that quarter's paid ÷ market ratio (10-Q cost of ETH purchased ÷ units; 0.998, 0.991, 1.006 for Sep–Nov, Dec–Feb, Mar–May); <i>assumed</i> = after the last 10-Q, the week's average × the pooled ratio (0.998), ±1%. <i>On-chain</i> tracker prices are recorded as a cross-check only (they were less accurate in the backtest).</li>
           <li><b>Other digital-asset cash (10-Q)</b>: cash paid for digital assets beyond the cost of ETH added — $125M in Dec–Feb (Sep–Nov purchases paid later) and $112M in Mar–May — spread over that quarter's weeks by ETH bought. None assumed after May 31, 2026.</li>
@@ -159,6 +159,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script type="module" src="assets/app.js?v=202611021000"></script>
+<script type="module" src="assets/app.js?v=202611021100"></script>
 </body>
 </html>

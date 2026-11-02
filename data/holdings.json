@@ -13,7 +13,7 @@
     "note": "Eightco Holdings (NASDAQ: ORBS) common stock. 100,655,143 shares per Bitmine's 10-Q (May 31, 2026, Note on Investment in Eightco: beneficially owned after the March 12, 2026 purchase). Bitmine's weekly releases report only the $ value (e.g. $76M on Oct 25 ≈ 100.66M × $0.755)."
   },
   "beast_usd": 180000000,
-  "shares_outstanding": 626981473,
+  "shares_outstanding": 626769593,
   "source": {
     "type": "official",
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm",
@@ -21,8 +21,8 @@
     "press_release": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm"
   },
   "assumptions": {
-    "weekly_staking_yield": 0.02655,
-    "weekly_staking_yield_source": "13-week average of the independent weekly staking yield (gross Lido on-chain APR, data/staking_yield.json) to 2026-11-01.",
+    "weekly_staking_yield": 0.02652,
+    "weekly_staking_yield_source": "13-week average of Bitmine's stated 7-day BMNR yields to 2026-11-01 (latest stated: 3.03%).",
     "share_estimation": {
       "weekly_cash_opex_usd": 2278000,
       "weekly_cash_opex_source": "Net operating cash outflow Dec 1, 2025 – May 31, 2026 = 9-month operating cash flow (−$287.592M, 10-Q May 31, 2026) − Sep–Nov (−$228.356M, 10-Q Nov 30, 2025) = −$59.236M over 26 weeks. Already net of interest income and cash service revenue. (v1 used $3,257,538 = Mar–May G&A − SBC + cost of sales ÷ 13.)",
@@ -31,7 +31,7 @@
       "opex_high_multiplier": 2,
       "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
       "purchase_price": "Per week: 'disclosed' = the week's average daily ETH price × that fiscal quarter's 10-Q factor (cost of ETH purchased ÷ units ÷ purchase-weighted weekly average); 'assumed' (weeks after the last filed quarter) = weekly average × the factor pooled over all filed quarters, range ± eth_price_uncertainty. See checkpoints.json → eth_cost_quarterly and backtest.json → eth_price.",
-      "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's independent staking yield (time-weighted average gross Lido APR over the release window, data/staking_yield.json) × days/365. Bitmine's stated 7-day yield is kept as the reported figure; it is used only if no Lido report covers the window.",
+      "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (CESR stand-in where no Bitmine yield was stated; gross Lido weekly average only if neither) × days/365. The Lido on-chain weekly average (data/staking_yield.json) is shown as an independent check.",
       "bmnp_start": "2026-06-10",
       "include_investments": true,
       "staking_lag_reports": 4,
@@ -47,9 +47,7 @@
       "carry_weeks": 3,
       "carry_max_usd": 5000000
     },
-    "valuation_inputs": "See data/valuation.json (Bear/Base/Bull inputs with sources).",
-    "stated_staking_yield_7d": 0.0303,
-    "stated_staking_yield_source": "Bitmine's stated 7-day BMNR yield in the 2026-11-02 release (one-week spike: stated 3.03% vs 2.58% the two prior weeks; a network-wide execution-layer reward surge on Oct 30, 2026 (Lido and cbETH daily rates both spiked))."
+    "valuation_inputs": "See data/valuation.json (Bear/Base/Bull inputs with sources)."
   },
   "reference_prices": {
     "ETH": 2261,
@@ -67,21 +65,24 @@
     "eth_acquired_reported": 8573,
     "eth_staked": 5227037,
     "staking_yield_7d": 0.0303,
-    "staking_yield_note": "one-week spike: stated 3.03% vs 2.58% the two prior weeks; a network-wide execution-layer reward surge on Oct 30, 2026 (Lido and cbETH daily rates both spiked)",
-    "staking_yield_used": 0.04704,
-    "staking_yield_independent": {
-      "gross": 0.04704,
-      "net": 0.04235,
+    "staking_yield_used": 0.0303,
+    "staking_yield_basis": "Bitmine stated",
+    "staking_yield_check": {
+      "lido_gross": 0.04704,
+      "lido_net": 0.04235,
       "window": [
         "2026-10-26",
         "2026-11-01"
       ],
       "reports": 7,
       "median_daily_gross": 0.02524,
-      "max_daily_gross": 0.1674
+      "max_daily_gross": 0.1674,
+      "diff_vs_stated_pt": 1.67,
+      "flagged": true,
+      "note": "Oct 30: one-day network fee spike; Lido's validators got a larger share. Bitmine's stated 3.03% used."
     },
-    "est_staking_eth": 4572,
-    "est_purchased_eth": 4001,
+    "est_staking_eth": 2945,
+    "est_purchased_eth": 5628,
     "eth_week_avg": 2292.21,
     "eth_price_used": 2287.43,
     "eth_price_basis": "assumed",
@@ -100,7 +101,7 @@
       "coverage": null,
       "transfers": 0
     },
-    "est_purchase_cost": 9152276,
+    "est_purchase_cost": 12874576,
     "buyback_shares": 0,
     "buyback_price": null,
     "buyback_price_basis": null,
@@ -111,20 +112,20 @@
     "est_cash_opex": 2924450,
     "investments": 0,
     "disclosed_proceeds": null,
-    "est_spending": 12076726,
-    "cash_shortfall": -3923274,
+    "est_spending": 15799026,
+    "cash_shortfall": -200974,
     "cash_shortfall_range": [
-      -6939247,
-      -907302
+      -3254170,
+      2852222
     ],
     "surplus_from_prior": 0,
     "funded_by_shares": 0,
     "funded_by_shares_range": [
       0,
-      0
+      2852222
     ],
     "surplus_carried_out": 5000000,
-    "surplus_dropped": 3760938,
+    "surplus_dropped": 200974,
     "assumed_issue_price": 21.292,
     "bmnr_week_range": [
       20.18,
@@ -133,13 +134,13 @@
     "est_shares_issued": 0,
     "est_shares_issued_range": [
       0,
-      0
+      141339
     ],
     "other_shares_issued": 0,
-    "shares_outstanding": 626981473,
+    "shares_outstanding": 626769593,
     "shares_outstanding_range": [
-      622045028,
-      632480435
+      621932460,
+      632372388
     ],
     "shares_basis": "estimate",
     "shares_anchor": {
@@ -163,13 +164,13 @@
       "net": 14129715570,
       "crypto": 14217715570,
       "eth": 13702804066,
-      "ev": 12504486125,
+      "ev": 12500210387,
       "nav_ex_cash": 13981715570
     },
     "nav_per_share": 22.54,
-    "nav_per_share_gross": 23.09,
+    "nav_per_share_gross": 23.1,
     "nav_per_share_all": {
-      "full": 23.09,
+      "full": 23.1,
       "net": 22.54,
       "crypto": 22.68,
       "eth": 21.86
@@ -183,36 +184,36 @@
       "eth": 0.923,
       "ev_to_nav_ex_cash": 0.894
     },
-    "eth_per_share": 0.0096662,
+    "eth_per_share": 0.0096694,
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm",
     "x_post": "https://x.com/BitMNR/status/2117251777951101202",
     "notes": "No buyback disclosed this week. Stated 7-day BMNR yield 3.03% per the 8-K (source of record; consistent with $415M ÷ (6,060,506 × $2,261) and $358M ÷ (5,227,037 × $2,261)); the @BitMNR X thread says 2.58%, which repeats last week's figure. Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
     "accretion": {
       "basis": "estimate (v3 model)",
       "reanchor": false,
-      "nav_per_share_before": 22.8229,
+      "nav_per_share_before": 22.8306,
       "atm_shares": 0,
       "mnav_at_issue": 0.933,
       "usd_per_share": {
         "issuance": 0,
         "buybacks": 0,
-        "staking": 0.0165,
+        "staking": 0.0106,
         "other": -0.0046,
-        "total": 0.0119,
-        "actual_change": -0.9,
-        "market": -0.9119
+        "total": 0.006,
+        "actual_change": -0.91,
+        "market": -0.916
       },
       "eth_per_share": {
-        "capital": 0.000006368,
-        "staking": 0.000007292,
-        "premium": 1.3e-8,
+        "capital": 0.000008961,
+        "staking": 0.000004698,
+        "premium": 1.9e-8,
         "reanchor": 0,
-        "total": 0.000013673,
-        "actual_change": 0.000013673
+        "total": 0.000013678,
+        "actual_change": 0.000013678
       }
     }
   },
-  "last_updated": "2026-11-02T14:41:06.081Z",
+  "last_updated": "2026-11-02T15:18:09.871Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -221,12 +222,12 @@
     "next_expected": "Form 10-K for the fiscal year ended Aug 31, 2026 (not yet filed as of Oct 26, 2026); afterwards a 10-KT for Sep 1–Dec 31, 2026 (fiscal year-end changed to Dec 31 per 8-K of Jul 13, 2026)."
   },
   "shares_outstanding_range": [
-    622045028,
-    632480435
+    621932460,
+    632372388
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-02T14:41:06.081Z"
+    "built": "2026-11-02T15:18:09.872Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
