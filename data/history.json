@@ -14,7 +14,7 @@
       "carry_weeks": 3,
       "carry_max_usd": 5000000,
       "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)",
-      "staking_yield": "per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); gross Lido weekly average (data/staking_yield.json) only for weeks with neither"
+      "staking_yield": "per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); CESR weekly average (data/cesr.json) only for weeks with neither"
     },
     "eth_price": {
       "quarters": [
@@ -133,7 +133,7 @@
     "opex_high_multiplier": 2,
     "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
     "purchase_price": "Per week: 'disclosed' = the week's average daily ETH price × that fiscal quarter's 10-Q factor (cost of ETH purchased ÷ units ÷ purchase-weighted weekly average); 'assumed' (weeks after the last filed quarter) = weekly average × the factor pooled over all filed quarters, range ± eth_price_uncertainty. See checkpoints.json → eth_cost_quarterly and backtest.json → eth_price.",
-    "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (CESR stand-in where no Bitmine yield was stated; gross Lido weekly average only if neither) × days/365. The Lido on-chain weekly average (data/staking_yield.json) is shown as an independent check.",
+    "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.",
     "bmnp_start": "2026-06-10",
     "include_investments": true,
     "staking_lag_reports": 4,
@@ -160,17 +160,16 @@
       "eth_staked": 0,
       "staking_yield_7d": null,
       "staking_yield_used": null,
-      "staking_yield_basis": "Lido fallback",
+      "staking_yield_basis": "CESR fallback",
       "staking_yield_check": {
-        "lido_gross": 0.02852,
-        "lido_net": 0.02567,
+        "cesr": 0.0283,
         "window": [
           "2025-11-24",
           "2025-11-30"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02838,
-        "max_daily_gross": 0.02942,
+        "days": 7,
+        "min_daily": 0.02797,
+        "max_daily": 0.02857,
         "diff_vs_stated_pt": null,
         "flagged": false
       },
@@ -274,18 +273,17 @@
       "eth_acquired_reported": 138452,
       "eth_staked": 0,
       "staking_yield_7d": null,
-      "staking_yield_used": 0.028307,
-      "staking_yield_basis": "Lido fallback",
+      "staking_yield_used": 0.02759,
+      "staking_yield_basis": "CESR fallback",
       "staking_yield_check": {
-        "lido_gross": 0.02831,
-        "lido_net": 0.02548,
+        "cesr": 0.02759,
         "window": [
           "2025-12-01",
           "2025-12-07"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02828,
-        "max_daily_gross": 0.02947,
+        "days": 7,
+        "min_daily": 0.02497,
+        "max_daily": 0.02865,
         "diff_vs_stated_pt": null,
         "flagged": false
       },
@@ -419,18 +417,17 @@
       "eth_acquired_reported": null,
       "eth_staked": 0,
       "staking_yield_7d": null,
-      "staking_yield_used": 0.028173,
-      "staking_yield_basis": "Lido fallback",
+      "staking_yield_used": 0.028071,
+      "staking_yield_basis": "CESR fallback",
       "staking_yield_check": {
-        "lido_gross": 0.02817,
-        "lido_net": 0.02536,
+        "cesr": 0.02807,
         "window": [
           "2025-12-08",
           "2025-12-14"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02815,
-        "max_daily_gross": 0.02858,
+        "days": 7,
+        "min_daily": 0.02781,
+        "max_daily": 0.02841,
         "diff_vs_stated_pt": null,
         "flagged": false
       },
@@ -574,18 +571,17 @@
       "eth_acquired_reported": null,
       "eth_staked": 0,
       "staking_yield_7d": null,
-      "staking_yield_used": 0.028657,
-      "staking_yield_basis": "Lido fallback",
+      "staking_yield_used": 0.028455,
+      "staking_yield_basis": "CESR fallback",
       "staking_yield_check": {
-        "lido_gross": 0.02866,
-        "lido_net": 0.02579,
+        "cesr": 0.02846,
         "window": [
           "2025-12-15",
           "2025-12-21"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02846,
-        "max_daily_gross": 0.03092,
+        "days": 7,
+        "min_daily": 0.02809,
+        "max_daily": 0.02872,
         "diff_vs_stated_pt": null,
         "flagged": false
       },
@@ -732,16 +728,15 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "CESR stand-in",
       "staking_yield_check": {
-        "lido_gross": 0.02827,
-        "lido_net": 0.02545,
+        "cesr": 0.02821,
         "window": [
           "2025-12-22",
           "2025-12-28"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02832,
-        "max_daily_gross": 0.02843,
-        "diff_vs_stated_pt": 0.02,
+        "days": 7,
+        "min_daily": 0.02809,
+        "max_daily": 0.02845,
+        "diff_vs_stated_pt": 0.01,
         "flagged": false
       },
       "est_staking_eth": 0,
@@ -888,15 +883,14 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "CESR stand-in",
       "staking_yield_check": {
-        "lido_gross": 0.02825,
-        "lido_net": 0.02543,
+        "cesr": 0.02833,
         "window": [
           "2025-12-29",
           "2026-01-04"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02826,
-        "max_daily_gross": 0.02856,
+        "days": 7,
+        "min_daily": 0.02815,
+        "max_daily": 0.02853,
         "diff_vs_stated_pt": 0.02,
         "flagged": false
       },
@@ -1042,16 +1036,15 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "CESR stand-in",
       "staking_yield_check": {
-        "lido_gross": 0.02788,
-        "lido_net": 0.02509,
+        "cesr": 0.02833,
         "window": [
           "2026-01-05",
           "2026-01-11"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02788,
-        "max_daily_gross": 0.02821,
-        "diff_vs_stated_pt": -0.02,
+        "days": 7,
+        "min_daily": 0.02783,
+        "max_daily": 0.02878,
+        "diff_vs_stated_pt": 0.02,
         "flagged": false
       },
       "est_staking_eth": 0,
@@ -1188,16 +1181,15 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "CESR stand-in",
       "staking_yield_check": {
-        "lido_gross": 0.02735,
-        "lido_net": 0.02462,
+        "cesr": 0.02813,
         "window": [
           "2026-01-12",
           "2026-01-19"
         ],
-        "reports": 8,
-        "median_daily_gross": 0.02739,
-        "max_daily_gross": 0.02763,
-        "diff_vs_stated_pt": -0.07,
+        "days": 8,
+        "min_daily": 0.02789,
+        "max_daily": 0.02853,
+        "diff_vs_stated_pt": 0,
         "flagged": false
       },
       "est_staking_eth": 0,
@@ -1349,16 +1341,15 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "CESR stand-in",
       "staking_yield_check": {
-        "lido_gross": 0.02644,
-        "lido_net": 0.0238,
+        "cesr": 0.02826,
         "window": [
           "2026-01-20",
           "2026-01-25"
         ],
-        "reports": 6,
-        "median_daily_gross": 0.02642,
-        "max_daily_gross": 0.02698,
-        "diff_vs_stated_pt": -0.17,
+        "days": 6,
+        "min_daily": 0.028,
+        "max_daily": 0.02852,
+        "diff_vs_stated_pt": 0.02,
         "flagged": false
       },
       "est_staking_eth": 0,
@@ -1503,16 +1494,15 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "CESR stand-in",
       "staking_yield_check": {
-        "lido_gross": 0.02821,
-        "lido_net": 0.02539,
+        "cesr": 0.02883,
         "window": [
           "2026-01-26",
           "2026-02-01"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02649,
-        "max_daily_gross": 0.04017,
-        "diff_vs_stated_pt": 0.01,
+        "days": 7,
+        "min_daily": 0.02801,
+        "max_daily": 0.02987,
+        "diff_vs_stated_pt": 0.07,
         "flagged": false
       },
       "est_staking_eth": 220,
@@ -1656,18 +1646,16 @@
       "staking_yield_used": 0.033234,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02971,
-        "lido_net": 0.02674,
+        "cesr": 0.03086,
         "window": [
           "2026-02-02",
           "2026-02-08"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02734,
-        "max_daily_gross": 0.04306,
-        "diff_vs_stated_pt": -0.35,
-        "flagged": true,
-        "note": "Release also states CESR 3.11%. Bitmine's stated 3.32% used."
+        "days": 7,
+        "min_daily": 0.02749,
+        "max_daily": 0.03484,
+        "diff_vs_stated_pt": -0.24,
+        "flagged": false
       },
       "est_staking_eth": 420,
       "est_purchased_eth": 40193,
@@ -1811,16 +1799,15 @@
       "staking_yield_used": 0.0289,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02597,
-        "lido_net": 0.02339,
+        "cesr": 0.02843,
         "window": [
           "2026-02-09",
           "2026-02-16"
         ],
-        "reports": 8,
-        "median_daily_gross": 0.02594,
-        "max_daily_gross": 0.02653,
-        "diff_vs_stated_pt": -0.29,
+        "days": 8,
+        "min_daily": 0.02781,
+        "max_daily": 0.03002,
+        "diff_vs_stated_pt": -0.05,
         "flagged": false
       },
       "est_staking_eth": 796,
@@ -1965,18 +1952,16 @@
       "staking_yield_used": 0.0289,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.0257,
-        "lido_net": 0.02314,
+        "cesr": 0.02804,
         "window": [
           "2026-02-17",
           "2026-02-22"
         ],
-        "reports": 6,
-        "median_daily_gross": 0.02566,
-        "max_daily_gross": 0.02597,
-        "diff_vs_stated_pt": -0.32,
-        "flagged": true,
-        "note": "Lido's weekly average differs from Bitmine's stated yield by -0.32 pt. Bitmine's stated 2.89% used."
+        "days": 6,
+        "min_daily": 0.02763,
+        "max_daily": 0.02831,
+        "diff_vs_stated_pt": -0.09,
+        "flagged": false
       },
       "est_staking_eth": 873,
       "est_purchased_eth": 50289,
@@ -2122,16 +2107,15 @@
       "staking_yield_used": 0.0286,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.0261,
-        "lido_net": 0.0235,
+        "cesr": 0.02843,
         "window": [
           "2026-02-23",
           "2026-03-01"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02615,
-        "max_daily_gross": 0.02657,
-        "diff_vs_stated_pt": -0.25,
+        "days": 7,
+        "min_daily": 0.02808,
+        "max_daily": 0.02887,
+        "diff_vs_stated_pt": -0.02,
         "flagged": false
       },
       "est_staking_eth": 1102,
@@ -2273,16 +2257,15 @@
       "staking_yield_used": 0.0291,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02668,
-        "lido_net": 0.02406,
+        "cesr": 0.02824,
         "window": [
           "2026-03-02",
           "2026-03-08"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02641,
-        "max_daily_gross": 0.02786,
-        "diff_vs_stated_pt": -0.24,
+        "days": 7,
+        "min_daily": 0.02739,
+        "max_daily": 0.02914,
+        "diff_vs_stated_pt": -0.09,
         "flagged": false
       },
       "est_staking_eth": 1604,
@@ -2418,16 +2401,15 @@
       "staking_yield_used": 0.0281,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.03013,
-        "lido_net": 0.02713,
+        "cesr": 0.028,
         "window": [
           "2026-03-09",
           "2026-03-15"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02678,
-        "max_daily_gross": 0.05072,
-        "diff_vs_stated_pt": 0.2,
+        "days": 7,
+        "min_daily": 0.02748,
+        "max_daily": 0.02911,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 1561,
@@ -2572,16 +2554,15 @@
       "staking_yield_used": 0.0283,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02779,
-        "lido_net": 0.02502,
+        "cesr": 0.02767,
         "window": [
           "2026-03-16",
           "2026-03-22"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02717,
-        "max_daily_gross": 0.03252,
-        "diff_vs_stated_pt": -0.05,
+        "days": 7,
+        "min_daily": 0.02701,
+        "max_daily": 0.02833,
+        "diff_vs_stated_pt": -0.06,
         "flagged": false
       },
       "est_staking_eth": 1650,
@@ -2717,16 +2698,15 @@
       "staking_yield_used": 0.028,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02709,
-        "lido_net": 0.02438,
+        "cesr": 0.02769,
         "window": [
           "2026-03-23",
           "2026-03-29"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02712,
-        "max_daily_gross": 0.02776,
-        "diff_vs_stated_pt": -0.09,
+        "days": 7,
+        "min_daily": 0.02706,
+        "max_daily": 0.0286,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 1633,
@@ -2871,16 +2851,15 @@
       "staking_yield_used": 0.0278,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02686,
-        "lido_net": 0.02418,
+        "cesr": 0.0274,
         "window": [
           "2026-03-30",
           "2026-04-05"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02678,
-        "max_daily_gross": 0.028,
-        "diff_vs_stated_pt": -0.09,
+        "days": 7,
+        "min_daily": 0.02695,
+        "max_daily": 0.02777,
+        "diff_vs_stated_pt": -0.04,
         "flagged": false
       },
       "est_staking_eth": 1621,
@@ -3025,16 +3004,15 @@
       "staking_yield_used": 0.0289,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02645,
-        "lido_net": 0.0238,
+        "cesr": 0.02731,
         "window": [
           "2026-04-06",
           "2026-04-12"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02641,
-        "max_daily_gross": 0.0269,
-        "diff_vs_stated_pt": -0.25,
+        "days": 7,
+        "min_daily": 0.02696,
+        "max_daily": 0.02812,
+        "diff_vs_stated_pt": -0.16,
         "flagged": false
       },
       "est_staking_eth": 1685,
@@ -3170,16 +3148,15 @@
       "staking_yield_used": 0.0288,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02715,
-        "lido_net": 0.02445,
+        "cesr": 0.02819,
         "window": [
           "2026-04-13",
           "2026-04-19"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02676,
-        "max_daily_gross": 0.0296,
-        "diff_vs_stated_pt": -0.16,
+        "days": 7,
+        "min_daily": 0.02715,
+        "max_daily": 0.03082,
+        "diff_vs_stated_pt": -0.06,
         "flagged": false
       },
       "est_staking_eth": 1679,
@@ -3324,16 +3301,15 @@
       "staking_yield_used": 0.03033,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02901,
-        "lido_net": 0.02613,
+        "cesr": 0.03019,
         "window": [
           "2026-04-20",
           "2026-04-26"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.029,
-        "max_daily_gross": 0.0314,
-        "diff_vs_stated_pt": -0.13,
+        "days": 7,
+        "min_daily": 0.02899,
+        "max_daily": 0.03139,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 1828,
@@ -3469,16 +3445,15 @@
       "staking_yield_used": 0.0291,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02828,
-        "lido_net": 0.02557,
+        "cesr": 0.02879,
         "window": [
           "2026-04-27",
           "2026-05-03"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02815,
-        "max_daily_gross": 0.03073,
-        "diff_vs_stated_pt": -0.08,
+        "days": 7,
+        "min_daily": 0.0278,
+        "max_daily": 0.03014,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 1754,
@@ -3624,16 +3599,15 @@
       "staking_yield_used": 0.0286,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02867,
-        "lido_net": 0.02597,
+        "cesr": 0.02832,
         "window": [
           "2026-05-04",
           "2026-05-10"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02795,
-        "max_daily_gross": 0.03503,
-        "diff_vs_stated_pt": 0.01,
+        "days": 7,
+        "min_daily": 0.02769,
+        "max_daily": 0.02931,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 1829,
@@ -3777,16 +3751,15 @@
       "staking_yield_used": 0.028,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02715,
-        "lido_net": 0.02444,
+        "cesr": 0.02812,
         "window": [
           "2026-05-11",
           "2026-05-17"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02722,
-        "max_daily_gross": 0.02783,
-        "diff_vs_stated_pt": -0.09,
+        "days": 7,
+        "min_daily": 0.0272,
+        "max_daily": 0.02878,
+        "diff_vs_stated_pt": 0.01,
         "flagged": false
       },
       "est_staking_eth": 1791,
@@ -3930,16 +3903,15 @@
       "staking_yield_used": 0.0275,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02642,
-        "lido_net": 0.02378,
+        "cesr": 0.0275,
         "window": [
           "2026-05-18",
           "2026-05-25"
         ],
-        "reports": 8,
-        "median_daily_gross": 0.02633,
-        "max_daily_gross": 0.02695,
-        "diff_vs_stated_pt": -0.11,
+        "days": 8,
+        "min_daily": 0.02702,
+        "max_daily": 0.02889,
+        "diff_vs_stated_pt": 0,
         "flagged": false
       },
       "est_staking_eth": 2010,
@@ -4083,16 +4055,15 @@
       "staking_yield_used": 0.0273,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02662,
-        "lido_net": 0.02396,
+        "cesr": 0.02734,
         "window": [
           "2026-05-26",
           "2026-05-31"
         ],
-        "reports": 6,
-        "median_daily_gross": 0.02656,
-        "max_daily_gross": 0.02736,
-        "diff_vs_stated_pt": -0.07,
+        "days": 6,
+        "min_daily": 0.0267,
+        "max_daily": 0.02832,
+        "diff_vs_stated_pt": 0,
         "flagged": false
       },
       "est_staking_eth": 1661,
@@ -4242,16 +4213,15 @@
       "staking_yield_used": 0.0299,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02869,
-        "lido_net": 0.02582,
+        "cesr": 0.0284,
         "window": [
           "2026-06-01",
           "2026-06-07"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02791,
-        "max_daily_gross": 0.03459,
-        "diff_vs_stated_pt": -0.12,
+        "days": 7,
+        "min_daily": 0.02701,
+        "max_daily": 0.03062,
+        "diff_vs_stated_pt": -0.15,
         "flagged": false
       },
       "est_staking_eth": 2502,
@@ -4388,16 +4358,15 @@
       "staking_yield_used": 0.0279,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02696,
-        "lido_net": 0.02427,
+        "cesr": 0.02737,
         "window": [
           "2026-06-08",
           "2026-06-14"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02658,
-        "max_daily_gross": 0.0287,
-        "diff_vs_stated_pt": -0.09,
+        "days": 7,
+        "min_daily": 0.02646,
+        "max_daily": 0.02861,
+        "diff_vs_stated_pt": -0.05,
         "flagged": false
       },
       "est_staking_eth": 2522,
@@ -4544,16 +4513,15 @@
       "staking_yield_used": 0.0273,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02614,
-        "lido_net": 0.02352,
+        "cesr": 0.02713,
         "window": [
           "2026-06-15",
           "2026-06-21"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02649,
-        "max_daily_gross": 0.02654,
-        "diff_vs_stated_pt": -0.12,
+        "days": 7,
+        "min_daily": 0.02638,
+        "max_daily": 0.02758,
+        "diff_vs_stated_pt": -0.02,
         "flagged": false
       },
       "est_staking_eth": 2468,
@@ -4698,16 +4666,15 @@
       "staking_yield_used": 0.0275,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02626,
-        "lido_net": 0.02364,
+        "cesr": 0.02713,
         "window": [
           "2026-06-22",
           "2026-06-28"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02584,
-        "max_daily_gross": 0.02925,
-        "diff_vs_stated_pt": -0.12,
+        "days": 7,
+        "min_daily": 0.02653,
+        "max_daily": 0.02843,
+        "diff_vs_stated_pt": -0.04,
         "flagged": false
       },
       "est_staking_eth": 2486,
@@ -4852,16 +4819,15 @@
       "staking_yield_used": 0.0268,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02528,
-        "lido_net": 0.02275,
+        "cesr": 0.0269,
         "window": [
           "2026-06-29",
           "2026-07-05"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02535,
-        "max_daily_gross": 0.02581,
-        "diff_vs_stated_pt": -0.15,
+        "days": 7,
+        "min_daily": 0.02641,
+        "max_daily": 0.02726,
+        "diff_vs_stated_pt": 0.01,
         "flagged": false
       },
       "est_staking_eth": 2425,
@@ -4998,16 +4964,15 @@
       "staking_yield_used": 0.027,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02467,
-        "lido_net": 0.02221,
+        "cesr": 0.0266,
         "window": [
           "2026-07-06",
           "2026-07-12"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02452,
-        "max_daily_gross": 0.02512,
-        "diff_vs_stated_pt": -0.23,
+        "days": 7,
+        "min_daily": 0.02629,
+        "max_daily": 0.02685,
+        "diff_vs_stated_pt": -0.04,
         "flagged": false
       },
       "est_staking_eth": 2443,
@@ -5159,16 +5124,15 @@
       "staking_yield_used": 0.0267,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02444,
-        "lido_net": 0.022,
+        "cesr": 0.02642,
         "window": [
           "2026-07-13",
           "2026-07-19"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02446,
-        "max_daily_gross": 0.02472,
-        "diff_vs_stated_pt": -0.23,
+        "days": 7,
+        "min_daily": 0.02606,
+        "max_daily": 0.02681,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 2416,
@@ -5313,16 +5277,15 @@
       "staking_yield_used": 0.0265,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02427,
-        "lido_net": 0.02184,
+        "cesr": 0.02653,
         "window": [
           "2026-07-20",
           "2026-07-26"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02439,
-        "max_daily_gross": 0.02546,
-        "diff_vs_stated_pt": -0.22,
+        "days": 7,
+        "min_daily": 0.02625,
+        "max_daily": 0.02684,
+        "diff_vs_stated_pt": 0,
         "flagged": false
       },
       "est_staking_eth": 2398,
@@ -5459,16 +5422,15 @@
       "staking_yield_used": 0.0267,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02458,
-        "lido_net": 0.02212,
+        "cesr": 0.02673,
         "window": [
           "2026-07-27",
           "2026-08-02"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.0245,
-        "max_daily_gross": 0.02535,
-        "diff_vs_stated_pt": -0.21,
+        "days": 7,
+        "min_daily": 0.0261,
+        "max_daily": 0.02758,
+        "diff_vs_stated_pt": 0,
         "flagged": false
       },
       "est_staking_eth": 2498,
@@ -5614,16 +5576,15 @@
       "staking_yield_used": 0.0263,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02424,
-        "lido_net": 0.02182,
+        "cesr": 0.02618,
         "window": [
           "2026-08-03",
           "2026-08-09"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.0244,
-        "max_daily_gross": 0.02445,
-        "diff_vs_stated_pt": -0.21,
+        "days": 7,
+        "min_daily": 0.02572,
+        "max_daily": 0.02643,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 2461,
@@ -5760,16 +5721,15 @@
       "staking_yield_used": 0.0261,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02415,
-        "lido_net": 0.02174,
+        "cesr": 0.02602,
         "window": [
           "2026-08-10",
           "2026-08-16"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02414,
-        "max_daily_gross": 0.02443,
-        "diff_vs_stated_pt": -0.19,
+        "days": 7,
+        "min_daily": 0.02574,
+        "max_daily": 0.02615,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 2461,
@@ -5914,16 +5874,15 @@
       "staking_yield_used": 0.0267,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.025,
-        "lido_net": 0.0225,
+        "cesr": 0.0268,
         "window": [
           "2026-08-17",
           "2026-08-23"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02459,
-        "max_daily_gross": 0.02645,
-        "diff_vs_stated_pt": -0.17,
+        "days": 7,
+        "min_daily": 0.02592,
+        "max_daily": 0.02764,
+        "diff_vs_stated_pt": 0.01,
         "flagged": false
       },
       "est_staking_eth": 2518,
@@ -6061,16 +6020,15 @@
       "staking_yield_used": 0.0267,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02471,
-        "lido_net": 0.02224,
+        "cesr": 0.02618,
         "window": [
           "2026-08-24",
           "2026-08-30"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02454,
-        "max_daily_gross": 0.02537,
-        "diff_vs_stated_pt": -0.2,
+        "days": 7,
+        "min_daily": 0.02572,
+        "max_daily": 0.02667,
+        "diff_vs_stated_pt": -0.05,
         "flagged": false
       },
       "est_staking_eth": 2518,
@@ -6217,16 +6175,15 @@
       "staking_yield_used": 0.0261,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.0247,
-        "lido_net": 0.02224,
+        "cesr": 0.02599,
         "window": [
           "2026-08-31",
           "2026-09-07"
         ],
-        "reports": 8,
-        "median_daily_gross": 0.02475,
-        "max_daily_gross": 0.02515,
-        "diff_vs_stated_pt": -0.14,
+        "days": 8,
+        "min_daily": 0.02569,
+        "max_daily": 0.02637,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 2813,
@@ -6381,16 +6338,15 @@
       "staking_yield_used": 0.0262,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02516,
-        "lido_net": 0.02265,
+        "cesr": 0.02584,
         "window": [
           "2026-09-08",
           "2026-09-13"
         ],
-        "reports": 6,
-        "median_daily_gross": 0.0249,
-        "max_daily_gross": 0.02588,
-        "diff_vs_stated_pt": -0.1,
+        "days": 6,
+        "min_daily": 0.02557,
+        "max_daily": 0.0261,
+        "diff_vs_stated_pt": -0.04,
         "flagged": false
       },
       "est_staking_eth": 2182,
@@ -6537,16 +6493,15 @@
       "staking_yield_used": 0.0262,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.025,
-        "lido_net": 0.0225,
+        "cesr": 0.02586,
         "window": [
           "2026-09-14",
           "2026-09-20"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02499,
-        "max_daily_gross": 0.02552,
-        "diff_vs_stated_pt": -0.12,
+        "days": 7,
+        "min_daily": 0.02565,
+        "max_daily": 0.02601,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 2546,
@@ -6693,16 +6648,15 @@
       "staking_yield_used": 0.0262,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02481,
-        "lido_net": 0.02233,
+        "cesr": 0.02594,
         "window": [
           "2026-09-21",
           "2026-09-27"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02463,
-        "max_daily_gross": 0.02549,
-        "diff_vs_stated_pt": -0.14,
+        "days": 7,
+        "min_daily": 0.02526,
+        "max_daily": 0.02648,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 2546,
@@ -6856,16 +6810,15 @@
       "staking_yield_used": 0.0263,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.0249,
-        "lido_net": 0.02241,
+        "cesr": 0.02622,
         "window": [
           "2026-09-28",
           "2026-10-04"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02485,
-        "max_daily_gross": 0.02594,
-        "diff_vs_stated_pt": -0.14,
+        "days": 7,
+        "min_daily": 0.02544,
+        "max_daily": 0.02759,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 2556,
@@ -7011,16 +6964,15 @@
       "staking_yield_used": 0.0261,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.025,
-        "lido_net": 0.02252,
+        "cesr": 0.02597,
         "window": [
           "2026-10-05",
           "2026-10-11"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02486,
-        "max_daily_gross": 0.02593,
-        "diff_vs_stated_pt": -0.11,
+        "days": 7,
+        "min_daily": 0.02545,
+        "max_daily": 0.02641,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 2536,
@@ -7174,16 +7126,15 @@
       "staking_yield_used": 0.0258,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02469,
-        "lido_net": 0.02223,
+        "cesr": 0.0257,
         "window": [
           "2026-10-12",
           "2026-10-18"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02463,
-        "max_daily_gross": 0.02504,
-        "diff_vs_stated_pt": -0.11,
+        "days": 7,
+        "min_daily": 0.02528,
+        "max_daily": 0.02603,
+        "diff_vs_stated_pt": -0.01,
         "flagged": false
       },
       "est_staking_eth": 2507,
@@ -7330,16 +7281,15 @@
       "staking_yield_used": 0.0258,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.02569,
-        "lido_net": 0.02313,
+        "cesr": 0.02547,
         "window": [
           "2026-10-19",
           "2026-10-25"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02479,
-        "max_daily_gross": 0.03088,
-        "diff_vs_stated_pt": -0.01,
+        "days": 7,
+        "min_daily": 0.02522,
+        "max_daily": 0.02579,
+        "diff_vs_stated_pt": -0.03,
         "flagged": false
       },
       "est_staking_eth": 2507,
@@ -7486,18 +7436,16 @@
       "staking_yield_used": 0.0303,
       "staking_yield_basis": "Bitmine stated",
       "staking_yield_check": {
-        "lido_gross": 0.04704,
-        "lido_net": 0.04235,
+        "cesr": 0.02914,
         "window": [
           "2026-10-26",
           "2026-11-01"
         ],
-        "reports": 7,
-        "median_daily_gross": 0.02524,
-        "max_daily_gross": 0.1674,
-        "diff_vs_stated_pt": 1.67,
-        "flagged": true,
-        "note": "Oct 30: one-day network fee spike; Lido's validators got a larger share. Bitmine's stated 3.03% used."
+        "days": 7,
+        "min_daily": 0.02522,
+        "max_daily": 0.05129,
+        "diff_vs_stated_pt": -0.12,
+        "flagged": false
       },
       "est_staking_eth": 2945,
       "est_purchased_eth": 5628,

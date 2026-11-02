@@ -1,6 +1,6 @@
 {
   "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
-  "built": "2026-11-02T15:18:09.884Z",
+  "built": "2026-11-02T15:42:20.731Z",
   "models": {
     "v1": {
       "label": "v1 – original (Jul–Oct 2026)",
@@ -38,7 +38,7 @@
       "carry_weeks": 3,
       "carry_max_usd": 5000000,
       "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)",
-      "staking_yield": "per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); gross Lido weekly average (data/staking_yield.json) only for weeks with neither"
+      "staking_yield": "per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); CESR weekly average (data/cesr.json) only for weeks with neither"
     },
     "v3_walkforward": {
       "label": "v3 walk-forward (ETH factor from earlier 10-Qs only)",
@@ -53,7 +53,7 @@
       "carry_weeks": 3,
       "carry_max_usd": 5000000,
       "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)",
-      "staking_yield": "per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); gross Lido weekly average (data/staking_yield.json) only for weeks with neither",
+      "staking_yield": "per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); CESR weekly average (data/cesr.json) only for weeks with neither",
       "walkforward": true
     }
   },
@@ -433,15 +433,18 @@
       ]
     },
     "current_model_matches_prediction": true,
-    "superseded_lido_input": {
-      "est_shares": 614503478,
-      "est_range": [
-        611049899,
-        618181475
-      ],
-      "diff_shares": 152371,
-      "note": "Superseded Nov 2, 2026: shown Nov 2 (cf594cf) when the model briefly used the Lido weekly average; the model input is back to Bitmine-stated yields. Recorded only, not displayed."
-    },
+    "superseded_alternatives": [
+      {
+        "input": "Lido on-chain gross weekly average (commit cf594cf, Nov 2, 2026)",
+        "est_shares": 614503478,
+        "est_range": [
+          611049899,
+          618181475
+        ],
+        "diff_vs_prediction_shares": 152371,
+        "status": "superseded the same day (bff5f5e); the Lido series was removed in favour of CESR as the independent check. Recorded only, not displayed or scored."
+      }
+    ],
     "status": "pending 10-K"
   },
   "intervals": [

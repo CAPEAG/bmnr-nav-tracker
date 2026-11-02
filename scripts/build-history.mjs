@@ -8,7 +8,7 @@
 // Usage: node scripts/build-history.mjs [--refetch] [--dry]
 import { readFile, writeFile } from 'node:fs/promises';
 import { computeNav } from '../assets/calc.js';
-import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts, weekStakingYield } from './model.mjs';
+import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts, weekAverageRate } from './model.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
 const P = (f) => new URL(`../data/${f}`, import.meta.url);
@@ -73,24 +73,24 @@ async function weekPrices(prevAsof, asof) {
 const wk = [];
 for (let i = 0; i < rel.length; i++) wk.push({ cur: rel[i], prev: rel[i - 1], px: await weekPrices(rel[i - 1]?.as_of, rel[i].as_of) });
 
-// ---------- independent staking yield per release window (data/staking_yield.json, scripts/fetch-staking-yield.mjs) ----------
-// Time-weighted average GROSS Lido APR (fee shares added back) over the daily oracle reports dated in the release window
-// (previous as-of + 1 day … as-of; first release: the 7 days to its as-of). An independent check next to Bitmine's stated yield.
-const SY = await load('staking_yield.json', { reports: [] });
+// ---------- CESR per release window (data/cesr.json, scripts/fetch-cesr.mjs) ----------
+// Average of the daily CESR values dated in the release window (previous as-of + 1 day … as-of; first release: the 7 days
+// to its as-of). An independent check next to Bitmine's stated yield.
+const CESR = await load('cesr.json', { days: [] });
 for (let i = 0; i < wk.length; i++) {
   const hi = wk[i].cur.as_of, lo = iso(wk[i].prev ? ts(wk[i].prev.as_of) + DAY : ts(hi) - 6 * DAY);
-  const y = weekStakingYield(SY.reports, lo, hi);
+  const y = weekAverageRate(CESR.days, lo, hi);
   const days = Math.round((ts(hi) - ts(lo)) / DAY) + 1;
-  if (!y) console.warn(`WARNING: no Lido report in ${lo}…${hi} — no Lido check for week ${hi} (run node scripts/fetch-staking-yield.mjs)`);
-  else if (y.reports < days) console.warn(`note: ${y.reports}/${days} Lido reports in ${lo}…${hi}`);
-  wk[i].yindep = y && { ...y, window: [lo, hi], days };
+  if (!y) console.warn(`WARNING: no CESR day in ${lo}…${hi} — no CESR check for week ${hi} (run node scripts/fetch-cesr.mjs)`);
+  else if (y.days < days) console.warn(`note: ${y.days}/${days} CESR days in ${lo}…${hi}`);
+  wk[i].cesr = y && { ...y, window: [lo, hi], window_days: days };
 }
-// Model input: Bitmine's stated 7-day yield (its realized rate) wherever a release gives one — including the CESR stand-in
-// recorded for Dec 28, 2025 – Feb 1, 2026, which matched Bitmine more closely than Lido where both exist. The Lido gross
-// weekly average is an independent check only, used as input solely for weeks with neither (Nov 30 – Dec 21, 2025, 0 ETH staked).
-const modelYield = (i) => wk[i].cur.staking_yield_7d ?? wk[i].yindep?.value ?? null;
-const yieldBasis = (i) => (wk[i].cur.staking_yield_7d != null ? (wk[i].cur.staking_yield_source ? 'CESR stand-in' : 'Bitmine stated') : wk[i].yindep ? 'Lido fallback' : 'none');
-const CHECK_PT = 0.003; // flag weeks where Lido's weekly average differs from the stated yield by more than 0.3 pt
+// Model input: Bitmine's stated 7-day yield (its realized rate) wherever a release gives one — including the release-quoted
+// CESR stand-in recorded for Dec 28, 2025 – Feb 1, 2026. The CESR weekly average is the independent check, used as input
+// only for weeks with no yield at all (Nov 30 – Dec 21, 2025, when 0 ETH was staked).
+const modelYield = (i) => wk[i].cur.staking_yield_7d ?? wk[i].cesr?.value ?? null;
+const yieldBasis = (i) => (wk[i].cur.staking_yield_7d != null ? (wk[i].cur.staking_yield_source ? 'CESR stand-in' : 'Bitmine stated') : wk[i].cesr ? 'CESR fallback' : 'none');
+const CHECK_PT = 0.003; // flag weeks where the CESR weekly average differs from the stated yield by more than 0.3 pt
 
 // Calibrate undisclosed buyback prices to the disclosed aggregate (shares × weekly avg close × k).
 const agg = R.buyback_aggregate;
@@ -175,7 +175,7 @@ const MODELS = {
   v2: { label: 'v2 – ETH × 1.05, unlimited carry', ...base, carry_forward: true, eth_cost_factor: 1.05 },
   v3: { label: 'v3 – 10-Q ETH price, capped carry (current)', ...base, carry_forward: A.carry_forward, carry_weeks: A.carry_weeks, carry_max_usd: A.carry_max_usd,
     ethPrice: ethPriceFn(QS, true), extraCash: extraCashFn(null), eth_price: 'per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)',
-    stakingYield: modelYield, staking_yield: 'per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); gross Lido weekly average (data/staking_yield.json) only for weeks with neither' },
+    stakingYield: modelYield, staking_yield: 'per week: Bitmine-stated 7-day yield (CESR stand-in where recorded); CESR weekly average (data/cesr.json) only for weeks with neither' },
 };
 // Walk-forward v3: each interval only knows the 10-Q ETH cost data filed by its start (quarters ended on/before it),
 // and prices every week at that pooled factor ('assumed').
@@ -292,11 +292,11 @@ for (let i = 0; i < wk.length; i++) {
     eth: cur.eth, eth_change: f ? f.ethChange : null, eth_acquired_reported: cur.eth_acquired_reported,
     eth_staked: cur.eth_staked, staking_yield_7d: cur.staking_yield_7d, staking_yield_source: cur.staking_yield_source || undefined,
     staking_yield_used: f ? r(f.yld, 6) : null, staking_yield_basis: yieldBasis(i),
-    // independent check (not the input unless the release states no yield): gross Lido weekly average
-    staking_yield_check: wk[i].yindep ? (() => { const y = wk[i].yindep, d = cur.staking_yield_7d != null ? y.value - cur.staking_yield_7d : null;
-      return { lido_gross: r(y.value, 5), lido_net: r(y.net, 5), window: y.window, reports: y.reports, median_daily_gross: r(y.median_daily, 5), max_daily_gross: r(y.max_daily, 5),
+    // independent check (not the input unless the release states no yield): CESR weekly average
+    staking_yield_check: wk[i].cesr ? (() => { const y = wk[i].cesr, d = cur.staking_yield_7d != null ? y.value - cur.staking_yield_7d : null;
+      return { cesr: r(y.value, 5), window: y.window, days: y.days, min_daily: r(y.min_daily, 5), max_daily: r(y.max_daily, 5),
         diff_vs_stated_pt: d == null ? null : r(d * 100, 2), flagged: d != null && Math.abs(d) > CHECK_PT,
-        note: d != null && Math.abs(d) > CHECK_PT ? cur.staking_yield_check_note || `Lido's weekly average differs from Bitmine's stated yield by ${(d * 100).toFixed(2)} pt. Bitmine's stated ${(cur.staking_yield_7d * 100).toFixed(2)}% used.` : undefined }; })() : null,
+        note: d != null && Math.abs(d) > CHECK_PT ? cur.staking_yield_check_note || `CESR's weekly average differs from Bitmine's stated yield by ${(d * 100).toFixed(2)} pt. Bitmine's stated ${(cur.staking_yield_7d * 100).toFixed(2)}% used.` : undefined }; })() : null,
     est_staking_eth: f ? r(f.rewards) : null, est_purchased_eth: f ? r(f.purchased) : null,
     eth_week_avg: f ? px.eth_avg : null,
     eth_price_used: f ? r(f.ethPrice, 2) : null, eth_price_basis: f ? f.ethBasis : null, eth_price_source: f ? f.ethSource : null,
@@ -404,8 +404,8 @@ const ysAll = rel.filter((x) => x.staking_yield_7d).map((x) => x.staking_yield_7
 H.assumptions.weekly_staking_yield = Number((ys13.reduce((t, x) => t + x, 0) / ys13.length).toFixed(5));
 H.assumptions.weekly_staking_yield_source = `13-week average of Bitmine's stated 7-day BMNR yields to ${lr.as_of} (latest stated: ${(lr.staking_yield_7d * 100).toFixed(2)}%).`;
 delete H.assumptions.stated_staking_yield_7d; delete H.assumptions.stated_staking_yield_source;
-const indepWeeks = wk.filter((w) => w.yindep).map((w) => w.yindep.value);
-H.assumptions.share_estimation.staking_rewards = "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (CESR stand-in where no Bitmine yield was stated; gross Lido weekly average only if neither) × days/365. The Lido on-chain weekly average (data/staking_yield.json) is shown as an independent check.";
+const cesrWeeks = wk.filter((w) => w.cesr).map((w) => w.cesr.value);
+H.assumptions.share_estimation.staking_rewards = "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.";
 H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), built: new Date().toISOString() };
 // Staking accrual since the last report (Holdings card): same lagged basis as model.mjs — the smallest staked balance
 // over the last 1 + staking_lag_reports reports (newly staked ETH waits in the validator entry queue).
@@ -427,9 +427,9 @@ V.derived = {
   yield_trailing_13w: { value: tavg(13), label: '13-week average of stated 7-day yields' },
   yield_trailing_26w: { value: tavg(26), label: '26-week average of stated 7-day yields' },
   staked_trajectory: trj,
-  // reference only (no valuation input points here): the same trailing averages of the Lido weekly check
-  independent_yield_trailing: Object.fromEntries([4, 13, 26].map((n) => { const a = indepWeeks.slice(-n); return [`${n}w`, Number((a.reduce((t, x) => t + x, 0) / a.length).toFixed(5))]; })),
-  independent_yield_source: 'Gross Lido on-chain APR, time-weighted over each release window (data/staking_yield.json)',
+  // reference only (no valuation input points here): the same trailing averages of the CESR weekly check
+  cesr_yield_trailing: Object.fromEntries([4, 13, 26].map((n) => { const a = cesrWeeks.slice(-n); return [`${n}w`, Number((a.reduce((t, x) => t + x, 0) / a.length).toFixed(5))]; })),
+  cesr_yield_source: 'CESR (Quatrefoil / CoinDesk Indices) daily values averaged over each release window (data/cesr.json)',
 };
 console.log('valuation derived', JSON.stringify({ ...V.derived, staked_trajectory: undefined }));
 
@@ -455,21 +455,20 @@ const outOfSample = (() => {
   const params_match_freeze = keys.every((k) => JSON.stringify(now[k]) === JSON.stringify(OOS.frozen_v3_params[k]));
   const s = cpAt(OOS.from), e = cpAt(OOS.to);
   // The held-out prediction keeps the inputs in use when it was frozen (OOS.frozen_inputs: Bitmine-stated 7-day yields),
-  // which is again the current model input. The Lido-input alternative shown from cf594cf is kept here, marked superseded.
+  // which is again the current model input. The Lido-input alternative shown in cf594cf is kept as a static record
+  // (checkpoints.json → out_of_sample.superseded_alternatives), not recomputed or displayed.
   const frozenStated = OOS.frozen_inputs?.staking_yield === 'bitmine_stated_7d';
   const mF = { ...wfModel(MODELS.v3, s.date), ...(frozenStated ? { stakingYield: undefined } : {}) };
-  const mN = { ...wfModel(MODELS.v3, s.date), stakingYield: (i) => wk[i].yindep?.value ?? null };
   const pred = (m) => { const o = rollForward(wk, flowsFor(m), m, s.date, s.shares, OOS.to); return { shares: o.shares, est_shares: r(o.shares[1]), est_range: [r(o.shares[0]), r(o.shares[2])] }; };
-  const pF = pred(mF), pN = pred(mN), pC = pred(wfModel(MODELS.v3, s.date));
+  const pF = pred(mF), pC = pred(wfModel(MODELS.v3, s.date));
   const base = { from: OOS.from, to: OOS.to, label: OOS.label, model: 'v3, information known at the interval start', frozen_on: OOS.frozen_on, params_match_freeze, params_now: now,
     staking_yield_input: frozenStated ? 'bitmine_stated_7d (as frozen)' : 'current', prediction: { est_shares: pF.est_shares, est_range: pF.est_range },
     current_model_matches_prediction: pC.est_shares === pF.est_shares,
-    superseded_lido_input: { est_shares: pN.est_shares, est_range: pN.est_range, diff_shares: r(pN.shares[1] - pF.shares[1]),
-      note: 'Superseded Nov 2, 2026: shown Nov 2 (cf594cf) when the model briefly used the Lido weekly average; the model input is back to Bitmine-stated yields. Recorded only, not displayed.' } };
+    superseded_alternatives: OOS.superseded_alternatives || undefined };
   if (!s || !e) return { ...base, status: 'pending 10-K' };
   const sc = (p) => ({ error_shares: r(p.shares[1] - e.shares), error_pct: r(((p.shares[1] - e.shares) / e.shares) * 100, 2), within_range: e.shares >= p.shares[0] && e.shares <= p.shares[2] });
   return { ...base, status: 'recorded', official_end_shares: e.shares, est_shares: pF.est_shares, est_range: pF.est_range, ...sc(pF),
-    superseded_lido_input: { ...base.superseded_lido_input, ...sc(pN) }, source: e.url };
+    source: e.url };
 })();
 if (outOfSample && !outOfSample.params_match_freeze) console.warn('WARNING: v3 parameters differ from the out-of-sample freeze (checkpoints.json → out_of_sample)');
 const bt = {

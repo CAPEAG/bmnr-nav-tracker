@@ -31,7 +31,7 @@
       "opex_high_multiplier": 2,
       "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
       "purchase_price": "Per week: 'disclosed' = the week's average daily ETH price × that fiscal quarter's 10-Q factor (cost of ETH purchased ÷ units ÷ purchase-weighted weekly average); 'assumed' (weeks after the last filed quarter) = weekly average × the factor pooled over all filed quarters, range ± eth_price_uncertainty. See checkpoints.json → eth_cost_quarterly and backtest.json → eth_price.",
-      "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (CESR stand-in where no Bitmine yield was stated; gross Lido weekly average only if neither) × days/365. The Lido on-chain weekly average (data/staking_yield.json) is shown as an independent check.",
+      "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.",
       "bmnp_start": "2026-06-10",
       "include_investments": true,
       "staking_lag_reports": 4,
@@ -68,18 +68,16 @@
     "staking_yield_used": 0.0303,
     "staking_yield_basis": "Bitmine stated",
     "staking_yield_check": {
-      "lido_gross": 0.04704,
-      "lido_net": 0.04235,
+      "cesr": 0.02914,
       "window": [
         "2026-10-26",
         "2026-11-01"
       ],
-      "reports": 7,
-      "median_daily_gross": 0.02524,
-      "max_daily_gross": 0.1674,
-      "diff_vs_stated_pt": 1.67,
-      "flagged": true,
-      "note": "Oct 30: one-day network fee spike; Lido's validators got a larger share. Bitmine's stated 3.03% used."
+      "days": 7,
+      "min_daily": 0.02522,
+      "max_daily": 0.05129,
+      "diff_vs_stated_pt": -0.12,
+      "flagged": false
     },
     "est_staking_eth": 2945,
     "est_purchased_eth": 5628,
@@ -213,7 +211,7 @@
       }
     }
   },
-  "last_updated": "2026-11-02T15:18:09.871Z",
+  "last_updated": "2026-11-02T15:42:20.719Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -227,7 +225,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-02T15:18:09.872Z"
+    "built": "2026-11-02T15:42:20.719Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",

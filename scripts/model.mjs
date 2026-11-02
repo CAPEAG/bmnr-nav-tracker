@@ -6,16 +6,14 @@ const DAY = 86400000;
 export const ts = (d) => Date.parse(d + 'T00:00:00Z');
 
 const median = (a) => { const s = a.slice().sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
-/** Independent staking yield for a release window: time-weighted average of the daily Lido oracle reports
- * (data/staking_yield.json → reports) dated lo…hi inclusive (YYYY-MM-DD). Returns null if no report falls inside. */
-export function weekStakingYield(reports, lo, hi, key = 'apr_gross') {
-  const xs = (reports || []).filter((x) => x.date >= lo && x.date <= hi);
+/** CESR for a release window: simple average of the daily CESR values (data/cesr.json → days, total_rate) dated
+ * lo…hi inclusive (YYYY-MM-DD). Returns null if no day falls inside. */
+export function weekAverageRate(days, lo, hi, key = 'total_rate') {
+  const xs = (days || []).filter((x) => x.date >= lo && x.date <= hi);
   if (!xs.length) return null;
-  const t = xs.reduce((s, x) => s + x.time_elapsed_s, 0);
-  const avg = (k) => xs.reduce((s, x) => s + x[k] * x.time_elapsed_s, 0) / t;
-  const daily = xs.map((x) => x[key]);
-  return { value: avg(key), net: avg('apr_net'), reports: xs.length, from: xs[0].date, to: xs.at(-1).date,
-    min_daily: Math.min(...daily), max_daily: Math.max(...daily), median_daily: median(daily) };
+  const v = xs.map((x) => x[key]);
+  return { value: v.reduce((t, x) => t + x, 0) / v.length, days: v.length, from: xs[0].date, to: xs.at(-1).date,
+    min_daily: Math.min(...v), max_daily: Math.max(...v), median_daily: median(v) };
 }
 
 // Weekly cash need for week i under parameter set P.
@@ -30,7 +28,7 @@ export function weekFlows(wk, i, P, kBuyback = 1) {
   const lag = P.staking_lag_reports || 0;
   const hist = wk.slice(Math.max(0, i - 1 - lag), i).map((w) => w.cur.eth_staked || 0);
   const stakedBasis = lag ? Math.min(...hist) : prev.eth_staked || 0;
-  // Annual yield for the week: P.stakingYield(i) when it returns a value (v3: Bitmine's stated 7-day yield, Lido weekly
+  // Annual yield for the week: P.stakingYield(i) when it returns a value (v3: Bitmine's stated 7-day yield, CESR weekly
   // average only for weeks with no stated yield), otherwise the stated 7-day yield.
   const stated = cur.staking_yield_7d ?? prev.staking_yield_7d ?? 0;
   const yld = (P.stakingYield && P.stakingYield(i)) ?? stated;

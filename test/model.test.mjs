@@ -6,7 +6,7 @@ import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, weekStakingYield } from '../scripts/model.mjs';
+import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, weekAverageRate } from '../scripts/model.mjs';
 
 const data = (f) => JSON.parse(readFileSync(new URL(`../data/${f}`, import.meta.url), 'utf8'));
 
@@ -50,14 +50,13 @@ test('rollForward with carry-forward: week-1 surplus offsets week-2 need', () =>
   assert.equal(o.issued[1], 0); // 8M surplus covers the 6.01M need
 });
 
-test('weekStakingYield: time-weighted average of the reports dated inside the window', () => {
-  const rp = [['2026-01-04', 0.02, 86400], ['2026-01-05', 0.03, 86400], ['2026-01-06', 0.09, 172800], ['2026-01-08', 0.5, 86400]]
-    .map(([date, g, t]) => ({ date, apr_gross: g, apr_net: g * 0.9, time_elapsed_s: t }));
-  const y = weekStakingYield(rp, '2026-01-05', '2026-01-07');
-  assert.equal(y.reports, 2);
-  assert.ok(Math.abs(y.value - (0.03 + 0.09 * 2) / 3) < 1e-12);
-  assert.ok(Math.abs(y.net - y.value * 0.9) < 1e-12);
-  assert.equal(weekStakingYield(rp, '2026-02-01', '2026-02-07'), null);
+test('weekAverageRate: average of the daily values dated inside the window', () => {
+  const dd = [['2026-01-04', 0.02], ['2026-01-05', 0.03], ['2026-01-06', 0.09], ['2026-01-08', 0.5]].map(([date, v]) => ({ date, total_rate: v }));
+  const y = weekAverageRate(dd, '2026-01-05', '2026-01-07');
+  assert.equal(y.days, 2);
+  assert.ok(Math.abs(y.value - 0.06) < 1e-12);
+  assert.equal(y.max_daily, 0.09);
+  assert.equal(weekAverageRate(dd, '2026-02-01', '2026-02-07'), null);
   // the model uses P.stakingYield(i) when it returns a value, else the stated 7-day yield
   const w2 = [{ cur: rel('2026-01-04', 1000, 100e6, { eth_staked: 365000, staking_yield_7d: 0.05 }), px: px(['2026-01-02']) },
     { cur: rel('2026-01-11', 2000, 100e6, { eth_staked: 365000, staking_yield_7d: 0.05 }), px: px(['2026-01-05']) }];
@@ -79,8 +78,8 @@ const built = (f) => JSON.parse(readFileSync(join(out, f), 'utf8'));
 const H = built('history.json'), B = built('backtest.json');
 process.on('exit', () => rmSync(out, { recursive: true, force: true }));
 
-// Staking-yield input = Bitmine's stated 7-day yield (CESR stand-in where recorded). The Lido weekly average
-// (data/staking_yield.json) is a check only; cf594cf briefly used it as the input and was reverted the same day.
+// Staking-yield input = Bitmine's stated 7-day yield (release-quoted CESR stand-in where recorded). The CESR weekly average
+// (data/cesr.json) is a check only. (cf594cf briefly used a Lido weekly average as the input; reverted in bff5f5e.)
 test('Oct 25, 2026 week: v3 share count and range', () => {
   const s = H.snapshots.find((x) => x.as_of === '2026-10-25');
   assert.equal(s.shares_outstanding, 626769593);
@@ -95,27 +94,30 @@ test('backtest: v3 in-sample summary unchanged', () => {
   assert.equal(v3.within_range, 4);
 });
 
-test('staking yield: model input is the stated yield; Lido weekly average is a flagged check', () => {
-  const Y = data('staking_yield.json');
+test('staking yield: model input is the stated yield; CESR weekly average is a flagged check', () => {
+  const Y = data('cesr.json');
+  assert.match(Y.source.url, /quatrefoildata\.com\/cesr/);
   for (const s of H.snapshots) {
     const c = s.staking_yield_check;
-    assert.ok(c, `${s.as_of}: no Lido check in the window`);
+    assert.ok(c, `${s.as_of}: no CESR check in the window`);
     const days = (Date.parse(c.window[1]) - Date.parse(c.window[0])) / 864e5 + 1;
-    assert.equal(c.reports, days, `${s.as_of}: one Lido report per day of the window`);
+    assert.equal(c.days, days, `${s.as_of}: one CESR value per day of the window`);
     if (s.days == null) continue;
     if (s.staking_yield_7d != null) {
       assert.equal(s.staking_yield_used, s.staking_yield_7d, `${s.as_of}: stated yield is the input`);
       assert.equal(s.staking_yield_basis, s.staking_yield_source ? 'CESR stand-in' : 'Bitmine stated');
-      assert.equal(c.flagged, Math.abs(c.lido_gross - s.staking_yield_7d) > 0.003, `${s.as_of}: 0.3 pt flag`);
+      assert.equal(c.flagged, Math.abs(c.cesr - s.staking_yield_7d) > 0.003, `${s.as_of}: 0.3 pt flag`);
     } else {
-      assert.equal(s.staking_yield_basis, 'Lido fallback');
-      assert.ok(Math.abs(s.staking_yield_used - c.lido_gross) < 1e-5, `${s.as_of}: Lido fallback`);
+      assert.equal(s.staking_yield_basis, 'CESR fallback');
+      assert.ok(Math.abs(s.staking_yield_used - c.cesr) < 1e-5, `${s.as_of}: CESR fallback`);
+      assert.equal(s.est_staking_eth, 0, `${s.as_of}: fallback weeks have nothing staked`);
     }
   }
   const n = H.snapshots.find((x) => x.as_of === '2026-11-01');
   assert.equal(n.staking_yield_used, 0.0303);
-  assert.ok(n.staking_yield_check.flagged && /fee spike/.test(n.staking_yield_check.note));
-  for (const r of Y.reports) assert.ok(r.apr_gross > r.apr_net && r.fee_share > 0.05 && r.fee_share < 0.15, `${r.date}: gross > net, fee share ~10%`);
+  const gaps = H.snapshots.filter((x) => x.staking_yield_basis === 'Bitmine stated').map((x) => Math.abs(x.staking_yield_check.diff_vs_stated_pt));
+  assert.ok(gaps.reduce((t, x) => t + x, 0) / gaps.length < 0.1, 'CESR tracks the stated yields within 0.1 pt on average');
+  for (const d of Y.days) assert.ok(d.total_rate > 0 && Math.abs(d.consensus_rewards_rate + d.block_rewards_rate - d.total_rate) < 1e-6, `${d.date}: components sum to total`);
   const h = data('holdings.json'), ys = R.releases.filter((x) => x.staking_yield_7d).map((x) => x.staking_yield_7d).slice(-13);
   assert.equal(h.assumptions.weekly_staking_yield, Number((ys.reduce((t, x) => t + x, 0) / 13).toFixed(5)), 'accrual = 13-week stated average');
 });
@@ -129,7 +131,7 @@ test('held-out interval Jul 9 → Aug 31, 2026: reported separately, v3 not re-t
   assert.equal(O.staking_yield_input, 'bitmine_stated_7d (as frozen)');
   assert.deepEqual(O.prediction, { est_shares: 614351108, est_range: [610994985, 618019327] });
   assert.equal(O.current_model_matches_prediction, true);
-  assert.match(O.superseded_lido_input.note, /Superseded/);
+  assert.equal(O.superseded_alternatives?.[0]?.est_shares, 614503478, 'superseded cf594cf alternative kept on record');
   assert.ok(!B.intervals.some((b) => b.out_of_sample && B.summary.v3.intervals > 4), 'held-out interval excluded from the summary');
 });
 

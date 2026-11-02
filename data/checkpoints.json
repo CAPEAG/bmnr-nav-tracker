@@ -382,7 +382,19 @@
     },
     "frozen_inputs": {
       "staking_yield": "bitmine_stated_7d",
-      "note": "Added Nov 2, 2026 to record the input in use at the Oct 28 freeze: weekly staking rewards from Bitmine's stated 7-day yields. The model briefly used the Lido weekly average (commit cf594cf) and returned to the stated yields the same day; the held-out prediction always uses the frozen input. The superseded Lido-input result is kept in backtest.json → out_of_sample.superseded_lido_input."
-    }
+      "note": "Added Nov 2, 2026 to record the input in use at the Oct 28 freeze: weekly staking rewards from Bitmine's stated 7-day yields. The model briefly used the Lido weekly average (commit cf594cf) and returned to the stated yields the same day (bff5f5e); the held-out prediction always uses the frozen input."
+    },
+    "superseded_alternatives": [
+      {
+        "input": "Lido on-chain gross weekly average (commit cf594cf, Nov 2, 2026)",
+        "est_shares": 614503478,
+        "est_range": [
+          611049899,
+          618181475
+        ],
+        "diff_vs_prediction_shares": 152371,
+        "status": "superseded the same day (bff5f5e); the Lido series was removed in favour of CESR as the independent check. Recorded only, not displayed or scored."
+      }
+    ]
   }
 }
