@@ -8,7 +8,7 @@
 // Usage: node scripts/build-history.mjs [--refetch] [--dry]
 import { readFile, writeFile } from 'node:fs/promises';
 import { computeNav } from '../assets/calc.js';
-import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts } from './model.mjs';
+import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts, weekStakingYield } from './model.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
 const P = (f) => new URL(`../data/${f}`, import.meta.url);
@@ -72,6 +72,20 @@ async function weekPrices(prevAsof, asof) {
 
 const wk = [];
 for (let i = 0; i < rel.length; i++) wk.push({ cur: rel[i], prev: rel[i - 1], px: await weekPrices(rel[i - 1]?.as_of, rel[i].as_of) });
+
+// ---------- independent staking yield per release window (data/staking_yield.json, scripts/fetch-staking-yield.mjs) ----------
+// Time-weighted average GROSS Lido APR (fee shares added back) over the daily oracle reports dated in the release window
+// (previous as-of + 1 day … as-of; first release: the 7 days to its as-of). Bitmine's stated staking_yield_7d is kept as reported.
+const SY = await load('staking_yield.json', { reports: [] });
+for (let i = 0; i < wk.length; i++) {
+  const hi = wk[i].cur.as_of, lo = iso(wk[i].prev ? ts(wk[i].prev.as_of) + DAY : ts(hi) - 6 * DAY);
+  const y = weekStakingYield(SY.reports, lo, hi);
+  const days = Math.round((ts(hi) - ts(lo)) / DAY) + 1;
+  if (!y) console.warn(`WARNING: no Lido report in ${lo}…${hi} — week ${hi} falls back to Bitmine's stated yield (run node scripts/fetch-staking-yield.mjs)`);
+  else if (y.reports < days) console.warn(`note: ${y.reports}/${days} Lido reports in ${lo}…${hi}`);
+  wk[i].yindep = y && { ...y, window: [lo, hi], days };
+}
+const indepYield = (i) => wk[i].yindep?.value ?? null;
 
 // Calibrate undisclosed buyback prices to the disclosed aggregate (shares × weekly avg close × k).
 const agg = R.buyback_aggregate;
@@ -155,13 +169,15 @@ const MODELS = {
     include_investments: false, staking_lag_reports: 0, staking_realization: 1, carry_forward: false, opex_high_multiplier: 2 },
   v2: { label: 'v2 – ETH × 1.05, unlimited carry', ...base, carry_forward: true, eth_cost_factor: 1.05 },
   v3: { label: 'v3 – 10-Q ETH price, capped carry (current)', ...base, carry_forward: A.carry_forward, carry_weeks: A.carry_weeks, carry_max_usd: A.carry_max_usd,
-    ethPrice: ethPriceFn(QS, true), extraCash: extraCashFn(null), eth_price: 'per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)' },
+    ethPrice: ethPriceFn(QS, true), extraCash: extraCashFn(null), eth_price: 'per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)',
+    stakingYield: indepYield, staking_yield: 'per week: time-weighted average gross Lido APR over the release window (data/staking_yield.json); Bitmine-stated 7-day yield only if no report' },
 };
 // Walk-forward v3: each interval only knows the 10-Q ETH cost data filed by its start (quarters ended on/before it),
 // and prices every week at that pooled factor ('assumed').
 MODELS.v3_walkforward = { ...MODELS.v3, label: 'v3 walk-forward (ETH factor from earlier 10-Qs only)', walkforward: true, ethPrice: undefined };
 // Sensitivity variants (backtest diagnostics only)
 const VARIANTS = {
+  'v3 with Bitmine-stated 7-day yields': { ...MODELS.v3, stakingYield: undefined, staking_yield: 'Bitmine-stated 7-day yield' },
   'v3, no carry-forward': { ...MODELS.v3, carry_forward: false },
   'v3, unlimited carry': { ...MODELS.v3, carry_weeks: Infinity, carry_max_usd: Infinity },
   'v3, carry 2 wk / $5M': { ...MODELS.v3, carry_weeks: 2, carry_max_usd: 5e6 },
@@ -270,7 +286,10 @@ for (let i = 0; i < wk.length; i++) {
   out.push({
     date: cur.date, as_of: cur.as_of, days: f?.days ?? null,
     eth: cur.eth, eth_change: f ? f.ethChange : null, eth_acquired_reported: cur.eth_acquired_reported,
-    eth_staked: cur.eth_staked, staking_yield_7d: cur.staking_yield_7d,
+    eth_staked: cur.eth_staked, staking_yield_7d: cur.staking_yield_7d, staking_yield_note: cur.staking_yield_note || undefined,
+    staking_yield_used: f ? r(f.yld, 5) : null,
+    staking_yield_independent: wk[i].yindep ? { gross: r(wk[i].yindep.value, 5), net: r(wk[i].yindep.net, 5), window: wk[i].yindep.window, reports: wk[i].yindep.reports,
+      median_daily_gross: r(wk[i].yindep.median_daily, 5), max_daily_gross: r(wk[i].yindep.max_daily, 5) } : null,
     est_staking_eth: f ? r(f.rewards) : null, est_purchased_eth: f ? r(f.purchased) : null,
     eth_week_avg: f ? px.eth_avg : null,
     eth_price_used: f ? r(f.ethPrice, 2) : null, eth_price_basis: f ? f.ethBasis : null, eth_price_source: f ? f.ethSource : null,
@@ -373,8 +392,15 @@ Object.assign(H, {
 const latestCp = cps.filter((c) => c.use_as_anchor !== false).at(-1);
 H.shares_official = { shares: latestCp.shares, date: latestCp.date, source: latestCp.source, url: latestCp.url, next_expected: H.shares_official?.next_expected };
 H.orbs.reported_value_usd = lr.orbs_value_usd;
-H.assumptions.weekly_staking_yield = lr.staking_yield_7d;
-H.assumptions.weekly_staking_yield_source = `Bitmine's stated 7-day BMNR yield in the ${lr.date} release.`;
+// Run rate for the accrual since the last report: 13-week average of the independent weekly yields (a one-week spike is
+// not annualized). Bitmine's stated figure is kept alongside.
+const indepWeeks = wk.filter((w) => w.yindep).map((w) => w.yindep.value);
+const indep13 = indepWeeks.slice(-13).reduce((t, x) => t + x, 0) / Math.min(13, indepWeeks.length);
+H.assumptions.weekly_staking_yield = Number(indep13.toFixed(5));
+H.assumptions.weekly_staking_yield_source = `13-week average of the independent weekly staking yield (gross Lido on-chain APR, data/staking_yield.json) to ${lr.as_of}.`;
+H.assumptions.stated_staking_yield_7d = lr.staking_yield_7d;
+H.assumptions.stated_staking_yield_source = `Bitmine's stated 7-day BMNR yield in the ${lr.date} release${lr.staking_yield_note ? ` (${lr.staking_yield_note})` : ''}.`;
+H.assumptions.share_estimation.staking_rewards = 'ETH staked 4 reports earlier (min over the last 5 reports) × that week\'s independent staking yield (time-weighted average gross Lido APR over the release window, data/staking_yield.json) × days/365. Bitmine\'s stated 7-day yield is kept as the reported figure; it is used only if no Lido report covers the window.';
 H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), built: new Date().toISOString() };
 // Staking accrual since the last report (Holdings card): same lagged basis as model.mjs — the smallest staked balance
 // over the last 1 + staking_lag_reports reports (newly staked ETH waits in the validator entry queue).
@@ -396,6 +422,9 @@ V.derived = {
   yield_trailing_13w: { value: tavg(13), label: '13-week average of stated 7-day yields' },
   yield_trailing_26w: { value: tavg(26), label: '26-week average of stated 7-day yields' },
   staked_trajectory: trj,
+  // reference only (no valuation input points here): the same trailing averages of the independent weekly yields
+  independent_yield_trailing: Object.fromEntries([4, 13, 26].map((n) => { const a = indepWeeks.slice(-n); return [`${n}w`, Number((a.reduce((t, x) => t + x, 0) / a.length).toFixed(5))]; })),
+  independent_yield_source: 'Gross Lido on-chain APR, time-weighted over each release window (data/staking_yield.json)',
 };
 console.log('valuation derived', JSON.stringify({ ...V.derived, staked_trajectory: undefined }));
 
@@ -420,12 +449,21 @@ const outOfSample = (() => {
   const now = Object.fromEntries(keys.map((k) => [k, MODELS.v3[k] ?? null]));
   const params_match_freeze = keys.every((k) => JSON.stringify(now[k]) === JSON.stringify(OOS.frozen_v3_params[k]));
   const s = cpAt(OOS.from), e = cpAt(OOS.to);
-  const base = { from: OOS.from, to: OOS.to, label: OOS.label, model: 'v3, information known at the interval start', frozen_on: OOS.frozen_on, params_match_freeze, params_now: now };
+  // The held-out prediction keeps the inputs in use when it was frozen (OOS.frozen_inputs: Bitmine-stated 7-day yields).
+  // The same interval with the current independent (Lido) yield input is reported alongside, never in its place.
+  const frozenStated = OOS.frozen_inputs?.staking_yield === 'bitmine_stated_7d';
+  const mF = { ...wfModel(MODELS.v3, s.date), ...(frozenStated ? { stakingYield: undefined } : {}) };
+  const mN = wfModel(MODELS.v3, s.date);
+  const pred = (m) => { const o = rollForward(wk, flowsFor(m), m, s.date, s.shares, OOS.to); return { shares: o.shares, est_shares: r(o.shares[1]), est_range: [r(o.shares[0]), r(o.shares[2])] }; };
+  const pF = pred(mF), pN = pred(mN);
+  const base = { from: OOS.from, to: OOS.to, label: OOS.label, model: 'v3, information known at the interval start', frozen_on: OOS.frozen_on, params_match_freeze, params_now: now,
+    staking_yield_input: frozenStated ? 'bitmine_stated_7d (as frozen)' : 'independent', prediction: { est_shares: pF.est_shares, est_range: pF.est_range },
+    with_independent_yield: { est_shares: pN.est_shares, est_range: pN.est_range, diff_shares: r(pN.shares[1] - pF.shares[1]),
+      note: 'Same interval and parameters with the independent weekly Lido yield (current model input); shown separately, not the held-out prediction.' } };
   if (!s || !e) return { ...base, status: 'pending 10-K' };
-  const m = wfModel(MODELS.v3, s.date);
-  const o = rollForward(wk, flowsFor(m), m, s.date, s.shares, e.date);
-  return { ...base, status: 'recorded', official_end_shares: e.shares, est_shares: r(o.shares[1]), est_range: [r(o.shares[0]), r(o.shares[2])],
-    error_shares: r(o.shares[1] - e.shares), error_pct: r(((o.shares[1] - e.shares) / e.shares) * 100, 2), within_range: e.shares >= o.shares[0] && e.shares <= o.shares[2], source: e.url };
+  const sc = (p) => ({ error_shares: r(p.shares[1] - e.shares), error_pct: r(((p.shares[1] - e.shares) / e.shares) * 100, 2), within_range: e.shares >= p.shares[0] && e.shares <= p.shares[2] });
+  return { ...base, status: 'recorded', official_end_shares: e.shares, est_shares: pF.est_shares, est_range: pF.est_range, ...sc(pF),
+    with_independent_yield: { ...base.with_independent_yield, ...sc(pN) }, source: e.url };
 })();
 if (outOfSample && !outOfSample.params_match_freeze) console.warn('WARNING: v3 parameters differ from the out-of-sample freeze (checkpoints.json → out_of_sample)');
 const bt = {

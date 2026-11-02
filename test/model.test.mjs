@@ -6,7 +6,7 @@ import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore } from '../scripts/model.mjs';
+import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, weekStakingYield } from '../scripts/model.mjs';
 
 const data = (f) => JSON.parse(readFileSync(new URL(`../data/${f}`, import.meta.url), 'utf8'));
 
@@ -50,6 +50,23 @@ test('rollForward with carry-forward: week-1 surplus offsets week-2 need', () =>
   assert.equal(o.issued[1], 0); // 8M surplus covers the 6.01M need
 });
 
+test('weekStakingYield: time-weighted average of the reports dated inside the window', () => {
+  const rp = [['2026-01-04', 0.02, 86400], ['2026-01-05', 0.03, 86400], ['2026-01-06', 0.09, 172800], ['2026-01-08', 0.5, 86400]]
+    .map(([date, g, t]) => ({ date, apr_gross: g, apr_net: g * 0.9, time_elapsed_s: t }));
+  const y = weekStakingYield(rp, '2026-01-05', '2026-01-07');
+  assert.equal(y.reports, 2);
+  assert.ok(Math.abs(y.value - (0.03 + 0.09 * 2) / 3) < 1e-12);
+  assert.ok(Math.abs(y.net - y.value * 0.9) < 1e-12);
+  assert.equal(weekStakingYield(rp, '2026-02-01', '2026-02-07'), null);
+  // the model uses P.stakingYield(i) when it returns a value, else the stated 7-day yield
+  const w2 = [{ cur: rel('2026-01-04', 1000, 100e6, { eth_staked: 365000, staking_yield_7d: 0.05 }), px: px(['2026-01-02']) },
+    { cur: rel('2026-01-11', 2000, 100e6, { eth_staked: 365000, staking_yield_7d: 0.05 }), px: px(['2026-01-05']) }];
+  w2[1].prev = w2[0].cur;
+  assert.equal(weekFlows(w2, 1, P).rewards, 365000 * 0.05 * 7 / 365);
+  assert.equal(weekFlows(w2, 1, { ...P, stakingYield: () => 0.02 }).rewards, 365000 * 0.02 * 7 / 365);
+  assert.equal(weekFlows(w2, 1, { ...P, stakingYield: () => null }).rewards, 365000 * 0.05 * 7 / 365);
+});
+
 test('weekIndexOf / fracOnOrBefore', () => {
   assert.equal(weekIndexOf(wk, '2026-01-07'), 1);
   assert.equal(fracOnOrBefore(wk[1].px, '2026-01-06'), 0.4);
@@ -62,18 +79,42 @@ const built = (f) => JSON.parse(readFileSync(join(out, f), 'utf8'));
 const H = built('history.json'), B = built('backtest.json');
 process.on('exit', () => rmSync(out, { recursive: true, force: true }));
 
-test('Oct 25, 2026 week: v3 share count and range', () => {
+// Nov 2, 2026: the staking-yield INPUT changed from Bitmine's stated 7-day yields to the independent weekly Lido
+// average (data/staking_yield.json); v3 parameters are unchanged. Before the switch: 626,769,593 [621,932,460, 632,231,048]
+// and mean error 0.06% — still reproduced exactly by the stated-yield variant below.
+test('Oct 25, 2026 week: v3 share count and range (independent staking yield)', () => {
   const s = H.snapshots.find((x) => x.as_of === '2026-10-25');
-  assert.equal(s.shares_outstanding, 626769593);
-  assert.deepEqual(s.shares_outstanding_range, [621932460, 632231048]);
+  assert.equal(s.shares_outstanding, 626981473);
+  assert.deepEqual(s.shares_outstanding_range, [622045028, 632480435]);
 });
 
-test('backtest: v3 in-sample summary unchanged', () => {
+test('backtest: v3 in-sample summary (independent staking yield)', () => {
   const v3 = B.summary.v3;
   assert.equal(v3.intervals, 4);
   assert.equal(v3.mean_abs_error_pct, 0.2);
-  assert.equal(v3.mean_error_pct, 0.06);
+  assert.equal(v3.mean_error_pct, 0.07);
   assert.equal(v3.within_range, 4);
+});
+
+test('v3 with Bitmine-stated yields reproduces the pre-switch results exactly', () => {
+  const v = B.variants['v3 with Bitmine-stated 7-day yields'];
+  assert.deepEqual([v.intervals, v.mean_abs_error_shares, v.mean_abs_error_pct, v.mean_error_pct, v.within_range], [4, 1084934, 0.2, 0.06, 4]);
+  assert.deepEqual(v.current, { shares: 626769593, range: [621932460, 632372388] });
+});
+
+test('staking yield: every release week uses the independent Lido average; stated yield kept as reported', () => {
+  const Y = data('staking_yield.json');
+  for (const s of H.snapshots) {
+    const y = s.staking_yield_independent;
+    assert.ok(y, `${s.as_of}: no Lido report in the window`);
+    const days = (Date.parse(y.window[1]) - Date.parse(y.window[0])) / 864e5 + 1;
+    assert.equal(y.reports, days, `${s.as_of}: one Lido report per day of the window`);
+    if (s.days != null) assert.equal(s.staking_yield_used, y.gross, `${s.as_of}: model input`);
+  }
+  const n = H.snapshots.find((x) => x.as_of === '2026-11-01');
+  assert.equal(n.staking_yield_7d, 0.0303);
+  assert.match(n.staking_yield_note, /one-week spike/);
+  for (const r of Y.reports) assert.ok(r.apr_gross > r.apr_net && r.fee_share > 0.05 && r.fee_share < 0.15, `${r.date}: gross > net, fee share ~10%`);
 });
 
 test('held-out interval Jul 9 → Aug 31, 2026: reported separately, v3 not re-tuned while pending', () => {
@@ -81,6 +122,10 @@ test('held-out interval Jul 9 → Aug 31, 2026: reported separately, v3 not re-t
   assert.equal(O.from, '2026-07-09'); assert.equal(O.to, '2026-08-31');
   assert.ok(['pending 10-K', 'recorded'].includes(O.status));
   if (O.status === 'pending 10-K') assert.equal(O.params_match_freeze, true, 'v3 parameters changed before the out-of-sample error was recorded');
+  // the held-out prediction keeps the input in use at the freeze (Bitmine-stated yields); the new input is reported apart
+  assert.equal(O.staking_yield_input, 'bitmine_stated_7d (as frozen)');
+  assert.deepEqual(O.prediction, { est_shares: 614351108, est_range: [610994985, 618019327] });
+  assert.ok(O.with_independent_yield && O.with_independent_yield.est_shares !== O.prediction.est_shares);
   assert.ok(!B.intervals.some((b) => b.out_of_sample && B.summary.v3.intervals > 4), 'held-out interval excluded from the summary');
 });
 

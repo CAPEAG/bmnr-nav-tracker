@@ -1147,6 +1147,7 @@
       "beast_usd": 180000000,
       "eth_staked": 5227037,
       "staking_yield_7d": 0.0303,
+      "staking_yield_note": "one-week spike: stated 3.03% vs 2.58% the two prior weeks; a network-wide execution-layer reward surge on Oct 30, 2026 (Lido and cbETH daily rates both spiked)",
       "buyback_shares": 0,
       "buyback_price": null,
       "other_shares_issued": 0,

@@ -379,6 +379,10 @@
       "carry_forward": true,
       "carry_weeks": 3,
       "carry_max_usd": 5000000
+    },
+    "frozen_inputs": {
+      "staking_yield": "bitmine_stated_7d",
+      "note": "Added Nov 2, 2026 to record the input in use at the Oct 28 freeze: weekly staking rewards from Bitmine's stated 7-day yields. The model input switched to the independent Lido weekly average on Nov 2, 2026; the held-out prediction keeps the frozen input and the new-input result is reported separately (backtest.json → out_of_sample.with_independent_yield)."
     }
   }
 }

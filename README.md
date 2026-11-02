@@ -33,6 +33,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/releases.json` | **Official weekly inputs**, one entry per Bitmine Monday release since Nov 30, 2025 (ETH, ETH acquired, release ETH price, staked ETH, stated 7-day yield or CESR, BTC, cash (& marketable securities), Eightco and Beast stakes, buybacks, RSU/acquisition shares, disclosed investments (`investments_usd`), disclosed non-common proceeds, 8-K / X links). Also the disclosed cumulative buyback total. |
 | `data/checkpoints.json` | **Official share counts** (10-Q balance sheets and cover pages) with links, ATM sales disclosed between them, and the 10-Q cash-flow figures used for the backtest and the cash-source analysis. |
 | `data/backtest.json` | **Generated** out-of-sample backtest (models v1, v2, v3, v3 walk-forward + sensitivity variants) per interval, the 10-Q ETH price per quarter (`eth_price`), plus component diagnostics. |
+| `data/staking_yield.json` | **Independent staking yield**: every daily Lido oracle report since Nov 12, 2025 (stETH `TokenRebased` events: block, tx, net APR = Lido's published stETH APR, gross APR = fee shares added back), with source, formulas and fetch time. Written by `scripts/fetch-staking-yield.mjs` (keyless public RPCs); the build averages it over each release window. |
 | `data/weekly-prices.json` | Frozen market data per week (avg ETH, BTC close, BMNR avg/min/max/close) so past weeks don't drift. |
 | `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV, weekly `accretion`). Don't edit by hand. |
 | `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v3 parameters with sources; ORBS share count). |
@@ -100,7 +101,7 @@ includes the cash posted as option collateral ($100.1M at May 31).
 
 Inputs live in `data/valuation.json` (edit there; the page recomputes with the live ETH price and current estimated share count).
 `derived` values are refreshed from the weekly releases by `scripts/build-history.mjs`:
-`staked_share_current` (staked ÷ held), `yield_trailing_4w/13w/26w` (averages of Bitmine's stated 7-day yields).
+`staked_share_current` (staked ÷ held), `yield_trailing_4w/13w/26w` (averages of Bitmine's stated 7-day yields; the same averages of the independent weekly yields are in `independent_yield_trailing`, for reference).
 
 Method:
 
@@ -202,7 +203,8 @@ Between anchors, for each weekly release *t* (window = day after the previous as
 
 | Step | Formula / rule |
 | --- | --- |
-| Est. staking rewards | `min(ETH staked over the last 5 reports) × stated 7-day BMNR yield (CESR if none) × days / 365` — i.e. only ETH staked ≥ 4 reports earlier earns (validator entry queue). Fitted to 10-Q staking revenue: $55.6M modelled vs $52.5M reported for Dec–May (no lag gave $80.0M). |
+| Est. staking rewards | `min(ETH staked over the last 5 reports) × the week's independent staking yield × days / 365` — i.e. only ETH staked ≥ 4 reports earlier earns (validator entry queue). Lag fitted to 10-Q staking revenue with Bitmine's stated yields: $55.6M modelled vs $52.5M reported for Dec–May (no lag gave $80.0M); with the independent yield it is $53.4M (parameters not re-tuned). |
+| Independent staking yield | Time-weighted average of the daily Lido oracle reports dated in the window (`data/staking_yield.json`), **gross**: `postTotalEther ÷ (postTotalShares − sharesMintedAsFees)` vs the pre-report share rate, × 365 days ÷ timeElapsed — Lido's stETH APR formula with the fee shares it mints each report (≈10% of rewards) added back, rather than a flat ÷ 0.9. Gross because Bitmine runs its own validators (MAVAN) and pays no Lido fee; it is a ~9.7M-ETH network benchmark (consensus + execution-layer rewards), on-chain and reproducible, running ~0.1 pt below Bitmine's stated yields in normal weeks. Bitmine's stated `staking_yield_7d` stays in `releases.json` and on the page as the reported figure (used only if no Lido report covers a window). The Nov 1, 2026 week is a one-week spike in both: Bitmine stated 3.03%; Lido's week average is 4.70% because its execution-layer vault received 3,795 ETH on Oct 30 (≈15 ETH on a normal day; cbETH's rate spiked the same day). |
 | Est. ETH bought | `ETH held_t − ETH held_{t−1} − rewards` (the 10-Q digital-asset roll-forward adds staking rewards to ETH units) |
 | ETH price paid (basis per week) | **disclosed**: week inside a quarter with a filed 10-Q → `average daily ETH price in the window × that quarter's paid ÷ market ratio`. **assumed**: after the last filed quarter → `window average × pooled ratio (0.9979)`, low–high ±1%. **on-chain**: tracker prices, only if `use_onchain_price` is switched on (it is off — see below). A release that states the dollars spent on ETH (`eth_purchase_cost_usd`) would be used as disclosed for that week. |
 | Other digital-asset cash (10-Q) | cash paid for digital assets beyond the cost of ETH added (cash-flow statement vs roll-forward): $124.6M in Dec–Feb (Sep–Nov purchases paid later) and $112.2M in Mar–May (unexplained), spread over that quarter's weeks by ETH bought (`checkpoints.json → eth_cost_quarterly.cash_timing_items`). None assumed after May 31, 2026. |
@@ -333,7 +335,9 @@ checks the Oct 25 share count and range, the v3 backtest summary, the held-out f
    total cash & marketable securities, total staked ETH, stated 7-day BMNR yield, buybacks (shares + avg price), and any
    disclosed share issuance, proceeds, or share count. Also check EDGAR for new 10-K/10-Q/10-KT (cover-page share count),
    424B/S-3 filings and Form 4s (RSU vesting adds shares).
-3. Run:
+3. Run (add-week first runs `node scripts/fetch-staking-yield.mjs`, which appends the new daily Lido reports to
+   `data/staking_yield.json`; if every public RPC fails it warns and the build falls back to the stated yield for weeks
+   with no report — re-run the fetch and `node scripts/build-history.mjs` later):
 
    ```bash
    node scripts/add-week.mjs --date 2026-11-02 --asof 2026-11-01 \

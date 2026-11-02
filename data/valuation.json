@@ -206,7 +206,13 @@
         "staked": 5227037,
         "pct": 0.8625
       }
-    ]
+    ],
+    "independent_yield_trailing": {
+      "4w": 0.03061,
+      "13w": 0.02655,
+      "26w": 0.02636
+    },
+    "independent_yield_source": "Gross Lido on-chain APR, time-weighted over each release window (data/staking_yield.json)"
   },
   "cases": {
     "bear": "Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple.",

@@ -13,7 +13,8 @@
       "carry_forward": true,
       "carry_weeks": 3,
       "carry_max_usd": 5000000,
-      "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)"
+      "eth_price": "per week: disclosed (10-Q quarter) / assumed (pooled 10-Q factor)",
+      "staking_yield": "per week: time-weighted average gross Lido APR over the release window (data/staking_yield.json); Bitmine-stated 7-day yield only if no report"
     },
     "eth_price": {
       "quarters": [
@@ -132,7 +133,7 @@
     "opex_high_multiplier": 2,
     "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
     "purchase_price": "Per week: 'disclosed' = the week's average daily ETH price × that fiscal quarter's 10-Q factor (cost of ETH purchased ÷ units ÷ purchase-weighted weekly average); 'assumed' (weeks after the last filed quarter) = weekly average × the factor pooled over all filed quarters, range ± eth_price_uncertainty. See checkpoints.json → eth_cost_quarterly and backtest.json → eth_price.",
-    "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (CESR when no Bitmine yield was stated) × days/365",
+    "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's independent staking yield (time-weighted average gross Lido APR over the release window, data/staking_yield.json) × days/365. Bitmine's stated 7-day yield is kept as the reported figure; it is used only if no Lido report covers the window.",
     "bmnp_start": "2026-06-10",
     "include_investments": true,
     "staking_lag_reports": 4,
@@ -158,6 +159,18 @@
       "eth_acquired_reported": 96798,
       "eth_staked": 0,
       "staking_yield_7d": null,
+      "staking_yield_used": null,
+      "staking_yield_independent": {
+        "gross": 0.02852,
+        "net": 0.02567,
+        "window": [
+          "2025-11-24",
+          "2025-11-30"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02838,
+        "max_daily_gross": 0.02942
+      },
       "est_staking_eth": null,
       "est_purchased_eth": null,
       "eth_week_avg": null,
@@ -258,6 +271,18 @@
       "eth_acquired_reported": 138452,
       "eth_staked": 0,
       "staking_yield_7d": null,
+      "staking_yield_used": 0.02831,
+      "staking_yield_independent": {
+        "gross": 0.02831,
+        "net": 0.02548,
+        "window": [
+          "2025-12-01",
+          "2025-12-07"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02828,
+        "max_daily_gross": 0.02947
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 138452,
       "eth_week_avg": 3033.61,
@@ -388,6 +413,18 @@
       "eth_acquired_reported": null,
       "eth_staked": 0,
       "staking_yield_7d": null,
+      "staking_yield_used": 0.02817,
+      "staking_yield_independent": {
+        "gross": 0.02817,
+        "net": 0.02536,
+        "window": [
+          "2025-12-08",
+          "2025-12-14"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02815,
+        "max_daily_gross": 0.02858
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 102259,
       "eth_week_avg": 3181.4,
@@ -528,6 +565,18 @@
       "eth_acquired_reported": null,
       "eth_staked": 0,
       "staking_yield_7d": null,
+      "staking_yield_used": 0.02866,
+      "staking_yield_independent": {
+        "gross": 0.02866,
+        "net": 0.02579,
+        "window": [
+          "2025-12-15",
+          "2025-12-21"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02846,
+        "max_daily_gross": 0.03092
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 98852,
       "eth_week_avg": 2934.3,
@@ -667,6 +716,18 @@
       "eth_acquired_reported": null,
       "eth_staked": 408627,
       "staking_yield_7d": 0.0281,
+      "staking_yield_used": 0.02827,
+      "staking_yield_independent": {
+        "gross": 0.02827,
+        "net": 0.02545,
+        "window": [
+          "2025-12-22",
+          "2025-12-28"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02832,
+        "max_daily_gross": 0.02843
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 44463,
       "eth_week_avg": 2948.67,
@@ -807,6 +868,18 @@
       "eth_acquired_reported": null,
       "eth_staked": 659219,
       "staking_yield_7d": 0.0281,
+      "staking_yield_used": 0.02825,
+      "staking_yield_independent": {
+        "gross": 0.02825,
+        "net": 0.02543,
+        "window": [
+          "2025-12-29",
+          "2026-01-04"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02826,
+        "max_daily_gross": 0.02856
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 32977,
       "eth_week_avg": 3040.37,
@@ -945,6 +1018,18 @@
       "eth_acquired_reported": 24266,
       "eth_staked": 1256083,
       "staking_yield_7d": 0.0281,
+      "staking_yield_used": 0.02788,
+      "staking_yield_independent": {
+        "gross": 0.02788,
+        "net": 0.02509,
+        "window": [
+          "2026-01-05",
+          "2026-01-11"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02788,
+        "max_daily_gross": 0.02821
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 24266,
       "eth_week_avg": 3154.14,
@@ -1075,6 +1160,18 @@
       "eth_acquired_reported": 35268,
       "eth_staked": 1838003,
       "staking_yield_7d": 0.0281,
+      "staking_yield_used": 0.02735,
+      "staking_yield_independent": {
+        "gross": 0.02735,
+        "net": 0.02462,
+        "window": [
+          "2026-01-12",
+          "2026-01-19"
+        ],
+        "reports": 8,
+        "median_daily_gross": 0.02739,
+        "max_daily_gross": 0.02763
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 35268,
       "eth_week_avg": 3268.25,
@@ -1220,6 +1317,18 @@
       "eth_acquired_reported": 40302,
       "eth_staked": 2009267,
       "staking_yield_7d": 0.0281,
+      "staking_yield_used": 0.02644,
+      "staking_yield_independent": {
+        "gross": 0.02644,
+        "net": 0.0238,
+        "window": [
+          "2026-01-20",
+          "2026-01-25"
+        ],
+        "reports": 6,
+        "median_daily_gross": 0.02642,
+        "max_daily_gross": 0.02698
+      },
       "est_staking_eth": 0,
       "est_purchased_eth": 40302,
       "eth_week_avg": 2932.58,
@@ -1358,8 +1467,20 @@
       "eth_acquired_reported": 41788,
       "eth_staked": 2873459,
       "staking_yield_7d": 0.0281,
-      "est_staking_eth": 220,
-      "est_purchased_eth": 41567,
+      "staking_yield_used": 0.02821,
+      "staking_yield_independent": {
+        "gross": 0.02821,
+        "net": 0.02539,
+        "window": [
+          "2026-01-26",
+          "2026-02-01"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02649,
+        "max_daily_gross": 0.04017
+      },
+      "est_staking_eth": 221,
+      "est_purchased_eth": 41566,
       "eth_week_avg": 2741.98,
       "eth_price_used": 2716.75,
       "eth_price_basis": "disclosed",
@@ -1376,7 +1497,7 @@
       },
       "other_digital_asset_cash": 6905216,
       "other_digital_asset_cash_note": "Dec 2025–Feb 2026: cash paid for digital assets $2,134,422K − additions ~$2,009,774K (ETH $2,009,424K + BTC ~$350K): ETH added by Nov 30, 2025 but paid later (Q1 additions $7,527,221K − Q1 cash paid $7,402,573K = $124,648K). Payment dates not disclosed, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 112926732,
+      "est_purchase_cost": 112924302,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -1387,17 +1508,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 122109948,
-      "cash_shortfall": 26109948,
+      "est_spending": 122107518,
+      "cash_shortfall": 26107518,
       "cash_shortfall_range": [
-        23831948,
-        28387948
+        23829518,
+        28385518
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 26109948,
+      "funded_by_shares": 26107518,
       "funded_by_shares_range": [
-        23831948,
-        28387948
+        23829518,
+        28385518
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 27.712,
@@ -1405,16 +1526,16 @@
         25.1,
         29.63
       ],
-      "est_shares_issued": 942189,
+      "est_shares_issued": 942102,
       "est_shares_issued_range": [
-        804318,
-        1130994
+        804236,
+        1130897
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 459696594,
+      "shares_outstanding": 459696506,
       "shares_outstanding_range": [
-        459306913,
-        460083810
+        459306831,
+        460083714
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1438,7 +1559,7 @@
         "net": 10735475553,
         "crypto": 10529475553,
         "eth": 9928634625,
-        "ev": 10952384509,
+        "ev": 10952382301,
         "nav_ex_cash": 10149475553
       },
       "nav_per_share": 23.35,
@@ -1466,7 +1587,7 @@
         "basis": "estimate (v3 model)",
         "reanchor": false,
         "nav_per_share_before": 27.3324,
-        "atm_shares": 942189,
+        "atm_shares": 942102,
         "mnav_at_issue": 1.014,
         "usd_per_share": {
           "issuance": 0.0008,
@@ -1479,11 +1600,11 @@
         },
         "eth_per_share": {
           "capital": 0.000070632,
-          "staking": 4.79e-7,
+          "staking": 4.81e-7,
           "premium": 8.32e-7,
           "reanchor": 0,
-          "total": 0.000071943,
-          "actual_change": 0.000071943
+          "total": 0.000071945,
+          "actual_change": 0.000071945
         }
       }
     },
@@ -1496,8 +1617,20 @@
       "eth_acquired_reported": 40613,
       "eth_staked": 2897459,
       "staking_yield_7d": 0.033234,
-      "est_staking_eth": 420,
-      "est_purchased_eth": 40193,
+      "staking_yield_used": 0.02971,
+      "staking_yield_independent": {
+        "gross": 0.02971,
+        "net": 0.02674,
+        "window": [
+          "2026-02-02",
+          "2026-02-08"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02734,
+        "max_daily_gross": 0.04306
+      },
+      "est_staking_eth": 376,
+      "est_purchased_eth": 40237,
       "eth_week_avg": 2110.45,
       "eth_price_used": 2091.03,
       "eth_price_basis": "disclosed",
@@ -1515,7 +1648,7 @@
       },
       "other_digital_asset_cash": 5165495,
       "other_digital_asset_cash_note": "Dec 2025–Feb 2026: cash paid for digital assets $2,134,422K − additions ~$2,009,774K (ETH $2,009,424K + BTC ~$350K): ETH added by Nov 30, 2025 but paid later (Q1 additions $7,527,221K − Q1 cash paid $7,402,573K = $124,648K). Payment dates not disclosed, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 84044584,
+      "est_purchase_cost": 84137865,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -1526,17 +1659,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 91488079,
-      "cash_shortfall": 100488079,
+      "est_spending": 91581360,
+      "cash_shortfall": 100581360,
       "cash_shortfall_range": [
-        98210079,
-        102766079
+        98303360,
+        102859360
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 100488079,
+      "funded_by_shares": 100581360,
       "funded_by_shares_range": [
-        98210079,
-        102766079
+        98303360,
+        102859360
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.664,
@@ -1544,16 +1677,16 @@
         17.4,
         22.8
       ],
-      "est_shares_issued": 4862954,
+      "est_shares_issued": 4867468,
       "est_shares_issued_range": [
-        4307460,
-        5906096
+        4311551,
+        5911457
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 464559547,
+      "shares_outstanding": 464563974,
       "shares_outstanding_range": [
-        463614372,
-        465989907
+        463618381,
+        465995171
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1577,7 +1710,7 @@
         "net": 10005780064,
         "crypto": 9800780064,
         "eth": 9192193250,
-        "ev": 8914533927,
+        "ev": 8914624548,
         "nav_ex_cash": 9410780064
       },
       "nav_per_share": 21.54,
@@ -1597,7 +1730,7 @@
         "eth": 1.035,
         "ev_to_nav_ex_cash": 0.947
       },
-      "eth_per_share": 0.0093115,
+      "eth_per_share": 0.0093114,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226005707/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2020869755683668045",
       "notes": "Release states CESR 3.11% and Bitmine 7-day yield 3.3234%.",
@@ -1605,24 +1738,24 @@
         "basis": "estimate (v3 model)",
         "reanchor": false,
         "nav_per_share_before": 21.428,
-        "atm_shares": 4862954,
+        "atm_shares": 4867468,
         "mnav_at_issue": 0.964,
         "usd_per_share": {
           "issuance": -0.008,
           "buybacks": 0,
-          "staking": 0.0019,
+          "staking": 0.0017,
           "other": -0.0032,
-          "total": -0.0093,
+          "total": -0.0095,
           "actual_change": -1.81,
-          "market": -1.8007
+          "market": -1.8005
         },
         "eth_per_share": {
-          "capital": -0.000011856,
-          "staking": 9.04e-7,
-          "premium": 7.96e-7,
+          "capital": -0.000011851,
+          "staking": 8.08e-7,
+          "premium": 7.97e-7,
           "reanchor": 0,
-          "total": -0.000010155,
-          "actual_change": -0.000010155
+          "total": -0.000010246,
+          "actual_change": -0.000010246
         }
       }
     },
@@ -1635,8 +1768,20 @@
       "eth_acquired_reported": 45759,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0289,
-      "est_staking_eth": 796,
-      "est_purchased_eth": 44963,
+      "staking_yield_used": 0.02597,
+      "staking_yield_independent": {
+        "gross": 0.02597,
+        "net": 0.02339,
+        "window": [
+          "2026-02-09",
+          "2026-02-16"
+        ],
+        "reports": 8,
+        "median_daily_gross": 0.02594,
+        "max_daily_gross": 0.02653
+      },
+      "est_staking_eth": 715,
+      "est_purchased_eth": 45044,
       "eth_week_avg": 2015.06,
       "eth_price_used": 1996.52,
       "eth_price_basis": "disclosed",
@@ -1654,7 +1799,7 @@
       },
       "other_digital_asset_cash": 5556948,
       "other_digital_asset_cash_note": "Dec 2025–Feb 2026: cash paid for digital assets $2,134,422K − additions ~$2,009,774K (ETH $2,009,424K + BTC ~$350K): ETH added by Nov 30, 2025 but paid later (Q1 additions $7,527,221K − Q1 cash paid $7,402,573K = $124,648K). Payment dates not disclosed, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 89770325,
+      "est_purchase_cost": 89931353,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -1665,17 +1810,17 @@
       "est_cash_opex": 2603429,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 97930701,
-      "cash_shortfall": 172930701,
+      "est_spending": 98091729,
+      "cash_shortfall": 173091729,
       "cash_shortfall_range": [
-        170327273,
-        175534130
+        170488301,
+        175695158
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 172930701,
+      "funded_by_shares": 173091729,
       "funded_by_shares_range": [
-        170327273,
-        175534130
+        170488301,
+        175695158
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.314,
@@ -1683,16 +1828,16 @@
         19.47,
         21.45
       ],
-      "est_shares_issued": 8512883,
+      "est_shares_issued": 8520810,
       "est_shares_issued_range": [
-        7940665,
-        9015620
+        7948173,
+        9023891
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 473072430,
+      "shares_outstanding": 473084784,
       "shares_outstanding_range": [
-        471555038,
-        475005527
+        471566554,
+        475019062
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1716,7 +1861,7 @@
         "net": 9620540986,
         "crypto": 9417540986,
         "eth": 8734251006,
-        "ev": 9245598133,
+        "ev": 9245857073,
         "nav_ex_cash": 8950540986
       },
       "nav_per_share": 20.34,
@@ -1736,32 +1881,32 @@
         "eth": 1.135,
         "ev_to_nav_ex_cash": 1.033
       },
-      "eth_per_share": 0.0092407,
+      "eth_per_share": 0.0092404,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226006953/ex99-2.htm",
       "x_post": "https://x.com/BitMNR/status/2023767872158261289",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.5145,
-        "atm_shares": 8512883,
+        "nav_per_share_before": 20.5143,
+        "atm_shares": 8520810,
         "mnav_at_issue": 0.99,
         "usd_per_share": {
           "issuance": -0.0036,
           "buybacks": 0,
-          "staking": 0.0034,
+          "staking": 0.003,
           "other": -0.0037,
-          "total": -0.004,
+          "total": -0.0043,
           "actual_change": -1.2,
-          "market": -1.196
+          "market": -1.1957
         },
         "eth_per_share": {
-          "capital": -0.000073388,
-          "staking": 0.000001682,
-          "premium": 8.74e-7,
+          "capital": -0.000073372,
+          "staking": 0.000001511,
+          "premium": 8.76e-7,
           "reanchor": 0,
-          "total": -0.000070832,
-          "actual_change": -0.000070832
+          "total": -0.000070984,
+          "actual_change": -0.000070984
         }
       }
     },
@@ -1774,8 +1919,20 @@
       "eth_acquired_reported": 51162,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0289,
-      "est_staking_eth": 873,
-      "est_purchased_eth": 50289,
+      "staking_yield_used": 0.0257,
+      "staking_yield_independent": {
+        "gross": 0.0257,
+        "net": 0.02314,
+        "window": [
+          "2026-02-17",
+          "2026-02-22"
+        ],
+        "reports": 6,
+        "median_daily_gross": 0.02566,
+        "max_daily_gross": 0.02597
+      },
+      "est_staking_eth": 777,
+      "est_purchased_eth": 50385,
       "eth_week_avg": 1952.28,
       "eth_price_used": 1934.32,
       "eth_price_basis": "disclosed",
@@ -1795,7 +1952,7 @@
       },
       "other_digital_asset_cash": 6019514,
       "other_digital_asset_cash_note": "Dec 2025–Feb 2026: cash paid for digital assets $2,134,422K − additions ~$2,009,774K (ETH $2,009,424K + BTC ~$350K): ETH added by Nov 30, 2025 but paid later (Q1 additions $7,527,221K − Q1 cash paid $7,402,573K = $124,648K). Payment dates not disclosed, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 97274626,
+      "est_purchase_cost": 97461586,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -1806,17 +1963,17 @@
       "est_cash_opex": 1952571,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 105246712,
-      "cash_shortfall": 126246712,
+      "est_spending": 105433671,
+      "cash_shortfall": 126433671,
       "cash_shortfall_range": [
-        124294141,
-        128199283
+        124481100,
+        128386243
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 126246712,
+      "funded_by_shares": 126433671,
       "funded_by_shares_range": [
-        124294141,
-        128199283
+        124481100,
+        128386243
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.015,
@@ -1824,16 +1981,16 @@
         19.82,
         20.15
       ],
-      "est_shares_issued": 6307605,
+      "est_shares_issued": 6316946,
       "est_shares_issued_range": [
-        6168444,
-        6468178
+        6177722,
+        6477611
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 479380035,
+      "shares_outstanding": 479401730,
       "shares_outstanding_range": [
-        477723481,
-        481473705
+        477744276,
+        481496673
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -1857,14 +2014,14 @@
         "net": 9566148378,
         "crypto": 9363148378,
         "eth": 8659566322,
-        "ev": 8958920105,
+        "ev": 8959356825,
         "nav_ex_cash": 8875148378
       },
-      "nav_per_share": 19.96,
-      "nav_per_share_gross": 19.96,
+      "nav_per_share": 19.95,
+      "nav_per_share_gross": 19.95,
       "nav_per_share_all": {
-        "full": 19.96,
-        "net": 19.96,
+        "full": 19.95,
+        "net": 19.95,
         "crypto": 19.53,
         "eth": 18.06
       },
@@ -1877,32 +2034,32 @@
         "eth": 1.114,
         "ev_to_nav_ex_cash": 1.009
       },
-      "eth_per_share": 0.0092258,
+      "eth_per_share": 0.0092254,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226007694/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2025933063797014919",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.9138,
-        "atm_shares": 6307605,
+        "nav_per_share_before": 19.9133,
+        "atm_shares": 6316946,
         "mnav_at_issue": 1.005,
         "usd_per_share": {
           "issuance": 0.0013,
           "buybacks": 0,
-          "staking": 0.0036,
+          "staking": 0.0032,
           "other": -0.0022,
-          "total": 0.0027,
-          "actual_change": -0.38,
-          "market": -0.3827
+          "total": 0.0023,
+          "actual_change": -0.39,
+          "market": -0.3923
         },
         "eth_per_share": {
-          "capital": -0.000017648,
-          "staking": 0.000001821,
-          "premium": 9.65e-7,
+          "capital": -0.000017625,
+          "staking": 0.00000162,
+          "premium": 9.67e-7,
           "reanchor": 0,
-          "total": -0.000014862,
-          "actual_change": -0.000014862
+          "total": -0.000015038,
+          "actual_change": -0.000015038
         }
       }
     },
@@ -1915,8 +2072,20 @@
       "eth_acquired_reported": 50928,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0286,
-      "est_staking_eth": 1102,
-      "est_purchased_eth": 49826,
+      "staking_yield_used": 0.0261,
+      "staking_yield_independent": {
+        "gross": 0.0261,
+        "net": 0.0235,
+        "window": [
+          "2026-02-23",
+          "2026-03-01"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02615,
+        "max_daily_gross": 0.02657
+      },
+      "est_staking_eth": 1006,
+      "est_purchased_eth": 49922,
       "eth_week_avg": 1947.08,
       "eth_price_used": 1929.17,
       "eth_price_basis": "disclosed",
@@ -1925,7 +2094,7 @@
       "eth_price_range": null,
       "other_digital_asset_cash": 5976023,
       "other_digital_asset_cash_note": "Dec 2025–Feb 2026: cash paid for digital assets $2,134,422K − additions ~$2,009,774K (ETH $2,009,424K + BTC ~$350K): ETH added by Nov 30, 2025 but paid later (Q1 additions $7,527,221K − Q1 cash paid $7,402,573K = $124,648K). Payment dates not disclosed, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 96122535,
+      "est_purchase_cost": 96308295,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -1936,11 +2105,11 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 104376557,
-      "cash_shortfall": 281376557,
+      "est_spending": 104562318,
+      "cash_shortfall": 281562318,
       "cash_shortfall_range": [
-        279098557,
-        283654557
+        279284318,
+        283840318
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
@@ -2020,25 +2189,25 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 19.8545,
-        "atm_shares": 14128166,
+        "nav_per_share_before": 19.8536,
+        "atm_shares": 14137493,
         "mnav_at_issue": 1.003,
         "usd_per_share": {
           "issuance": 0.0018,
           "buybacks": 0,
-          "staking": 0.0044,
+          "staking": 0.004,
           "other": -0.0028,
-          "total": 0.0034,
-          "actual_change": 0.13,
-          "market": 0.1266
+          "total": 0.003,
+          "actual_change": 0.14,
+          "market": 0.137
         },
         "eth_per_share": {
-          "capital": -0.00016395,
-          "staking": 0.000002231,
-          "premium": 9.28e-7,
-          "reanchor": -0.000007416,
-          "total": -0.000168207,
-          "actual_change": -0.000168207
+          "capital": -0.000163919,
+          "staking": 0.000002036,
+          "premium": 9.3e-7,
+          "reanchor": -0.000006836,
+          "total": -0.00016779,
+          "actual_change": -0.00016779
         }
       }
     },
@@ -2051,8 +2220,20 @@
       "eth_acquired_reported": 60976,
       "eth_staked": 3040483,
       "staking_yield_7d": 0.0291,
-      "est_staking_eth": 1604,
-      "est_purchased_eth": 59372,
+      "staking_yield_used": 0.02668,
+      "staking_yield_independent": {
+        "gross": 0.02668,
+        "net": 0.02406,
+        "window": [
+          "2026-03-02",
+          "2026-03-08"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02641,
+        "max_daily_gross": 0.02786
+      },
+      "est_staking_eth": 1470,
+      "est_purchased_eth": 59506,
       "eth_week_avg": 2014.63,
       "eth_price_used": 2026.11,
       "eth_price_basis": "disclosed",
@@ -2061,7 +2242,7 @@
       "eth_price_range": null,
       "other_digital_asset_cash": 6666167,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 120295161,
+      "est_purchase_cost": 120565539,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2072,17 +2253,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 129239329,
-      "cash_shortfall": 461239329,
+      "est_spending": 129509707,
+      "cash_shortfall": 461509707,
       "cash_shortfall_range": [
-        458961329,
-        463517329
+        459231707,
+        463787707
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 461239329,
+      "funded_by_shares": 461509707,
       "funded_by_shares_range": [
-        458961329,
-        463517329
+        459231707,
+        463787707
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.064,
@@ -2090,16 +2271,16 @@
         18.88,
         21.12
       ],
-      "est_shares_issued": 22988404,
+      "est_shares_issued": 23001879,
       "est_shares_issued_range": [
-        21731124,
-        24550706
+        21743926,
+        24565027
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 516893631,
+      "shares_outstanding": 516907106,
       "shares_outstanding_range": [
-        515636351,
-        518455933
+        515649153,
+        518470254
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2123,7 +2304,7 @@
         "net": 10323294680,
         "crypto": 10123294680,
         "eth": 8910416295,
-        "ev": 8558951753,
+        "ev": 8559206161,
         "nav_ex_cash": 9123294680
       },
       "nav_per_share": 19.97,
@@ -2143,7 +2324,7 @@
         "eth": 1.095,
         "ev_to_nav_ex_cash": 0.938
       },
-      "eth_per_share": 0.0087727,
+      "eth_per_share": 0.0087725,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226009312/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2030994056935887025",
       "notes": "Cash reported rounded ($1.2 billion) → ±$50M input uncertainty. X thread is titled 'March 2nd' but is the Mar 9 update.",
@@ -2151,24 +2332,24 @@
         "basis": "estimate (v3 model)",
         "reanchor": false,
         "nav_per_share_before": 20.436,
-        "atm_shares": 22988404,
+        "atm_shares": 23001879,
         "mnav_at_issue": 0.982,
         "usd_per_share": {
-          "issuance": -0.0165,
+          "issuance": -0.0166,
           "buybacks": 0,
-          "staking": 0.0061,
+          "staking": 0.0056,
           "other": -0.0057,
-          "total": -0.0162,
+          "total": -0.0167,
           "actual_change": -0.12,
-          "market": -0.1038
+          "market": -0.1033
         },
         "eth_per_share": {
-          "capital": -0.00028731,
-          "staking": 0.000003102,
-          "premium": -6.55e-7,
+          "capital": -0.000287279,
+          "staking": 0.000002844,
+          "premium": -6.56e-7,
           "reanchor": 0,
-          "total": -0.000284862,
-          "actual_change": -0.000284862
+          "total": -0.000285091,
+          "actual_change": -0.000285091
         }
       }
     },
@@ -2181,8 +2362,20 @@
       "eth_acquired_reported": 60999,
       "eth_staked": 3040515,
       "staking_yield_7d": 0.0281,
-      "est_staking_eth": 1561,
-      "est_purchased_eth": 59438,
+      "staking_yield_used": 0.03013,
+      "staking_yield_independent": {
+        "gross": 0.03013,
+        "net": 0.02713,
+        "window": [
+          "2026-03-09",
+          "2026-03-15"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02678,
+        "max_daily_gross": 0.05072
+      },
+      "est_staking_eth": 1674,
+      "est_purchased_eth": 59325,
       "eth_week_avg": 2074.16,
       "eth_price_used": 2085.98,
       "eth_price_basis": "disclosed",
@@ -2200,7 +2393,7 @@
       },
       "other_digital_asset_cash": 6865734,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 123985696,
+      "est_purchase_cost": 123750012,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2211,17 +2404,17 @@
       "est_cash_opex": 2278000,
       "investments": 80000000,
       "disclosed_proceeds": null,
-      "est_spending": 213129430,
-      "cash_shortfall": 213129430,
+      "est_spending": 212893745,
+      "cash_shortfall": 212893745,
       "cash_shortfall_range": [
-        210851430,
-        215407430
+        210615745,
+        215171745
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 213129430,
+      "funded_by_shares": 212893745,
       "funded_by_shares_range": [
-        210851430,
-        215407430
+        210615745,
+        215171745
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.714,
@@ -2229,16 +2422,16 @@
         20.54,
         21.05
       ],
-      "est_shares_issued": 10289149,
+      "est_shares_issued": 10277771,
       "est_shares_issued_range": [
-        10016695,
-        10487217
+        10005499,
+        10475742
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 527182779,
+      "shares_outstanding": 527184877,
       "shares_outstanding_range": [
-        525653046,
-        528943150
+        525654651,
+        528945996
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2262,7 +2455,7 @@
         "net": 11524598034,
         "crypto": 11255598034,
         "eth": 10041302970,
-        "ev": 9628334281,
+        "ev": 9628377374,
         "nav_ex_cash": 10324598034
       },
       "nav_per_share": 21.86,
@@ -2289,25 +2482,25 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9294,
-        "atm_shares": 10289149,
+        "nav_per_share_before": 20.9289,
+        "atm_shares": 10277771,
         "mnav_at_issue": 0.99,
         "usd_per_share": {
           "issuance": -0.0042,
           "buybacks": 0,
-          "staking": 0.0065,
+          "staking": 0.0069,
           "other": -0.0057,
-          "total": -0.0034,
+          "total": -0.0029,
           "actual_change": 1.89,
-          "market": 1.8934
+          "market": 1.8929
         },
         "eth_per_share": {
-          "capital": -0.000057831,
-          "staking": 0.000002962,
-          "premium": -6.43e-7,
+          "capital": -0.000057852,
+          "staking": 0.000003176,
+          "premium": -6.41e-7,
           "reanchor": 0,
-          "total": -0.000055512,
-          "actual_change": -0.000055512
+          "total": -0.000055318,
+          "actual_change": -0.000055318
         }
       }
     },
@@ -2320,8 +2513,20 @@
       "eth_acquired_reported": 65341,
       "eth_staked": 3142643,
       "staking_yield_7d": 0.0283,
-      "est_staking_eth": 1650,
-      "est_purchased_eth": 63691,
+      "staking_yield_used": 0.02779,
+      "staking_yield_independent": {
+        "gross": 0.02779,
+        "net": 0.02502,
+        "window": [
+          "2026-03-16",
+          "2026-03-22"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02717,
+        "max_daily_gross": 0.03252
+      },
+      "est_staking_eth": 1620,
+      "est_purchased_eth": 63721,
       "eth_week_avg": 2182.22,
       "eth_price_used": 2194.66,
       "eth_price_basis": "disclosed",
@@ -2330,7 +2535,7 @@
       "eth_price_range": null,
       "other_digital_asset_cash": 7737600,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 139779585,
+      "est_purchase_cost": 139845180,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2341,17 +2546,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 149795186,
-      "cash_shortfall": 49795186,
+      "est_spending": 149860780,
+      "cash_shortfall": 49860780,
       "cash_shortfall_range": [
-        47517186,
-        52073186
+        47582780,
+        52138780
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 49795186,
+      "funded_by_shares": 49860780,
       "funded_by_shares_range": [
-        47517186,
-        52073186
+        47582780,
+        52138780
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 22.022,
@@ -2359,16 +2564,16 @@
         20.94,
         23.39
       ],
-      "est_shares_issued": 2261156,
+      "est_shares_issued": 2264135,
       "est_shares_issued_range": [
-        2031517,
-        2486781
+        2034322,
+        2489913
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 529443936,
+      "shares_outstanding": 529449012,
       "shares_outstanding_range": [
-        527684563,
-        531429930
+        527688973,
+        531435909
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2392,7 +2597,7 @@
         "net": 11051705884,
         "crypto": 10770705884,
         "eth": 9657391016,
-        "ev": 9986556020,
+        "ev": 9986662311,
         "nav_ex_cash": 9951705884
       },
       "nav_per_share": 20.87,
@@ -2412,32 +2617,32 @@
         "eth": 1.148,
         "ev_to_nav_ex_cash": 1.004
       },
-      "eth_per_share": 0.0088034,
+      "eth_per_share": 0.0088033,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226012078/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2036077774784315433",
       "notes": "Cash reported rounded ($1.1 billion) → ±$50M input uncertainty.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.8365,
-        "atm_shares": 2261156,
+        "nav_per_share_before": 21.8364,
+        "atm_shares": 2264135,
         "mnav_at_issue": 1.008,
         "usd_per_share": {
           "issuance": 0.0008,
           "buybacks": 0,
-          "staking": 0.0065,
+          "staking": 0.0063,
           "other": -0.0058,
-          "total": 0.0015,
+          "total": 0.0013,
           "actual_change": -0.99,
-          "market": -0.9915
+          "market": -0.9913
         },
         "eth_per_share": {
-          "capital": 0.000083754,
-          "staking": 0.000003117,
+          "capital": 0.000083761,
+          "staking": 0.00000306,
           "premium": -6.86e-7,
           "reanchor": 0,
-          "total": 0.000086185,
-          "actual_change": 0.000086185
+          "total": 0.000086135,
+          "actual_change": 0.000086135
         }
       }
     },
@@ -2450,8 +2655,20 @@
       "eth_acquired_reported": 71179,
       "eth_staked": 3142643,
       "staking_yield_7d": 0.028,
-      "est_staking_eth": 1633,
-      "est_purchased_eth": 69546,
+      "staking_yield_used": 0.02709,
+      "staking_yield_independent": {
+        "gross": 0.02709,
+        "net": 0.02438,
+        "window": [
+          "2026-03-23",
+          "2026-03-29"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02712,
+        "max_daily_gross": 0.02776
+      },
+      "est_staking_eth": 1579,
+      "est_purchased_eth": 69600,
       "eth_week_avg": 2072.26,
       "eth_price_used": 2084.07,
       "eth_price_basis": "disclosed",
@@ -2469,7 +2686,7 @@
       },
       "other_digital_asset_cash": 8004203,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 144939493,
+      "est_purchase_cost": 145050461,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2480,17 +2697,17 @@
       "est_cash_opex": 2278000,
       "investments": 6000000,
       "disclosed_proceeds": null,
-      "est_spending": 161221696,
-      "cash_shortfall": 22221696,
+      "est_spending": 161332665,
+      "cash_shortfall": 22332665,
       "cash_shortfall_range": [
-        19943696,
-        24499696
+        20054665,
+        24610665
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 22221696,
+      "funded_by_shares": 22332665,
       "funded_by_shares_range": [
-        19943696,
-        24499696
+        20054665,
+        24610665
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.234,
@@ -2498,16 +2715,16 @@
         18.39,
         21.27
       ],
-      "est_shares_issued": 1098235,
+      "est_shares_issued": 1103720,
       "est_shares_issued_range": [
-        937644,
-        1332229
+        942862,
+        1338263
       ],
       "other_shares_issued": 501545,
-      "shares_outstanding": 531043716,
+      "shares_outstanding": 531054277,
       "shares_outstanding_range": [
-        529123752,
-        533263705
+        529133379,
+        533275718
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2531,7 +2748,7 @@
         "net": 10749815969,
         "crypto": 10461815969,
         "eth": 9487824410,
-        "ev": 8804893937,
+        "ev": 8805088154,
         "nav_ex_cash": 9788815969
       },
       "nav_per_share": 20.24,
@@ -2549,34 +2766,34 @@
         "net": 0.908,
         "crypto": 0.933,
         "eth": 1.029,
-        "ev_to_nav_ex_cash": 0.899
+        "ev_to_nav_ex_cash": 0.9
       },
-      "eth_per_share": 0.0089109,
+      "eth_per_share": 0.0089107,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226013487/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2038617414951149827",
       "notes": "Pier Two acquisition closed Mar 24: 501,545 shares issued as stock consideration (8-K Mar 30, Item 3.02) + ~$6M cash (10-Q).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.8765,
-        "atm_shares": 1098235,
+        "nav_per_share_before": 20.8763,
+        "atm_shares": 1103720,
         "mnav_at_issue": 0.969,
         "usd_per_share": {
           "issuance": -0.0019,
           "buybacks": 0,
-          "staking": 0.0062,
+          "staking": 0.006,
           "other": -0.0058,
-          "total": -0.0016,
+          "total": -0.0018,
           "actual_change": -0.63,
-          "market": -0.6284
+          "market": -0.6282
         },
         "eth_per_share": {
-          "capital": 0.000105188,
-          "staking": 0.000003075,
-          "premium": -7.46e-7,
+          "capital": 0.000105196,
+          "staking": 0.000002974,
+          "premium": -7.47e-7,
           "reanchor": 0,
-          "total": 0.000107516,
-          "actual_change": 0.000107516
+          "total": 0.000107423,
+          "actual_change": 0.000107423
         }
       }
     },
@@ -2589,8 +2806,20 @@
       "eth_acquired_reported": 71252,
       "eth_staked": 3334637,
       "staking_yield_7d": 0.0278,
-      "est_staking_eth": 1621,
-      "est_purchased_eth": 69631,
+      "staking_yield_used": 0.02686,
+      "staking_yield_independent": {
+        "gross": 0.02686,
+        "net": 0.02418,
+        "window": [
+          "2026-03-30",
+          "2026-04-05"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02678,
+        "max_daily_gross": 0.028
+      },
+      "est_staking_eth": 1566,
+      "est_purchased_eth": 69686,
       "eth_week_avg": 2075.78,
       "eth_price_used": 2087.61,
       "eth_price_basis": "disclosed",
@@ -2608,7 +2837,7 @@
       },
       "other_digital_asset_cash": 8026022,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 145362433,
+      "est_purchase_cost": 145476842,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2619,17 +2848,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 155666456,
-      "cash_shortfall": 58666456,
+      "est_spending": 155780864,
+      "cash_shortfall": 58780864,
       "cash_shortfall_range": [
-        56388456,
-        60944456
+        56502864,
+        61058864
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 58666456,
+      "funded_by_shares": 58780864,
       "funded_by_shares_range": [
-        56388456,
-        60944456
+        56502864,
+        61058864
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 19.305,
@@ -2637,16 +2866,16 @@
         18.3,
         19.78
       ],
-      "est_shares_issued": 3038925,
+      "est_shares_issued": 3044852,
       "est_shares_issued_range": [
-        2850781,
-        3330298
+        2856565,
+        3336550
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 534082642,
+      "shares_outstanding": 534099129,
       "shares_outstanding_range": [
-        531974533,
-        536594003
+        531989945,
+        536612268
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2670,7 +2899,7 @@
         "net": 11353140478,
         "crypto": 11075140478,
         "eth": 10197478082,
-        "ev": 9523907387,
+        "ev": 9524228059,
         "nav_ex_cash": 10489140478
       },
       "nav_per_share": 21.26,
@@ -2690,32 +2919,32 @@
         "eth": 1.019,
         "ev_to_nav_ex_cash": 0.908
       },
-      "eth_per_share": 0.0089936,
+      "eth_per_share": 0.0089933,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226015247/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2041131990649331839",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.8735,
-        "atm_shares": 3038925,
+        "nav_per_share_before": 20.8731,
+        "atm_shares": 3044852,
         "mnav_at_issue": 0.925,
         "usd_per_share": {
           "issuance": -0.0089,
           "buybacks": 0,
-          "staking": 0.0064,
+          "staking": 0.0062,
           "other": -0.0058,
-          "total": -0.0083,
+          "total": -0.0085,
           "actual_change": 1.02,
-          "market": 1.0283
+          "market": 1.0285
         },
         "eth_per_share": {
-          "capital": 0.000080415,
-          "staking": 0.000003035,
-          "premium": -7.43e-7,
+          "capital": 0.000080418,
+          "staking": 0.000002932,
+          "premium": -7.44e-7,
           "reanchor": 0,
-          "total": 0.000082707,
-          "actual_change": 0.000082707
+          "total": 0.000082607,
+          "actual_change": 0.000082607
         }
       }
     },
@@ -2728,8 +2957,20 @@
       "eth_acquired_reported": null,
       "eth_staked": 3334637,
       "staking_yield_7d": 0.0289,
-      "est_staking_eth": 1685,
-      "est_purchased_eth": 69839,
+      "staking_yield_used": 0.02645,
+      "staking_yield_independent": {
+        "gross": 0.02645,
+        "net": 0.0238,
+        "window": [
+          "2026-04-06",
+          "2026-04-12"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02641,
+        "max_daily_gross": 0.0269
+      },
+      "est_staking_eth": 1542,
+      "est_purchased_eth": 69982,
       "eth_week_avg": 2201.63,
       "eth_price_used": 2214.18,
       "eth_price_basis": "disclosed",
@@ -2738,7 +2979,7 @@
       "eth_price_range": null,
       "other_digital_asset_cash": 8545119,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 154635675,
+      "est_purchase_cost": 154952511,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2749,17 +2990,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 165458794,
-      "cash_shortfall": 20458794,
+      "est_spending": 165775630,
+      "cash_shortfall": 20775630,
       "cash_shortfall_range": [
-        18180794,
-        22736794
+        18497630,
+        23053630
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 20458794,
+      "funded_by_shares": 20775630,
       "funded_by_shares_range": [
-        18180794,
-        22736794
+        18497630,
+        23053630
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.93,
@@ -2767,16 +3008,16 @@
         20.17,
         21.52
       ],
-      "est_shares_issued": 977487,
+      "est_shares_issued": 992624,
       "est_shares_issued_range": [
-        844832,
-        1127258
+        859555,
+        1142966
       ],
       "other_shares_issued": 9577,
-      "shares_outstanding": 535069705,
+      "shares_outstanding": 535101330,
       "shares_outstanding_range": [
-        532828943,
-        537730838
+        532859077,
+        537764811
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2800,7 +3041,7 @@
         "net": 11757927626,
         "crypto": 11486927626,
         "eth": 10753936748,
-        "ev": 10667283322,
+        "ev": 10667956302,
         "nav_ex_cash": 11038927626
       },
       "nav_per_share": 21.97,
@@ -2820,32 +3061,32 @@
         "eth": 1.059,
         "ev_to_nav_ex_cash": 0.966
       },
-      "eth_per_share": 0.0091107,
+      "eth_per_share": 0.0091102,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016296/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2043682564460712352",
       "notes": "Release does not state weekly ETH acquired. +9,577 net shares from officer RSUs vested Apr 7 (Tsang 4,186 − 1,496 withheld, Kim 10,032 − 3,145 withheld; Form 4s filed Oct 23/26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.9644,
-        "atm_shares": 977487,
+        "nav_per_share_before": 21.9638,
+        "atm_shares": 992624,
         "mnav_at_issue": 0.953,
         "usd_per_share": {
           "issuance": -0.0019,
           "buybacks": 0,
-          "staking": 0.0069,
+          "staking": 0.0064,
           "other": -0.0059,
-          "total": -0.0009,
+          "total": -0.0015,
           "actual_change": 0.71,
-          "market": 0.7109
+          "market": 0.7115
         },
         "eth_per_share": {
-          "capital": 0.000114676,
-          "staking": 0.000003149,
-          "premium": -7.44e-7,
+          "capital": 0.000114684,
+          "staking": 0.000002882,
+          "premium": -7.45e-7,
           "reanchor": 0,
-          "total": 0.000117081,
-          "actual_change": 0.000117081
+          "total": 0.000116821,
+          "actual_change": 0.000116821
         }
       }
     },
@@ -2858,8 +3099,20 @@
       "eth_acquired_reported": 101627,
       "eth_staked": 3334637,
       "staking_yield_7d": 0.0288,
-      "est_staking_eth": 1679,
-      "est_purchased_eth": 99948,
+      "staking_yield_used": 0.02715,
+      "staking_yield_independent": {
+        "gross": 0.02715,
+        "net": 0.02445,
+        "window": [
+          "2026-04-13",
+          "2026-04-19"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02676,
+        "max_daily_gross": 0.0296
+      },
+      "est_staking_eth": 1583,
+      "est_purchased_eth": 100044,
       "eth_week_avg": 2349.49,
       "eth_price_used": 2362.88,
       "eth_price_basis": "disclosed",
@@ -2868,7 +3121,7 @@
       "eth_price_range": null,
       "other_digital_asset_cash": 12957007,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 236164480,
+      "est_purchase_cost": 236391230,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -2879,17 +3132,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 251399487,
-      "cash_shortfall": 652399487,
+      "est_spending": 251626237,
+      "cash_shortfall": 652626237,
       "cash_shortfall_range": [
-        650121487,
-        654677487
+        650348237,
+        654904237
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 652399487,
+      "funded_by_shares": 652626237,
       "funded_by_shares_range": [
-        650121487,
-        654677487
+        650348237,
+        654904237
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 22.144,
@@ -2897,16 +3150,16 @@
         21.48,
         22.95
       ],
-      "est_shares_issued": 29461682,
+      "est_shares_issued": 29471922,
       "est_shares_issued_range": [
-        28327734,
-        30478468
+        28337614,
+        30489024
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 564531387,
+      "shares_outstanding": 564573252,
       "shares_outstanding_range": [
-        561156676,
-        568209305
+        561196691,
+        568253835
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -2939,7 +3192,7 @@
         "net": 12878586344,
         "crypto": 12585586344,
         "eth": 11450891985,
-        "ev": 11835995332,
+        "ev": 11836956133,
         "nav_ex_cash": 11758586344
       },
       "nav_per_share": 22.81,
@@ -2955,36 +3208,36 @@
       "mnav_all": {
         "full": 1.006,
         "net": 1.006,
-        "crypto": 1.029,
-        "eth": 1.131,
+        "crypto": 1.03,
+        "eth": 1.132,
         "ev_to_nav_ex_cash": 1.007
       },
-      "eth_per_share": 0.0088152,
+      "eth_per_share": 0.0088146,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226018015/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2046228709061927060",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.2819,
-        "atm_shares": 29461682,
+        "nav_per_share_before": 23.2805,
+        "atm_shares": 29471922,
         "mnav_at_issue": 0.951,
         "usd_per_share": {
-          "issuance": -0.0594,
+          "issuance": -0.0593,
           "buybacks": 0,
-          "staking": 0.0068,
+          "staking": 0.0065,
           "other": -0.0064,
-          "total": -0.0589,
+          "total": -0.0593,
           "actual_change": 0.84,
-          "market": 0.8989
+          "market": 0.8993
         },
         "eth_per_share": {
-          "capital": -0.000297413,
-          "staking": 0.000002975,
-          "premium": -0.000001009,
+          "capital": -0.000297357,
+          "staking": 0.000002805,
+          "premium": -0.00000101,
           "reanchor": 0,
-          "total": -0.000295448,
-          "actual_change": -0.000295448
+          "total": -0.000295563,
+          "actual_change": -0.000295563
         }
       }
     },
@@ -2997,8 +3250,20 @@
       "eth_acquired_reported": 101901,
       "eth_staked": 3701589,
       "staking_yield_7d": 0.03033,
-      "est_staking_eth": 1828,
-      "est_purchased_eth": 100073,
+      "staking_yield_used": 0.02901,
+      "staking_yield_independent": {
+        "gross": 0.02901,
+        "net": 0.02613,
+        "window": [
+          "2026-04-20",
+          "2026-04-26"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.029,
+        "max_daily_gross": 0.0314
+      },
+      "est_staking_eth": 1749,
+      "est_purchased_eth": 100152,
       "eth_week_avg": 2336.15,
       "eth_price_used": 2349.47,
       "eth_price_basis": "disclosed",
@@ -3007,7 +3272,7 @@
       "eth_price_range": null,
       "other_digital_asset_cash": 12918175,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 235118152,
+      "est_purchase_cost": 235304803,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3018,17 +3283,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 250314326,
-      "cash_shortfall": 70314326,
+      "est_spending": 250500978,
+      "cash_shortfall": 70500978,
       "cash_shortfall_range": [
-        68036326,
-        72592326
+        68222978,
+        72778978
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 70314326,
+      "funded_by_shares": 70500978,
       "funded_by_shares_range": [
-        68036326,
-        72592326
+        68222978,
+        72778978
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 22.338,
@@ -3036,16 +3301,16 @@
         21.71,
         23.31
       ],
-      "est_shares_issued": 3147745,
+      "est_shares_issued": 3156101,
       "est_shares_issued_range": [
-        2918761,
-        3343728
+        2926769,
+        3352325
       ],
       "other_shares_issued": 22762,
-      "shares_outstanding": 567701894,
+      "shares_outstanding": 567752115,
       "shares_outstanding_range": [
-        564098200,
-        571575795
+        564146221,
+        571628922
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3069,7 +3334,7 @@
         "net": 13263424034,
         "crypto": 12986424034,
         "eth": 12030696434,
-        "ev": 11628919933,
+        "ev": 11630031826,
         "nav_ex_cash": 12323424034
       },
       "nav_per_share": 23.36,
@@ -3077,7 +3342,7 @@
       "nav_per_share_all": {
         "full": 23.36,
         "net": 23.36,
-        "crypto": 22.88,
+        "crypto": 22.87,
         "eth": 21.19
       },
       "mnav": 0.948,
@@ -3089,32 +3354,32 @@
         "eth": 1.045,
         "ev_to_nav_ex_cash": 0.944
       },
-      "eth_per_share": 0.0089455,
+      "eth_per_share": 0.0089447,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226019080/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2048781360928641404",
       "notes": "+22,762 shares from RSU vesting Apr 23: directors 22,620 (five Form 4s Apr 23, 2026) + Tsang 142.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.1227,
-        "atm_shares": 3147745,
+        "nav_per_share_before": 23.121,
+        "atm_shares": 3156101,
         "mnav_at_issue": 0.966,
         "usd_per_share": {
           "issuance": -0.0044,
           "buybacks": 0,
-          "staking": 0.0076,
+          "staking": 0.0073,
           "other": -0.0064,
-          "total": -0.0031,
+          "total": -0.0034,
           "actual_change": 0.55,
-          "market": 0.5531
+          "market": 0.5534
         },
         "eth_per_share": {
-          "capital": 0.000128051,
-          "staking": 0.00000322,
+          "capital": 0.000128054,
+          "staking": 0.00000308,
           "premium": -0.000001005,
           "reanchor": 0,
-          "total": 0.000130266,
-          "actual_change": 0.000130266
+          "total": 0.000130128,
+          "actual_change": 0.000130128
         }
       }
     },
@@ -3127,8 +3392,20 @@
       "eth_acquired_reported": 101745,
       "eth_staked": 4362757,
       "staking_yield_7d": 0.0291,
-      "est_staking_eth": 1754,
-      "est_purchased_eth": 99991,
+      "staking_yield_used": 0.02828,
+      "staking_yield_independent": {
+        "gross": 0.02828,
+        "net": 0.02557,
+        "window": [
+          "2026-04-27",
+          "2026-05-03"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02815,
+        "max_daily_gross": 0.03073
+      },
+      "est_staking_eth": 1704,
+      "est_purchased_eth": 100041,
       "eth_week_avg": 2291.23,
       "eth_price_used": 2304.29,
       "eth_price_basis": "disclosed",
@@ -3147,7 +3424,7 @@
       },
       "other_digital_asset_cash": 12650385,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 230408601,
+      "est_purchase_cost": 230522819,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3158,17 +3435,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 245336986,
-      "cash_shortfall": 5336986,
+      "est_spending": 245451204,
+      "cash_shortfall": 5451204,
       "cash_shortfall_range": [
-        3058986,
-        7614986
+        3173204,
+        7729204
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 5336986,
+      "funded_by_shares": 5451204,
       "funded_by_shares_range": [
-        3058986,
-        7614986
+        3173204,
+        7729204
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 21.394,
@@ -3176,16 +3453,16 @@
         20.66,
         21.88
       ],
-      "est_shares_issued": 249462,
+      "est_shares_issued": 254801,
       "est_shares_issued_range": [
-        139807,
-        368586
+        145028,
+        374114
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 567951356,
+      "shares_outstanding": 568006915,
       "shares_outstanding_range": [
-        564238007,
-        571944381
+        564291249,
+        572003037
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3209,7 +3486,7 @@
         "net": 13085488416,
         "crypto": 12816488416,
         "eth": 12100786016,
-        "ev": 11726775669,
+        "ev": 11727991300,
         "nav_ex_cash": 12385488416
       },
       "nav_per_share": 23.04,
@@ -3217,8 +3494,8 @@
       "nav_per_share_all": {
         "full": 23.04,
         "net": 23.04,
-        "crypto": 22.57,
-        "eth": 21.31
+        "crypto": 22.56,
+        "eth": 21.3
       },
       "mnav": 0.95,
       "mnav_gross": 0.95,
@@ -3229,32 +3506,32 @@
         "eth": 1.027,
         "ev_to_nav_ex_cash": 0.947
       },
-      "eth_per_share": 0.0091207,
+      "eth_per_share": 0.0091198,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226021027/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2051327373983846710",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.6677,
-        "atm_shares": 249462,
+        "nav_per_share_before": 22.6657,
+        "atm_shares": 254801,
         "mnav_at_issue": 0.944,
         "usd_per_share": {
           "issuance": -0.0006,
           "buybacks": 0,
-          "staking": 0.0072,
+          "staking": 0.007,
           "other": -0.0063,
-          "total": 0.0003,
+          "total": 0.0001,
           "actual_change": -0.32,
-          "market": -0.3203
+          "market": -0.3201
         },
         "eth_per_share": {
-          "capital": 0.00017313,
-          "staking": 0.000003088,
+          "capital": 0.000173117,
+          "staking": 0.000003,
           "premium": -0.000001004,
           "reanchor": 0,
-          "total": 0.000175215,
-          "actual_change": 0.000175215
+          "total": 0.000175114,
+          "actual_change": 0.000175114
         }
       }
     },
@@ -3267,8 +3544,20 @@
       "eth_acquired_reported": null,
       "eth_staked": 4712917,
       "staking_yield_7d": 0.0286,
-      "est_staking_eth": 1829,
-      "est_purchased_eth": 24830,
+      "staking_yield_used": 0.02867,
+      "staking_yield_independent": {
+        "gross": 0.02867,
+        "net": 0.02597,
+        "window": [
+          "2026-05-04",
+          "2026-05-10"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02795,
+        "max_daily_gross": 0.03503
+      },
+      "est_staking_eth": 1833,
+      "est_purchased_eth": 24826,
       "eth_week_avg": 2336.25,
       "eth_price_used": 2349.57,
       "eth_price_basis": "disclosed",
@@ -3285,7 +3574,7 @@
       },
       "other_digital_asset_cash": 3379755,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 58339679,
+      "est_purchase_cost": 58329633,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3296,17 +3585,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 63997434,
-      "cash_shortfall": 138997434,
+      "est_spending": 63987388,
+      "cash_shortfall": 138987388,
       "cash_shortfall_range": [
-        136719434,
-        141275434
+        136709388,
+        141265388
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 138997434,
+      "funded_by_shares": 138987388,
       "funded_by_shares_range": [
-        136719434,
-        141275434
+        136709388,
+        141265388
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 22.594,
@@ -3314,16 +3603,16 @@
         22,
         23.1
       ],
-      "est_shares_issued": 6151962,
+      "est_shares_issued": 6151518,
       "est_shares_issued_range": [
-        5918590,
-        6421611
+        5918155,
+        6421154
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 574103318,
+      "shares_outstanding": 574158433,
       "shares_outstanding_range": [
-        570156597,
-        578365992
+        570209404,
+        578424191
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3347,7 +3636,7 @@
         "net": 13384750758,
         "crypto": 13110750758,
         "eth": 12319265140,
-        "ev": 11952870560,
+        "ev": 11954092460,
         "nav_ex_cash": 12609750758
       },
       "nav_per_share": 23.31,
@@ -3355,7 +3644,7 @@
       "nav_per_share_all": {
         "full": 23.31,
         "net": 23.31,
-        "crypto": 22.84,
+        "crypto": 22.83,
         "eth": 21.46
       },
       "mnav": 0.951,
@@ -3367,32 +3656,32 @@
         "eth": 1.033,
         "ev_to_nav_ex_cash": 0.948
       },
-      "eth_per_share": 0.0090694,
+      "eth_per_share": 0.0090686,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226022150/ex99-3.htm",
       "x_post": "https://x.com/BitMNR/status/2053835778485006606",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.0421,
-        "atm_shares": 6151962,
+        "nav_per_share_before": 23.0398,
+        "atm_shares": 6151518,
         "mnav_at_issue": 0.981,
         "usd_per_share": {
           "issuance": -0.0048,
           "buybacks": 0,
-          "staking": 0.0075,
+          "staking": 0.0076,
           "other": -0.0045,
           "total": -0.0018,
           "actual_change": 0.27,
           "market": 0.2718
         },
         "eth_per_share": {
-          "capital": -0.000054239,
-          "staking": 0.000003186,
-          "premium": -2.47e-7,
+          "capital": -0.000054225,
+          "staking": 0.000003193,
+          "premium": -2.46e-7,
           "reanchor": 0,
-          "total": -0.0000513,
-          "actual_change": -0.0000513
+          "total": -0.000051278,
+          "actual_change": -0.000051278
         }
       }
     },
@@ -3405,8 +3694,20 @@
       "eth_acquired_reported": 71672,
       "eth_staked": 4712917,
       "staking_yield_7d": 0.028,
-      "est_staking_eth": 1791,
-      "est_purchased_eth": 69881,
+      "staking_yield_used": 0.02715,
+      "staking_yield_independent": {
+        "gross": 0.02715,
+        "net": 0.02444,
+        "window": [
+          "2026-05-11",
+          "2026-05-17"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02722,
+        "max_daily_gross": 0.02783
+      },
+      "est_staking_eth": 1736,
+      "est_purchased_eth": 69936,
       "eth_week_avg": 2241.46,
       "eth_price_used": 2254.24,
       "eth_price_basis": "disclosed",
@@ -3423,7 +3724,7 @@
       },
       "other_digital_asset_cash": 8717712,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 157529068,
+      "est_purchase_cost": 157651791,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3434,17 +3735,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 168524779,
-      "cash_shortfall": 78524779,
+      "est_spending": 168647503,
+      "cash_shortfall": 78647503,
       "cash_shortfall_range": [
-        76246779,
-        80802779
+        76369503,
+        80925503
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 78524779,
+      "funded_by_shares": 78647503,
       "funded_by_shares_range": [
-        76246779,
-        80802779
+        76369503,
+        80925503
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 21.548,
@@ -3452,16 +3753,16 @@
         19.87,
         23.02
       ],
-      "est_shares_issued": 3644179,
+      "est_shares_issued": 3649875,
       "est_shares_issued_range": [
-        3312197,
-        4066572
+        3317528,
+        4072748
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 577747498,
+      "shares_outstanding": 577808308,
       "shares_outstanding_range": [
-        573468795,
-        582432563
+        573526933,
+        582496939
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3485,14 +3786,14 @@
         "net": 12534750900,
         "crypto": 12265750900,
         "eth": 11565110242,
-        "ev": 10794842785,
+        "ev": 10796051080,
         "nav_ex_cash": 11849750900
       },
-      "nav_per_share": 21.7,
-      "nav_per_share_gross": 21.7,
+      "nav_per_share": 21.69,
+      "nav_per_share_gross": 21.69,
       "nav_per_share_all": {
-        "full": 21.7,
-        "net": 21.7,
+        "full": 21.69,
+        "net": 21.69,
         "crypto": 21.23,
         "eth": 20.02
       },
@@ -3505,32 +3806,32 @@
         "eth": 0.993,
         "ev_to_nav_ex_cash": 0.911
       },
-      "eth_per_share": 0.0091363,
+      "eth_per_share": 0.0091353,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226024088/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2056454152197124490",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.1847,
-        "atm_shares": 3644179,
+        "nav_per_share_before": 22.1825,
+        "atm_shares": 3649875,
         "mnav_at_issue": 0.971,
         "usd_per_share": {
           "issuance": -0.004,
           "buybacks": 0,
-          "staking": 0.0068,
+          "staking": 0.0066,
           "other": -0.0055,
-          "total": -0.0027,
-          "actual_change": -1.61,
-          "market": -1.6073
+          "total": -0.0029,
+          "actual_change": -1.62,
+          "market": -1.6171
         },
         "eth_per_share": {
-          "capital": 0.000064438,
-          "staking": 0.000003099,
-          "premium": -6.89e-7,
+          "capital": 0.000064442,
+          "staking": 0.000003005,
+          "premium": -6.9e-7,
           "reanchor": 0,
-          "total": 0.000066848,
-          "actual_change": 0.000066848
+          "total": 0.000066757,
+          "actual_change": 0.000066757
         }
       }
     },
@@ -3543,8 +3844,20 @@
       "eth_acquired_reported": 111942,
       "eth_staked": 4712917,
       "staking_yield_7d": 0.0275,
-      "est_staking_eth": 2010,
-      "est_purchased_eth": 109932,
+      "staking_yield_used": 0.02642,
+      "staking_yield_independent": {
+        "gross": 0.02642,
+        "net": 0.02378,
+        "window": [
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "reports": 8,
+        "median_daily_gross": 0.02633,
+        "max_daily_gross": 0.02695
+      },
+      "est_staking_eth": 1931,
+      "est_purchased_eth": 110011,
       "eth_week_avg": 2110.82,
       "eth_price_used": 2122.85,
       "eth_price_basis": "disclosed",
@@ -3561,7 +3874,7 @@
       },
       "other_digital_asset_cash": 12822309,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 233369504,
+      "est_purchase_cost": 233537750,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3572,17 +3885,17 @@
       "est_cash_opex": 2603429,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 248795242,
-      "cash_shortfall": 7795242,
+      "est_spending": 248963488,
+      "cash_shortfall": 7963488,
       "cash_shortfall_range": [
-        5191813,
-        10398670
+        5360059,
+        10566916
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 7795242,
+      "funded_by_shares": 7963488,
       "funded_by_shares_range": [
-        5191813,
-        10398670
+        5360059,
+        10566916
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 19.048,
@@ -3590,16 +3903,16 @@
         18.63,
         19.61
       ],
-      "est_shares_issued": 409242,
+      "est_shares_issued": 418075,
       "est_shares_issued_range": [
-        264753,
-        558168
+        273333,
+        567199
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 578156740,
+      "shares_outstanding": 578226383,
       "shares_outstanding_range": [
-        573733548,
-        582990731
+        573800266,
+        583064137
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3623,7 +3936,7 @@
         "net": 12257805510,
         "crypto": 11962805510,
         "eth": 11503122136,
-        "ev": 10471599251,
+        "ev": 10472914111,
         "nav_ex_cash": 11813805510
       },
       "nav_per_share": 21.2,
@@ -3632,43 +3945,43 @@
         "full": 21.2,
         "net": 21.2,
         "crypto": 20.69,
-        "eth": 19.9
+        "eth": 19.89
       },
       "mnav": 0.891,
       "mnav_gross": 0.891,
       "mnav_all": {
         "full": 0.891,
         "net": 0.891,
-        "crypto": 0.912,
+        "crypto": 0.913,
         "eth": 0.949,
         "ev_to_nav_ex_cash": 0.886
       },
-      "eth_per_share": 0.0093234,
+      "eth_per_share": 0.0093223,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226025174/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2059257593390850301",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9634,
-        "atm_shares": 409242,
+        "nav_per_share_before": 20.9611,
+        "atm_shares": 418075,
         "mnav_at_issue": 0.909,
         "usd_per_share": {
           "issuance": -0.0014,
           "buybacks": 0,
-          "staking": 0.0074,
+          "staking": 0.0071,
           "other": -0.0068,
-          "total": -0.0007,
-          "actual_change": -0.5,
-          "market": -0.4993
+          "total": -0.001,
+          "actual_change": -0.49,
+          "market": -0.489
         },
         "eth_per_share": {
-          "capital": 0.000184759,
-          "staking": 0.000003476,
+          "capital": 0.000184736,
+          "staking": 0.000003339,
           "premium": -0.000001084,
           "reanchor": 0,
-          "total": 0.000187152,
-          "actual_change": 0.000187152
+          "total": 0.00018699,
+          "actual_change": 0.00018699
         }
       }
     },
@@ -3681,8 +3994,20 @@
       "eth_acquired_reported": 26497,
       "eth_staked": 4718677,
       "staking_yield_7d": 0.0273,
-      "est_staking_eth": 1661,
-      "est_purchased_eth": 24836,
+      "staking_yield_used": 0.02662,
+      "staking_yield_independent": {
+        "gross": 0.02662,
+        "net": 0.02396,
+        "window": [
+          "2026-05-26",
+          "2026-05-31"
+        ],
+        "reports": 6,
+        "median_daily_gross": 0.02656,
+        "max_daily_gross": 0.02736
+      },
+      "est_staking_eth": 1620,
+      "est_purchased_eth": 24877,
       "eth_week_avg": 2023.7,
       "eth_price_used": 2035.24,
       "eth_price_basis": "disclosed",
@@ -3699,7 +4024,7 @@
       },
       "other_digital_asset_cash": 2909811,
       "other_digital_asset_cash_note": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
-      "est_purchase_cost": 50546790,
+      "est_purchase_cost": 50630671,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3710,11 +4035,11 @@
       "est_cash_opex": 1952571,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 55409173,
-      "cash_shortfall": 57409173,
+      "est_spending": 55493054,
+      "cash_shortfall": 57493054,
       "cash_shortfall_range": [
-        55456602,
-        59361745
+        55540483,
+        59445626
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
@@ -3794,25 +4119,25 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 20.1732,
-        "atm_shares": 3000218,
+        "nav_per_share_before": 20.1707,
+        "atm_shares": 3004602,
         "mnav_at_issue": 0.949,
         "usd_per_share": {
           "issuance": -0.0054,
           "buybacks": 0,
-          "staking": 0.0057,
+          "staking": 0.0056,
           "other": -0.0039,
-          "total": -0.0035,
+          "total": -0.0036,
           "actual_change": -1.22,
-          "market": -1.2165
+          "market": -1.2164
         },
         "eth_per_share": {
-          "capital": -0.000005167,
-          "staking": 0.000002866,
-          "premium": -2.44e-7,
-          "reanchor": 0.0000242,
-          "total": 0.000021654,
-          "actual_change": 0.000021654
+          "capital": -0.00000516,
+          "staking": 0.000002795,
+          "premium": -2.45e-7,
+          "reanchor": 0.000025387,
+          "total": 0.000022777,
+          "actual_change": 0.000022777
         }
       }
     },
@@ -3825,8 +4150,20 @@
       "eth_acquired_reported": 126971,
       "eth_staked": 4718677,
       "staking_yield_7d": 0.0299,
-      "est_staking_eth": 2502,
-      "est_purchased_eth": 124469,
+      "staking_yield_used": 0.02869,
+      "staking_yield_independent": {
+        "gross": 0.02869,
+        "net": 0.02582,
+        "window": [
+          "2026-06-01",
+          "2026-06-07"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02791,
+        "max_daily_gross": 0.03459
+      },
+      "est_staking_eth": 2401,
+      "est_purchased_eth": 124570,
       "eth_week_avg": 1754.53,
       "eth_price_used": 1750.87,
       "eth_price_basis": "assumed",
@@ -3836,7 +4173,7 @@
         1733.36,
         1768.38
       ],
-      "est_purchase_cost": 217929487,
+      "est_purchase_cost": 218106493,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3847,17 +4184,17 @@
       "est_cash_opex": 2278000,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 220207487,
-      "cash_shortfall": 21207487,
+      "est_spending": 220384493,
+      "cash_shortfall": 21384493,
       "cash_shortfall_range": [
-        16750192,
-        25664781
+        16925428,
+        25843558
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 21207487,
+      "funded_by_shares": 21384493,
       "funded_by_shares_range": [
-        16750192,
-        25664781
+        16925428,
+        25843558
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 17.502,
@@ -3865,16 +4202,16 @@
         15.9,
         18.85
       ],
-      "est_shares_issued": 1211718,
+      "est_shares_issued": 1221831,
       "est_shares_issued_range": [
-        888604,
-        1614137
+        897901,
+        1625381
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 580864150,
+      "shares_outstanding": 580874263,
       "shares_outstanding_range": [
-        580541036,
-        581266569
+        580550333,
+        581277813
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -3898,7 +4235,7 @@
         "net": 9564419256,
         "crypto": 9296419256,
         "eth": 9036511360,
-        "ev": 8988739985,
+        "ev": 8988900782,
         "nav_ex_cash": 9317419256
       },
       "nav_per_share": 16.47,
@@ -3918,7 +4255,7 @@
         "eth": 1.022,
         "ev_to_nav_ex_cash": 0.965
       },
-      "eth_per_share": 0.0095442,
+      "eth_per_share": 0.009544,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226027647/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2063962528015626605",
       "notes": "",
@@ -3926,24 +4263,24 @@
         "basis": "estimate (v3 model)",
         "reanchor": false,
         "nav_per_share_before": 17.6624,
-        "atm_shares": 1211718,
+        "atm_shares": 1221831,
         "mnav_at_issue": 0.991,
         "usd_per_share": {
           "issuance": -0.0003,
           "buybacks": 0,
-          "staking": 0.007,
+          "staking": 0.0067,
           "other": -0.0031,
-          "total": 0.0035,
+          "total": 0.0033,
           "actual_change": -3.51,
-          "market": -3.5135
+          "market": -3.5133
         },
         "eth_per_share": {
-          "capital": 0.000194341,
-          "staking": 0.000004307,
+          "capital": 0.000194349,
+          "staking": 0.000004133,
           "premium": 4.47e-7,
           "reanchor": 0,
-          "total": 0.000199095,
-          "actual_change": 0.000199095
+          "total": 0.000198929,
+          "actual_change": 0.000198929
         }
       }
     },
@@ -3956,8 +4293,20 @@
       "eth_acquired_reported": 76881,
       "eth_staked": 4718677,
       "staking_yield_7d": 0.0279,
-      "est_staking_eth": 2522,
-      "est_purchased_eth": 74360,
+      "staking_yield_used": 0.02696,
+      "staking_yield_independent": {
+        "gross": 0.02696,
+        "net": 0.02427,
+        "window": [
+          "2026-06-08",
+          "2026-06-14"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02658,
+        "max_daily_gross": 0.0287
+      },
+      "est_staking_eth": 2437,
+      "est_purchased_eth": 74445,
       "eth_week_avg": 1670.48,
       "eth_price_used": 1666.99,
       "eth_price_basis": "assumed",
@@ -3977,7 +4326,7 @@
           "https://x.com/lookonchain/status/2064858508311580811"
         ]
       },
-      "est_purchase_cost": 123958186,
+      "est_purchase_cost": 124099128,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -3988,17 +4337,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": 273800000,
-      "est_spending": 126882636,
-      "cash_shortfall": 108082636,
+      "est_spending": 127023578,
+      "cash_shortfall": 108223578,
       "cash_shortfall_range": [
-        103918604,
-        112246668
+        104058137,
+        112389019
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 108082636,
+      "funded_by_shares": 108223578,
       "funded_by_shares_range": [
-        103918604,
-        112246668
+        104058137,
+        112389019
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 16.264,
@@ -4006,16 +4355,16 @@
         15.64,
         16.85
       ],
-      "est_shares_issued": 6645514,
+      "est_shares_issued": 6654180,
       "est_shares_issued_range": [
-        6167276,
-        7176897
+        6175557,
+        7185999
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 587509664,
+      "shares_outstanding": 587528443,
       "shares_outstanding_range": [
-        586708313,
-        588443466
+        586725890,
+        588463812
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4039,7 +4388,7 @@
         "net": 10089860008,
         "crypto": 10171860008,
         "eth": 9656455372,
-        "ev": 9312780687,
+        "ev": 9313083217,
         "nav_ex_cash": 9937860008
       },
       "nav_per_share": 17.17,
@@ -4055,36 +4404,36 @@
       "mnav_all": {
         "full": 0.907,
         "net": 0.938,
-        "crypto": 0.93,
+        "crypto": 0.931,
         "eth": 0.98,
         "ev_to_nav_ex_cash": 0.937
       },
-      "eth_per_share": 0.0095671,
+      "eth_per_share": 0.0095668,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226028622/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2066503209691029834",
       "notes": "Cash line is \"total cash & marketable securities\". BMNP 9.50% Series A Perpetual Preferred closed Jun 10: 3,500,000 sh at $80, net proceeds ~$273.8M (non-dilutive to common).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.8522,
-        "atm_shares": 6645514,
+        "nav_per_share_before": 16.8519,
+        "atm_shares": 6654180,
         "mnav_at_issue": 0.965,
         "usd_per_share": {
           "issuance": -0.0067,
           "buybacks": 0,
-          "staking": 0.0074,
+          "staking": 0.0071,
           "other": -0.1342,
-          "total": -0.1335,
+          "total": -0.1338,
           "actual_change": 0.7,
-          "market": 0.8335
+          "market": 0.8338
         },
         "eth_per_share": {
-          "capital": 0.000018347,
-          "staking": 0.000004292,
+          "capital": 0.000018351,
+          "staking": 0.000004148,
           "premium": 2.64e-7,
           "reanchor": 0,
-          "total": 0.000022903,
-          "actual_change": 0.000022903
+          "total": 0.000022764,
+          "actual_change": 0.000022764
         }
       }
     },
@@ -4097,8 +4446,20 @@
       "eth_acquired_reported": 52203,
       "eth_staked": 4718677,
       "staking_yield_7d": 0.0273,
-      "est_staking_eth": 2468,
-      "est_purchased_eth": 49734,
+      "staking_yield_used": 0.02614,
+      "staking_yield_independent": {
+        "gross": 0.02614,
+        "net": 0.02352,
+        "window": [
+          "2026-06-15",
+          "2026-06-21"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02649,
+        "max_daily_gross": 0.02654
+      },
+      "est_staking_eth": 2362,
+      "est_purchased_eth": 49840,
       "eth_week_avg": 1742.61,
       "eth_price_used": 1738.97,
       "eth_price_basis": "assumed",
@@ -4116,7 +4477,7 @@
           "https://x.com/lookonchain/status/2067037443312996782"
         ]
       },
-      "est_purchase_cost": 86487019,
+      "est_purchase_cost": 86670085,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -4127,17 +4488,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 89411469,
-      "cash_shortfall": 188411469,
+      "est_spending": 89594535,
+      "cash_shortfall": 188594535,
       "cash_shortfall_range": [
-        184622149,
-        192200789
+        184803384,
+        192385686
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 188411469,
+      "funded_by_shares": 188594535,
       "funded_by_shares_range": [
-        184622149,
-        192200789
+        184803384,
+        192385686
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 16.29,
@@ -4145,16 +4506,16 @@
         15.7,
         17.11
       ],
-      "est_shares_issued": 11566082,
+      "est_shares_issued": 11577320,
       "est_shares_issued_range": [
-        10790307,
-        12242088
+        10800899,
+        12253865
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 599075745,
+      "shares_outstanding": 599105763,
       "shares_outstanding_range": [
-        597498619,
-        600685555
+        597526789,
+        600717677
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4178,15 +4539,15 @@
         "net": 10379200023,
         "crypto": 10445200023,
         "eth": 9831232748,
-        "ev": 9418082524,
+        "ev": 9418567015,
         "nav_ex_cash": 10128200023
       },
-      "nav_per_share": 17.33,
+      "nav_per_share": 17.32,
       "nav_per_share_gross": 17.91,
       "nav_per_share_all": {
         "full": 17.91,
-        "net": 17.33,
-        "crypto": 17.44,
+        "net": 17.32,
+        "crypto": 17.43,
         "eth": 16.41
       },
       "mnav": 0.932,
@@ -4198,32 +4559,32 @@
         "eth": 0.984,
         "ev_to_nav_ex_cash": 0.93
       },
-      "eth_per_share": 0.0094695,
+      "eth_per_share": 0.009469,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226029507/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2069077500907425935",
       "notes": "Cash line is \"total cash & marketable securities\".",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 17.4094,
-        "atm_shares": 11566082,
+        "nav_per_share_before": 17.4088,
+        "atm_shares": 11577320,
         "mnav_at_issue": 0.936,
         "usd_per_share": {
           "issuance": -0.0216,
           "buybacks": 0,
-          "staking": 0.0071,
+          "staking": 0.0068,
           "other": -0.0046,
-          "total": -0.0191,
-          "actual_change": 0.16,
-          "market": 0.1791
+          "total": -0.0194,
+          "actual_change": 0.15,
+          "market": 0.1694
         },
         "eth_per_share": {
-          "capital": -0.000101862,
-          "staking": 0.000004119,
-          "premium": 1.73e-7,
+          "capital": -0.000101855,
+          "staking": 0.000003943,
+          "premium": 1.74e-7,
           "reanchor": 0,
-          "total": -0.00009757,
-          "actual_change": -0.00009757
+          "total": -0.000097738,
+          "actual_change": -0.000097738
         }
       }
     },
@@ -4236,8 +4597,20 @@
       "eth_acquired_reported": 27084,
       "eth_staked": 4879157,
       "staking_yield_7d": 0.0275,
-      "est_staking_eth": 2486,
-      "est_purchased_eth": 24598,
+      "staking_yield_used": 0.02626,
+      "staking_yield_independent": {
+        "gross": 0.02626,
+        "net": 0.02364,
+        "window": [
+          "2026-06-22",
+          "2026-06-28"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02584,
+        "max_daily_gross": 0.02925
+      },
+      "est_staking_eth": 2374,
+      "est_purchased_eth": 24710,
       "eth_week_avg": 1613.78,
       "eth_price_used": 1610.41,
       "eth_price_basis": "assumed",
@@ -4255,7 +4628,7 @@
           "https://x.com/lookonchain/status/2069577308701368594"
         ]
       },
-      "est_purchase_cost": 39613621,
+      "est_purchase_cost": 39794049,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -4266,19 +4639,19 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 42538071,
-      "cash_shortfall": -3461929,
+      "est_spending": 42718499,
+      "cash_shortfall": -3281501,
       "cash_shortfall_range": [
-        -6782515,
-        -141343
+        -6603891,
+        40890
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
       "funded_by_shares_range": [
         0,
-        0
+        40890
       ],
-      "surplus_carried_out": 3461929,
+      "surplus_carried_out": 3281501,
       "assumed_issue_price": 14.378,
       "bmnr_week_range": [
         13.32,
@@ -4287,13 +4660,13 @@
       "est_shares_issued": 0,
       "est_shares_issued_range": [
         0,
-        0
+        3070
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 599075745,
+      "shares_outstanding": 599105763,
       "shares_outstanding_range": [
-        597498619,
-        600685555
+        597526789,
+        600720747
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4317,15 +4690,15 @@
         "net": 9414618730,
         "crypto": 9510618730,
         "eth": 8943362760,
-        "ev": 7918467102,
+        "ev": 7918874146,
         "nav_ex_cash": 9209618730
       },
-      "nav_per_share": 15.72,
+      "nav_per_share": 15.71,
       "nav_per_share_gross": 16.3,
       "nav_per_share_all": {
         "full": 16.3,
-        "net": 15.72,
-        "crypto": 15.88,
+        "net": 15.71,
+        "crypto": 15.87,
         "eth": 14.93
       },
       "mnav": 0.863,
@@ -4337,32 +4710,32 @@
         "eth": 0.908,
         "ev_to_nav_ex_cash": 0.86
       },
-      "eth_per_share": 0.0095147,
+      "eth_per_share": 0.0095142,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226030428/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2071581523115942302",
       "notes": "Cash line is \"total cash & marketable securities\".",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.1964,
+        "nav_per_share_before": 16.1956,
         "atm_shares": 0,
         "mnav_at_issue": 0.888,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
-          "staking": 0.0065,
+          "staking": 0.0062,
           "other": -0.0047,
-          "total": 0.0018,
+          "total": 0.0015,
           "actual_change": -1.61,
-          "market": -1.6118
+          "market": -1.6115
         },
         "eth_per_share": {
-          "capital": 0.000040975,
-          "staking": 0.000004149,
+          "capital": 0.00004116,
+          "staking": 0.000003962,
           "premium": 8.6e-8,
           "reanchor": 0,
-          "total": 0.00004521,
-          "actual_change": 0.00004521
+          "total": 0.000045207,
+          "actual_change": 0.000045207
         }
       }
     },
@@ -4375,8 +4748,20 @@
       "eth_acquired_reported": 42197,
       "eth_staked": 4879157,
       "staking_yield_7d": 0.0268,
-      "est_staking_eth": 2425,
-      "est_purchased_eth": 39772,
+      "staking_yield_used": 0.02528,
+      "staking_yield_independent": {
+        "gross": 0.02528,
+        "net": 0.02275,
+        "window": [
+          "2026-06-29",
+          "2026-07-05"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02535,
+        "max_daily_gross": 0.02581
+      },
+      "est_staking_eth": 2288,
+      "est_purchased_eth": 39909,
       "eth_week_avg": 1686.79,
       "eth_price_used": 1683.27,
       "eth_price_basis": "assumed",
@@ -4386,7 +4771,7 @@
         1666.44,
         1700.1
       ],
-      "est_purchase_cost": 66946594,
+      "est_purchase_cost": 67177980,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -4397,17 +4782,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 69871044,
-      "cash_shortfall": 41871044,
+      "est_spending": 70102430,
+      "cash_shortfall": 42102430,
       "cash_shortfall_range": [
-        38277128,
-        45464960
+        38506200,
+        45698660
       ],
-      "surplus_from_prior": 3461929,
-      "funded_by_shares": 38409115,
+      "surplus_from_prior": 3281501,
+      "funded_by_shares": 38820929,
       "funded_by_shares_range": [
-        33277128,
-        45323617
+        33506200,
+        45698660
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 13.905,
@@ -4415,16 +4800,16 @@
         13.31,
         14.36
       ],
-      "est_shares_issued": 2762252,
+      "est_shares_issued": 2791868,
       "est_shares_issued_range": [
-        2317349,
-        3405230
+        2333301,
+        3433408
       ],
       "other_shares_issued": 2504,
-      "shares_outstanding": 601840501,
+      "shares_outstanding": 601900135,
       "shares_outstanding_range": [
-        599818472,
-        604093289
+        599862594,
+        604156659
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4448,7 +4833,7 @@
         "net": 10777125316,
         "crypto": 10876125316,
         "eth": 10336026600,
-        "ev": 8465429594,
+        "ev": 8466285939,
         "nav_ex_cash": 10600125316
       },
       "nav_per_share": 17.91,
@@ -4468,32 +4853,32 @@
         "eth": 0.836,
         "ev_to_nav_ex_cash": 0.799
       },
-      "eth_per_share": 0.0095411,
+      "eth_per_share": 0.0095402,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032090/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2074117201385111723",
       "notes": "The release text says 'As of June 28, 2026' but its figures are the week ending July 5 (ETH = July 13 holdings − 27,801; weekly-buys list '7/6/26: 42,197'); treated as July 5. +2,504 net shares from Tsang RSUs vested Jun 30 (3,776 − 1,272 withheld; Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.836,
-        "atm_shares": 2762252,
+        "nav_per_share_before": 16.8351,
+        "atm_shares": 2791868,
         "mnav_at_issue": 0.826,
         "usd_per_share": {
-          "issuance": -0.0135,
+          "issuance": -0.0136,
           "buybacks": 0,
-          "staking": 0.0073,
+          "staking": 0.0068,
           "other": -0.0046,
-          "total": -0.0108,
-          "actual_change": 2.19,
-          "market": 2.2008
+          "total": -0.0114,
+          "actual_change": 2.2,
+          "market": 2.2114
         },
         "eth_per_share": {
-          "capital": 0.000022237,
-          "staking": 0.00000403,
+          "capital": 0.000021996,
+          "staking": 0.000003801,
           "premium": 1.38e-7,
           "reanchor": 0,
-          "total": 0.000026404,
-          "actual_change": 0.000026404
+          "total": 0.000025936,
+          "actual_change": 0.000025936
         }
       }
     },
@@ -4506,8 +4891,20 @@
       "eth_acquired_reported": 27801,
       "eth_staked": 4917189,
       "staking_yield_7d": 0.027,
-      "est_staking_eth": 2443,
-      "est_purchased_eth": 25358,
+      "staking_yield_used": 0.02467,
+      "staking_yield_independent": {
+        "gross": 0.02467,
+        "net": 0.02221,
+        "window": [
+          "2026-07-06",
+          "2026-07-12"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02452,
+        "max_daily_gross": 0.02512
+      },
+      "est_staking_eth": 2233,
+      "est_purchased_eth": 25568,
       "eth_week_avg": 1777.91,
       "eth_price_used": 1774.2,
       "eth_price_basis": "assumed",
@@ -4526,7 +4923,7 @@
           "https://x.com/lookonchain/status/2075387342303748481"
         ]
       },
-      "est_purchase_cost": 44989527,
+      "est_purchase_cost": 45363418,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -4537,17 +4934,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 47913977,
-      "cash_shortfall": 2913977,
+      "est_spending": 48287868,
+      "cash_shortfall": 3287868,
       "cash_shortfall_range": [
-        -460368,
-        6288323
+        -90216,
+        6665952
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 582795,
+      "funded_by_shares": 657574,
       "funded_by_shares_range": [
         0,
-        1257665
+        1333190
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 14.976,
@@ -4558,10 +4955,10 @@
       "est_shares_issued": null,
       "est_shares_issued_range": null,
       "other_shares_issued": 0,
-      "shares_outstanding": 603265309,
+      "shares_outstanding": 603270302,
       "shares_outstanding_range": [
         603226394,
-        603312008
+        603317149
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4594,7 +4991,7 @@
         "net": 10895601042,
         "crypto": 10996601042,
         "eth": 10501469160,
-        "ev": 8904914329,
+        "ev": 8904989124,
         "nav_ex_cash": 10763601042
       },
       "nav_per_share": 18.06,
@@ -4614,32 +5011,32 @@
         "eth": 0.861,
         "ev_to_nav_ex_cash": 0.827
       },
-      "eth_per_share": 0.0095647,
+      "eth_per_share": 0.0095646,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032951/ex99-1.htm",
       "x_post": null,
       "notes": "No @BitMNR 'holdings update' X post found for this week. Same 8-K announced the fiscal year-end change (Aug 31 → Dec 31).",
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 17.6962,
-        "atm_shares": 194576,
+        "nav_per_share_before": 17.6944,
+        "atm_shares": 219542,
         "mnav_at_issue": 0.846,
         "usd_per_share": {
-          "issuance": -0.0009,
+          "issuance": -0.001,
           "buybacks": 0,
-          "staking": 0.0074,
+          "staking": 0.0067,
           "other": -0.0047,
-          "total": 0.0018,
+          "total": 0.0011,
           "actual_change": 0.15,
-          "market": 0.1482
+          "market": 0.1489
         },
         "eth_per_share": {
-          "capital": 0.000038869,
-          "staking": 0.00000405,
+          "capital": 0.000038823,
+          "staking": 0.000003701,
           "premium": 8.8e-8,
-          "reanchor": -0.000019457,
-          "total": 0.00002355,
-          "actual_change": 0.00002355
+          "reanchor": -0.000018196,
+          "total": 0.000024416,
+          "actual_change": 0.000024416
         }
       }
     },
@@ -4652,8 +5049,20 @@
       "eth_acquired_reported": 7430,
       "eth_staked": 4917189,
       "staking_yield_7d": 0.0267,
-      "est_staking_eth": 2416,
-      "est_purchased_eth": 5014,
+      "staking_yield_used": 0.02444,
+      "staking_yield_independent": {
+        "gross": 0.02444,
+        "net": 0.022,
+        "window": [
+          "2026-07-13",
+          "2026-07-19"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02446,
+        "max_daily_gross": 0.02472
+      },
+      "est_staking_eth": 2212,
+      "est_purchased_eth": 5218,
       "eth_week_avg": 1859.72,
       "eth_price_used": 1855.84,
       "eth_price_basis": "assumed",
@@ -4671,7 +5080,7 @@
           "https://x.com/lookonchain/status/2077195724291555647"
         ]
       },
-      "est_purchase_cost": 9304772,
+      "est_purchase_cost": 9683919,
       "buyback_shares": 5500000,
       "buyback_price": 15.6156,
       "buyback_price_basis": "disclosed",
@@ -4682,17 +5091,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 98115022,
-      "cash_shortfall": 1115022,
+      "est_spending": 98494169,
+      "cash_shortfall": 1494169,
       "cash_shortfall_range": [
-        -1902476,
-        4132520
+        -1527121,
+        4515458
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 1115022,
+      "funded_by_shares": 1494169,
       "funded_by_shares_range": [
         0,
-        4132520
+        4515458
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 15.564,
@@ -4700,16 +5109,16 @@
         14.61,
         16.29
       ],
-      "est_shares_issued": 71641,
+      "est_shares_issued": 96002,
       "est_shares_issued_range": [
         0,
-        282856
+        309066
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 597836950,
+      "shares_outstanding": 597866304,
       "shares_outstanding_range": [
         597726394,
-        598094863
+        598126215
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4733,7 +5142,7 @@
         "net": 11142249062,
         "crypto": 11254249062,
         "eth": 10855862372,
-        "ev": 9345061746,
+        "ev": 9345522310,
         "nav_ex_cash": 11107249062
       },
       "nav_per_share": 18.64,
@@ -4749,36 +5158,36 @@
       "mnav_all": {
         "full": 0.816,
         "net": 0.842,
-        "crypto": 0.833,
+        "crypto": 0.834,
         "eth": 0.864,
         "ev_to_nav_ex_cash": 0.841
       },
-      "eth_per_share": 0.009664,
+      "eth_per_share": 0.0096635,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226033855/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2079184628414382391",
       "notes": "Buyback 'approximately 5.5 million shares … at an average price of $15.6156' (disclosed).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.441,
-        "atm_shares": 71641,
+        "nav_per_share_before": 18.4408,
+        "atm_shares": 96002,
         "mnav_at_issue": 0.844,
         "usd_per_share": {
-          "issuance": -0.0003,
+          "issuance": -0.0005,
           "buybacks": 0.026,
-          "staking": 0.0076,
+          "staking": 0.007,
           "other": -0.0049,
-          "total": 0.0284,
+          "total": 0.0276,
           "actual_change": 0.58,
-          "market": 0.5516
+          "market": 0.5524
         },
         "eth_per_share": {
-          "capital": 0.000095216,
-          "staking": 0.000004042,
-          "premium": 1.7e-8,
+          "capital": 0.000095162,
+          "staking": 0.0000037,
+          "premium": 1.8e-8,
           "reanchor": 0,
-          "total": 0.000099275,
-          "actual_change": 0.000099275
+          "total": 0.00009888,
+          "actual_change": 0.00009888
         }
       }
     },
@@ -4791,8 +5200,20 @@
       "eth_acquired_reported": 9946,
       "eth_staked": 4917189,
       "staking_yield_7d": 0.0265,
-      "est_staking_eth": 2398,
-      "est_purchased_eth": 7548,
+      "staking_yield_used": 0.02427,
+      "staking_yield_independent": {
+        "gross": 0.02427,
+        "net": 0.02184,
+        "window": [
+          "2026-07-20",
+          "2026-07-26"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02439,
+        "max_daily_gross": 0.02546
+      },
+      "est_staking_eth": 2196,
+      "est_purchased_eth": 7750,
       "eth_week_avg": 1904.16,
       "eth_price_used": 1900.19,
       "eth_price_basis": "assumed",
@@ -4802,7 +5223,7 @@
         1881.19,
         1919.19
       ],
-      "est_purchase_cost": 14342382,
+      "est_purchase_cost": 14726511,
       "buyback_shares": 6100000,
       "buyback_price": 16.8784,
       "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
@@ -4813,17 +5234,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 120225357,
-      "cash_shortfall": 3225357,
+      "est_spending": 120609486,
+      "cash_shortfall": 3609486,
       "cash_shortfall_range": [
-        157483,
-        6293231
+        537771,
+        6681201
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 3225357,
+      "funded_by_shares": 3609486,
       "funded_by_shares_range": [
         0,
-        6293231
+        6681201
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 16.796,
@@ -4831,16 +5252,16 @@
         15.79,
         17.74
       ],
-      "est_shares_issued": 192031,
+      "est_shares_issued": 214902,
       "est_shares_issued_range": [
         0,
-        398558
+        423129
       ],
       "other_shares_issued": 22762,
-      "shares_outstanding": 591951744,
+      "shares_outstanding": 592003968,
       "shares_outstanding_range": [
         591649156,
-        592416183
+        592472106
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -4864,7 +5285,7 @@
         "net": 11446474024,
         "crypto": 11555474024,
         "eth": 11273882472,
-        "ev": 9428918038,
+        "ev": 9429742655,
         "nav_ex_cash": 11528474024
       },
       "nav_per_share": 19.34,
@@ -4873,7 +5294,7 @@
         "full": 19.93,
         "net": 19.34,
         "crypto": 19.52,
-        "eth": 19.05
+        "eth": 19.04
       },
       "mnav": 0.817,
       "mnav_gross": 0.792,
@@ -4884,32 +5305,32 @@
         "eth": 0.829,
         "ev_to_nav_ex_cash": 0.818
       },
-      "eth_per_share": 0.0097768,
+      "eth_per_share": 0.009776,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2081719755296133365",
       "notes": "Buyback 6.1M shares (price not disclosed). +22,620 shares from director RSU vesting on Jul 23 (Form 4s). +142 Tsang RSU vest Jul 23 (Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.8808,
-        "atm_shares": 192031,
+        "nav_per_share_before": 18.8798,
+        "atm_shares": 214902,
         "mnav_at_issue": 0.89,
         "usd_per_share": {
           "issuance": -0.0008,
           "buybacks": 0.0206,
-          "staking": 0.0079,
+          "staking": 0.0072,
           "other": -0.0049,
-          "total": 0.0229,
+          "total": 0.0221,
           "actual_change": 0.7,
-          "market": 0.6771
+          "market": 0.6779
         },
         "eth_per_share": {
-          "capital": 0.000108804,
-          "staking": 0.000004051,
+          "capital": 0.000108757,
+          "staking": 0.000003709,
           "premium": 2.7e-8,
           "reanchor": 0,
-          "total": 0.000112881,
-          "actual_change": 0.000112881
+          "total": 0.000112493,
+          "actual_change": 0.000112493
         }
       }
     },
@@ -4922,8 +5343,20 @@
       "eth_acquired_reported": 10399,
       "eth_staked": 4917189,
       "staking_yield_7d": 0.0267,
-      "est_staking_eth": 2498,
-      "est_purchased_eth": 7901,
+      "staking_yield_used": 0.02458,
+      "staking_yield_independent": {
+        "gross": 0.02458,
+        "net": 0.02212,
+        "window": [
+          "2026-07-27",
+          "2026-08-02"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.0245,
+        "max_daily_gross": 0.02535
+      },
+      "est_staking_eth": 2300,
+      "est_purchased_eth": 8099,
       "eth_week_avg": 1889.17,
       "eth_price_used": 1885.23,
       "eth_price_basis": "assumed",
@@ -4942,7 +5375,7 @@
           "https://x.com/lookonchain/status/2083364058380869988"
         ]
       },
-      "est_purchase_cost": 14894446,
+      "est_purchase_cost": 15269233,
       "buyback_shares": 4500000,
       "buyback_price": 17.5738,
       "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
@@ -4953,17 +5386,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 96901191,
-      "cash_shortfall": 1901191,
+      "est_spending": 97275979,
+      "cash_shortfall": 2275979,
       "cash_shortfall_range": [
-        -1172203,
-        4974586
+        -801163,
+        5353122
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 1901191,
+      "funded_by_shares": 2275979,
       "funded_by_shares_range": [
         0,
-        4974586
+        5353122
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 17.488,
@@ -4971,16 +5404,16 @@
         16.59,
         18.08
       ],
-      "est_shares_issued": 108714,
+      "est_shares_issued": 130145,
       "est_shares_issued_range": [
         0,
-        299854
+        322672
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 587560458,
+      "shares_outstanding": 587634113,
       "shares_outstanding_range": [
         587149156,
-        588216038
+        588294777
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5004,7 +5437,7 @@
         "net": 10977160776,
         "crypto": 11086160776,
         "eth": 10899888440,
-        "ev": 10330044714,
+        "ev": 10331317473,
         "nav_ex_cash": 11154160776
       },
       "nav_per_share": 18.68,
@@ -5021,35 +5454,35 @@
         "full": 0.896,
         "net": 0.925,
         "crypto": 0.916,
-        "eth": 0.931,
+        "eth": 0.932,
         "ev_to_nav_ex_cash": 0.926
       },
-      "eth_per_share": 0.0098676,
+      "eth_per_share": 0.0098664,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226035752/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2084257549889524151",
       "notes": "Buyback 4.5M shares (price not disclosed); 16.1M repurchased since July 1. (X post typo: '55,797,813 ETH'.)",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.7617,
-        "atm_shares": 108714,
+        "nav_per_share_before": 18.76,
+        "atm_shares": 130145,
         "mnav_at_issue": 0.932,
         "usd_per_share": {
-          "issuance": -0.0002,
+          "issuance": -0.0003,
           "buybacks": 0.0091,
-          "staking": 0.008,
+          "staking": 0.0074,
           "other": -0.0049,
-          "total": 0.0119,
+          "total": 0.0112,
           "actual_change": -0.66,
-          "market": -0.6719
+          "market": -0.6712
         },
         "eth_per_share": {
-          "capital": 0.000086488,
-          "staking": 0.000004252,
-          "premium": 2.8e-8,
+          "capital": 0.000086452,
+          "staking": 0.000003913,
+          "premium": 2.9e-8,
           "reanchor": 0,
-          "total": 0.000090768,
-          "actual_change": 0.000090768
+          "total": 0.000090394,
+          "actual_change": 0.000090394
         }
       }
     },
@@ -5062,8 +5495,20 @@
       "eth_acquired_reported": 7391,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0263,
-      "est_staking_eth": 2461,
-      "est_purchased_eth": 4964,
+      "staking_yield_used": 0.02424,
+      "staking_yield_independent": {
+        "gross": 0.02424,
+        "net": 0.02182,
+        "window": [
+          "2026-08-03",
+          "2026-08-09"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.0244,
+        "max_daily_gross": 0.02445
+      },
+      "est_staking_eth": 2268,
+      "est_purchased_eth": 5157,
       "eth_week_avg": 1896.3,
       "eth_price_used": 1892.34,
       "eth_price_basis": "assumed",
@@ -5073,7 +5518,7 @@
         1873.42,
         1911.27
       ],
-      "est_purchase_cost": 9393658,
+      "est_purchase_cost": 9758603,
       "buyback_shares": 3000000,
       "buyback_price": 18.3034,
       "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
@@ -5084,19 +5529,19 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 67228330,
-      "cash_shortfall": -1771670,
+      "est_spending": 67593275,
+      "cash_shortfall": -1406725,
       "cash_shortfall_range": [
-        -4790057,
-        1246716
+        -4428761,
+        1615311
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
       "funded_by_shares_range": [
         0,
-        1246716
+        1615311
       ],
-      "surplus_carried_out": 1771670,
+      "surplus_carried_out": 1406725,
       "assumed_issue_price": 18.214,
       "bmnr_week_range": [
         17.42,
@@ -5105,13 +5550,13 @@
       "est_shares_issued": 0,
       "est_shares_issued_range": [
         0,
-        71568
+        92727
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 584560458,
+      "shares_outstanding": 584634113,
       "shares_outstanding_range": [
         584149156,
-        585287606
+        585387505
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5135,52 +5580,52 @@
         "net": 11209053768,
         "crypto": 11310053768,
         "eth": 11192498864,
-        "ev": 11247427820,
+        "ev": 11248814007,
         "nav_ex_cash": 11455053768
       },
-      "nav_per_share": 19.18,
+      "nav_per_share": 19.17,
       "nav_per_share_gross": 19.77,
       "nav_per_share_all": {
         "full": 19.77,
-        "net": 19.18,
+        "net": 19.17,
         "crypto": 19.35,
-        "eth": 19.15
+        "eth": 19.14
       },
-      "mnav": 0.981,
+      "mnav": 0.982,
       "mnav_gross": 0.952,
       "mnav_all": {
         "full": 0.952,
-        "net": 0.981,
+        "net": 0.982,
         "crypto": 0.973,
         "eth": 0.983,
         "ev_to_nav_ex_cash": 0.982
       },
-      "eth_per_share": 0.0099309,
+      "eth_per_share": 0.0099297,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2086800660868042869",
       "notes": "Buyback 3.0M shares (price not disclosed); 19.1M since July 1. Note: reported 'acquired 7,391 ETH' but holdings rose 7,425 ETH (34 ETH gap in the release).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.8434,
+        "nav_per_share_before": 18.8411,
         "atm_shares": 0,
         "mnav_at_issue": 0.967,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0.0028,
-          "staking": 0.0081,
+          "staking": 0.0075,
           "other": -0.005,
-          "total": 0.0059,
-          "actual_change": 0.5,
-          "market": 0.4941
+          "total": 0.0053,
+          "actual_change": 0.49,
+          "market": 0.4847
         },
         "eth_per_share": {
-          "capital": 0.000059115,
-          "staking": 0.00000421,
+          "capital": 0.000059431,
+          "staking": 0.00000388,
           "premium": 1.8e-8,
           "reanchor": 0,
-          "total": 0.000063343,
-          "actual_change": 0.000063343
+          "total": 0.000063329,
+          "actual_change": 0.000063329
         }
       }
     },
@@ -5193,8 +5638,20 @@
       "eth_acquired_reported": 9926,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0261,
-      "est_staking_eth": 2461,
-      "est_purchased_eth": 7465,
+      "staking_yield_used": 0.02415,
+      "staking_yield_independent": {
+        "gross": 0.02415,
+        "net": 0.02174,
+        "window": [
+          "2026-08-10",
+          "2026-08-16"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02414,
+        "max_daily_gross": 0.02443
+      },
+      "est_staking_eth": 2278,
+      "est_purchased_eth": 7648,
       "eth_week_avg": 1878.53,
       "eth_price_used": 1874.61,
       "eth_price_basis": "assumed",
@@ -5212,7 +5669,7 @@
           "https://x.com/lookonchain/status/2087021079659495697"
         ]
       },
-      "est_purchase_cost": 13993429,
+      "est_purchase_cost": 14337771,
       "buyback_shares": 1700000,
       "buyback_price": 18.1788,
       "buyback_price_basis": "assumed: week avg close × 1.0049 (calibrated to disclosed $399.6M aggregate)",
@@ -5223,17 +5680,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 47821836,
-      "cash_shortfall": 21821836,
+      "est_spending": 48166178,
+      "cash_shortfall": 22166178,
       "cash_shortfall_range": [
-        18757452,
-        24886220
+        19098351,
+        25234006
       ],
-      "surplus_from_prior": 1771670,
-      "funded_by_shares": 20050166,
+      "surplus_from_prior": 1406725,
+      "funded_by_shares": 20759453,
       "funded_by_shares_range": [
-        13757452,
-        24886220
+        14098351,
+        25234006
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 18.09,
@@ -5241,16 +5698,16 @@
         17.89,
         18.29
       ],
-      "est_shares_issued": 1108356,
+      "est_shares_issued": 1147565,
       "est_shares_issued_range": [
-        752184,
-        1391069
+        770823,
+        1410509
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 583968814,
+      "shares_outstanding": 584081678,
       "shares_outstanding_range": [
-        583201340,
-        584978675
+        583219979,
+        585098014
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5274,7 +5731,7 @@
         "net": 11002302692,
         "crypto": 11099302692,
         "eth": 11008105452,
-        "ev": 10830156157,
+        "ev": 10832196738,
         "nav_ex_cash": 11274302692
       },
       "nav_per_share": 18.84,
@@ -5282,7 +5739,7 @@
       "nav_per_share_all": {
         "full": 19.44,
         "net": 18.84,
-        "crypto": 19.01,
+        "crypto": 19,
         "eth": 18.85
       },
       "mnav": 0.96,
@@ -5294,32 +5751,32 @@
         "eth": 0.959,
         "ev_to_nav_ex_cash": 0.961
       },
-      "eth_per_share": 0.009958,
+      "eth_per_share": 0.0099561,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038652/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2089359803722219771",
       "notes": "Buyback 1.7M shares (price not disclosed); 20.8M since July 1 — last buyback until Oct. BTC 210 per 8-K (the X post says 209).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.6839,
-        "atm_shares": 1108356,
+        "nav_per_share_before": 18.6815,
+        "atm_shares": 1147565,
         "mnav_at_issue": 0.968,
         "usd_per_share": {
-          "issuance": -0.0011,
+          "issuance": -0.0012,
           "buybacks": 0.0015,
-          "staking": 0.008,
+          "staking": 0.0074,
           "other": -0.005,
-          "total": 0.0034,
-          "actual_change": -0.34,
-          "market": -0.3434
+          "total": 0.0027,
+          "actual_change": -0.33,
+          "market": -0.3327
         },
         "eth_per_share": {
-          "capital": 0.000022818,
-          "staking": 0.000004215,
+          "capital": 0.000022459,
+          "staking": 0.000003899,
           "premium": 2.7e-8,
           "reanchor": 0,
-          "total": 0.000027059,
-          "actual_change": 0.000027059
+          "total": 0.000026386,
+          "actual_change": 0.000026386
         }
       }
     },
@@ -5332,8 +5789,20 @@
       "eth_acquired_reported": 32447,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0267,
-      "est_staking_eth": 2518,
-      "est_purchased_eth": 29929,
+      "staking_yield_used": 0.025,
+      "staking_yield_independent": {
+        "gross": 0.025,
+        "net": 0.0225,
+        "window": [
+          "2026-08-17",
+          "2026-08-23"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02459,
+        "max_daily_gross": 0.02645
+      },
+      "est_staking_eth": 2357,
+      "est_purchased_eth": 30090,
       "eth_week_avg": 2258.25,
       "eth_price_used": 2253.54,
       "eth_price_basis": "assumed",
@@ -5343,7 +5812,7 @@
         2231,
         2276.07
       ],
-      "est_purchase_cost": 67446451,
+      "est_purchase_cost": 67808574,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -5354,17 +5823,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 70370901,
-      "cash_shortfall": 300370901,
+      "est_spending": 70733024,
+      "cash_shortfall": 300733024,
       "cash_shortfall_range": [
-        296771986,
-        303969815
+        297130489,
+        304335560
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 300370901,
+      "funded_by_shares": 300733024,
       "funded_by_shares_range": [
-        296771986,
-        303969815
+        297130489,
+        304335560
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 20.33,
@@ -5372,16 +5841,16 @@
         18.28,
         22.83
       ],
-      "est_shares_issued": 14774761,
+      "est_shares_issued": 14792574,
       "est_shares_issued_range": [
-        12999211,
-        16628546
+        13014914,
+        16648554
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 598743575,
+      "shares_outstanding": 598874252,
       "shares_outstanding_range": [
-        596200551,
-        601607220
+        596234893,
+        601746567
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5405,16 +5874,16 @@
         "net": 14511490360,
         "crypto": 14592490360,
         "eth": 14268170840,
-        "ev": 13711315817,
+        "ev": 13714299173,
         "nav_ex_cash": 14553490360
       },
-      "nav_per_share": 24.24,
+      "nav_per_share": 24.23,
       "nav_per_share_gross": 24.82,
       "nav_per_share_all": {
         "full": 24.82,
-        "net": 24.24,
+        "net": 24.23,
         "crypto": 24.37,
-        "eth": 23.83
+        "eth": 23.82
       },
       "mnav": 0.942,
       "mnav_gross": 0.92,
@@ -5425,7 +5894,7 @@
         "eth": 0.958,
         "ev_to_nav_ex_cash": 0.942
       },
-      "eth_per_share": 0.0097665,
+      "eth_per_share": 0.0097643,
       "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226039789/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2091866729651552553",
@@ -5433,25 +5902,25 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.4777,
-        "atm_shares": 14774761,
-        "mnav_at_issue": 0.904,
+        "nav_per_share_before": 22.4734,
+        "atm_shares": 14792574,
+        "mnav_at_issue": 0.905,
         "usd_per_share": {
-          "issuance": -0.053,
+          "issuance": -0.0529,
           "buybacks": 0,
-          "staking": 0.0103,
+          "staking": 0.0096,
           "other": -0.0046,
-          "total": -0.0474,
-          "actual_change": 5.4,
-          "market": 5.4474
+          "total": -0.048,
+          "actual_change": 5.39,
+          "market": 5.438
         },
         "eth_per_share": {
-          "capital": -0.000195844,
-          "staking": 0.000004205,
-          "premium": 1.04e-7,
+          "capital": -0.000195782,
+          "staking": 0.000003936,
+          "premium": 1.05e-7,
           "reanchor": 0,
-          "total": -0.000191535,
-          "actual_change": -0.000191535
+          "total": -0.000191742,
+          "actual_change": -0.000191742
         }
       }
     },
@@ -5464,8 +5933,20 @@
       "eth_acquired_reported": 53501,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0267,
-      "est_staking_eth": 2518,
-      "est_purchased_eth": 50983,
+      "staking_yield_used": 0.02471,
+      "staking_yield_independent": {
+        "gross": 0.02471,
+        "net": 0.02224,
+        "window": [
+          "2026-08-24",
+          "2026-08-30"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02454,
+        "max_daily_gross": 0.02537
+      },
+      "est_staking_eth": 2331,
+      "est_purchased_eth": 51170,
       "eth_week_avg": 2465.35,
       "eth_price_used": 2460.21,
       "eth_price_basis": "assumed",
@@ -5484,7 +5965,7 @@
           "https://x.com/ai_9684xtpa/status/2092433000181244245"
         ]
       },
-      "est_purchase_cost": 125429032,
+      "est_purchase_cost": 125889922,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -5495,17 +5976,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 128353482,
-      "cash_shortfall": 361353482,
+      "est_spending": 128814372,
+      "cash_shortfall": 361814372,
       "cash_shortfall_range": [
-        357174742,
-        365532222
+        357631023,
+        365997722
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 361353482,
+      "funded_by_shares": 361814372,
       "funded_by_shares_range": [
-        357174742,
-        365532222
+        357631023,
+        365997722
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 24.66,
@@ -5513,16 +5994,16 @@
         23.8,
         25.63
       ],
-      "est_shares_issued": 14653426,
+      "est_shares_issued": 14672116,
       "est_shares_issued_range": [
-        13935807,
-        15358497
+        13953610,
+        15378056
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 613397001,
+      "shares_outstanding": 613546367,
       "shares_outstanding_range": [
-        610136359,
-        616965717
+        610188503,
+        617124623
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5546,16 +6027,16 @@
         "net": 15286078070,
         "crypto": 15375078070,
         "eth": 14817692232,
-        "ev": 14407848624,
+        "ev": 14411403535,
         "nav_ex_cash": 15095078070
       },
-      "nav_per_share": 24.92,
-      "nav_per_share_gross": 25.49,
+      "nav_per_share": 24.91,
+      "nav_per_share_gross": 25.48,
       "nav_per_share_all": {
-        "full": 25.49,
-        "net": 24.92,
-        "crypto": 25.07,
-        "eth": 24.16
+        "full": 25.48,
+        "net": 24.91,
+        "crypto": 25.06,
+        "eth": 24.15
       },
       "mnav": 0.955,
       "mnav_gross": 0.934,
@@ -5564,9 +6045,9 @@
         "net": 0.955,
         "crypto": 0.95,
         "eth": 0.985,
-        "ev_to_nav_ex_cash": 0.954
+        "ev_to_nav_ex_cash": 0.955
       },
-      "eth_per_share": 0.0096204,
+      "eth_per_share": 0.009618,
       "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226040741/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2094412891323593143",
@@ -5574,25 +6055,25 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.4841,
-        "atm_shares": 14653426,
+        "nav_per_share_before": 24.4788,
+        "atm_shares": 14672116,
         "mnav_at_issue": 1.007,
         "usd_per_share": {
-          "issuance": 0.0042,
+          "issuance": 0.0043,
           "buybacks": 0,
-          "staking": 0.0103,
+          "staking": 0.0095,
           "other": -0.0043,
-          "total": 0.0102,
+          "total": 0.0095,
           "actual_change": 0.68,
-          "market": 0.6698
+          "market": 0.6705
         },
         "eth_per_share": {
-          "capital": -0.000150368,
-          "staking": 0.000004105,
-          "premium": 1.73e-7,
+          "capital": -0.000150274,
+          "staking": 0.000003798,
+          "premium": 1.74e-7,
           "reanchor": 0,
-          "total": -0.00014609,
-          "actual_change": -0.00014609
+          "total": -0.000146301,
+          "actual_change": -0.000146301
         }
       }
     },
@@ -5605,8 +6086,20 @@
       "eth_acquired_reported": 28086,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0261,
-      "est_staking_eth": 2813,
-      "est_purchased_eth": 25273,
+      "staking_yield_used": 0.0247,
+      "staking_yield_independent": {
+        "gross": 0.0247,
+        "net": 0.02224,
+        "window": [
+          "2026-08-31",
+          "2026-09-07"
+        ],
+        "reports": 8,
+        "median_daily_gross": 0.02475,
+        "max_daily_gross": 0.02515
+      },
+      "est_staking_eth": 2662,
+      "est_purchased_eth": 25424,
       "eth_week_avg": 2465.27,
       "eth_price_used": 2460.13,
       "eth_price_basis": "assumed",
@@ -5633,7 +6126,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 62175026,
+      "est_purchase_cost": 62545092,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -5644,17 +6137,17 @@
       "est_cash_opex": 3342229,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 65517254,
-      "cash_shortfall": 117517254,
+      "est_spending": 65887320,
+      "cash_shortfall": 117887320,
       "cash_shortfall_range": [
-        113553275,
-        121481233
+        113919641,
+        121855000
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 117517254,
+      "funded_by_shares": 117887320,
       "funded_by_shares_range": [
-        113553275,
-        121481233
+        113919641,
+        121855000
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 24.634,
@@ -5662,16 +6155,16 @@
         23.06,
         26.45
       ],
-      "est_shares_issued": 4770531,
+      "est_shares_issued": 4785553,
       "est_shares_issued_range": [
-        4293130,
-        5268050
+        4306981,
+        5284258
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 618167532,
+      "shares_outstanding": 618331921,
       "shares_outstanding_range": [
-        614429488,
-        622233767
+        614495484,
+        622408881
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5695,27 +6188,27 @@
         "net": 15324037633,
         "crypto": 15403037633,
         "eth": 14793349010,
-        "ev": 15192643274,
+        "ev": 15196748067,
         "nav_ex_cash": 15081037633
       },
-      "nav_per_share": 24.79,
-      "nav_per_share_gross": 25.36,
+      "nav_per_share": 24.78,
+      "nav_per_share_gross": 25.35,
       "nav_per_share_all": {
-        "full": 25.36,
-        "net": 24.79,
-        "crypto": 24.92,
-        "eth": 23.93
+        "full": 25.35,
+        "net": 24.78,
+        "crypto": 24.91,
+        "eth": 23.92
       },
-      "mnav": 1.007,
+      "mnav": 1.008,
       "mnav_gross": 0.985,
       "mnav_all": {
         "full": 0.985,
-        "net": 1.007,
+        "net": 1.008,
         "crypto": 1.002,
-        "eth": 1.043,
-        "ev_to_nav_ex_cash": 1.007
+        "eth": 1.044,
+        "ev_to_nav_ex_cash": 1.008
       },
-      "eth_per_share": 0.0095916,
+      "eth_per_share": 0.009589,
       "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226041713/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2097322402325663994",
@@ -5723,25 +6216,25 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.4804,
-        "atm_shares": 4770531,
-        "mnav_at_issue": 1.006,
+        "nav_per_share_before": 24.4745,
+        "atm_shares": 4785553,
+        "mnav_at_issue": 1.007,
         "usd_per_share": {
           "issuance": 0.0012,
           "buybacks": 0,
-          "staking": 0.0114,
+          "staking": 0.0107,
           "other": -0.0052,
-          "total": 0.0073,
+          "total": 0.0068,
           "actual_change": -0.13,
-          "market": -0.1373
+          "market": -0.1368
         },
         "eth_per_share": {
-          "capital": -0.000033444,
-          "staking": 0.00000455,
-          "premium": 8.5e-8,
+          "capital": -0.000033408,
+          "staking": 0.000004306,
+          "premium": 8.6e-8,
           "reanchor": 0,
-          "total": -0.000028808,
-          "actual_change": -0.000028808
+          "total": -0.000029016,
+          "actual_change": -0.000029016
         }
       }
     },
@@ -5754,8 +6247,20 @@
       "eth_acquired_reported": 27180,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0262,
-      "est_staking_eth": 2182,
-      "est_purchased_eth": 24998,
+      "staking_yield_used": 0.02516,
+      "staking_yield_independent": {
+        "gross": 0.02516,
+        "net": 0.02265,
+        "window": [
+          "2026-09-08",
+          "2026-09-13"
+        ],
+        "reports": 6,
+        "median_daily_gross": 0.0249,
+        "max_daily_gross": 0.02588
+      },
+      "est_staking_eth": 2096,
+      "est_purchased_eth": 25084,
       "eth_week_avg": 2484.49,
       "eth_price_used": 2479.31,
       "eth_price_basis": "assumed",
@@ -5774,7 +6279,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 61976682,
+      "est_purchase_cost": 62190467,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -5785,17 +6290,17 @@
       "est_cash_opex": 2506671,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 64483354,
-      "cash_shortfall": 20483354,
+      "est_spending": 64697138,
+      "cash_shortfall": 20697138,
       "cash_shortfall_range": [
-        17356915,
-        23609792
+        17568562,
+        23825714
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 20483354,
+      "funded_by_shares": 20697138,
       "funded_by_shares_range": [
-        17356915,
-        23609792
+        17568562,
+        23825714
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 24.5525,
@@ -5803,16 +6308,16 @@
         24.2,
         25.03
       ],
-      "est_shares_issued": 834268,
+      "est_shares_issued": 842975,
       "est_shares_issued_range": [
-        693444,
-        975611
+        701900,
+        984534
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 619001800,
+      "shares_outstanding": 619174895,
       "shares_outstanding_range": [
-        615122933,
-        623209378
+        615197384,
+        623393415
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5836,27 +6341,27 @@
         "net": 15461663542,
         "crypto": 15533663542,
         "eth": 14968377914,
-        "ev": 15294615054,
+        "ev": 15298947622,
         "nav_ex_cash": 15262663542
       },
-      "nav_per_share": 24.98,
+      "nav_per_share": 24.97,
       "nav_per_share_gross": 25.54,
       "nav_per_share_all": {
         "full": 25.54,
-        "net": 24.98,
+        "net": 24.97,
         "crypto": 25.09,
-        "eth": 24.18
+        "eth": 24.17
       },
       "mnav": 1.002,
       "mnav_gross": 0.98,
       "mnav_all": {
         "full": 0.98,
         "net": 1.002,
-        "crypto": 0.997,
+        "crypto": 0.998,
         "eth": 1.035,
         "ev_to_nav_ex_cash": 1.002
       },
-      "eth_per_share": 0.0096226,
+      "eth_per_share": 0.0096199,
       "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226042492/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2099482412862640134",
@@ -5864,25 +6369,25 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.6886,
-        "atm_shares": 834268,
-        "mnav_at_issue": 0.994,
+        "nav_per_share_before": 24.6821,
+        "atm_shares": 842975,
+        "mnav_at_issue": 0.995,
         "usd_per_share": {
           "issuance": -0.0002,
           "buybacks": 0,
-          "staking": 0.0089,
+          "staking": 0.0085,
           "other": -0.0038,
-          "total": 0.0048,
+          "total": 0.0045,
           "actual_change": 0.19,
-          "market": 0.1852
+          "market": 0.1855
         },
         "eth_per_share": {
           "capital": 0.000027372,
-          "staking": 0.000003526,
-          "premium": 8.4e-8,
+          "staking": 0.000003385,
+          "premium": 8.5e-8,
           "reanchor": 0,
-          "total": 0.000030982,
-          "actual_change": 0.000030982
+          "total": 0.000030842,
+          "actual_change": 0.000030842
         }
       }
     },
@@ -5895,8 +6400,20 @@
       "eth_acquired_reported": 27562,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0262,
-      "est_staking_eth": 2546,
-      "est_purchased_eth": 25016,
+      "staking_yield_used": 0.025,
+      "staking_yield_independent": {
+        "gross": 0.025,
+        "net": 0.0225,
+        "window": [
+          "2026-09-14",
+          "2026-09-20"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02499,
+        "max_daily_gross": 0.02552
+      },
+      "est_staking_eth": 2430,
+      "est_purchased_eth": 25132,
       "eth_week_avg": 2523.24,
       "eth_price_used": 2517.98,
       "eth_price_basis": "assumed",
@@ -5915,7 +6432,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 62989307,
+      "est_purchase_cost": 63282388,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -5926,17 +6443,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 65913757,
-      "cash_shortfall": 230913757,
+      "est_spending": 66206838,
+      "cash_shortfall": 231206838,
       "cash_shortfall_range": [
-        227359414,
-        234468100
+        227649564,
+        234764112
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 230913757,
+      "funded_by_shares": 231206838,
       "funded_by_shares_range": [
-        227359414,
-        234468100
+        227649564,
+        234764112
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 24.41,
@@ -5944,16 +6461,16 @@
         22.81,
         25.99
       ],
-      "est_shares_issued": 9459802,
+      "est_shares_issued": 9471808,
       "est_shares_issued_range": [
-        8747957,
-        10279180
+        8759121,
+        10292157
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628461601,
+      "shares_outstanding": 628646704,
       "shares_outstanding_range": [
-        623870890,
-        633488558
+        623956505,
+        633685573
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -5977,15 +6494,15 @@
         "net": 16751038548,
         "crypto": 16816038548,
         "eth": 16084830720,
-        "ev": 15969717010,
+        "ev": 15974527837,
         "nav_ex_cash": 16387038548
       },
       "nav_per_share": 26.65,
-      "nav_per_share_gross": 27.21,
+      "nav_per_share_gross": 27.2,
       "nav_per_share_all": {
-        "full": 27.21,
+        "full": 27.2,
         "net": 26.65,
-        "crypto": 26.76,
+        "crypto": 26.75,
         "eth": 25.59
       },
       "mnav": 0.975,
@@ -5993,11 +6510,11 @@
       "mnav_all": {
         "full": 0.955,
         "net": 0.975,
-        "crypto": 0.971,
-        "eth": 1.015,
+        "crypto": 0.972,
+        "eth": 1.016,
         "ev_to_nav_ex_cash": 0.975
       },
-      "eth_per_share": 0.0095216,
+      "eth_per_share": 0.0095188,
       "funding_flag": "funding source undisclosed; modeled as ATM equity",
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226043486/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2102015712634032381",
@@ -6005,25 +6522,25 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.0769,
-        "atm_shares": 9459802,
-        "mnav_at_issue": 0.973,
+        "nav_per_share_before": 25.0699,
+        "atm_shares": 9471808,
+        "mnav_at_issue": 0.974,
         "usd_per_share": {
-          "issuance": -0.01,
+          "issuance": -0.0099,
           "buybacks": 0,
-          "staking": 0.0109,
+          "staking": 0.0104,
           "other": -0.0044,
-          "total": -0.0036,
-          "actual_change": 1.67,
-          "market": 1.6736
+          "total": -0.004,
+          "actual_change": 1.68,
+          "market": 1.684
         },
         "eth_per_share": {
-          "capital": -0.00010512,
-          "staking": 0.000004051,
+          "capital": -0.000105047,
+          "staking": 0.000003865,
           "premium": 8.3e-8,
           "reanchor": 0,
-          "total": -0.000100985,
-          "actual_change": -0.000100985
+          "total": -0.000101099,
+          "actual_change": -0.000101099
         }
       }
     },
@@ -6036,8 +6553,20 @@
       "eth_acquired_reported": 17362,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0262,
-      "est_staking_eth": 2546,
-      "est_purchased_eth": 14816,
+      "staking_yield_used": 0.02481,
+      "staking_yield_independent": {
+        "gross": 0.02481,
+        "net": 0.02233,
+        "window": [
+          "2026-09-21",
+          "2026-09-27"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02463,
+        "max_daily_gross": 0.02549
+      },
+      "est_staking_eth": 2411,
+      "est_purchased_eth": 14951,
       "eth_week_avg": 2710.47,
       "eth_price_used": 2704.82,
       "eth_price_basis": "assumed",
@@ -6064,7 +6593,7 @@
         "coverage": 0.84,
         "transfers": 2
       },
-      "est_purchase_cost": 40074138,
+      "est_purchase_cost": 40439623,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -6075,17 +6604,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 42998588,
-      "cash_shortfall": 998588,
+      "est_spending": 43364073,
+      "cash_shortfall": 1364073,
       "cash_shortfall_range": [
-        -2326603,
-        4323780
+        -1964773,
+        4692919
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 998588,
+      "funded_by_shares": 1364073,
       "funded_by_shares_range": [
         0,
-        4323780
+        4692919
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 28.012,
@@ -6093,16 +6622,16 @@
         27.46,
         28.76
       ],
-      "est_shares_issued": 35649,
+      "est_shares_issued": 48696,
       "est_shares_issued_range": [
         0,
-        157457
+        170900
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628497250,
+      "shares_outstanding": 628695400,
       "shares_outstanding_range": [
-        623870890,
-        633646016
+        623956505,
+        633856473
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6126,52 +6655,52 @@
         "net": 16826500433,
         "crypto": 16881500433,
         "eth": 16191512796,
-        "ev": 16999384210,
+        "ev": 17004845224,
         "nav_ex_cash": 16504500433
       },
-      "nav_per_share": 26.77,
-      "nav_per_share_gross": 27.33,
+      "nav_per_share": 26.76,
+      "nav_per_share_gross": 27.32,
       "nav_per_share_all": {
-        "full": 27.33,
-        "net": 26.77,
-        "crypto": 26.86,
-        "eth": 25.76
+        "full": 27.32,
+        "net": 26.76,
+        "crypto": 26.85,
+        "eth": 25.75
       },
-      "mnav": 1.029,
-      "mnav_gross": 1.008,
+      "mnav": 1.03,
+      "mnav_gross": 1.009,
       "mnav_all": {
-        "full": 1.008,
-        "net": 1.029,
+        "full": 1.009,
+        "net": 1.03,
         "crypto": 1.026,
         "eth": 1.07,
         "ev_to_nav_ex_cash": 1.03
       },
-      "eth_per_share": 0.0095487,
+      "eth_per_share": 0.0095456,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226044459/ex99-1.htm",
       "x_post": null,
       "notes": "No @BitMNR 'holdings update' X post found for this week.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 26.868,
-        "atm_shares": 35649,
+        "nav_per_share_before": 26.8601,
+        "atm_shares": 48696,
         "mnav_at_issue": 1.043,
         "usd_per_share": {
           "issuance": 0.0001,
           "buybacks": 0,
-          "staking": 0.0109,
+          "staking": 0.0103,
           "other": -0.0045,
-          "total": 0.0065,
-          "actual_change": 0.12,
-          "market": 0.1135
+          "total": 0.0059,
+          "actual_change": 0.11,
+          "market": 0.1041
         },
         "eth_per_share": {
-          "capital": 0.000022984,
-          "staking": 0.000004051,
-          "premium": 4.9e-8,
+          "capital": 0.000022994,
+          "staking": 0.000003835,
+          "premium": 5e-8,
           "reanchor": 0,
-          "total": 0.000027085,
-          "actual_change": 0.000027085
+          "total": 0.000026879,
+          "actual_change": 0.000026879
         }
       }
     },
@@ -6184,8 +6713,20 @@
       "eth_acquired_reported": 15112,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0263,
-      "est_staking_eth": 2556,
-      "est_purchased_eth": 12556,
+      "staking_yield_used": 0.0249,
+      "staking_yield_independent": {
+        "gross": 0.0249,
+        "net": 0.02241,
+        "window": [
+          "2026-09-28",
+          "2026-10-04"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02485,
+        "max_daily_gross": 0.02594
+      },
+      "est_staking_eth": 2420,
+      "est_purchased_eth": 12692,
       "eth_week_avg": 2690.87,
       "eth_price_used": 2685.26,
       "eth_price_basis": "assumed",
@@ -6204,7 +6745,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 33716432,
+      "est_purchase_cost": 34081659,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -6215,17 +6756,17 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 36640882,
-      "cash_shortfall": 7640882,
+      "est_spending": 37006109,
+      "cash_shortfall": 8006109,
       "cash_shortfall_range": [
-        4379267,
-        10902496
+        4740842,
+        11271376
       ],
       "surplus_from_prior": 0,
-      "funded_by_shares": 7640882,
+      "funded_by_shares": 8006109,
       "funded_by_shares_range": [
-        2052664,
-        10902496
+        2776069,
+        11271376
       ],
       "surplus_carried_out": 0,
       "assumed_issue_price": 26.6,
@@ -6233,16 +6774,16 @@
         26.27,
         26.84
       ],
-      "est_shares_issued": 287251,
+      "est_shares_issued": 300982,
       "est_shares_issued_range": [
-        76478,
-        415017
+        103430,
+        429059
       ],
       "other_shares_issued": 2482,
-      "shares_outstanding": 628786983,
+      "shares_outstanding": 628998863,
       "shares_outstanding_range": [
-        623949850,
-        634063515
+        624062418,
+        634288014
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6266,16 +6807,16 @@
         "net": 17009253424,
         "crypto": 17062253424,
         "eth": 16400744564,
-        "ev": 16225234043,
+        "ev": 16230800131,
         "nav_ex_cash": 16716253424
       },
-      "nav_per_share": 27.05,
-      "nav_per_share_gross": 27.61,
+      "nav_per_share": 27.04,
+      "nav_per_share_gross": 27.6,
       "nav_per_share_all": {
-        "full": 27.61,
-        "net": 27.05,
-        "crypto": 27.14,
-        "eth": 26.08
+        "full": 27.6,
+        "net": 27.04,
+        "crypto": 27.13,
+        "eth": 26.07
       },
       "mnav": 0.971,
       "mnav_gross": 0.952,
@@ -6283,35 +6824,35 @@
         "full": 0.952,
         "net": 0.971,
         "crypto": 0.968,
-        "eth": 1.007,
+        "eth": 1.008,
         "ev_to_nav_ex_cash": 0.971
       },
-      "eth_per_share": 0.0095683,
+      "eth_per_share": 0.0095651,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226045699/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2107086256010408071",
       "notes": "+2,482 net shares from Tsang RSUs vested Sep 30 (3,776 − 1,294 withheld; Form 4 filed Oct 26, 2026).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 26.7045,
-        "atm_shares": 287251,
+        "nav_per_share_before": 26.6961,
+        "atm_shares": 300982,
         "mnav_at_issue": 0.996,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
-          "staking": 0.0111,
+          "staking": 0.0105,
           "other": -0.0045,
-          "total": 0.0065,
+          "total": 0.0059,
           "actual_change": 0.28,
-          "market": 0.2735
+          "market": 0.2741
         },
         "eth_per_share": {
-          "capital": 0.000015527,
-          "staking": 0.000004065,
+          "capital": 0.000015531,
+          "staking": 0.000003847,
           "premium": 4.2e-8,
           "reanchor": 0,
-          "total": 0.000019634,
-          "actual_change": 0.000019634
+          "total": 0.00001942,
+          "actual_change": 0.00001942
         }
       }
     },
@@ -6324,8 +6865,20 @@
       "eth_acquired_reported": 12532,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0261,
-      "est_staking_eth": 2536,
-      "est_purchased_eth": 9996,
+      "staking_yield_used": 0.025,
+      "staking_yield_independent": {
+        "gross": 0.025,
+        "net": 0.02252,
+        "window": [
+          "2026-10-05",
+          "2026-10-11"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02486,
+        "max_daily_gross": 0.02593
+      },
+      "est_staking_eth": 2429,
+      "est_purchased_eth": 10103,
       "eth_week_avg": 2568.31,
       "eth_price_used": 2562.95,
       "eth_price_basis": "assumed",
@@ -6352,7 +6905,7 @@
         "coverage": 1.25,
         "transfers": 1
       },
-      "est_purchase_cost": 25618161,
+      "est_purchase_cost": 25892708,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -6363,19 +6916,19 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 28542611,
-      "cash_shortfall": -2457389,
+      "est_spending": 28817158,
+      "cash_shortfall": -2182842,
       "cash_shortfall_range": [
-        -5638020,
-        723243
+        -5366219,
+        1000536
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
       "funded_by_shares_range": [
         0,
-        723243
+        1000536
       ],
-      "surplus_carried_out": 2457389,
+      "surplus_carried_out": 2182842,
       "assumed_issue_price": 25.144,
       "bmnr_week_range": [
         24.03,
@@ -6384,13 +6937,13 @@
       "est_shares_issued": 0,
       "est_shares_issued_range": [
         0,
-        30097
+        41637
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628786983,
+      "shares_outstanding": 628998863,
       "shares_outstanding_range": [
-        623949850,
-        634093612
+        624062418,
+        634329651
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6414,52 +6967,52 @@
         "net": 15882548498,
         "crypto": 15967548498,
         "eth": 15337638624,
-        "ev": 14847751201,
+        "ev": 14852842678,
         "nav_ex_cash": 15620548498
       },
-      "nav_per_share": 25.26,
-      "nav_per_share_gross": 25.82,
+      "nav_per_share": 25.25,
+      "nav_per_share_gross": 25.81,
       "nav_per_share_all": {
-        "full": 25.82,
-        "net": 25.26,
+        "full": 25.81,
+        "net": 25.25,
         "crypto": 25.39,
-        "eth": 24.39
+        "eth": 24.38
       },
-      "mnav": 0.951,
+      "mnav": 0.952,
       "mnav_gross": 0.931,
       "mnav_all": {
         "full": 0.931,
-        "net": 0.951,
-        "crypto": 0.946,
+        "net": 0.952,
+        "crypto": 0.947,
         "eth": 0.985,
         "ev_to_nav_ex_cash": 0.951
       },
-      "eth_per_share": 0.0095882,
+      "eth_per_share": 0.009585,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226046744/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2109629888378667207",
       "notes": "",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.5421,
+        "nav_per_share_before": 25.5335,
         "atm_shares": 0,
-        "mnav_at_issue": 0.984,
+        "mnav_at_issue": 0.985,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
-          "staking": 0.0103,
+          "staking": 0.0098,
           "other": -0.0046,
-          "total": 0.0057,
+          "total": 0.0053,
           "actual_change": -1.79,
-          "market": -1.7957
+          "market": -1.7953
         },
         "eth_per_share": {
-          "capital": 0.000015863,
-          "staking": 0.000004034,
-          "premium": 3.3e-8,
+          "capital": 0.000016028,
+          "staking": 0.000003862,
+          "premium": 3.4e-8,
           "reanchor": 0,
-          "total": 0.00001993,
-          "actual_change": 0.00001993
+          "total": 0.000019924,
+          "actual_change": 0.000019924
         }
       }
     },
@@ -6472,8 +7025,20 @@
       "eth_acquired_reported": 12535,
       "eth_staked": 5067309,
       "staking_yield_7d": 0.0258,
-      "est_staking_eth": 2507,
-      "est_purchased_eth": 10028,
+      "staking_yield_used": 0.02469,
+      "staking_yield_independent": {
+        "gross": 0.02469,
+        "net": 0.02223,
+        "window": [
+          "2026-10-12",
+          "2026-10-18"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02463,
+        "max_daily_gross": 0.02504
+      },
+      "est_staking_eth": 2400,
+      "est_purchased_eth": 10135,
       "eth_week_avg": 2432.98,
       "eth_price_used": 2427.9,
       "eth_price_basis": "assumed",
@@ -6492,7 +7057,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 24346351,
+      "est_purchase_cost": 24607308,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -6503,20 +7068,19 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 27270801,
-      "cash_shortfall": -2729199,
+      "est_spending": 27531758,
+      "cash_shortfall": -2468242,
       "cash_shortfall_range": [
-        -5897113,
-        438714
+        -5638765,
+        702281
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
       "funded_by_shares_range": [
         0,
-        438714
+        702281
       ],
-      "surplus_carried_out": 5000000,
-      "surplus_dropped": 186588,
+      "surplus_carried_out": 4651084,
       "assumed_issue_price": 22.918,
       "bmnr_week_range": [
         21.66,
@@ -6525,13 +7089,13 @@
       "est_shares_issued": 0,
       "est_shares_issued_range": [
         0,
-        20255
+        32423
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 628786983,
+      "shares_outstanding": 628998863,
       "shares_outstanding_range": [
-        623949850,
-        634113867
+        624062418,
+        634362073
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6555,52 +7119,52 @@
         "net": 14791736865,
         "crypto": 14887736865,
         "eth": 14288102565,
-        "ev": 13387526052,
+        "ev": 13392115373,
         "nav_ex_cash": 14559736865
       },
       "nav_per_share": 23.52,
-      "nav_per_share_gross": 24.08,
+      "nav_per_share_gross": 24.07,
       "nav_per_share_all": {
-        "full": 24.08,
+        "full": 24.07,
         "net": 23.52,
-        "crypto": 23.68,
+        "crypto": 23.67,
         "eth": 22.72
       },
       "mnav": 0.921,
-      "mnav_gross": 0.899,
+      "mnav_gross": 0.9,
       "mnav_all": {
-        "full": 0.899,
+        "full": 0.9,
         "net": 0.921,
         "crypto": 0.915,
-        "eth": 0.953,
-        "ev_to_nav_ex_cash": 0.919
+        "eth": 0.954,
+        "ev_to_nav_ex_cash": 0.92
       },
-      "eth_per_share": 0.0096082,
+      "eth_per_share": 0.0096049,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226047517/ex99-1.htm",
       "x_post": null,
       "notes": "No @BitMNR holdings thread on X this week (none found Oct 18–20).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.1945,
+        "nav_per_share_before": 24.1864,
         "atm_shares": 0,
-        "mnav_at_issue": 0.947,
+        "mnav_at_issue": 0.948,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
-          "staking": 0.0094,
+          "staking": 0.009,
           "other": -0.0046,
-          "total": 0.0049,
-          "actual_change": -1.74,
-          "market": -1.7449
+          "total": 0.0045,
+          "actual_change": -1.73,
+          "market": -1.7345
         },
         "eth_per_share": {
-          "capital": 0.000015914,
-          "staking": 0.000003987,
-          "premium": 3.3e-8,
+          "capital": 0.00001608,
+          "staking": 0.000003815,
+          "premium": 3.4e-8,
           "reanchor": 0,
-          "total": 0.000019935,
-          "actual_change": 0.000019935
+          "total": 0.000019928,
+          "actual_change": 0.000019928
         }
       }
     },
@@ -6613,8 +7177,20 @@
       "eth_acquired_reported": 10452,
       "eth_staked": 5227037,
       "staking_yield_7d": 0.0258,
-      "est_staking_eth": 2507,
-      "est_purchased_eth": 7945,
+      "staking_yield_used": 0.02569,
+      "staking_yield_independent": {
+        "gross": 0.02569,
+        "net": 0.02313,
+        "window": [
+          "2026-10-19",
+          "2026-10-25"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02479,
+        "max_daily_gross": 0.03088
+      },
+      "est_staking_eth": 2497,
+      "est_purchased_eth": 7955,
       "eth_week_avg": 2397.1,
       "eth_price_used": 2392.1,
       "eth_price_basis": "assumed",
@@ -6633,7 +7209,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 19004564,
+      "est_purchase_cost": 19029771,
       "buyback_shares": 2040000,
       "buyback_price": 22.48,
       "buyback_price_basis": "disclosed",
@@ -6644,20 +7220,19 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 67788214,
-      "cash_shortfall": -211786,
+      "est_spending": 67813421,
+      "cash_shortfall": -186579,
       "cash_shortfall_range": [
-        -3326281,
-        2902710
+        -3301327,
+        2928168
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
       "funded_by_shares_range": [
         0,
-        2902710
+        2928168
       ],
-      "surplus_carried_out": 5000000,
-      "surplus_dropped": 211786,
+      "surplus_carried_out": 4837663,
       "assumed_issue_price": 22.65,
       "bmnr_week_range": [
         21.57,
@@ -6666,13 +7241,13 @@
       "est_shares_issued": 0,
       "est_shares_issued_range": [
         0,
-        134572
+        135752
       ],
       "other_shares_issued": 22610,
-      "shares_outstanding": 626769593,
+      "shares_outstanding": 626981473,
       "shares_outstanding_range": [
-        621932460,
-        632231048
+        622045028,
+        632480435
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6696,52 +7271,52 @@
         "net": 14695564683,
         "crypto": 14789564683,
         "eth": 14258354148,
-        "ev": 13875638883,
+        "ev": 13880384995,
         "nav_ex_cash": 14531564683
       },
-      "nav_per_share": 23.45,
+      "nav_per_share": 23.44,
       "nav_per_share_gross": 24,
       "nav_per_share_all": {
         "full": 24,
-        "net": 23.45,
-        "crypto": 23.6,
-        "eth": 22.75
+        "net": 23.44,
+        "crypto": 23.59,
+        "eth": 22.74
       },
-      "mnav": 0.955,
+      "mnav": 0.956,
       "mnav_gross": 0.933,
       "mnav_all": {
         "full": 0.933,
-        "net": 0.955,
-        "crypto": 0.949,
+        "net": 0.956,
+        "crypto": 0.95,
         "eth": 0.985,
         "ev_to_nav_ex_cash": 0.955
       },
-      "eth_per_share": 0.0096558,
+      "eth_per_share": 0.0096525,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226048429/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2114706044198785282",
       "notes": "Buyback 2.04M shares at $22.48 (disclosed). 2026 total: 22.9M shares, avg $17.48, $399.6M. +22,620 shares from director RSU vesting Oct 23 (Form 4s). Tsang Oct 23: 141 vested − 151 withheld = −10 (Form 4 filed Oct 26, 2026). other_shares_issued 22,610 = 22,620 (directors) − 10 (Tsang net).",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.8327,
+        "nav_per_share_before": 23.8246,
         "atm_shares": 0,
-        "mnav_at_issue": 0.95,
+        "mnav_at_issue": 0.951,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0.0044,
           "staking": 0.0094,
           "other": -0.0046,
-          "total": 0.0092,
-          "actual_change": -0.07,
-          "market": -0.0792
+          "total": 0.0091,
+          "actual_change": -0.08,
+          "market": -0.0891
         },
         "eth_per_share": {
-          "capital": 0.000043575,
-          "staking": 0.000004,
+          "capital": 0.000043567,
+          "staking": 0.000003982,
           "premium": 2.6e-8,
           "reanchor": 0,
-          "total": 0.000047602,
-          "actual_change": 0.000047602
+          "total": 0.000047575,
+          "actual_change": 0.000047575
         }
       }
     },
@@ -6754,8 +7329,21 @@
       "eth_acquired_reported": 8573,
       "eth_staked": 5227037,
       "staking_yield_7d": 0.0303,
-      "est_staking_eth": 2945,
-      "est_purchased_eth": 5628,
+      "staking_yield_note": "one-week spike: stated 3.03% vs 2.58% the two prior weeks; a network-wide execution-layer reward surge on Oct 30, 2026 (Lido and cbETH daily rates both spiked)",
+      "staking_yield_used": 0.04704,
+      "staking_yield_independent": {
+        "gross": 0.04704,
+        "net": 0.04235,
+        "window": [
+          "2026-10-26",
+          "2026-11-01"
+        ],
+        "reports": 7,
+        "median_daily_gross": 0.02524,
+        "max_daily_gross": 0.1674
+      },
+      "est_staking_eth": 4572,
+      "est_purchased_eth": 4001,
       "eth_week_avg": 2292.21,
       "eth_price_used": 2287.43,
       "eth_price_basis": "assumed",
@@ -6774,7 +7362,7 @@
         "coverage": null,
         "transfers": 0
       },
-      "est_purchase_cost": 12874576,
+      "est_purchase_cost": 9152276,
       "buyback_shares": 0,
       "buyback_price": null,
       "buyback_price_basis": null,
@@ -6785,20 +7373,20 @@
       "est_cash_opex": 2924450,
       "investments": 0,
       "disclosed_proceeds": null,
-      "est_spending": 15799026,
-      "cash_shortfall": -200974,
+      "est_spending": 12076726,
+      "cash_shortfall": -3923274,
       "cash_shortfall_range": [
-        -3254170,
-        2852222
+        -6939247,
+        -907302
       ],
       "surplus_from_prior": 0,
       "funded_by_shares": 0,
       "funded_by_shares_range": [
         0,
-        2852222
+        0
       ],
       "surplus_carried_out": 5000000,
-      "surplus_dropped": 200974,
+      "surplus_dropped": 3760938,
       "assumed_issue_price": 21.292,
       "bmnr_week_range": [
         20.18,
@@ -6807,13 +7395,13 @@
       "est_shares_issued": 0,
       "est_shares_issued_range": [
         0,
-        141339
+        0
       ],
       "other_shares_issued": 0,
-      "shares_outstanding": 626769593,
+      "shares_outstanding": 626981473,
       "shares_outstanding_range": [
-        621932460,
-        632372388
+        622045028,
+        632480435
       ],
       "shares_basis": "estimate",
       "shares_anchor": {
@@ -6837,13 +7425,13 @@
         "net": 14129715570,
         "crypto": 14217715570,
         "eth": 13702804066,
-        "ev": 12500210387,
+        "ev": 12504486125,
         "nav_ex_cash": 13981715570
       },
       "nav_per_share": 22.54,
-      "nav_per_share_gross": 23.1,
+      "nav_per_share_gross": 23.09,
       "nav_per_share_all": {
-        "full": 23.1,
+        "full": 23.09,
         "net": 22.54,
         "crypto": 22.68,
         "eth": 21.86
@@ -6857,32 +7445,32 @@
         "eth": 0.923,
         "ev_to_nav_ex_cash": 0.894
       },
-      "eth_per_share": 0.0096694,
+      "eth_per_share": 0.0096662,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/2117251777951101202",
       "notes": "No buyback disclosed this week. Stated 7-day BMNR yield 3.03% per the 8-K (source of record; consistent with $415M ÷ (6,060,506 × $2,261) and $358M ÷ (5,227,037 × $2,261)); the @BitMNR X thread says 2.58%, which repeats last week's figure. Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.8306,
+        "nav_per_share_before": 22.8229,
         "atm_shares": 0,
         "mnav_at_issue": 0.933,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
-          "staking": 0.0106,
+          "staking": 0.0165,
           "other": -0.0046,
-          "total": 0.006,
-          "actual_change": -0.91,
-          "market": -0.916
+          "total": 0.0119,
+          "actual_change": -0.9,
+          "market": -0.9119
         },
         "eth_per_share": {
-          "capital": 0.000008961,
-          "staking": 0.000004698,
-          "premium": 1.9e-8,
+          "capital": 0.000006368,
+          "staking": 0.000007292,
+          "premium": 1.3e-8,
           "reanchor": 0,
-          "total": 0.000013678,
-          "actual_change": 0.000013678
+          "total": 0.000013673,
+          "actual_change": 0.000013673
         }
       }
     }

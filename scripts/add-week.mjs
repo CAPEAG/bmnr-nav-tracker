@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Weekly update: append Bitmine's Monday release to data/releases.json, then rebuild history/holdings
-// with scripts/build-history.mjs (share-count reconstruction from the cash-flow identity).
+// with scripts/build-history.mjs (share-count reconstruction from the cash-flow identity). Runs
+// scripts/fetch-staking-yield.mjs first (independent weekly staking yield → data/staking_yield.json).
 //
 //   node scripts/add-week.mjs --date 2026-11-02 --asof 2026-11-01 \
 //     --eth 6060000 --acquired 8067 --eth-price 2400 --staked 5227037 --yield 0.0258 \
@@ -58,5 +59,8 @@ if (a['shares-outstanding'] !== undefined) {
   await writeFile(CF, JSON.stringify(C, null, 2) + '\n');
   console.log('added checkpoint', cp);
 }
+// independent staking yield (daily Lido oracle reports) up to today, then the rebuild
+const fy = spawnSync(process.execPath, [new URL('./fetch-staking-yield.mjs', import.meta.url).pathname], { stdio: 'inherit' });
+if (fy.status !== 0) console.warn('WARNING: fetch-staking-yield failed; weeks without a Lido report use the stated yield. Re-run it, then build-history.');
 const res = spawnSync(process.execPath, [new URL('./build-history.mjs', import.meta.url).pathname], { stdio: 'inherit' });
 process.exit(res.status);
