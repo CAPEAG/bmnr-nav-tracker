@@ -1,29 +1,33 @@
 {
-  "fetched_at": "2026-11-03T19:57:18.447Z",
+  "fetched_at": "2026-11-04T00:27:45.997Z",
   "note": "Written by .github/workflows/prices.yml (scripts/fetch-prices.mjs). ORBS = Eightco Holdings (NASDAQ: ORBS) stock, not the Orbs crypto token.",
   "quotes": {
     "BMNR": {
-      "price": 20.385,
-      "time": "2026-11-03T19:57:14.000Z",
+      "price": 20.53,
+      "time": "2026-11-03T21:00:02.000Z",
       "previous_close": 19.54,
       "currency": "USD",
-      "source": "yahoo:query1"
+      "source": "yahoo:query1",
+      "extended": {
+        "price": 20.1884,
+        "time": "2026-11-04T00:27:28.000Z"
+      }
     },
     "ORBS": {
-      "price": 0.7484,
-      "time": "2026-11-03T19:57:12.000Z",
+      "price": 0.7489,
+      "time": "2026-11-03T21:00:00.000Z",
       "previous_close": 0.7018,
       "currency": "USD",
       "source": "yahoo:query1"
     },
     "ETH": {
-      "price": 2283.86,
-      "time": "2026-11-03T19:56:59.000Z",
+      "price": 2266.02,
+      "time": "2026-11-04T00:27:12.000Z",
       "source": "coingecko"
     },
     "BTC": {
-      "price": 77469,
-      "time": "2026-11-03T19:57:05.000Z",
+      "price": 77179,
+      "time": "2026-11-04T00:27:36.000Z",
       "source": "coingecko"
     }
   }
