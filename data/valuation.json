@@ -121,28 +121,28 @@
     }
   },
   "derived": {
-    "as_of": "2026-11-01",
-    "source": "Bitmine weekly releases in data/releases.json (latest: https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm)",
-    "eth_held": 6060506,
+    "as_of": "2026-11-08",
+    "source": "Bitmine weekly releases in data/releases.json (latest: https://www.sec.gov/Archives/edgar/data/1829311/000149315226050647/ex99-1.htm)",
+    "eth_held": 6070092,
     "eth_staked": 5227037,
     "staked_share_current": {
-      "value": 0.8625,
-      "label": "current: 5,227,037 ÷ 6,060,506 ETH (2026-11-01)"
+      "value": 0.8611,
+      "label": "current: 5,227,037 ÷ 6,070,092 ETH (2026-11-08)"
     },
     "yield_latest_7d": {
-      "value": 0.0303,
-      "label": "latest stated 7-day yield (2026-11-01)"
+      "value": 0.0265,
+      "label": "latest stated 7-day yield (2026-11-08)"
     },
     "yield_trailing_4w": {
-      "value": 0.027,
+      "value": 0.0271,
       "label": "4-week average of stated 7-day yields"
     },
     "yield_trailing_13w": {
-      "value": 0.02652,
+      "value": 0.02654,
       "label": "13-week average of stated 7-day yields"
     },
     "yield_trailing_26w": {
-      "value": 0.02702,
+      "value": 0.02694,
       "label": "26-week average of stated 7-day yields"
     },
     "staked_trajectory": [
@@ -205,12 +205,17 @@
         "as_of": "2026-11-01",
         "staked": 5227037,
         "pct": 0.8625
+      },
+      {
+        "as_of": "2026-11-08",
+        "staked": 5227037,
+        "pct": 0.8611
       }
     ],
     "cesr_yield_trailing": {
-      "4w": 0.02657,
-      "13w": 0.02625,
-      "26w": 0.02676
+      "4w": 0.02642,
+      "13w": 0.02619,
+      "26w": 0.02665
     },
     "cesr_yield_source": "CESR (Quatrefoil / CoinDesk Indices) daily values averaged over each release window (data/cesr.json)"
   },

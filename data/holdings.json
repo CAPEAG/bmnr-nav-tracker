@@ -1,28 +1,28 @@
 {
   "ticker": "BMNR",
   "company": "Bitmine Immersion Technologies, Inc.",
-  "as_of": "2026-11-01",
-  "announced": "2026-11-02",
-  "eth": 6060506,
+  "as_of": "2026-11-08",
+  "announced": "2026-11-09",
+  "eth": 6070092,
   "eth_staked": 5227037,
   "btc": 216,
-  "cash_usd": 498000000,
+  "cash_usd": 475000000,
   "orbs": {
     "shares": 100655143,
-    "reported_value_usd": 82000000,
+    "reported_value_usd": 75000000,
     "note": "Eightco Holdings (NASDAQ: ORBS) common stock. 100,655,143 shares per Bitmine's 10-Q (May 31, 2026, Note on Investment in Eightco: beneficially owned after the March 12, 2026 purchase). Bitmine's weekly releases report only the $ value (e.g. $76M on Oct 25 ≈ 100.66M × $0.755)."
   },
   "beast_usd": 180000000,
   "shares_outstanding": 626769593,
   "source": {
     "type": "official",
-    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm",
-    "x_post": "https://x.com/BitMNR/status/2117251777951101202",
-    "press_release": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm"
+    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226050647/ex99-1.htm",
+    "x_post": "https://x.com/BitMNR/status/2119794359977545960",
+    "press_release": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226050647/ex99-1.htm"
   },
   "assumptions": {
-    "weekly_staking_yield": 0.02652,
-    "weekly_staking_yield_source": "13-week average of Bitmine's stated 7-day BMNR yields to 2026-11-01 (latest stated: 3.03%).",
+    "weekly_staking_yield": 0.02654,
+    "weekly_staking_yield_source": "13-week average of Bitmine's stated 7-day BMNR yields to 2026-11-08 (latest stated: 2.65%).",
     "share_estimation": {
       "weekly_cash_opex_usd": 2278000,
       "weekly_cash_opex_source": "Net operating cash outflow Dec 1, 2025 – May 31, 2026 = 9-month operating cash flow (−$287.592M, 10-Q May 31, 2026) − Sep–Nov (−$228.356M, 10-Q Nov 30, 2025) = −$59.236M over 26 weeks. Already net of interest income and cash service revenue. (v1 used $3,257,538 = Mar–May G&A − SBC + cost of sales ÷ 13.)",
@@ -50,89 +50,89 @@
     "valuation_inputs": "See data/valuation.json (Bear/Base/Bull inputs with sources)."
   },
   "reference_prices": {
-    "ETH": 2261,
-    "BTC": 78294,
-    "BMNR": 20.18,
-    "ORBS": 0.8146627937332521,
-    "note": "As-of 2026-11-01: ETH per release, BTC CoinGecko, BMNR close 2026-10-30, ORBS = reported stake ÷ shares held."
+    "ETH": 2234,
+    "BTC": 74740,
+    "BMNR": 18.76,
+    "ORBS": 0.7451184089023648,
+    "note": "As-of 2026-11-08: ETH per release, BTC CoinGecko, BMNR close 2026-11-06, ORBS = reported stake ÷ shares held."
   },
   "last_week": {
-    "date": "2026-11-02",
-    "as_of": "2026-11-01",
+    "date": "2026-11-09",
+    "as_of": "2026-11-08",
     "days": 7,
-    "eth": 6060506,
-    "eth_change": 8573,
-    "eth_acquired_reported": 8573,
+    "eth": 6070092,
+    "eth_change": 9586,
+    "eth_acquired_reported": 9587,
     "eth_staked": 5227037,
-    "staking_yield_7d": 0.0303,
-    "staking_yield_used": 0.0303,
+    "staking_yield_7d": 0.0265,
+    "staking_yield_used": 0.0265,
     "staking_yield_basis": "Bitmine stated",
     "staking_yield_check": {
-      "cesr": 0.02914,
+      "cesr": 0.02539,
       "window": [
-        "2026-10-26",
-        "2026-11-01"
+        "2026-11-02",
+        "2026-11-08"
       ],
       "days": 7,
-      "min_daily": 0.02522,
-      "max_daily": 0.05129,
-      "diff_vs_stated_pt": -0.12,
+      "min_daily": 0.02496,
+      "max_daily": 0.02583,
+      "diff_vs_stated_pt": -0.11,
       "flagged": false
     },
-    "est_staking_eth": 2945,
-    "est_purchased_eth": 5628,
-    "eth_week_avg": 2292.21,
-    "eth_price_used": 2287.43,
+    "est_staking_eth": 2575,
+    "est_purchased_eth": 7011,
+    "eth_week_avg": 2254.35,
+    "eth_price_used": 2249.65,
     "eth_price_basis": "assumed",
     "eth_price_source": "weekly avg × 0.9979 (pooled 10-Q factor, 3 quarters)",
     "eth_price_factor": 0.9979,
     "eth_price_range": [
-      2264.55,
-      2310.3
+      2227.15,
+      2272.14
     ],
     "onchain_wallet_check": {
-      "status": "n/a",
-      "onchain_vwap": null,
-      "onchain_eth": 0,
-      "assumed": 2287.43,
-      "diff_pct": null,
-      "coverage": null,
-      "transfers": 0
+      "status": "ok",
+      "onchain_vwap": 2244.79,
+      "onchain_eth": 5000,
+      "assumed": 2249.65,
+      "diff_pct": -0.22,
+      "coverage": 0.71,
+      "transfers": 1
     },
-    "est_purchase_cost": 12874576,
+    "est_purchase_cost": 15771591,
     "buyback_shares": 0,
     "buyback_price": null,
     "buyback_price_basis": null,
     "buyback_cost": 0,
-    "cash_prev": 514000000,
-    "cash": 498000000,
-    "cash_change": -16000000,
+    "cash_prev": 498000000,
+    "cash": 475000000,
+    "cash_change": -23000000,
     "est_cash_opex": 2924450,
     "investments": 0,
     "disclosed_proceeds": null,
-    "est_spending": 15799026,
-    "cash_shortfall": -200974,
+    "est_spending": 18696041,
+    "cash_shortfall": -4303959,
     "cash_shortfall_range": [
-      -3254170,
-      2852222
+      -7386125,
+      -1221793
     ],
     "surplus_from_prior": 0,
     "funded_by_shares": 0,
     "funded_by_shares_range": [
       0,
-      2852222
+      0
     ],
     "surplus_carried_out": 5000000,
-    "surplus_dropped": 200974,
-    "assumed_issue_price": 21.292,
+    "surplus_dropped": 4303959,
+    "assumed_issue_price": 19.912,
     "bmnr_week_range": [
-      20.18,
-      22.05
+      18.76,
+      21.73
     ],
     "est_shares_issued": 0,
     "est_shares_issued_range": [
       0,
-      141339
+      0
     ],
     "other_shares_issued": 0,
     "shares_outstanding": 626769593,
@@ -144,74 +144,74 @@
     "shares_anchor": {
       "date": "2026-07-09",
       "shares": 603226394,
-      "weeks_since": 16
+      "weeks_since": 17
     },
     "btc": 216,
-    "orbs_value": 82000000,
+    "orbs_value": 75000000,
     "beast_value": 180000000,
     "snapshot_prices": {
-      "ETH": 2261,
-      "BTC": 78294,
-      "BMNR": 20.18,
-      "BMNR_date": "2026-10-30"
+      "ETH": 2234,
+      "BTC": 74740,
+      "BMNR": 18.76,
+      "BMNR_date": "2026-11-06"
     },
     "preferred_usd": 350000000,
     "debt_usd": 0,
     "nav": {
-      "full": 14479715570,
-      "net": 14129715570,
-      "crypto": 14217715570,
-      "eth": 13702804066,
-      "ev": 12500210387,
-      "nav_ex_cash": 13981715570
+      "full": 14306729368,
+      "net": 13956729368,
+      "crypto": 14051729368,
+      "eth": 13560585528,
+      "ev": 11633197565,
+      "nav_ex_cash": 13831729368
     },
-    "nav_per_share": 22.54,
-    "nav_per_share_gross": 23.1,
+    "nav_per_share": 22.27,
+    "nav_per_share_gross": 22.83,
     "nav_per_share_all": {
-      "full": 23.1,
-      "net": 22.54,
-      "crypto": 22.68,
-      "eth": 21.86
+      "full": 22.83,
+      "net": 22.27,
+      "crypto": 22.42,
+      "eth": 21.64
     },
-    "mnav": 0.895,
-    "mnav_gross": 0.874,
+    "mnav": 0.842,
+    "mnav_gross": 0.822,
     "mnav_all": {
-      "full": 0.874,
-      "net": 0.895,
-      "crypto": 0.89,
-      "eth": 0.923,
-      "ev_to_nav_ex_cash": 0.894
+      "full": 0.822,
+      "net": 0.842,
+      "crypto": 0.837,
+      "eth": 0.867,
+      "ev_to_nav_ex_cash": 0.841
     },
-    "eth_per_share": 0.0096694,
-    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226049572/ex99-1.htm",
-    "x_post": "https://x.com/BitMNR/status/2117251777951101202",
-    "notes": "No buyback disclosed this week. Stated 7-day BMNR yield 3.03% per the 8-K (source of record; consistent with $415M ÷ (6,060,506 × $2,261) and $358M ÷ (5,227,037 × $2,261)); the @BitMNR X thread says 2.58%, which repeats last week's figure. Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
+    "eth_per_share": 0.0096847,
+    "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226050647/ex99-1.htm",
+    "x_post": "https://x.com/BitMNR/status/2119794359977545960",
+    "notes": "No buyback disclosed this week. Stated trailing 7-day BMNR staking yield 2.65% per the 8-K (source of record). Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
     "accretion": {
       "basis": "estimate (v3 model)",
       "reanchor": false,
-      "nav_per_share_before": 22.8306,
+      "nav_per_share_before": 22.4794,
       "atm_shares": 0,
-      "mnav_at_issue": 0.933,
+      "mnav_at_issue": 0.886,
       "usd_per_share": {
         "issuance": 0,
         "buybacks": 0,
-        "staking": 0.0106,
+        "staking": 0.0092,
         "other": -0.0046,
-        "total": 0.006,
-        "actual_change": -0.91,
-        "market": -0.916
+        "total": 0.0046,
+        "actual_change": -0.27,
+        "market": -0.2746
       },
       "eth_per_share": {
-        "capital": 0.000008961,
-        "staking": 0.000004698,
-        "premium": 1.9e-8,
+        "capital": 0.000011162,
+        "staking": 0.000004109,
+        "premium": 2.3e-8,
         "reanchor": 0,
-        "total": 0.000013678,
-        "actual_change": 0.000013678
+        "total": 0.000015294,
+        "actual_change": 0.000015294
       }
     }
   },
-  "last_updated": "2026-11-02T15:42:20.719Z",
+  "last_updated": "2026-11-09T14:16:48.433Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -225,7 +225,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-02T15:42:20.719Z"
+    "built": "2026-11-09T14:16:48.434Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",

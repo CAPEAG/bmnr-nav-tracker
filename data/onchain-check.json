@@ -208,7 +208,33 @@
           "tx": "0x2eb20470df9d7b8499325a78df676b38b25e520caed8d6485e5e9cb0b05a6541"
         }
       ],
-      "checked": "2026-11-02T14:17:10.470Z"
+      "checked": "2026-11-09T14:16:48.320Z"
+    },
+    "2026-11-09": {
+      "as_of": "2026-11-08",
+      "status": "ok",
+      "onchain_vwap": 2244.79,
+      "onchain_eth": 5000,
+      "assumed": 2249.65,
+      "assumed_basis": "assumed",
+      "diff_pct": -0.22,
+      "week_avg": 2254.35,
+      "reported_bought_eth_est": 7011,
+      "coverage": 0.71,
+      "unlabeled_eth": 0,
+      "transfers": [
+        {
+          "time_utc": "2026-11-02T19:29",
+          "eth": 4999.99,
+          "from": "0xf30ba13e4b04ce5dc4d254ae5fa95477800f0eb0",
+          "label": "Kraken: Hot Wallet 2",
+          "to": "0x9c5fc690a073722abf31e186b4905553ea1b1a16",
+          "price": 2244.79,
+          "counted": true,
+          "tx": "0x0642d896e377c7c97051bafc057c4d88ff59ada73ae2da9c9f185244aedd0702"
+        }
+      ],
+      "checked": "2026-11-09T14:16:48.321Z"
     }
   },
   "description": "Weekly on-chain cross-check of the ETH price paid (scripts/onchain-check.mjs). onchain_vwap = ETH-weighted hourly ETH/USD price at the times labeled exchanges/OTC desks sent ETH to Bitmine-attributed wallets (data/onchain-wallets.json). These are settlement transfers, not trade prices, and attribution is inferred, so this is a cross-check only — never the basis for the price unless Bitmine discloses it.",
