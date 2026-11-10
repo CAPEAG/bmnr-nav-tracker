@@ -485,9 +485,9 @@ const bt = {
   intervals: backtest, diagnostics, official_cash_flows: C.cash_flow_official,
 };
 const dailyCache = await load('daily-prices.json', { days: {} });
-const needDays = neededTradingDays(out, cache, 4);
+const needDays = neededTradingDays(out, cache, 12);
 const dailyPx = await refreshDailyPrices(dailyCache, { neededDays: needDays, refetch: process.argv.includes('--refetch') });
-const mnav_daily_ranges = computeDailyMnavRanges({ snapshots: out, dailyPrices: dailyPx.days || {}, orbsShares: H.orbs.shares });
+const mnav_daily_ranges = computeDailyMnavRanges({ snapshots: out, dailyPrices: dailyPx.days || {}, orbsShares: H.orbs.shares, weeks: 12 });
 if (!mnav_daily_ranges?.past_week?.days) console.warn('WARNING: daily mNAV past-week range is empty — check data/daily-prices.json');
 console.log('mnav daily ranges', JSON.stringify(mnav_daily_ranges));
 

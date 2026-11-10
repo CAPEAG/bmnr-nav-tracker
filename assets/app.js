@@ -197,8 +197,8 @@ function render() {
   const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
   const rng = S.history.mnav_daily_ranges;
   const rngLine = (label, x, c) => x?.days ? `<br><span class="nw"><i class="sw" style="background:${c}"></i>${label} ${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
-  const histM = rng ? `${rngLine('Previous week range', rng.past_week, 'var(--acc)')}${rngLine('Last 4 weeks range', rng.past_4_weeks, 'var(--eth)')}` : '';
-  const gauge = mnavGauge(full.mnav, rng?.past_week, rng?.past_4_weeks);
+  const histM = rng ? `${rngLine('Previous week range', rng.past_week, 'var(--acc)')}${rngLine('Last 4 weeks range', rng.past_4_weeks, 'var(--eth)')}${rngLine('Last 12 weeks range', rng.past_12_weeks, 'var(--good)')}` : '';
+  const gauge = mnavGauge(full.mnav, [[rng?.past_12_weeks, 'var(--good)', 'last 12 weeks'], [rng?.past_4_weeks, 'var(--eth)', 'last 4 weeks'], [rng?.past_week, 'var(--acc)', 'previous week']]);
   $('hero').innerHTML = `
     <div class="kpi main"><div class="mn-wrap"><div><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
       <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div></div>${gauge}</div></div>
@@ -565,19 +565,18 @@ async function init() {
 }
 init();
 
-// Vertical mNAV gauge: previous-week and last-4-week daily ranges as bars, current mNAV as a horizontal line (no text inside)
-function mnavGauge(cur, w, m) {
-  const rs = [w, m].filter((x) => x?.days);
-  if (!rs.length || !isFinite(cur)) return '';
-  let lo = Math.min(cur, ...rs.map((x) => x.low)), hi = Math.max(cur, ...rs.map((x) => x.high));
+// Vertical mNAV gauge: daily low–high bars (12-week, 4-week, previous week, left to right) with the current mNAV as a horizontal line
+function mnavGauge(cur, bars) {
+  const bs = bars.filter(([r]) => r?.days);
+  if (!bs.length || !isFinite(cur)) return '';
+  let lo = Math.min(cur, ...bs.map(([r]) => r.low)), hi = Math.max(cur, ...bs.map(([r]) => r.high));
   const pad = Math.max((hi - lo) * 0.06, 0.003); lo -= pad; hi += pad;
-  const T = 15, H = 100, BW = 34, GAP = 8, W = BW * 2 + GAP + 8, y = (v) => T + ((hi - v) / (hi - lo)) * H;
+  const T = 15, H = 100, BW = 34, GAP = 6, W = bs.length * BW + (bs.length - 1) * GAP + 8, y = (v) => T + ((hi - v) / (hi - lo)) * H;
   const lbl = (x, yy, v) => `<text x="${x + BW / 2}" y="${yy.toFixed(1)}" text-anchor="middle" font-size="10.5" fill="var(--txt)" stroke="var(--panel)" stroke-width="3" paint-order="stroke" style="font-variant-numeric:tabular-nums">${v.toFixed(3)}</text>`;
-  const bar = (x, r, c) => r?.days ? `<rect x="${x}" y="${y(r.high).toFixed(1)}" width="${BW}" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>` : '';
-  const lbls = (x, r) => r?.days ? lbl(x, y(r.high) - 4, r.high) + lbl(x, y(r.low) + 12, r.low) : '';
-  const x1 = 4, x2 = 4 + BW + GAP, cy = y(cur).toFixed(1);
-  return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H + T * 2}" width="${W}" height="${H + T * 2}" role="img" aria-label="Current mNAV ${cur.toFixed(3)} against last 4 weeks range ${m?.days ? m.low.toFixed(3) + ' to ' + m.high.toFixed(3) : 'n/a'} and previous week range ${w?.days ? w.low.toFixed(3) + ' to ' + w.high.toFixed(3) : 'n/a'}">
-    ${bar(x1, m, 'var(--eth)')}${bar(x2, w, 'var(--acc)')}
-    <line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/>
-    ${lbls(x1, m)}${lbls(x2, w)}</svg>`;
+  const xs = bs.map((_, i) => 4 + i * (BW + GAP)), cy = y(cur).toFixed(1);
+  const rects = bs.map(([r, c], i) => `<rect x="${xs[i]}" y="${y(r.high).toFixed(1)}" width="${BW}" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>`).join('');
+  const lbls = bs.map(([r], i) => lbl(xs[i], y(r.high) - 4, r.high) + lbl(xs[i], y(r.low) + 12, r.low)).join('');
+  const aria = `Current mNAV ${cur.toFixed(3)}; ` + bs.map(([r, , n]) => `${n} ${r.low.toFixed(3)} to ${r.high.toFixed(3)}`).join('; ');
+  return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H + T * 2}" width="${W}" height="${H + T * 2}" role="img" aria-label="${aria}">
+    ${rects}<line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/>${lbls}</svg>`;
 }

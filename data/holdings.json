@@ -211,7 +211,7 @@
       }
     }
   },
-  "last_updated": "2026-11-09T14:16:48.433Z",
+  "last_updated": "2026-11-10T16:42:43.268Z",
   "shares_official": {
     "shares": 603226394,
     "date": "2026-07-09",
@@ -225,7 +225,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-09T14:16:48.434Z"
+    "built": "2026-11-10T16:42:43.268Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",

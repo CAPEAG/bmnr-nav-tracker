@@ -88,18 +88,22 @@ function summarize(from, to, pts) {
   return { from, to, low: r(lo.mnav, 3), high: r(hi.mnav, 3), low_date: lo.date, high_date: hi.date, days: pts.length };
 }
 
-export function computeDailyMnavRanges({ snapshots, dailyPrices, orbsShares, weeks = 4 }) {
-  const windows = completedWeekWindows(snapshots, weeks);
+export function computeDailyMnavRanges({ snapshots, dailyPrices, orbsShares, weeks = 12 }) {
+  const windows = completedWeekWindows(snapshots, Math.max(weeks, 4));
   if (!windows.length) return null;
-  const week = windows.at(-1);
-  const from4 = windows[0].from, to4 = windows.at(-1).to;
-  return {
+  const span = (n) => {
+    const ws = windows.slice(-n), from = ws[0].from, to = ws.at(-1).to;
+    return summarize(from, to, pointsInWindow(snapshots, dailyPrices, orbsShares, from, to));
+  };
+  const out = {
     as_of: snapshots.at(-1).as_of,
     source: PRICE_SOURCE,
     share_basis: SHARE_BASIS,
-    past_week: summarize(week.from, week.to, pointsInWindow(snapshots, dailyPrices, orbsShares, week.from, week.to)),
-    past_4_weeks: summarize(from4, to4, pointsInWindow(snapshots, dailyPrices, orbsShares, from4, to4)),
+    past_week: span(1),
+    past_4_weeks: span(4),
   };
+  if (weeks >= 12) out.past_12_weeks = span(12);
+  return out;
 }
 
 // ---------- Yahoo fetch (build step) ----------

@@ -86,7 +86,7 @@ main,section,.card{min-width:0}
 .kpi.case-bear .l{color:var(--bad)}.kpi.case-bull .l{color:var(--good)}.kpi.case-base .l{color:var(--acc)}
 .kpi .v.up{color:var(--good)}.kpi .v.down{color:var(--bad)}
 #accTable td.fine{font-size:12px;margin:0}
-@media (min-width:1200px){#hero{grid-template-columns:repeat(8,minmax(0,1fr))}}
+@media (min-width:1200px){#hero{grid-template-columns:repeat(9,minmax(0,1fr))}#hero .kpi.main{grid-column:span 3}}
 .t.assum td:not(:first-child):not(.why),.t.assum th:not(:first-child):not(:last-child){width:1%}
 .t.assum td:first-child{min-width:190px;white-space:normal}
 .t.assum td.why{min-width:360px;max-width:none}
