@@ -204,7 +204,7 @@ function render() {
   const gauge = mnavChart(full.mnav, S.history.mnav_weekly_ranges, S.currentWeek, S.history.snapshots.at(-1)?.as_of);
   $('hero').innerHTML = `
     <div class="kpi main"><div class="mn-wrap"><div class="mn-txt"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
-      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div></div>${gauge}</div></div>
+      ${histM ? `<div class="s nw">${histM.replace(/^<br>/, '')}</div>` : ''}</div>${gauge}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
