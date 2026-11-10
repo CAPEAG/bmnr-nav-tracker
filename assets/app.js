@@ -575,6 +575,6 @@ function mnavGauge(cur, w, m) {
   const bar = (x, r, c) => r?.days ? `<rect x="${x}" y="${y(r.high).toFixed(1)}" width="18" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>` : '';
   const cy = y(cur).toFixed(1);
   return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Current mNAV ${cur.toFixed(3)} against previous week range ${w?.days ? w.low.toFixed(3) + ' to ' + w.high.toFixed(3) : 'n/a'} and last 4 weeks range ${m?.days ? m.low.toFixed(3) + ' to ' + m.high.toFixed(3) : 'n/a'}">
-    ${bar(8, w, 'var(--acc)')}${bar(34, m, 'var(--eth)')}
+    ${bar(8, m, 'var(--eth)')}${bar(34, w, 'var(--acc)')}
     <line x1="4" y1="${cy}" x2="${W - 4}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/></svg>`;
 }
