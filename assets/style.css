@@ -145,4 +145,4 @@ table.val-t{table-layout:fixed;width:100%}
 .sens-t{max-width:640px}
 .sens-t td,.sens-t th{white-space:normal}
 .nw{white-space:nowrap}
-.mn-wrap{display:flex;align-items:center;gap:10px}.mn-txt{flex:none}.mn-chart{display:block;flex:1 1 140px;min-width:110px;max-width:240px;height:auto;margin-left:auto}
+

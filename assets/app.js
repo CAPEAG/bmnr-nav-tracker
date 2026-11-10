@@ -60,9 +60,6 @@ async function loadPrices() {
   if (!ok.length) return;
   ok.sort((a, b) => Date.parse(b.fetched_at || 0) - Date.parse(a.fetched_at || 0));
   S.prices = ok[0];
-  const cw = (await Promise.allSettled([getJSON('data/current-week.json'), getJSON(REPO_RAW.replace('prices.json', 'current-week.json'))]))
-    .filter((g) => g.status === 'fulfilled').map((g) => g.value).sort((a, b) => Date.parse(b.updated || 0) - Date.parse(a.updated || 0));
-  if (cw.length) S.currentWeek = cw[0];
 }
 async function loadCrypto() {
   try {
@@ -201,10 +198,10 @@ function render() {
   const rng = S.history.mnav_daily_ranges;
   const rngLine = (label, x) => x?.days ? `<br>${label} <span class="nw">${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
   const histM = rng ? rngLine('Previous week range', rng.past_week) : '';
-  const gauge = mnavChart(full.mnav, S.history.mnav_weekly_ranges, S.currentWeek, S.history.snapshots.at(-1)?.as_of);
+  S.liveMnav = full.mnav; setLiveMnavLine();
   $('hero').innerHTML = `
-    <div class="kpi main"><div class="mn-wrap"><div class="mn-txt"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
-      ${histM ? `<div class="s nw">${histM.replace(/^<br>/, '')}</div>` : ''}</div>${gauge}</div></div>
+    <div class="kpi main"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
+      ${histM ? `<div class="s nw">${histM.replace(/^<br>/, '')}</div>` : ''}</div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
@@ -429,10 +426,12 @@ function renderHistory() {
       { label: 'mNAV (net of preferred, at report)', data: s.map((r) => r.mnav), borderColor: '#7aa2ff', backgroundColor: 'rgba(122,162,255,.12)', tension: .25, pointRadius: ptR, fill: false },
       { label: 'mNAV (gross, before preferred)', data: s.map((r) => r.mnav_gross ?? r.mnav), borderColor: '#c9a5ff', borderDash: [4, 3], borderWidth: 1.5, tension: .25, pointRadius: 0, fill: false },
       { label: '1.0× (price = NAV)', data: s.map(() => 1), borderColor: '#8b97b0', borderDash: [5, 4], borderWidth: 1, pointRadius: 0, pointHoverRadius: 0 },
+      { label: 'Current mNAV (live)', data: s.map(() => S.liveMnav ?? null), borderColor: '#f2b84b', borderWidth: 1.5, pointRadius: 0, pointHoverRadius: 0 },
     ] },
-    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend, tooltip: { filter: (i) => i.datasetIndex < 2, callbacks: { label: (c) => `${c.datasetIndex ? 'gross' : 'net'}: ${c.raw.toFixed(3)}×` } } },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend, tooltip: { filter: (i) => i.datasetIndex !== 2 && (i.datasetIndex !== 3 || i.dataIndex === i.dataset.data.length - 1), callbacks: { label: (c) => `${['net', 'gross', '', 'current (live)'][c.datasetIndex]}: ${c.raw.toFixed(3)}×` } } },
       scales: { x: { ticks: tick, grid }, y: { ticks: { color: '#7aa2ff', callback: (v) => v.toFixed(2) + '×' }, grid } } },
   });
+  setLiveMnavLine();
   S.chart = new Chart($('histChart'), {
     type: 'line',
     data: { labels, datasets: [
@@ -568,34 +567,11 @@ async function init() {
 }
 init();
 
-// Small mNAV chart: one daily low–high bar per week for the last 11 completed weeks plus the week in progress
-// (its completed sessions from data/current-week.json plus the live mNAV), with the current mNAV as a horizontal line.
-function mnavChart(cur, weeks, cw, lastAsOf) {
-  if (!weeks?.length || !isFinite(cur)) return '';
-  const done = weeks.filter((w) => w.days).map((w) => ({ ...w, live: false }));
-  const pts = cw?.as_of === lastAsOf ? (cw.points || []).map((p) => p.mnav) : [];
-  const now = { from: cw?.as_of === lastAsOf ? cw.from : null, low: Math.min(cur, ...pts), high: Math.max(cur, ...pts), days: pts.length, live: true };
-  const bars = [...done.slice(-11), now];
-  let lo = Math.min(cur, ...bars.map((b) => b.low)), hi = Math.max(cur, ...bars.map((b) => b.high));
-  const span = hi - lo || 0.05, step = [0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.5].find((x) => span / x <= 4) || 1;
-  lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step; if (hi - lo < step) hi = lo + step;
-  const L = 24, R = 3, T = 5, B = 15, W = 170, H = 128, pw = W - L - R, ph = H - T - B;
-  const y = (v) => T + ((hi - v) / (hi - lo)) * ph, slot = pw / bars.length, bw = Math.max(slot * 0.62, 4);
-  const md = (d) => { const [, m, dd] = d.split('-'); return `${+m}/${+dd}`; };
-  let g = '';
-  for (let v = lo; v <= hi + step / 2; v += step) {
-    const yy = y(v).toFixed(1);
-    g += `<line x1="${L}" y1="${yy}" x2="${W - R}" y2="${yy}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
-    g += `<text x="${L - 4}" y="${(+yy + 3.5).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--mut)">${v.toFixed(step < 0.1 ? 2 : 1)}</text>`;
-  }
-  bars.forEach((b, i) => {
-    const x = L + i * slot + (slot - bw) / 2, top = y(b.high), h = Math.max(y(b.low) - top, 2);
-    const tip = b.live ? `This week${b.from ? ' (from ' + md(b.from) + ')' : ''}: ${b.low.toFixed(3)}–${b.high.toFixed(3)}× incl. live` : `Week ending ${md(b.as_of)}: ${b.low.toFixed(3)}–${b.high.toFixed(3)}×`;
-    g += `<rect x="${x.toFixed(1)}" y="${top.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="1.5" fill="${b.live ? 'var(--acc)' : 'var(--eth)'}"><title>${tip}</title></rect>`;
-    if (i % 4 === 3 || i === 0) g += `<text x="${(L + i * slot + slot / 2).toFixed(1)}" y="${H - 4}" text-anchor="middle" font-size="9.5" fill="var(--mut)">${b.live ? 'now' : md(b.as_of)}</text>`;
-  });
-  const cy = y(cur).toFixed(1);
-  const axes = `<line x1="${L}" y1="${T}" x2="${L}" y2="${T + ph}" stroke="var(--mut)" stroke-width="1"/><line x1="${L}" y1="${T + ph}" x2="${W - R}" y2="${T + ph}" stroke="var(--mut)" stroke-width="1"/>`;
-  const aria = `Weekly mNAV low–high for the last ${bars.length} weeks, current ${cur.toFixed(3)}`;
-  return `<svg class="mn-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${aria}">${g}${axes}<line x1="${L}" y1="${cy}" x2="${W - R}" y2="${cy}" stroke="var(--txt)" stroke-width="2" stroke-linecap="round"><title>Current mNAV ${cur.toFixed(3)}×</title></line></svg>`;
+// Live current-mNAV reference line on the "mNAV over time" chart (dataset 3), updated on every price refresh.
+function setLiveMnavLine() {
+  const c = S.chartM; if (!c || !isFinite(S.liveMnav)) return;
+  const d = c.data.datasets[3]; if (!d) return;
+  d.data = c.data.labels.map(() => S.liveMnav);
+  d.label = `Current mNAV (live) ${S.liveMnav.toFixed(3)}×`;
+  c.update('none');
 }
