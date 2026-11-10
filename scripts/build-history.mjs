@@ -4,11 +4,13 @@
 //   data/checkpoints.json – official share counts + ATM disclosures from 10-Qs
 // using the share-estimation method in scripts/model.mjs (documented in README "Share-count reconstruction").
 // Market data per week (avg ETH, BMNR closes, BTC) is fetched once and frozen in data/weekly-prices.json.
+// Daily BMNR/ORBS closes and ETH/BTC at 4:00 PM ET (data/daily-prices.json) feed the frozen hero mNAV ranges.
 //
 // Usage: node scripts/build-history.mjs [--refetch] [--dry]
 import { readFile, writeFile } from 'node:fs/promises';
 import { computeNav } from '../assets/calc.js';
 import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts, weekAverageRate } from './model.mjs';
+import { computeDailyMnavRanges, refreshDailyPrices, neededTradingDays } from './daily-mnav.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
 const P = (f) => new URL(`../data/${f}`, import.meta.url);
@@ -482,10 +484,18 @@ const bt = {
   out_of_sample: outOfSample,
   intervals: backtest, diagnostics, official_cash_flows: C.cash_flow_official,
 };
+const dailyCache = await load('daily-prices.json', { days: {} });
+const needDays = neededTradingDays(out, cache, 4);
+const dailyPx = await refreshDailyPrices(dailyCache, { neededDays: needDays, refetch: process.argv.includes('--refetch') });
+const mnav_daily_ranges = computeDailyMnavRanges({ snapshots: out, dailyPrices: dailyPx.days || {}, orbsShares: H.orbs.shares });
+if (!mnav_daily_ranges?.past_week?.days) console.warn('WARNING: daily mNAV past-week range is empty — check data/daily-prices.json');
+console.log('mnav daily ranges', JSON.stringify(mnav_daily_ranges));
+
 const hist = {
   description: 'Weekly reconstruction from every official Bitmine release since Nov 30, 2025. Share counts are official at 10-Q checkpoints (checkpoints.json) and estimated between them by rolling the current model forward from the latest checkpoint. est_* / assumed_* fields are estimates; see README "Share-count reconstruction".',
   method: { model: MODELS.v3, eth_price: bt.eth_price, checkpoints: cps.map(({ date, shares, basis, url, use_as_anchor }) => ({ date, shares, basis, url, use_as_anchor })), buyback_aggregate: agg, buyback_price_calibration_k: r(kBuyback, 4), ...A },
   snapshots: out,
+  mnav_daily_ranges,
 };
 const f0 = (x) => (x == null ? '' : Math.round(x).toLocaleString('en-US'));
 console.log('date        eth        issued      shares        basis     NAV/sh  mNAV');
@@ -505,5 +515,6 @@ if (!process.argv.includes('--dry')) {
   await writeFile(OUTP('holdings.json'), JSON.stringify(H, null, 2) + '\n');
   await writeFile(OUTP('weekly-prices.json'), JSON.stringify(cache, null, 2) + '\n');
   await writeFile(OUTP('valuation.json'), JSON.stringify(V, null, 2) + '\n');
-  console.log('wrote history.json, backtest.json, holdings.json, weekly-prices.json');
+  await writeFile(OUTP('daily-prices.json'), JSON.stringify(dailyPx, null, 2) + '\n');
+  console.log('wrote history.json, backtest.json, holdings.json, weekly-prices.json, daily-prices.json');
 }

@@ -35,6 +35,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/backtest.json` | **Generated** out-of-sample backtest (models v1, v2, v3, v3 walk-forward + sensitivity variants) per interval, the 10-Q ETH price per quarter (`eth_price`), plus component diagnostics. |
 | `data/cesr.json` | **CESR check**: daily CESR® (Composite Ether Staking Rate: mean annualized yield of all eligible Ethereum validators, consensus rewards + priority fees; administered by Quatrefoil Data Services, calculated by CoinDesk Indices) since Nov 1, 2025, from the public file behind quatrefoildata.com's chart (`https://cdn.quatrefoildata.com/cesr/data.json`, no key), with fetch time. Written by `scripts/fetch-cesr.mjs`; the build averages it over each release window. |
 | `data/weekly-prices.json` | Frozen market data per week (avg ETH, BTC close, BMNR avg/min/max/close) so past weeks don't drift. |
+| `data/daily-prices.json` | Frozen daily BMNR and ORBS regular-session closes plus ETH and BTC at 4:00 PM ET, used for the hero card's past-week and past-4-week mNAV ranges. Written by `scripts/build-history.mjs`. |
 | `data/history.json` | **Generated** week-by-week reconstruction (shares, flows, NAV set, mNAV, weekly `accretion`). Don't edit by hand. |
 | `data/holdings.json` | Latest balance sheet (generated fields) + assumptions (`assumptions.share_estimation` = model v3 parameters with sources; ORBS share count). |
 | `data/valuation.json` | **Bear / Base / Bull valuation inputs**, each with sources and a rationale; `derived` (staked share, trailing 4/13/26-week yields, staked-ETH trajectory) is refreshed by the weekly build. |
@@ -43,7 +44,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 | `data/onchain-wallets.json` / `data/onchain-check.json` | Bitmine-attributed wallets (with evidence) and the weekly wallet-based ETH-price cross-check written by `scripts/onchain-check.mjs`. |
 | `data/onchain-purchases.json` | Bitmine-linked on-chain ETH receipts posted by trackers (Lookonchain etc.) — cross-check only, see below. |
 | `test/`, `package.json` | `npm test`: unit tests for `calc.js` / `model.mjs`, build and reconciliation checks (see Tests). |
-| `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check), `backtest.json`, `holdings.json` and `valuation.json → derived` from `releases.json` + `checkpoints.json`. |
+| `scripts/build-history.mjs` | Rebuilds `history.json` (incl. the weekly accretion check and frozen daily mNAV ranges), `backtest.json`, `holdings.json`, `valuation.json → derived` and `daily-prices.json` from `releases.json` + `checkpoints.json`. |
 | `scripts/add-week.mjs` | Appends one release to `releases.json` and runs the build. |
 | `scripts/fetch-prices.mjs` | Price fetcher used by the Action (backup feed). |
 | `.github/workflows/prices.yml` | Cron every 15 min 13:00–21:59 UTC Mon–Fri (+ hourly pre/after-hours) and manual dispatch; commits only when prices changed. |
@@ -82,7 +83,8 @@ The share-count model is **backtested out-of-sample** against every official cou
 * EV ÷ NAV ex cash = (market cap + preferred + debt − cash) ÷ (Full NAV − cash); no per-share figure
 * NAV/share, fully diluted (TSM, sensitivity) = NAV net of preferred ÷ (shares + Σ count × (1 − strike ÷ BMNR price) over in-the-money warrants/options in `holdings.json → dilutive`)
 * NAV/share = NAV ÷ estimated shares outstanding; mNAV = BMNR price ÷ NAV/share
-* NAV/share range (NAV & mNAV card) = live NAV net of preferred ÷ share-count high/low estimate; mNAV range = live BMNR ÷ those. The NAV/share chart shades the same weekly range.
+* NAV/share range (NAV & mNAV card) = live NAV net of preferred ÷ share-count high/low estimate; the live mNAV share-count range is shown on the same card (not on the hero mNAV figure). The NAV/share chart shades the same weekly range.
+* Past-week and past-4-week mNAV ranges (hero card) = lowest and highest daily mNAV on US trading days in the last completed snapshot week (previous as-of + 1 through the latest as-of) and in the last four snapshot weeks. Daily mNAV = that day's BMNR regular-session close ÷ net NAV/share, using that day's ETH, BTC and ORBS prices on the holdings and point-estimate shares from the snapshot whose as-of week contains that day, net of the $350M BMNP preferred. ETH and BTC are the Yahoo Finance hourly close at 4:00 PM America/New_York (the 3:00–4:00 PM ET bar); BMNR and ORBS are Yahoo regular-session daily closes (`data/daily-prices.json`). These ranges are frozen in `history.json → mnav_daily_ranges` by the weekly build and do not change with live prices.
 
 **BMNP preferred** ([Certificate of Designations, 8-K Jun 10, 2026, Ex. 3.1](https://www.sec.gov/Archives/edgar/data/1829311/000149315226028140/ex3-1.htm)):
 9.50% Series A Perpetual Preferred, 3,500,000 shares sold at $80 (net $273.8M). The liquidation preference is the $100
@@ -324,7 +326,7 @@ Mar–May 2026 54,461. They are documented reconciling items, not added to the w
 against the frozen Oct 25, 2026 week (`test/fixtures/oct25.json`: net NAV/share, mNAV and ranges, EV ÷ NAV ex cash,
 TSM shares, SOTP under both preferred treatments), unit-tests `scripts/model.mjs`, rebuilds into a temp directory and
 checks the Oct 25 share count and range, the v3 backtest summary, the held-out freeze, that the committed
-`history.json`/`backtest.json` match the build, and that each anchor reconciliation's residual and its explanation sum to zero.
+`history.json`/`backtest.json` match the build, the daily-mNAV range helper, and that each anchor reconciliation's residual and its explanation sum to zero.
 
 ## Weekly update procedure (Mondays, after Bitmine posts)
 
@@ -367,7 +369,7 @@ checks the Oct 25 share count and range, the v3 backtest summary, the held-out f
    assets; year-to-date figures minus the previous filing) and, if cash paid ≠ cost of digital assets added, a
    `cash_timing_items` entry. Weeks in that quarter switch from "assumed" to "disclosed" and the pooled factor updates.
 4. Check the printed table and the "This week" card: ETH price paid + basis, cash shortfall (spending − cash drop),
-   surplus carried from prior weeks (max 3 weeks / $5M), funded by share sales, shares issued (low–high est.). The build also refreshes `valuation.json → derived` and each week's accretion. Then
+   surplus carried from prior weeks (max 3 weeks / $5M), funded by share sales, shares issued (low–high est.). The build also refreshes `valuation.json → derived`, each week's accretion, and the frozen past-week / past-4-week daily mNAV ranges (`data/daily-prices.json`, `history.json → mnav_daily_ranges`). Then
    `npm test`, then `git add data && git commit -m "week of <date>" && git push`. Pages redeploys in ~1 min.
    Review `data/valuation.json` inputs when a new 10-Q/10-K is filed (opex run-rate, MAVAN revenue, preferred dividends).
 
