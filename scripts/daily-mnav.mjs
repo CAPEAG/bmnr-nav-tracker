@@ -106,6 +106,19 @@ export function computeDailyMnavRanges({ snapshots, dailyPrices, orbsShares, wee
   return out;
 }
 
+
+/** One low–high entry per completed snapshot week (oldest first), from daily point-estimate mNAV. */
+export function weeklyMnavRanges({ snapshots, dailyPrices, orbsShares, weeks = 11 }) {
+  return completedWeekWindows(snapshots, weeks).map((w) => ({ as_of: w.as_of, ...summarize(w.from, w.to, pointsInWindow(snapshots, dailyPrices, orbsShares, w.from, w.to)) }));
+}
+
+/** Daily mNAV points for days after the latest snapshot's as-of (the week in progress), on the latest holdings. */
+export function currentWeekPoints({ snapshots, dailyPrices, orbsShares }) {
+  const last = snapshots.at(-1), from = iso(Date.parse(last.as_of + 'T00:00:00Z') + DAY);
+  const pts = pointsInWindow(snapshots, dailyPrices, orbsShares, from, '9999-12-31');
+  return { as_of: last.as_of, from, points: pts.map((p) => ({ date: p.date, mnav: r(p.mnav, 4) })), ...(({ low, high, low_date, high_date, days }) => ({ low, high, low_date, high_date, days }))(summarize(from, null, pts)) };
+}
+
 // ---------- Yahoo fetch (build step) ----------
 async function getJSON(url) {
   let lastErr;
@@ -122,7 +135,7 @@ async function getJSON(url) {
   throw lastErr;
 }
 
-async function yahooDaily(symbol, period1, period2) {
+export async function yahooDaily(symbol, period1, period2) {
   const j = await getJSON(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&period1=${period1}&period2=${period2}`);
   const res = j?.chart?.result?.[0];
   if (!res) throw new Error(`no Yahoo daily result for ${symbol}`);
@@ -136,7 +149,7 @@ async function yahooDaily(symbol, period1, period2) {
 }
 
 /** Hourly close of the bar that ends at `endHour` ET (16 → 3:00–4:00 PM ET). */
-async function yahooAtEtHour(symbol, period1, period2, endHour = 16) {
+export async function yahooAtEtHour(symbol, period1, period2, endHour = 16) {
   const j = await getJSON(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1h&period1=${period1}&period2=${period2}`);
   const res = j?.chart?.result?.[0];
   if (!res) throw new Error(`no Yahoo hourly result for ${symbol}`);

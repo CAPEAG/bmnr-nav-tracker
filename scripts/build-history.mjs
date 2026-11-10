@@ -10,7 +10,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { computeNav } from '../assets/calc.js';
 import { weekFlows, rollForward, weekIndexOf, fracOnOrBefore, ts, weekAverageRate } from './model.mjs';
-import { computeDailyMnavRanges, refreshDailyPrices, neededTradingDays } from './daily-mnav.mjs';
+import { weeklyMnavRanges, computeDailyMnavRanges, refreshDailyPrices, neededTradingDays } from './daily-mnav.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36';
 const P = (f) => new URL(`../data/${f}`, import.meta.url);
@@ -490,12 +490,14 @@ const dailyPx = await refreshDailyPrices(dailyCache, { neededDays: needDays, ref
 const mnav_daily_ranges = computeDailyMnavRanges({ snapshots: out, dailyPrices: dailyPx.days || {}, orbsShares: H.orbs.shares, weeks: 12 });
 if (!mnav_daily_ranges?.past_week?.days) console.warn('WARNING: daily mNAV past-week range is empty — check data/daily-prices.json');
 console.log('mnav daily ranges', JSON.stringify(mnav_daily_ranges));
+const mnav_weekly_ranges = weeklyMnavRanges({ snapshots: out, dailyPrices: dailyPx.days || {}, orbsShares: H.orbs.shares, weeks: 11 });
 
 const hist = {
   description: 'Weekly reconstruction from every official Bitmine release since Nov 30, 2025. Share counts are official at 10-Q checkpoints (checkpoints.json) and estimated between them by rolling the current model forward from the latest checkpoint. est_* / assumed_* fields are estimates; see README "Share-count reconstruction".',
   method: { model: MODELS.v3, eth_price: bt.eth_price, checkpoints: cps.map(({ date, shares, basis, url, use_as_anchor }) => ({ date, shares, basis, url, use_as_anchor })), buyback_aggregate: agg, buyback_price_calibration_k: r(kBuyback, 4), ...A },
   snapshots: out,
   mnav_daily_ranges,
+  mnav_weekly_ranges,
 };
 const f0 = (x) => (x == null ? '' : Math.round(x).toLocaleString('en-US'));
 console.log('date        eth        issued      shares        basis     NAV/sh  mNAV');

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { computeNav } from '../assets/calc.js';
 import {
   snapshotForDay, holdingsFromSnapshot, dayMnav, completedWeekWindows,
-  computeDailyMnavRanges, neededTradingDays,
+  computeDailyMnavRanges, neededTradingDays, weeklyMnavRanges, currentWeekPoints,
 } from '../scripts/daily-mnav.mjs';
 
 const snap = (as_of, eth, shares, extra = {}) => ({
@@ -116,4 +116,26 @@ test('neededTradingDays reads each week window from weekly-prices trading days',
     '2026-01-19', '2026-01-20', '2026-01-26', '2026-01-27',
   ]);
   assert.deepEqual(neededTradingDays(snaps, weekly, 1), ['2026-01-26', '2026-01-27']);
+});
+
+test('weeklyMnavRanges: one low–high per completed week; currentWeekPoints: days after the last as-of on latest holdings', () => {
+  const dp = {
+    '2026-01-27': { BMNR: 1.0, ETH: 2000, BTC: 70_000, ORBS: 0 },
+    '2026-01-29': { BMNR: 1.2, ETH: 2000, BTC: 70_000, ORBS: 0 },
+    '2026-02-02': { BMNR: 1.1, ETH: 2000, BTC: 70_000, ORBS: 0 },
+    '2026-02-03': { BMNR: 0.9, ETH: 2000, BTC: 70_000, ORBS: 0 },
+  };
+  const w = weeklyMnavRanges({ snapshots: snaps, dailyPrices: dp, orbsShares: 0, weeks: 2 });
+  assert.deepEqual(w.map((x) => x.as_of), ['2026-01-25', '2026-02-01']);
+  assert.equal(w[0].days, 0);
+  assert.equal(w[1].days, 2);
+  const h = holdingsFromSnapshot(snaps[4], 0);
+  const m = (b) => dayMnav(h, { ETH: 2000, BTC: 70_000, BMNR: b, ORBS: 0 }).mnav;
+  assert.ok(Math.abs(w[1].low - m(1.0)) < 0.0006 && Math.abs(w[1].high - m(1.2)) < 0.0006);
+  const cw = currentWeekPoints({ snapshots: snaps, dailyPrices: dp, orbsShares: 0 });
+  assert.equal(cw.as_of, '2026-02-01');
+  assert.equal(cw.from, '2026-02-02');
+  assert.deepEqual(cw.points.map((p) => p.date), ['2026-02-02', '2026-02-03']);
+  assert.equal(cw.low_date, '2026-02-03');
+  assert.equal(cw.high_date, '2026-02-02');
 });

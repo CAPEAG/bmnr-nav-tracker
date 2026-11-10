@@ -144,6 +144,5 @@ table.val-t{table-layout:fixed;width:100%}
 .shareline b{color:var(--txt,#e6ecf7);font-weight:600}
 .sens-t{max-width:640px}
 .sens-t td,.sens-t th{white-space:normal}
-.mn-wrap{display:flex;justify-content:space-between;align-items:center;gap:12px}.mn-gauge{flex:none;overflow:visible}
-.sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
-.nw{white-space:nowrap}.mn-wrap{gap:8px}
+.nw{white-space:nowrap}
+.mn-chart{display:block;width:100%;max-width:420px;height:auto;margin-top:8px}

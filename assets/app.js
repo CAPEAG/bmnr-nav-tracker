@@ -60,6 +60,9 @@ async function loadPrices() {
   if (!ok.length) return;
   ok.sort((a, b) => Date.parse(b.fetched_at || 0) - Date.parse(a.fetched_at || 0));
   S.prices = ok[0];
+  const cw = (await Promise.allSettled([getJSON('data/current-week.json'), getJSON(REPO_RAW.replace('prices.json', 'current-week.json'))]))
+    .filter((g) => g.status === 'fulfilled').map((g) => g.value).sort((a, b) => Date.parse(b.updated || 0) - Date.parse(a.updated || 0));
+  if (cw.length) S.currentWeek = cw[0];
 }
 async function loadCrypto() {
   try {
@@ -196,12 +199,12 @@ function render() {
   const psLo = srH ? full.value / srH[1] : null, psHi = srH ? full.value / srH[0] : null;
   const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
   const rng = S.history.mnav_daily_ranges;
-  const rngLine = (label, x, c) => x?.days ? `<br><span class="nw"><i class="sw" style="background:${c}"></i>${label} ${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
-  const histM = rng ? `${rngLine('Previous week range', rng.past_week, 'var(--acc)')}${rngLine('Last 4 weeks range', rng.past_4_weeks, 'var(--eth)')}${rngLine('Last 12 weeks range', rng.past_12_weeks, 'var(--good)')}` : '';
-  const gauge = mnavGauge(full.mnav, [[rng?.past_12_weeks, 'var(--good)', 'last 12 weeks'], [rng?.past_4_weeks, 'var(--eth)', 'last 4 weeks'], [rng?.past_week, 'var(--acc)', 'previous week']]);
+  const rngLine = (label, x) => x?.days ? `<br><span class="nw">${label} ${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
+  const histM = rng ? `${rngLine('Previous week range', rng.past_week)}${rngLine('Last 4 weeks range', rng.past_4_weeks)}${rngLine('Last 12 weeks range', rng.past_12_weeks)}` : '';
+  const gauge = mnavChart(full.mnav, S.history.mnav_weekly_ranges, S.currentWeek, S.history.snapshots.at(-1)?.as_of);
   $('hero').innerHTML = `
-    <div class="kpi main"><div class="mn-wrap"><div><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
-      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div></div>${gauge}</div></div>
+    <div class="kpi main"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
+      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div>${gauge}</div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
@@ -565,18 +568,34 @@ async function init() {
 }
 init();
 
-// Vertical mNAV gauge: daily low–high bars (12-week, 4-week, previous week, left to right) with the current mNAV as a horizontal line
-function mnavGauge(cur, bars) {
-  const bs = bars.filter(([r]) => r?.days);
-  if (!bs.length || !isFinite(cur)) return '';
-  let lo = Math.min(cur, ...bs.map(([r]) => r.low)), hi = Math.max(cur, ...bs.map(([r]) => r.high));
-  const pad = Math.max((hi - lo) * 0.06, 0.003); lo -= pad; hi += pad;
-  const T = 15, H = 100, BW = 34, GAP = 6, W = bs.length * BW + (bs.length - 1) * GAP + 8, y = (v) => T + ((hi - v) / (hi - lo)) * H;
-  const lbl = (x, yy, v) => `<text x="${x + BW / 2}" y="${yy.toFixed(1)}" text-anchor="middle" font-size="10.5" fill="var(--txt)" stroke="var(--panel)" stroke-width="3" paint-order="stroke" style="font-variant-numeric:tabular-nums">${v.toFixed(3)}</text>`;
-  const xs = bs.map((_, i) => 4 + i * (BW + GAP)), cy = y(cur).toFixed(1);
-  const rects = bs.map(([r, c], i) => `<rect x="${xs[i]}" y="${y(r.high).toFixed(1)}" width="${BW}" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>`).join('');
-  const lbls = bs.map(([r], i) => lbl(xs[i], y(r.high) - 4, r.high) + lbl(xs[i], y(r.low) + 12, r.low)).join('');
-  const aria = `Current mNAV ${cur.toFixed(3)}; ` + bs.map(([r, , n]) => `${n} ${r.low.toFixed(3)} to ${r.high.toFixed(3)}`).join('; ');
-  return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H + T * 2}" width="${W}" height="${H + T * 2}" role="img" aria-label="${aria}">
-    ${rects}<line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/>${lbls}</svg>`;
+// Small mNAV chart: one daily low–high bar per week for the last 11 completed weeks plus the week in progress
+// (its completed sessions from data/current-week.json plus the live mNAV), with the current mNAV as a horizontal line.
+function mnavChart(cur, weeks, cw, lastAsOf) {
+  if (!weeks?.length || !isFinite(cur)) return '';
+  const done = weeks.filter((w) => w.days).map((w) => ({ ...w, live: false }));
+  const pts = cw?.as_of === lastAsOf ? (cw.points || []).map((p) => p.mnav) : [];
+  const now = { from: cw?.as_of === lastAsOf ? cw.from : null, low: Math.min(cur, ...pts), high: Math.max(cur, ...pts), days: pts.length, live: true };
+  const bars = [...done.slice(-11), now];
+  let lo = Math.min(cur, ...bars.map((b) => b.low)), hi = Math.max(cur, ...bars.map((b) => b.high));
+  const span = hi - lo || 0.05, step = [0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.5].find((x) => span / x <= 4) || 1;
+  lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step; if (hi - lo < step) hi = lo + step;
+  const L = 30, R = 4, T = 6, B = 16, W = 300, H = 112, pw = W - L - R, ph = H - T - B;
+  const y = (v) => T + ((hi - v) / (hi - lo)) * ph, slot = pw / bars.length, bw = Math.max(slot * 0.62, 4);
+  const md = (d) => { const [, m, dd] = d.split('-'); return `${+m}/${+dd}`; };
+  let g = '';
+  for (let v = lo; v <= hi + step / 2; v += step) {
+    const yy = y(v).toFixed(1);
+    g += `<line x1="${L}" y1="${yy}" x2="${W - R}" y2="${yy}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
+    g += `<text x="${L - 4}" y="${(+yy + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" fill="var(--mut)">${v.toFixed(step < 0.1 ? 2 : 1)}</text>`;
+  }
+  bars.forEach((b, i) => {
+    const x = L + i * slot + (slot - bw) / 2, top = y(b.high), h = Math.max(y(b.low) - top, 2);
+    const tip = b.live ? `This week${b.from ? ' (from ' + md(b.from) + ')' : ''}: ${b.low.toFixed(3)}–${b.high.toFixed(3)}× incl. live` : `Week ending ${md(b.as_of)}: ${b.low.toFixed(3)}–${b.high.toFixed(3)}×`;
+    g += `<rect x="${x.toFixed(1)}" y="${top.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="1.5" fill="${b.live ? 'var(--acc)' : 'var(--eth)'}"><title>${tip}</title></rect>`;
+    if (i % 4 === 3 || i === 0) g += `<text x="${(L + i * slot + slot / 2).toFixed(1)}" y="${H - 4}" text-anchor="middle" font-size="9.5" fill="var(--mut)">${b.live ? 'now' : md(b.as_of)}</text>`;
+  });
+  const cy = y(cur).toFixed(1);
+  const axes = `<line x1="${L}" y1="${T}" x2="${L}" y2="${T + ph}" stroke="var(--mut)" stroke-width="1"/><line x1="${L}" y1="${T + ph}" x2="${W - R}" y2="${T + ph}" stroke="var(--mut)" stroke-width="1"/>`;
+  const aria = `Weekly mNAV low–high for the last ${bars.length} weeks, current ${cur.toFixed(3)}`;
+  return `<svg class="mn-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${aria}">${g}${axes}<line x1="${L}" y1="${cy}" x2="${W - R}" y2="${cy}" stroke="var(--txt)" stroke-width="2" stroke-linecap="round"><title>Current mNAV ${cur.toFixed(3)}×</title></line></svg>`;
 }
