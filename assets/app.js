@@ -196,11 +196,12 @@ function render() {
   const psLo = srH ? full.value / srH[1] : null, psHi = srH ? full.value / srH[0] : null;
   const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
   const rng = S.history.mnav_daily_ranges;
-  const rngLine = (label, x) => x?.days ? `<br>${label} ${x.low.toFixed(3)}–${x.high.toFixed(3)}×` : '';
-  const histM = rng ? `${rngLine('Previous week range', rng.past_week)}${rngLine('Last 4 weeks range', rng.past_4_weeks)}` : '';
+  const rngLine = (label, x, c) => x?.days ? `<br><span class="nw"><i class="sw" style="background:${c}"></i>${label} ${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
+  const histM = rng ? `${rngLine('Previous week range', rng.past_week, 'var(--acc)')}${rngLine('Last 4 weeks range', rng.past_4_weeks, 'var(--eth)')}` : '';
+  const gauge = mnavGauge(full.mnav, rng?.past_week, rng?.past_4_weeks);
   $('hero').innerHTML = `
-    <div class="kpi main"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
-      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div></div>
+    <div class="kpi main"><div class="mn-wrap"><div><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
+      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div></div>${gauge}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
@@ -563,3 +564,17 @@ async function init() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - last >= REFRESH_MS) refresh(); });
 }
 init();
+
+// Vertical mNAV gauge: previous-week and last-4-week daily ranges as bars, current mNAV as a horizontal line (no text inside)
+function mnavGauge(cur, w, m) {
+  const rs = [w, m].filter((x) => x?.days);
+  if (!rs.length || !isFinite(cur)) return '';
+  let lo = Math.min(cur, ...rs.map((x) => x.low)), hi = Math.max(cur, ...rs.map((x) => x.high));
+  const pad = Math.max((hi - lo) * 0.12, 0.005); lo -= pad; hi += pad;
+  const H = 110, W = 60, y = (v) => ((hi - v) / (hi - lo)) * H;
+  const bar = (x, r, c) => r?.days ? `<rect x="${x}" y="${y(r.high).toFixed(1)}" width="18" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>` : '';
+  const cy = y(cur).toFixed(1);
+  return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Current mNAV ${cur.toFixed(3)} against previous week range ${w?.days ? w.low.toFixed(3) + ' to ' + w.high.toFixed(3) : 'n/a'} and last 4 weeks range ${m?.days ? m.low.toFixed(3) + ' to ' + m.high.toFixed(3) : 'n/a'}">
+    ${bar(8, w, 'var(--acc)')}${bar(34, m, 'var(--eth)')}
+    <line x1="4" y1="${cy}" x2="${W - 4}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+}
