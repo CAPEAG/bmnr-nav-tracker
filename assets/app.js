@@ -570,11 +570,14 @@ function mnavGauge(cur, w, m) {
   const rs = [w, m].filter((x) => x?.days);
   if (!rs.length || !isFinite(cur)) return '';
   let lo = Math.min(cur, ...rs.map((x) => x.low)), hi = Math.max(cur, ...rs.map((x) => x.high));
-  const pad = Math.max((hi - lo) * 0.12, 0.005); lo -= pad; hi += pad;
-  const H = 110, W = 60, y = (v) => ((hi - v) / (hi - lo)) * H;
-  const bar = (x, r, c) => r?.days ? `<rect x="${x}" y="${y(r.high).toFixed(1)}" width="18" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>` : '';
-  const cy = y(cur).toFixed(1);
-  return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Current mNAV ${cur.toFixed(3)} against previous week range ${w?.days ? w.low.toFixed(3) + ' to ' + w.high.toFixed(3) : 'n/a'} and last 4 weeks range ${m?.days ? m.low.toFixed(3) + ' to ' + m.high.toFixed(3) : 'n/a'}">
-    ${bar(8, m, 'var(--eth)')}${bar(34, w, 'var(--acc)')}
-    <line x1="4" y1="${cy}" x2="${W - 4}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+  const pad = Math.max((hi - lo) * 0.06, 0.003); lo -= pad; hi += pad;
+  const T = 15, H = 100, BW = 34, GAP = 8, W = BW * 2 + GAP + 8, y = (v) => T + ((hi - v) / (hi - lo)) * H;
+  const lbl = (x, yy, v) => `<text x="${x + BW / 2}" y="${yy.toFixed(1)}" text-anchor="middle" font-size="10.5" fill="var(--txt)" stroke="var(--panel)" stroke-width="3" paint-order="stroke" style="font-variant-numeric:tabular-nums">${v.toFixed(3)}</text>`;
+  const bar = (x, r, c) => r?.days ? `<rect x="${x}" y="${y(r.high).toFixed(1)}" width="${BW}" height="${Math.max(y(r.low) - y(r.high), 2).toFixed(1)}" rx="4" fill="${c}"/>` : '';
+  const lbls = (x, r) => r?.days ? lbl(x, y(r.high) - 4, r.high) + lbl(x, y(r.low) + 12, r.low) : '';
+  const x1 = 4, x2 = 4 + BW + GAP, cy = y(cur).toFixed(1);
+  return `<svg class="mn-gauge" viewBox="0 0 ${W} ${H + T * 2}" width="${W}" height="${H + T * 2}" role="img" aria-label="Current mNAV ${cur.toFixed(3)} against last 4 weeks range ${m?.days ? m.low.toFixed(3) + ' to ' + m.high.toFixed(3) : 'n/a'} and previous week range ${w?.days ? w.low.toFixed(3) + ' to ' + w.high.toFixed(3) : 'n/a'}">
+    ${bar(x1, m, 'var(--eth)')}${bar(x2, w, 'var(--acc)')}
+    <line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="var(--txt)" stroke-width="2.5" stroke-linecap="round"/>
+    ${lbls(x1, m)}${lbls(x2, w)}</svg>`;
 }
