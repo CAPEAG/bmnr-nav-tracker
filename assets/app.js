@@ -199,12 +199,12 @@ function render() {
   const psLo = srH ? full.value / srH[1] : null, psHi = srH ? full.value / srH[0] : null;
   const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
   const rng = S.history.mnav_daily_ranges;
-  const rngLine = (label, x) => x?.days ? `<br><span class="nw">${label} ${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
-  const histM = rng ? `${rngLine('Previous week range', rng.past_week)}${rngLine('Last 4 weeks range', rng.past_4_weeks)}${rngLine('Last 12 weeks range', rng.past_12_weeks)}` : '';
+  const rngLine = (label, x) => x?.days ? `<br>${label} <span class="nw">${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
+  const histM = rng ? rngLine('Previous week range', rng.past_week) : '';
   const gauge = mnavChart(full.mnav, S.history.mnav_weekly_ranges, S.currentWeek, S.history.snapshots.at(-1)?.as_of);
   $('hero').innerHTML = `
-    <div class="kpi main"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
-      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div>${gauge}</div>
+    <div class="kpi main"><div class="mn-wrap"><div class="mn-txt"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
+      <div class="s">${full.mnav < 1 ? 'Trading at a ' + ((1 - full.mnav) * 100).toFixed(1) + '% discount to NAV' : 'Trading at a ' + ((full.mnav - 1) * 100).toFixed(1) + '% premium to NAV'}${histM}</div></div>${gauge}</div></div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
@@ -579,14 +579,14 @@ function mnavChart(cur, weeks, cw, lastAsOf) {
   let lo = Math.min(cur, ...bars.map((b) => b.low)), hi = Math.max(cur, ...bars.map((b) => b.high));
   const span = hi - lo || 0.05, step = [0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.5].find((x) => span / x <= 4) || 1;
   lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step; if (hi - lo < step) hi = lo + step;
-  const L = 30, R = 4, T = 6, B = 16, W = 300, H = 112, pw = W - L - R, ph = H - T - B;
+  const L = 24, R = 3, T = 5, B = 15, W = 170, H = 128, pw = W - L - R, ph = H - T - B;
   const y = (v) => T + ((hi - v) / (hi - lo)) * ph, slot = pw / bars.length, bw = Math.max(slot * 0.62, 4);
   const md = (d) => { const [, m, dd] = d.split('-'); return `${+m}/${+dd}`; };
   let g = '';
   for (let v = lo; v <= hi + step / 2; v += step) {
     const yy = y(v).toFixed(1);
     g += `<line x1="${L}" y1="${yy}" x2="${W - R}" y2="${yy}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
-    g += `<text x="${L - 4}" y="${(+yy + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" fill="var(--mut)">${v.toFixed(step < 0.1 ? 2 : 1)}</text>`;
+    g += `<text x="${L - 4}" y="${(+yy + 3.5).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--mut)">${v.toFixed(step < 0.1 ? 2 : 1)}</text>`;
   }
   bars.forEach((b, i) => {
     const x = L + i * slot + (slot - bw) / 2, top = y(b.high), h = Math.max(y(b.low) - top, 2);
