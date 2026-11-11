@@ -6127,27 +6127,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 15652064070,
-        "net": 15302064070,
+        "net": 15268327070,
         "crypto": 15375078070,
         "eth": 14817692232,
         "ev": 14414200725,
         "nav_ex_cash": 15111064070
       },
-      "nav_per_share": 24.94,
+      "nav_per_share": 24.88,
       "nav_per_share_gross": 25.51,
       "nav_per_share_all": {
         "full": 25.51,
-        "net": 24.94,
+        "net": 24.88,
         "crypto": 25.05,
         "eth": 24.15
       },
-      "mnav": 0.954,
+      "mnav": 0.957,
       "mnav_gross": 0.933,
       "mnav_all": {
         "full": 0.933,
-        "net": 0.954,
+        "net": 0.957,
         "crypto": 0.95,
         "eth": 0.986,
         "ev_to_nav_ex_cash": 0.954
@@ -6169,8 +6170,8 @@
           "staking": 0.0103,
           "other": -0.0032,
           "total": 0.0113,
-          "actual_change": 0.7,
-          "market": 0.6887
+          "actual_change": 0.64,
+          "market": 0.6287
         },
         "eth_per_share": {
           "capital": -0.000152501,
@@ -6297,27 +6298,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 15690023633,
-        "net": 15340023633,
+        "net": 15306286633,
         "crypto": 15403037633,
         "eth": 14793349010,
         "ev": 15165276379,
         "nav_ex_cash": 15097023633
       },
-      "nav_per_share": 24.86,
+      "nav_per_share": 24.8,
       "nav_per_share_gross": 25.43,
       "nav_per_share_all": {
         "full": 25.43,
-        "net": 24.86,
+        "net": 24.8,
         "crypto": 24.96,
         "eth": 23.97
       },
-      "mnav": 1.004,
+      "mnav": 1.007,
       "mnav_gross": 0.982,
       "mnav_all": {
         "full": 0.982,
-        "net": 1.004,
+        "net": 1.007,
         "crypto": 1,
         "eth": 1.042,
         "ev_to_nav_ex_cash": 1.005
@@ -6330,17 +6332,17 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 24.4958,
+        "nav_per_share_before": 24.4409,
         "atm_shares": 4755649,
-        "mnav_at_issue": 1.006,
+        "mnav_at_issue": 1.008,
         "usd_per_share": {
-          "issuance": 0.0011,
+          "issuance": 0.0015,
           "buybacks": 0,
           "staking": 0.0114,
           "other": -0.0046,
-          "total": 0.0078,
+          "total": 0.0083,
           "actual_change": -0.08,
-          "market": -0.0878
+          "market": -0.0883
         },
         "eth_per_share": {
           "capital": -0.000033248,
@@ -6453,27 +6455,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 15827649542,
-        "net": 15477649542,
+        "net": 15443912542,
         "crypto": 15533663542,
         "eth": 14968377914,
         "ev": 15267062080,
         "nav_ex_cash": 15278649542
       },
-      "nav_per_share": 25.05,
+      "nav_per_share": 24.99,
       "nav_per_share_gross": 25.62,
       "nav_per_share_all": {
         "full": 25.62,
-        "net": 25.05,
+        "net": 24.99,
         "crypto": 25.14,
         "eth": 24.22
       },
-      "mnav": 0.999,
+      "mnav": 1.001,
       "mnav_gross": 0.977,
       "mnav_all": {
         "full": 0.977,
-        "net": 0.999,
+        "net": 1.001,
         "crypto": 0.996,
         "eth": 1.033,
         "ev_to_nav_ex_cash": 0.999
@@ -6486,17 +6489,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.7584,
+        "nav_per_share_before": 24.7037,
         "atm_shares": 829461,
-        "mnav_at_issue": 0.992,
+        "mnav_at_issue": 0.994,
         "usd_per_share": {
-          "issuance": -0.0003,
+          "issuance": -0.0002,
           "buybacks": 0,
           "staking": 0.0086,
           "other": -0.0034,
-          "total": 0.0049,
+          "total": 0.005,
           "actual_change": 0.19,
-          "market": 0.1851
+          "market": 0.185
         },
         "eth_per_share": {
           "capital": 0.000027568,
@@ -6609,27 +6612,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 17117024548,
-        "net": 16767024548,
+        "net": 16733287548,
         "crypto": 16816038548,
         "eth": 16084830720,
         "ev": 15940763760,
         "nav_ex_cash": 16403024548
       },
-      "nav_per_share": 26.73,
+      "nav_per_share": 26.67,
       "nav_per_share_gross": 27.28,
       "nav_per_share_all": {
         "full": 27.28,
-        "net": 26.73,
+        "net": 26.67,
         "crypto": 26.8,
         "eth": 25.64
       },
-      "mnav": 0.972,
+      "mnav": 0.974,
       "mnav_gross": 0.953,
       "mnav_all": {
         "full": 0.953,
-        "net": 0.972,
+        "net": 0.974,
         "crypto": 0.97,
         "eth": 1.014,
         "ev_to_nav_ex_cash": 0.972
@@ -6642,17 +6646,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.1475,
+        "nav_per_share_before": 25.0929,
         "atm_shares": 9446584,
-        "mnav_at_issue": 0.971,
+        "mnav_at_issue": 0.973,
         "usd_per_share": {
-          "issuance": -0.0111,
+          "issuance": -0.0103,
           "buybacks": 0,
           "staking": 0.0109,
           "other": -0.0039,
-          "total": -0.0041,
+          "total": -0.0033,
           "actual_change": 1.68,
-          "market": 1.6841
+          "market": 1.6833
         },
         "eth_per_share": {
           "capital": -0.000105371,
@@ -6773,27 +6777,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 17192486433,
-        "net": 16842486433,
+        "net": 16808749433,
         "crypto": 16881500433,
         "eth": 16191512796,
         "ev": 16968369426,
         "nav_ex_cash": 16520486433
       },
-      "nav_per_share": 26.85,
+      "nav_per_share": 26.79,
       "nav_per_share_gross": 27.4,
       "nav_per_share_all": {
         "full": 27.4,
-        "net": 26.85,
+        "net": 26.79,
         "crypto": 26.91,
         "eth": 25.81
       },
-      "mnav": 1.027,
+      "mnav": 1.029,
       "mnav_gross": 1.006,
       "mnav_all": {
         "full": 1.006,
-        "net": 1.027,
+        "net": 1.029,
         "crypto": 1.024,
         "eth": 1.068,
         "ev_to_nav_ex_cash": 1.027
@@ -6805,9 +6810,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 26.9412,
+        "nav_per_share_before": 26.8874,
         "atm_shares": 24309,
-        "mnav_at_issue": 1.04,
+        "mnav_at_issue": 1.042,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -6928,27 +6933,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 17375239424,
-        "net": 17025239424,
+        "net": 16991502424,
         "crypto": 17062253424,
         "eth": 16400744564,
         "ev": 16195358617,
         "nav_ex_cash": 16732239424
       },
-      "nav_per_share": 27.13,
+      "nav_per_share": 27.07,
       "nav_per_share_gross": 27.68,
       "nav_per_share_all": {
         "full": 27.68,
-        "net": 27.13,
+        "net": 27.07,
         "crypto": 27.18,
         "eth": 26.13
       },
-      "mnav": 0.968,
+      "mnav": 0.97,
       "mnav_gross": 0.949,
       "mnav_all": {
         "full": 0.949,
-        "net": 0.968,
+        "net": 0.97,
         "crypto": 0.966,
         "eth": 1.005,
         "ev_to_nav_ex_cash": 0.968
@@ -6960,9 +6966,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 26.7779,
+        "nav_per_share_before": 26.7241,
         "atm_shares": 275361,
-        "mnav_at_issue": 0.993,
+        "mnav_at_issue": 0.995,
         "usd_per_share": {
           "issuance": -0.0001,
           "buybacks": 0,
@@ -7091,27 +7097,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 16248534498,
-        "net": 15898534498,
+        "net": 15864797498,
         "crypto": 15967548498,
         "eth": 15337638624,
         "ev": 14820423204,
         "nav_ex_cash": 15636534498
       },
-      "nav_per_share": 25.33,
+      "nav_per_share": 25.28,
       "nav_per_share_gross": 25.89,
       "nav_per_share_all": {
         "full": 25.89,
-        "net": 25.33,
+        "net": 25.28,
         "crypto": 25.44,
         "eth": 24.44
       },
-      "mnav": 0.949,
+      "mnav": 0.951,
       "mnav_gross": 0.928,
       "mnav_all": {
         "full": 0.928,
-        "net": 0.949,
+        "net": 0.951,
         "crypto": 0.945,
         "eth": 0.983,
         "ev_to_nav_ex_cash": 0.948
@@ -7123,17 +7130,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 25.6138,
+        "nav_per_share_before": 25.5601,
         "atm_shares": 0,
-        "mnav_at_issue": 0.982,
+        "mnav_at_issue": 0.984,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
           "staking": 0.0103,
           "other": -0.0041,
           "total": 0.0062,
-          "actual_change": -1.8,
-          "market": -1.8062
+          "actual_change": -1.79,
+          "market": -1.7962
         },
         "eth_per_share": {
           "capital": 0.000015889,
@@ -7247,27 +7254,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 15157722865,
-        "net": 14807722865,
+        "net": 14773985865,
         "crypto": 14887736865,
         "eth": 14288102565,
         "ev": 13362893325,
         "nav_ex_cash": 14575722865
       },
-      "nav_per_share": 23.59,
+      "nav_per_share": 23.54,
       "nav_per_share_gross": 24.15,
       "nav_per_share_all": {
         "full": 24.15,
-        "net": 23.59,
+        "net": 23.54,
         "crypto": 23.72,
         "eth": 22.76
       },
-      "mnav": 0.918,
+      "mnav": 0.92,
       "mnav_gross": 0.897,
       "mnav_all": {
         "full": 0.897,
-        "net": 0.918,
+        "net": 0.92,
         "crypto": 0.913,
         "eth": 0.951,
         "ev_to_nav_ex_cash": 0.917
@@ -7279,9 +7287,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.2639,
+        "nav_per_share_before": 24.2101,
         "atm_shares": 0,
-        "mnav_at_issue": 0.945,
+        "mnav_at_issue": 0.947,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -7403,27 +7411,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 15061550683,
-        "net": 14711550683,
+        "net": 14677813683,
         "crypto": 14789564683,
         "eth": 14258354148,
         "ev": 13850164595,
         "nav_ex_cash": 14547550683
       },
-      "nav_per_share": 23.51,
+      "nav_per_share": 23.46,
       "nav_per_share_gross": 24.07,
       "nav_per_share_all": {
         "full": 24.07,
-        "net": 23.51,
+        "net": 23.46,
         "crypto": 23.64,
         "eth": 22.79
       },
-      "mnav": 0.953,
+      "mnav": 0.955,
       "mnav_gross": 0.93,
       "mnav_all": {
         "full": 0.93,
-        "net": 0.953,
+        "net": 0.955,
         "crypto": 0.948,
         "eth": 0.983,
         "ev_to_nav_ex_cash": 0.952
@@ -7435,17 +7444,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.9013,
+        "nav_per_share_before": 23.8476,
         "atm_shares": 0,
-        "mnav_at_issue": 0.948,
+        "mnav_at_issue": 0.95,
         "usd_per_share": {
           "issuance": 0,
-          "buybacks": 0.0046,
+          "buybacks": 0.0045,
           "staking": 0.0094,
           "other": -0.0041,
-          "total": 0.0099,
+          "total": 0.0097,
           "actual_change": -0.08,
-          "market": -0.0899
+          "market": -0.0897
         },
         "eth_per_share": {
           "capital": 0.000043708,
@@ -7559,27 +7568,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 14495701570,
-        "net": 14145701570,
+        "net": 14111964570,
         "crypto": 14217715570,
         "eth": 13702804066,
         "ev": 12477260783,
         "nav_ex_cash": 13997701570
       },
-      "nav_per_share": 22.61,
+      "nav_per_share": 22.56,
       "nav_per_share_gross": 23.17,
       "nav_per_share_all": {
         "full": 23.17,
-        "net": 22.61,
+        "net": 22.56,
         "crypto": 22.73,
         "eth": 21.9
       },
-      "mnav": 0.893,
+      "mnav": 0.895,
       "mnav_gross": 0.871,
       "mnav_all": {
         "full": 0.871,
-        "net": 0.893,
+        "net": 0.895,
         "crypto": 0.888,
         "eth": 0.921,
         "ev_to_nav_ex_cash": 0.891
@@ -7591,9 +7601,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.8976,
+        "nav_per_share_before": 22.8437,
         "atm_shares": 0,
-        "mnav_at_issue": 0.93,
+        "mnav_at_issue": 0.932,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -7720,27 +7730,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 33737000,
       "nav": {
         "full": 14322715368,
-        "net": 13972715368,
+        "net": 13938978368,
         "crypto": 14051729368,
         "eth": 13560585528,
         "ev": 11627221154,
         "nav_ex_cash": 13847715368
       },
-      "nav_per_share": 22.3,
+      "nav_per_share": 22.25,
       "nav_per_share_gross": 22.86,
       "nav_per_share_all": {
         "full": 22.86,
-        "net": 22.3,
+        "net": 22.25,
         "crypto": 22.43,
         "eth": 21.65
       },
-      "mnav": 0.841,
+      "mnav": 0.843,
       "mnav_gross": 0.821,
       "mnav_all": {
         "full": 0.821,
-        "net": 0.841,
+        "net": 0.843,
         "crypto": 0.836,
         "eth": 0.867,
         "ev_to_nav_ex_cash": 0.84
@@ -7752,9 +7763,9 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 22.5458,
+        "nav_per_share_before": 22.4919,
         "atm_shares": 0,
-        "mnav_at_issue": 0.883,
+        "mnav_at_issue": 0.885,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -7782,8 +7793,8 @@
     "past_week": {
       "from": "2026-11-02",
       "to": "2026-11-08",
-      "low": 0.844,
-      "high": 0.901,
+      "low": 0.846,
+      "high": 0.904,
       "low_date": "2026-11-06",
       "high_date": "2026-11-04",
       "days": 5
@@ -7791,8 +7802,8 @@
     "past_4_weeks": {
       "from": "2026-10-12",
       "to": "2026-11-08",
-      "low": 0.844,
-      "high": 0.964,
+      "low": 0.846,
+      "high": 0.966,
       "low_date": "2026-11-06",
       "high_date": "2026-10-21",
       "days": 20
@@ -7800,8 +7811,8 @@
     "past_12_weeks": {
       "from": "2026-08-17",
       "to": "2026-11-08",
-      "low": 0.844,
-      "high": 1.054,
+      "low": 0.846,
+      "high": 1.057,
       "low_date": "2026-11-06",
       "high_date": "2026-09-03",
       "days": 59
@@ -7812,8 +7823,8 @@
       "as_of": "2026-08-30",
       "from": "2026-08-24",
       "to": "2026-08-30",
-      "low": 0.983,
-      "high": 1.033,
+      "low": 0.985,
+      "high": 1.035,
       "low_date": "2026-08-28",
       "high_date": "2026-08-27",
       "days": 5
@@ -7822,8 +7833,8 @@
       "as_of": "2026-09-07",
       "from": "2026-08-31",
       "to": "2026-09-07",
-      "low": 0.967,
-      "high": 1.054,
+      "low": 0.969,
+      "high": 1.057,
       "low_date": "2026-09-02",
       "high_date": "2026-09-03",
       "days": 5
@@ -7832,8 +7843,8 @@
       "as_of": "2026-09-13",
       "from": "2026-09-08",
       "to": "2026-09-13",
-      "low": 0.984,
-      "high": 1,
+      "low": 0.987,
+      "high": 1.002,
       "low_date": "2026-09-09",
       "high_date": "2026-09-08",
       "days": 4
@@ -7842,8 +7853,8 @@
       "as_of": "2026-09-20",
       "from": "2026-09-14",
       "to": "2026-09-20",
-      "low": 0.95,
-      "high": 1.018,
+      "low": 0.952,
+      "high": 1.02,
       "low_date": "2026-09-16",
       "high_date": "2026-09-14",
       "days": 5
@@ -7852,8 +7863,8 @@
       "as_of": "2026-09-27",
       "from": "2026-09-21",
       "to": "2026-09-27",
-      "low": 1.029,
-      "high": 1.051,
+      "low": 1.031,
+      "high": 1.053,
       "low_date": "2026-09-25",
       "high_date": "2026-09-22",
       "days": 5
@@ -7862,8 +7873,8 @@
       "as_of": "2026-10-04",
       "from": "2026-09-28",
       "to": "2026-10-04",
-      "low": 0.989,
-      "high": 1.009,
+      "low": 0.991,
+      "high": 1.011,
       "low_date": "2026-10-02",
       "high_date": "2026-09-28",
       "days": 5
@@ -7872,8 +7883,8 @@
       "as_of": "2026-10-11",
       "from": "2026-10-05",
       "to": "2026-10-11",
-      "low": 0.963,
-      "high": 0.994,
+      "low": 0.965,
+      "high": 0.996,
       "low_date": "2026-10-07",
       "high_date": "2026-10-05",
       "days": 5
@@ -7882,8 +7893,8 @@
       "as_of": "2026-10-18",
       "from": "2026-10-12",
       "to": "2026-10-18",
-      "low": 0.902,
-      "high": 0.957,
+      "low": 0.904,
+      "high": 0.959,
       "low_date": "2026-10-16",
       "high_date": "2026-10-15",
       "days": 5
@@ -7892,8 +7903,8 @@
       "as_of": "2026-10-25",
       "from": "2026-10-19",
       "to": "2026-10-25",
-      "low": 0.904,
-      "high": 0.964,
+      "low": 0.906,
+      "high": 0.966,
       "low_date": "2026-10-19",
       "high_date": "2026-10-21",
       "days": 5
@@ -7902,8 +7913,8 @@
       "as_of": "2026-11-01",
       "from": "2026-10-26",
       "to": "2026-11-01",
-      "low": 0.903,
-      "high": 0.932,
+      "low": 0.905,
+      "high": 0.934,
       "low_date": "2026-10-30",
       "high_date": "2026-10-28",
       "days": 5
@@ -7912,8 +7923,8 @@
       "as_of": "2026-11-08",
       "from": "2026-11-02",
       "to": "2026-11-08",
-      "low": 0.844,
-      "high": 0.901,
+      "low": 0.846,
+      "high": 0.904,
       "low_date": "2026-11-06",
       "high_date": "2026-11-04",
       "days": 5

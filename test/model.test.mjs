@@ -198,4 +198,7 @@ test('Nov 4, 2026 10-K cover count anchors the latest week; balance-sheet book v
   assert.equal(s.beast_value, 186024000, 'Beast at its 10-K carrying value, not the releases\' $180M cash figure');
   assert.equal(s.other_assets_value, 9962000, 'other cost-method investments $8.347M + other digital assets $1.615M');
   assert.equal(H.snapshots.find((x) => x.as_of === '2026-08-23').other_assets_value, undefined);
+  assert.equal(s.liabilities_usd, 33737000, '10-K total liabilities (BMNP preferred is mezzanine, not included)');
+  assert.equal(H.snapshots.find((x) => x.as_of === '2026-08-23').liabilities_usd, undefined);
+  assert.equal(s.nav.net, s.nav.full - s.preferred_usd - 33737000);
 });

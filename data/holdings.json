@@ -164,27 +164,28 @@
     },
     "preferred_usd": 350000000,
     "debt_usd": 0,
+    "liabilities_usd": 33737000,
     "nav": {
       "full": 14322715368,
-      "net": 13972715368,
+      "net": 13938978368,
       "crypto": 14051729368,
       "eth": 13560585528,
       "ev": 11627221154,
       "nav_ex_cash": 13847715368
     },
-    "nav_per_share": 22.3,
+    "nav_per_share": 22.25,
     "nav_per_share_gross": 22.86,
     "nav_per_share_all": {
       "full": 22.86,
-      "net": 22.3,
+      "net": 22.25,
       "crypto": 22.43,
       "eth": 21.65
     },
-    "mnav": 0.841,
+    "mnav": 0.843,
     "mnav_gross": 0.821,
     "mnav_all": {
       "full": 0.821,
-      "net": 0.841,
+      "net": 0.843,
       "crypto": 0.836,
       "eth": 0.867,
       "ev_to_nav_ex_cash": 0.84
@@ -196,9 +197,9 @@
     "accretion": {
       "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
       "reanchor": true,
-      "nav_per_share_before": 22.5458,
+      "nav_per_share_before": 22.4919,
       "atm_shares": 0,
-      "mnav_at_issue": 0.883,
+      "mnav_at_issue": 0.885,
       "usd_per_share": {
         "issuance": 0,
         "buybacks": 0,
@@ -218,7 +219,7 @@
       }
     }
   },
-  "last_updated": "2026-11-11T05:39:02.788Z",
+  "last_updated": "2026-11-11T05:41:31.426Z",
   "shares_official": {
     "shares": 626451021,
     "date": "2026-11-04",
@@ -232,7 +233,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-11T05:39:02.788Z"
+    "built": "2026-11-11T05:41:31.427Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
@@ -287,7 +288,7 @@
     "rule": "min ETH staked over the last 6 reports (staking_lag_reports = 5), as in scripts/model.mjs"
   },
   "book_values": {
-    "rule": "NAV includes every asset on the latest audited/filed balance sheet that the weekly releases don't already cover, at its filed carrying value, held until the next filing. Beast is carried at its filed carrying value; the releases' $180M is the cash part only (it excludes $6.0M of capitalized costs) and is not a re-mark. Excluded: goodwill and intangibles (MAVAN, valued on the valuation page), prepaid/ROU/other operating assets. Liabilities ($33.7M at Aug 31, 2026) are still not deducted (caveat).",
+    "rule": "NAV includes every asset on the latest audited/filed balance sheet that the weekly releases don't already cover, at its filed carrying value, held until the next filing. Beast is carried at its filed carrying value; the releases' $180M is the cash part only (it excludes $6.0M of capitalized costs) and is not a re-mark. Excluded: goodwill and intangibles (MAVAN, valued on the valuation page), prepaid/ROU/other operating assets. Total balance-sheet liabilities are deducted the same way (filed value held until the next filing); the mezzanine BMNP preferred is not a liability and is deducted once at its $350M liquidation preference.",
     "source": "Form 10-K FY ended Aug 31, 2026 (balance sheet; Note 4 digital assets; Note 6 equity investments)",
     "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
     "beast": {
@@ -309,8 +310,40 @@
           "usd": 1615000
         }
       ]
+    },
+    "liabilities": {
+      "usd": 33737000,
+      "from": "2026-08-30",
+      "note": "Total liabilities at Aug 31, 2026 (10-K balance sheet). The BMNP preferred is mezzanine equity ($271.478M carrying value), not a liability, so nothing is excluded; it is deducted separately at its $350M liquidation preference.",
+      "items": [
+        {
+          "name": "Accrued liabilities",
+          "usd": 12202000
+        },
+        {
+          "name": "Warrant liability (CVI warrants)",
+          "usd": 1357000
+        },
+        {
+          "name": "Other current liabilities",
+          "usd": 6547000
+        },
+        {
+          "name": "Operating lease liability, non-current",
+          "usd": 1189000
+        },
+        {
+          "name": "Deferred tax liability",
+          "usd": 2256000
+        },
+        {
+          "name": "Other non-current liabilities (incl. Pier Two deferred consideration)",
+          "usd": 10186000
+        }
+      ]
     }
   },
   "other_assets_usd": 9962000,
-  "beast_usd_release": 180000000
+  "beast_usd_release": 180000000,
+  "liabilities_usd": 33737000
 }

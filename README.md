@@ -78,7 +78,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 ## NAV formulas
 
 * Full NAV (gross) = ETH×ETHUSD + BTC×BTCUSD + cash & marketable securities + Eightco stake (100,655,143 ORBS shares × price) + Beast stake ($186.0M filed carrying value: $180.0M cash + $6.0M capitalized costs; the releases' $180M is the cash part) + other assets from the latest filing (from Aug 30, 2026: $8.347M other cost-method investments + $1.615M other digital assets, 10-K). Rule: any balance-sheet asset the weekly releases don't cover is added at its filed carrying value until the next filing; goodwill/intangibles (MAVAN, valued separately) and operating assets are not.
-* **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
+* **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed) − filed balance-sheet liabilities ($33.737M from Aug 30, 2026; see below). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
 * Crypto/Cash NAV = ETH + BTC + cash; ETH-only NAV = ETH
 * EV ÷ NAV ex cash = (market cap + preferred + debt − cash) ÷ (Full NAV − cash); no per-share figure
 * NAV/share, fully diluted (TSM, sensitivity) = NAV net of preferred ÷ (shares + Σ count × (1 − strike ÷ BMNR price) over in-the-money warrants/options in `holdings.json → dilutive`)
@@ -93,8 +93,7 @@ that it resets daily to the greatest of $100, the last sale price (if Bitmine so
 10-day average price. Optional redemption (Bitmine's choice): 110% of $100 ($385M) until Dec 10, 2027, 105% until
 Jun 10, 2029, then 100%, plus accrued dividends. Dividends are cumulative, paid weekly.
 
-**Known items not deducted yet**: total liabilities $33.7M at Aug 31, 2026 (10-K) — accrued $12.2M, CVI warrant liability
-$1.357M, deferred tax $2.256M, other (incl. Pier Two deferred consideration) ~$16.7M, leases $1.2M. No open ETH option contracts.
+**Liabilities**: From the Aug 30, 2026 snapshot, NAV net of preferred also deducts total balance-sheet liabilities from the latest filing ($33.737M at Aug 31, 2026, 10-K: accrued $12.202M, CVI warrant liability $1.357M, other current $6.547M, non-current lease $1.189M, deferred tax $2.256M, other non-current incl. Pier Two deferred consideration $10.186M), held at the filed value until the next filing; the BMNP preferred is mezzanine equity, not a liability, so it is deducted only once, at its $350M liquidation preference.
 * Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.
 
 ## Valuation (Bear / Base / Bull)
@@ -391,7 +390,7 @@ checks the Oct 25 share count and range, the v3 backtest summary, the held-out f
 
 * **ORBS** = Eightco Holdings (NASDAQ: ORBS) **stock** — not the "Orbs" crypto token on CoinGecko. 100,655,143 shares per
   Bitmine's 10-Q; weekly snapshots use the reported $ value, the live page uses shares × live price.
-* Beast Industries is carried at its $186.0M filed carrying value (10-K; the releases' $180M excludes $6.0M of capitalized costs); $9.96M of other balance-sheet assets are included from Aug 30, 2026. The BMNP preferred is deducted at its $350M liquidation preference; other liabilities are not deducted yet (see NAV formulas).
+* Beast Industries is carried at its $186.0M filed carrying value (10-K; the releases' $180M excludes $6.0M of capitalized costs); $9.96M of other balance-sheet assets are included from Aug 30, 2026. The BMNP preferred is deducted at its $350M liquidation preference; filed liabilities ($33.737M) are deducted from Aug 30, 2026 (see NAV formulas).
 * GitHub cron schedules can run late or be skipped under load, which is why stock prices are fetched live from CNBC; the page always shows each price's timestamp and source.
 
 Not investment advice.

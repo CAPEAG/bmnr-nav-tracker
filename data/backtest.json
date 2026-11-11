@@ -1,6 +1,6 @@
 {
   "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
-  "built": "2026-11-11T05:39:02.793Z",
+  "built": "2026-11-11T05:41:31.432Z",
   "models": {
     "v1": {
       "label": "v1 – original (Jul–Oct 2026)",

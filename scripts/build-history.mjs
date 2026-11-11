@@ -202,7 +202,8 @@ const BV = H.book_values || null;
 function bookFor(cur) {
   const beast = BV && cur.as_of >= BV.beast.from && cur.beast_usd === BV.beast.release_value_replaced ? BV.beast.usd : cur.beast_usd;
   const other = BV && cur.as_of >= BV.other_assets.from ? BV.other_assets.usd : 0;
-  return { beast_usd: beast, other_assets_usd: other };
+  const liab = BV?.liabilities && cur.as_of >= BV.liabilities.from ? BV.liabilities.usd : 0;
+  return { beast_usd: beast, other_assets_usd: other, liabilities_usd: liab };
 }
 const flowsFor = (m) => wk.map((_, i) => weekFlows(wk, i, m, kBuyback));
 const flowsBy = Object.fromEntries(Object.entries(MODELS).filter(([, m]) => !m.walkforward).map(([k, m]) => [k, flowsFor(m)]));
@@ -295,7 +296,7 @@ for (let i = 0; i < wk.length; i++) {
   const prefOn = H.preferred && cur.as_of >= H.preferred.issued;
   const bk = bookFor(cur);
   const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: bk.beast_usd, other_assets_usd: bk.other_assets_usd, shares_outstanding: Math.round(e.shares[1]),
-    preferred: prefOn ? H.preferred : null, debt_usd: H.debt_usd || 0 };
+    preferred: prefOn ? H.preferred : null, debt_usd: H.debt_usd || 0, liabilities_usd: bk.liabilities_usd };
   const nav = computeNav(h, { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, ORBS: cur.orbs_value_usd });
   const row = Object.fromEntries(nav.rows.map((x) => [x.key, x]));
   const cpIn = cps.filter((c) => weekIndexOf(wk, c.date) === i).map((c) => ({ date: c.date, shares: c.shares, basis: c.basis, url: c.url, used_as_anchor: c.use_as_anchor !== false }));
@@ -341,7 +342,7 @@ for (let i = 0; i < wk.length; i++) {
     checkpoints_in_week: cpIn.length ? cpIn : undefined,
     btc: cur.btc, orbs_value: cur.orbs_value_usd, beast_value: bk.beast_usd, other_assets_value: bk.other_assets_usd || undefined,
     snapshot_prices: { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, BMNR_date: px.bmnr_close_date },
-    preferred_usd: nav.pref, debt_usd: nav.debt,
+    preferred_usd: nav.pref, debt_usd: nav.debt, liabilities_usd: nav.liab || undefined,
     nav: { full: r(row.full.value), net: r(row.net.value), crypto: r(row.crypto.value), eth: r(row.eth.value), ev: r(row.ev.value), nav_ex_cash: r(row.ev.navExCash) },
     // headline NAV/share and mNAV are net of the BMNP preferred (from Jun 10, 2026); gross figures kept alongside
     nav_per_share: r(row.net.perShare, 2), nav_per_share_gross: r(row.full.perShare, 2),
@@ -401,7 +402,7 @@ for (let i = 1; i < out.length; i++) {
 const last = out.at(-1), lr = rel.at(-1), lp = wk.at(-1).px;
 Object.assign(H, {
   as_of: lr.as_of, announced: lr.date,
-  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, beast_usd_release: lr.beast_usd,
+  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, liabilities_usd: bookFor(lr).liabilities_usd, beast_usd_release: lr.beast_usd,
   shares_outstanding: last.shares_outstanding, shares_outstanding_range: last.shares_outstanding_range,
   source: { type: 'official', sec_8k: lr.sec_8k, x_post: lr.x_post, press_release: lr.press_release || lr.sec_8k },
   reference_prices: { ETH: lr.eth_price_reported, BTC: lp.btc_close, BMNR: lp.bmnr_close, ORBS: lr.orbs_value_usd / H.orbs.shares,

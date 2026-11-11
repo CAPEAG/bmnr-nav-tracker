@@ -45,6 +45,7 @@ export function holdingsFromSnapshot(s, orbsShares) {
     shares_outstanding: s.shares_outstanding,
     preferred: s.preferred_usd ? { liquidation_usd: s.preferred_usd } : null,
     debt_usd: s.debt_usd || 0,
+    liabilities_usd: s.liabilities_usd || 0,
   };
 }
 
