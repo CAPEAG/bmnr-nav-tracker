@@ -41,6 +41,7 @@ export function holdingsFromSnapshot(s, orbsShares) {
     eth: s.eth, btc: s.btc, cash_usd: s.cash,
     orbs: { shares: s.orbs_value > 0 ? orbsShares : 0 },
     beast_usd: s.beast_value ?? 0,
+    other_assets_usd: s.other_assets_value ?? 0,
     shares_outstanding: s.shares_outstanding,
     preferred: s.preferred_usd ? { liquidation_usd: s.preferred_usd } : null,
     debt_usd: s.debt_usd || 0,

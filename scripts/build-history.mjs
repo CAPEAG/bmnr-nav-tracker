@@ -136,8 +136,8 @@ const ocFor = (i) => {
 };
 const quarterOf = (asof) => QS.find((q) => asof > q.from && asof <= q.to);
 // Price function for a given information set (qs = quarters known; perQuarter = use each week's own quarter if filed)
-function ethPriceFn(qs, perQuarter) {
-  const f = pooled(qs);
+function ethPriceFn(qs, perQuarter, fixed) {
+  const f = fixed ?? pooled(qs);
   return (i) => {
     const { cur, px } = wk[i];
     if (cur.eth_purchase_cost_usd != null) // a release that states the dollars spent on ETH that week
@@ -195,6 +195,15 @@ const VARIANTS = {
   'v3 but ETH = weekly avg × 1.05, no timing items': { ...MODELS.v3, ethPrice: undefined, extraCash: undefined, eth_cost_factor: 1.05 },
   'v3 but on-chain prices where tracked': { ...MODELS.v3, ethPrice: (i) => { const oc = ocFor(i); return oc ? { price: oc.implied_price, basis: 'on-chain', unc: 0 } : MODELS.v3.ethPrice(i); } },
 };
+if (process.env.TUNE) { const g = (await import(process.env.TUNE)).default; for (const k of Object.keys(VARIANTS)) delete VARIANTS[k]; Object.assign(VARIANTS, g({ MODELS, ethPriceFn, QS, extraCashFn })); }
+// Balance-sheet carrying values (holdings.json → book_values): Beast at its filed carrying value once the releases switch to
+// the $180M cash figure; other balance-sheet assets the releases don't cover from the filing's balance-sheet week.
+const BV = H.book_values || null;
+function bookFor(cur) {
+  const beast = BV && cur.as_of >= BV.beast.from && cur.beast_usd === BV.beast.release_value_replaced ? BV.beast.usd : cur.beast_usd;
+  const other = BV && cur.as_of >= BV.other_assets.from ? BV.other_assets.usd : 0;
+  return { beast_usd: beast, other_assets_usd: other };
+}
 const flowsFor = (m) => wk.map((_, i) => weekFlows(wk, i, m, kBuyback));
 const flowsBy = Object.fromEntries(Object.entries(MODELS).filter(([, m]) => !m.walkforward).map(([k, m]) => [k, flowsFor(m)]));
 // known at an anchor date = quarters ended on/before it (their 10-Q also publishes the anchor) and timing items filed by then
@@ -284,7 +293,8 @@ for (let i = 0; i < wk.length; i++) {
   const issued = (k) => (sameSeg ? e.shares[k] - prevE.shares[k] - (cur.other_shares_issued || 0) + (cur.buyback_shares || 0) : null);
   // BMNP preferred (liquidation preference) is a claim ahead of common from its Jun 10, 2026 issue date
   const prefOn = H.preferred && cur.as_of >= H.preferred.issued;
-  const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: cur.beast_usd, shares_outstanding: Math.round(e.shares[1]),
+  const bk = bookFor(cur);
+  const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: bk.beast_usd, other_assets_usd: bk.other_assets_usd, shares_outstanding: Math.round(e.shares[1]),
     preferred: prefOn ? H.preferred : null, debt_usd: H.debt_usd || 0 };
   const nav = computeNav(h, { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, ORBS: cur.orbs_value_usd });
   const row = Object.fromEntries(nav.rows.map((x) => [x.key, x]));
@@ -329,7 +339,7 @@ for (let i = 0; i < wk.length; i++) {
     shares_basis: e.official ? 'official' : 'estimate',
     shares_anchor: { date: e.anchor.date, shares: e.anchor.shares, weeks_since: e.weeks_since },
     checkpoints_in_week: cpIn.length ? cpIn : undefined,
-    btc: cur.btc, orbs_value: cur.orbs_value_usd, beast_value: cur.beast_usd,
+    btc: cur.btc, orbs_value: cur.orbs_value_usd, beast_value: bk.beast_usd, other_assets_value: bk.other_assets_usd || undefined,
     snapshot_prices: { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, BMNR_date: px.bmnr_close_date },
     preferred_usd: nav.pref, debt_usd: nav.debt,
     nav: { full: r(row.full.value), net: r(row.net.value), crypto: r(row.crypto.value), eth: r(row.eth.value), ev: r(row.ev.value), nav_ex_cash: r(row.ev.navExCash) },
@@ -391,7 +401,7 @@ for (let i = 1; i < out.length; i++) {
 const last = out.at(-1), lr = rel.at(-1), lp = wk.at(-1).px;
 Object.assign(H, {
   as_of: lr.as_of, announced: lr.date,
-  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: lr.beast_usd,
+  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, beast_usd_release: lr.beast_usd,
   shares_outstanding: last.shares_outstanding, shares_outstanding_range: last.shares_outstanding_range,
   source: { type: 'official', sec_8k: lr.sec_8k, x_post: lr.x_post, press_release: lr.press_release || lr.sec_8k },
   reference_prices: { ETH: lr.eth_price_reported, BTC: lp.btc_close, BMNR: lp.bmnr_close, ORBS: lr.orbs_value_usd / H.orbs.shares,
@@ -407,7 +417,7 @@ H.assumptions.weekly_staking_yield = Number((ys13.reduce((t, x) => t + x, 0) / y
 H.assumptions.weekly_staking_yield_source = `13-week average of Bitmine's stated 7-day BMNR yields to ${lr.as_of} (latest stated: ${(lr.staking_yield_7d * 100).toFixed(2)}%).`;
 delete H.assumptions.stated_staking_yield_7d; delete H.assumptions.stated_staking_yield_source;
 const cesrWeeks = wk.filter((w) => w.cesr).map((w) => w.cesr.value);
-H.assumptions.share_estimation.staking_rewards = "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.";
+H.assumptions.share_estimation.staking_rewards = `ETH staked ${A.staking_lag_reports} reports earlier (min over the last ${A.staking_lag_reports + 1} reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.`;
 H.share_estimation_meta = { buyback_price_calibration_k: r(kBuyback, 4), built: new Date().toISOString() };
 // Staking accrual since the last report (Holdings card): same lagged basis as model.mjs — the smallest staked balance
 // over the last 1 + staking_lag_reports reports (newly staked ETH waits in the validator entry queue).
@@ -436,7 +446,7 @@ V.derived = {
 console.log('valuation derived', JSON.stringify({ ...V.derived, staked_trajectory: undefined }));
 
 const summarize = (k) => {
-  const xs = backtest.filter((b) => !b.flagged && !b.out_of_sample && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
+  const xs = backtest.filter((b) => !b.flagged && !(b.out_of_sample && !OOS?.recorded) && b.kind !== 'long horizon, no re-anchoring' && !(b.kind === 'consecutive' && b.from === '2026-02-28')).map((b) => b.models[k]);
   const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
   return { intervals: xs.length, mean_abs_error_shares: r(mean(xs.map((x) => Math.abs(x.error_shares)))), mean_abs_error_pct: r(mean(xs.map((x) => Math.abs(x.error_pct))), 2),
     mean_error_shares: r(mean(xs.map((x) => x.error_shares))), mean_error_pct: r(mean(xs.map((x) => x.error_pct)), 2), within_range: xs.filter((x) => x.within_range).length };
@@ -468,6 +478,15 @@ const outOfSample = (() => {
     current_model_matches_prediction: pC.est_shares === pF.est_shares,
     superseded_alternatives: OOS.superseded_alternatives || undefined };
   if (!s || !e) return { ...base, status: 'pending 10-K' };
+  // Once recorded, the result is frozen (checkpoints.json → out_of_sample.recorded) and published verbatim; later re-tuning
+  // of v3 cannot change it. params_match_freeze / current_model_matches_prediction then describe today's model only.
+  if (OOS.recorded) { const R0 = OOS.recorded;
+    return { from: OOS.from, to: OOS.to, label: OOS.label, model: R0.model, frozen_on: R0.frozen_on, params_at_recording: R0.params_at_recording,
+      staking_yield_input: R0.staking_yield_input, prediction: R0.prediction, status: R0.status, official_end_shares: R0.official_end_shares,
+      est_shares: R0.est_shares, est_range: R0.est_range, error_shares: R0.error_shares, error_pct: R0.error_pct, within_range: R0.within_range,
+      source: R0.source, recorded_in_commit: R0.recorded_in_commit, recorded_on: R0.recorded_on,
+      params_match_freeze, params_now: now, retuned_after_recording: !params_match_freeze || undefined,
+      superseded_alternatives: OOS.superseded_alternatives || undefined }; }
   const sc = (p) => ({ error_shares: r(p.shares[1] - e.shares), error_pct: r(((p.shares[1] - e.shares) / e.shares) * 100, 2), within_range: e.shares >= p.shares[0] && e.shares <= p.shares[2] });
   return { ...base, status: 'recorded', official_end_shares: e.shares, est_shares: pF.est_shares, est_range: pF.est_range, ...sc(pF),
     source: e.url };

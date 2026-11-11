@@ -12,8 +12,8 @@
     "reported_value_usd": 75000000,
     "note": "Eightco Holdings (NASDAQ: ORBS) common stock. 100,655,143 shares per Bitmine's 10-Q (May 31, 2026, Note on Investment in Eightco: beneficially owned after the March 12, 2026 purchase). Bitmine's weekly releases report only the $ value (e.g. $76M on Oct 25 ≈ 100.66M × $0.755)."
   },
-  "beast_usd": 180000000,
-  "shares_outstanding": 625683373,
+  "beast_usd": 186024000,
+  "shares_outstanding": 626451021,
   "source": {
     "type": "official",
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226050647/ex99-1.htm",
@@ -24,17 +24,17 @@
     "weekly_staking_yield": 0.02654,
     "weekly_staking_yield_source": "13-week average of Bitmine's stated 7-day BMNR yields to 2026-11-08 (latest stated: 2.65%).",
     "share_estimation": {
-      "weekly_cash_opex_usd": 2278000,
-      "weekly_cash_opex_source": "Net operating cash outflow Dec 1, 2025 – May 31, 2026 = 9-month operating cash flow (−$287.592M, 10-Q May 31, 2026) − Sep–Nov (−$228.356M, 10-Q Nov 30, 2025) = −$59.236M over 26 weeks. Already net of interest income and cash service revenue. (v1 used $3,257,538 = Mar–May G&A − SBC + cost of sales ÷ 13.)",
+      "weekly_cash_opex_usd": 1969051,
+      "weekly_cash_opex_source": "Net operating cash outflow Dec 1, 2025 – Aug 31, 2026 = FY2026 operating cash flow (−$305.149M, 10-K) − Sep–Nov (−$228.356M, 10-Q Nov 30, 2025) = −$76.793M over 39 weeks = $1,969,051/wk. Same rule as before (treasury-era operating cash flow), now with the Jun–Aug quarter (−$17.557M). Already net of interest income and cash service revenue. Previously $2,278,000 (Dec–May, 26 weeks). (v1 used $3,257,538 = Mar–May G&A − SBC + cost of sales ÷ 13.)",
       "bmnp_weekly_dividend_usd": 646450,
       "bmnp_weekly_dividend_source": "3,500,000 BMNP shares (June 10, 2026 offering) × $0.1847 regular weekly dividend (dividend schedule, 8-K Aug 14, 2026).",
       "opex_high_multiplier": 2,
       "issue_price": "average BMNR daily close over the week (range bounds use the week's highest / lowest close)",
       "purchase_price": "Per week: 'disclosed' = the week's average daily ETH price × that fiscal quarter's 10-Q factor (cost of ETH purchased ÷ units ÷ purchase-weighted weekly average); 'assumed' (weeks after the last filed quarter) = weekly average × the factor pooled over all filed quarters, range ± eth_price_uncertainty. See checkpoints.json → eth_cost_quarterly and backtest.json → eth_price.",
-      "staking_rewards": "ETH staked 4 reports earlier (min over the last 5 reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.",
+      "staking_rewards": "ETH staked 5 reports earlier (min over the last 6 reports) × that week's stated 7-day BMNR yield (release-quoted CESR stand-in where no Bitmine yield was stated; CESR weekly average only if neither) × days/365. The CESR weekly average (data/cesr.json) is shown as an independent check.",
       "bmnp_start": "2026-06-10",
       "include_investments": true,
-      "staking_lag_reports": 4,
+      "staking_lag_reports": 5,
       "staking_realization": 1,
       "carry_forward": true,
       "investments_source": "Disclosed cash spent on non-ETH investments in the weekly releases (Beast Industries $186M wk of Jan 25 = $180M cash + $6M costs per the 10-Q, Eightco/ORBS ~$80M wk of Mar 15, Pier Two ~$6M cash wk of Mar 29) — releases.json investments_usd.",
@@ -45,7 +45,8 @@
       "use_onchain_price": false,
       "use_onchain_price_source": "On-chain tracker transfers (data/onchain-purchases.json) are settlement withdrawals valued at spot by the trackers; pricing tracked weeks with them made the Dec 2025–May 2026 quarterly ETH cost less accurate than the weekly average, so they are shown as a cross-check only.",
       "carry_weeks": 3,
-      "carry_max_usd": 5000000
+      "carry_max_usd": 5000000,
+      "staking_lag_basis": "Lag 5 chosen because it reproduces the 10-K's ETH received from staking best: modeled 55,132 vs 53,877 actual for Sep 2025–Aug 2026 (+2.3%); lag 4 was +7.3%, lag 6 −2.7%. Chosen on the staking units, not on the share backtest."
     },
     "valuation_inputs": "See data/valuation.json (Bear/Base/Bull inputs with sources)."
   },
@@ -107,14 +108,14 @@
     "cash_prev": 498000000,
     "cash": 475000000,
     "cash_change": -23000000,
-    "est_cash_opex": 2924450,
+    "est_cash_opex": 2615501,
     "investments": 0,
     "disclosed_proceeds": null,
-    "est_spending": 18692614,
-    "cash_shortfall": -4307386,
+    "est_spending": 18383665,
+    "cash_shortfall": -4616335,
     "cash_shortfall_range": [
       -7389518,
-      -1225255
+      -1843153
     ],
     "surplus_from_prior": 0,
     "funded_by_shares": 0,
@@ -122,33 +123,39 @@
       0,
       0
     ],
-    "surplus_carried_out": 5000000,
-    "surplus_dropped": 4307386,
+    "surplus_carried_out": 0,
     "assumed_issue_price": 19.912,
     "bmnr_week_range": [
       18.76,
       21.73
     ],
-    "est_shares_issued": 0,
-    "est_shares_issued_range": [
-      0,
-      0
-    ],
+    "est_shares_issued": null,
+    "est_shares_issued_range": null,
     "other_shares_issued": 0,
-    "shares_outstanding": 625683373,
+    "shares_outstanding": 626451021,
     "shares_outstanding_range": [
-      624202447,
-      627617025
+      626451021,
+      626451021
     ],
     "shares_basis": "estimate",
     "shares_anchor": {
-      "date": "2026-08-31",
-      "shares": 613267022,
-      "weeks_since": 9
+      "date": "2026-11-04",
+      "shares": 626451021,
+      "weeks_since": 0
     },
+    "checkpoints_in_week": [
+      {
+        "date": "2026-11-04",
+        "shares": 626451021,
+        "basis": "cover page",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+        "used_as_anchor": true
+      }
+    ],
     "btc": 216,
     "orbs_value": 75000000,
-    "beast_value": 180000000,
+    "beast_value": 186024000,
+    "other_assets_value": 9962000,
     "snapshot_prices": {
       "ETH": 2234,
       "BTC": 74740,
@@ -158,74 +165,74 @@
     "preferred_usd": 350000000,
     "debt_usd": 0,
     "nav": {
-      "full": 14306729368,
-      "net": 13956729368,
+      "full": 14322715368,
+      "net": 13972715368,
       "crypto": 14051729368,
       "eth": 13560585528,
-      "ev": 11612820077,
-      "nav_ex_cash": 13831729368
+      "ev": 11627221154,
+      "nav_ex_cash": 13847715368
     },
-    "nav_per_share": 22.31,
-    "nav_per_share_gross": 22.87,
+    "nav_per_share": 22.3,
+    "nav_per_share_gross": 22.86,
     "nav_per_share_all": {
-      "full": 22.87,
-      "net": 22.31,
-      "crypto": 22.46,
-      "eth": 21.67
+      "full": 22.86,
+      "net": 22.3,
+      "crypto": 22.43,
+      "eth": 21.65
     },
     "mnav": 0.841,
-    "mnav_gross": 0.82,
+    "mnav_gross": 0.821,
     "mnav_all": {
-      "full": 0.82,
+      "full": 0.821,
       "net": 0.841,
-      "crypto": 0.835,
-      "eth": 0.866,
+      "crypto": 0.836,
+      "eth": 0.867,
       "ev_to_nav_ex_cash": 0.84
     },
-    "eth_per_share": 0.0097015,
+    "eth_per_share": 0.0096897,
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226050647/ex99-1.htm",
     "x_post": "https://x.com/BitMNR/status/2119794359977545960",
     "notes": "No buyback disclosed this week. Stated trailing 7-day BMNR staking yield 2.65% per the 8-K (source of record). Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
     "accretion": {
-      "basis": "estimate (v3 model)",
-      "reanchor": false,
-      "nav_per_share_before": 22.5184,
+      "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+      "reanchor": true,
+      "nav_per_share_before": 22.5458,
       "atm_shares": 0,
-      "mnav_at_issue": 0.884,
+      "mnav_at_issue": 0.883,
       "usd_per_share": {
         "issuance": 0,
         "buybacks": 0,
         "staking": 0.0092,
-        "other": -0.0046,
-        "total": 0.0046,
-        "actual_change": -0.27,
-        "market": -0.2746
+        "other": -0.0041,
+        "total": 0.0051,
+        "actual_change": -0.31,
+        "market": -0.3151
       },
       "eth_per_share": {
-        "capital": 0.000011179,
-        "staking": 0.000004116,
+        "capital": 0.000011165,
+        "staking": 0.000004111,
         "premium": 2.6e-8,
-        "reanchor": 0,
-        "total": 0.000015321,
-        "actual_change": 0.000015321
+        "reanchor": -0.000012659,
+        "total": 0.000002643,
+        "actual_change": 0.000002643
       }
     }
   },
-  "last_updated": "2026-11-11T05:26:12.028Z",
+  "last_updated": "2026-11-11T05:39:02.788Z",
   "shares_official": {
-    "shares": 613267022,
-    "date": "2026-08-31",
+    "shares": 626451021,
+    "date": "2026-11-04",
     "source": "Form 10-K for the fiscal year ended August 31, 2026 (filed 2026-11-10)",
     "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
     "next_expected": "Form 10-QT for the three months ending November 30, 2026; afterwards a 10-KT for September 1–December 31, 2026 (fiscal year-end changed to December 31 per the 8-K of July 13, 2026, confirmed in the FY2026 10-K)."
   },
   "shares_outstanding_range": [
-    624202447,
-    627617025
+    626451021,
+    626451021
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-11T05:26:12.028Z"
+    "built": "2026-11-11T05:39:02.788Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
@@ -277,6 +284,33 @@
   "staking_accrual_basis": {
     "eth": 5067309,
     "realization": 1,
-    "rule": "min ETH staked over the last 5 reports (staking_lag_reports = 4), as in scripts/model.mjs"
-  }
+    "rule": "min ETH staked over the last 6 reports (staking_lag_reports = 5), as in scripts/model.mjs"
+  },
+  "book_values": {
+    "rule": "NAV includes every asset on the latest audited/filed balance sheet that the weekly releases don't already cover, at its filed carrying value, held until the next filing. Beast is carried at its filed carrying value; the releases' $180M is the cash part only (it excludes $6.0M of capitalized costs) and is not a re-mark. Excluded: goodwill and intangibles (MAVAN, valued on the valuation page), prepaid/ROU/other operating assets. Liabilities ($33.7M at Aug 31, 2026) are still not deducted (caveat).",
+    "source": "Form 10-K FY ended Aug 31, 2026 (balance sheet; Note 4 digital assets; Note 6 equity investments)",
+    "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+    "beast": {
+      "usd": 186024000,
+      "from": "2026-05-31",
+      "release_value_replaced": 180000000,
+      "note": "Equity investments measured at cost $194,371K = Beast Industries $186,024K + other cost-method investments $8,347K."
+    },
+    "other_assets": {
+      "usd": 9962000,
+      "from": "2026-08-30",
+      "items": [
+        {
+          "name": "Other cost-method equity investments (incl. Pier Two)",
+          "usd": 8347000
+        },
+        {
+          "name": "Other digital assets (non-ETH/BTC, fair value)",
+          "usd": 1615000
+        }
+      ]
+    }
+  },
+  "other_assets_usd": 9962000,
+  "beast_usd_release": 180000000
 }

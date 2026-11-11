@@ -82,16 +82,19 @@ process.on('exit', () => rmSync(out, { recursive: true, force: true }));
 // (data/cesr.json) is a check only. (cf594cf briefly used a Lido weekly average as the input; reverted in bff5f5e.)
 test('Oct 25, 2026 week: v3 share count and range', () => {
   const s = H.snapshots.find((x) => x.as_of === '2026-10-25');
-  assert.equal(s.shares_outstanding, 625683373);
-  assert.deepEqual(s.shares_outstanding_range, [624202447, 627475826]);
+  assert.equal(s.shares_outstanding, 625632348);
+  assert.deepEqual(s.shares_outstanding_range, [624208786, 627280097]);
 });
 
-test('backtest: v3 in-sample summary unchanged', () => {
+test('backtest: v3 summary (6 clean intervals incl. Jul 9→Aug 31 and Aug 31→Nov 4)', () => {
   const v3 = B.summary.v3;
-  assert.equal(v3.intervals, 4);
-  assert.equal(v3.mean_abs_error_pct, 0.17);
-  assert.equal(v3.mean_error_pct, 0.1);
-  assert.equal(v3.within_range, 4);
+  assert.equal(v3.intervals, 6);
+  assert.equal(v3.mean_abs_error_pct, 0.16);
+  assert.equal(v3.mean_error_pct, 0.07);
+  assert.equal(v3.within_range, 6);
+  const n4 = B.intervals.find((b) => b.from === '2026-08-31' && b.to === '2026-11-04');
+  assert.equal(n4.models.v3.error_shares, -818673);
+  assert.equal(n4.models.v3.within_range, true);
 });
 
 test('staking yield: model input is the stated yield; CESR weekly average is a flagged check', () => {
@@ -122,22 +125,21 @@ test('staking yield: model input is the stated yield; CESR weekly average is a f
   assert.equal(h.assumptions.weekly_staking_yield, Number((ys.reduce((t, x) => t + x, 0) / 13).toFixed(5)), 'accrual = 13-week stated average');
 });
 
-test('held-out interval Jul 9 → Aug 31, 2026: recorded from the FY2026 10-K, v3 not re-tuned first', () => {
+test('held-out interval Jul 9 → Aug 31, 2026: recorded result is frozen and published verbatim', () => {
   const O = B.out_of_sample;
   assert.equal(O.from, '2026-07-09'); assert.equal(O.to, '2026-08-31');
   assert.equal(O.status, 'recorded');
-  assert.equal(O.params_match_freeze, true, 'v3 parameters changed before the out-of-sample error was recorded');
+  assert.equal(O.recorded_in_commit, '439fd4a', 'recorded before any re-tuning');
+  assert.equal(O.retuned_after_recording, true);
   // the held-out prediction keeps the input in use at the freeze (Bitmine-stated yields)
   assert.equal(O.staking_yield_input, 'bitmine_stated_7d (as frozen)');
   assert.deepEqual(O.prediction, { est_shares: 614351108, est_range: [610994985, 618019327] });
-  assert.equal(O.current_model_matches_prediction, true);
   assert.equal(O.official_end_shares, 613267022);
   assert.equal(O.est_shares, 614351108);
   assert.equal(O.error_shares, 1084086);
   assert.equal(O.error_pct, 0.18);
   assert.equal(O.within_range, true);
   assert.equal(O.superseded_alternatives?.[0]?.est_shares, 614503478, 'superseded cf594cf alternative kept on record');
-  assert.ok(!B.intervals.some((b) => b.out_of_sample && B.summary.v3.intervals > 4), 'held-out interval excluded from the summary');
 });
 
 test('committed history.json / backtest.json are up to date with the build', () => {
@@ -185,4 +187,15 @@ test('Nov 30, 2025 anchor: trade-date count kept, settlement-date figure alongsi
 
 test('warrant-exercise line: four quarters from the 10-Q/10-K equity statements', () => {
   assert.deepEqual(C.warrant_exercises.quarters.map((q) => q.shares), [63460, 94518, 54461, 23026]);
+});
+
+test('Nov 4, 2026 10-K cover count anchors the latest week; balance-sheet book values in NAV', () => {
+  const h = built('holdings.json');
+  assert.equal(h.shares_official.date, '2026-11-04');
+  assert.equal(h.shares_official.shares, 626451021);
+  const s = H.snapshots.find((x) => x.as_of === '2026-11-08');
+  assert.ok(s.shares_outstanding >= 626451021);
+  assert.equal(s.beast_value, 186024000, 'Beast at its 10-K carrying value, not the releases\' $180M cash figure');
+  assert.equal(s.other_assets_value, 9962000, 'other cost-method investments $8.347M + other digital assets $1.615M');
+  assert.equal(H.snapshots.find((x) => x.as_of === '2026-08-23').other_assets_value, undefined);
 });

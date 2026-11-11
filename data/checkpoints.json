@@ -145,6 +145,15 @@
       "cover_page_shares": 626451021,
       "cover_page_date": "2026-11-04",
       "note": "Balance-sheet common shares issued and outstanding as of August 31, 2026 (consolidated balance sheet and statement of stockholders' equity). Cover page (EntityCommonStockSharesOutstanding): 626,451,021 as of November 4, 2026. The Jul 9 → Aug 31 held-out error was recorded in commit 439fd4a with this checkpoint set not to anchor; it is now used as an anchor. v3 parameters were not re-tuned."
+    },
+    {
+      "date": "2026-11-04",
+      "shares": 626451021,
+      "basis": "cover page",
+      "source": "Form 10-K for the fiscal year ended August 31, 2026 (filed 2026-11-10)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+      "use_as_anchor": true,
+      "note": "10-K cover page: 626,451,021 shares of common stock issued and outstanding as of November 4, 2026. Newest official count; the week of Nov 2–8 is re-based on it (count + estimated issuance after Nov 4 by trading days)."
     }
   ],
   "atm_disclosures": [
@@ -463,7 +472,7 @@
     "from": "2026-07-09",
     "to": "2026-08-31",
     "frozen_on": "2026-10-28",
-    "rule": "Held-out test of the share model: record the error when the FY2026 10-K adds the Aug 31, 2026 checkpoint, before any change to the v3 parameters below. Reported separately from the in-sample rows and excluded from the summary.",
+    "rule": "Held-out test of the share model: record the error when the FY2026 10-K adds the Aug 31, 2026 checkpoint, before any change to the v3 parameters below. Reported separately from the in-sample rows and excluded from the summary. Recorded Nov 11, 2026 (commit 439fd4a): the result is frozen in 'recorded' and published verbatim; v3 may be re-tuned afterwards without changing it.",
     "frozen_v3_params": {
       "opex_weekly": 2278000,
       "bmnp_weekly": 646450,
@@ -491,6 +500,43 @@
         "diff_vs_prediction_shares": 152371,
         "status": "superseded the same day (bff5f5e); the Lido series was removed in favour of CESR as the independent check. Recorded only, not displayed or scored."
       }
-    ]
+    ],
+    "recorded": {
+      "model": "v3, information known at the interval start",
+      "frozen_on": "2026-10-28",
+      "staking_yield_input": "bitmine_stated_7d (as frozen)",
+      "prediction": {
+        "est_shares": 614351108,
+        "est_range": [
+          610994985,
+          618019327
+        ]
+      },
+      "status": "recorded",
+      "official_end_shares": 613267022,
+      "est_shares": 614351108,
+      "est_range": [
+        610994985,
+        618019327
+      ],
+      "error_shares": 1084086,
+      "error_pct": 0.18,
+      "within_range": true,
+      "source": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+      "recorded_in_commit": "439fd4a",
+      "recorded_on": "2026-11-11",
+      "params_at_recording": {
+        "opex_weekly": 2278000,
+        "bmnp_weekly": 646450,
+        "bmnp_start": "2026-06-10",
+        "include_investments": true,
+        "staking_lag_reports": 4,
+        "staking_realization": 1,
+        "opex_high_multiplier": 2,
+        "carry_forward": true,
+        "carry_weeks": 3,
+        "carry_max_usd": 5000000
+      }
+    }
   }
 }

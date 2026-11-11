@@ -11,10 +11,11 @@ export function computeNav(h, px) {
   const cash = h.cash_usd;
   const orbsVal = h.orbs.shares * px.ORBS;
   const beast = h.beast_usd;
+  const other = h.other_assets_usd ?? 0; // balance-sheet assets the weekly releases don't cover (latest 10-K/10-Q carrying value)
   const pref = h.preferred?.liquidation_usd ?? 0;
   const debt = h.debt_usd ?? 0;
   const mcap = shares * px.BMNR;
-  const full = btcVal + ethVal + cash + orbsVal + beast;
+  const full = btcVal + ethVal + cash + orbsVal + beast + other;
   const net = full - pref - debt;
   const cryptoCash = btcVal + ethVal + cash;
   const ethOnly = ethVal;
@@ -27,7 +28,7 @@ export function computeNav(h, px) {
     return { label, key, value, perShare, mnav: px.BMNR / perShare, note };
   };
   const rows = [
-    row('Full NAV', 'full', full, 'BTC + ETH + cash + ORBS stake + Beast stake (gross: before the BMNP preferred)'),
+    row('Full NAV', 'full', full, `BTC + ETH + cash + ORBS stake + Beast stake${other ? ' + other assets (10-K)' : ''} (gross: before the BMNP preferred)`),
     row('NAV net of preferred', 'net', net, `Full NAV − $${(pref / 1e6).toFixed(0)}M BMNP liquidation preference${debt ? ` − $${(debt / 1e6).toFixed(0)}M debt` : ''}`),
     row('Crypto/Cash NAV', 'crypto', cryptoCash, 'BTC + ETH + cash'),
     row('ETHUSD NAV', 'eth', ethOnly, 'ETH only'),
@@ -35,7 +36,7 @@ export function computeNav(h, px) {
       note: 'EV = market cap + preferred + debt − cash; multiple = EV ÷ (Full NAV − cash)' },
   ];
   if (h.dilutive?.length) rows.push({ ...row('Fully diluted (TSM)', 'diluted', net, 'NAV net of preferred ÷ (shares + treasury-stock-method shares from in-the-money warrants and options). Strike on 7,553 of the options is implied (about $19.40, from the 10-Q weighted average), not disclosed.', shares + dil.added), sensitivity: true, dilution: dil });
-  return { shares, mcap, ethVal, btcVal, cash, orbsVal, beast, pref, debt, full, net, ev, navExCash, dilution: dil, ethPerShare: h.eth / shares, rows };
+  return { shares, mcap, ethVal, btcVal, cash, orbsVal, beast, other, pref, debt, full, net, ev, navExCash, dilution: dil, ethPerShare: h.eth / shares, rows };
 }
 
 /** Treasury-stock method: each in-the-money instrument adds count × (1 − strike ÷ price) shares. */

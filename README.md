@@ -77,7 +77,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 
 ## NAV formulas
 
-* Full NAV (gross) = ETH×ETHUSD + BTC×BTCUSD + cash & marketable securities + Eightco stake (100,655,143 ORBS shares × price) + Beast stake ($180M as reported; $186M Jan 25–May 24, 2026)
+* Full NAV (gross) = ETH×ETHUSD + BTC×BTCUSD + cash & marketable securities + Eightco stake (100,655,143 ORBS shares × price) + Beast stake ($186.0M filed carrying value: $180.0M cash + $6.0M capitalized costs; the releases' $180M is the cash part) + other assets from the latest filing (from Aug 30, 2026: $8.347M other cost-method investments + $1.615M other digital assets, 10-K). Rule: any balance-sheet asset the weekly releases don't cover is added at its filed carrying value until the next filing; goodwill/intangibles (MAVAN, valued separately) and operating assets are not.
 * **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
 * Crypto/Cash NAV = ETH + BTC + cash; ETH-only NAV = ETH
 * EV ÷ NAV ex cash = (market cap + preferred + debt − cash) ÷ (Full NAV − cash); no per-share figure
@@ -93,10 +93,8 @@ that it resets daily to the greatest of $100, the last sale price (if Bitmine so
 10-day average price. Optional redemption (Bitmine's choice): 110% of $100 ($385M) until Dec 10, 2027, 105% until
 Jun 10, 2029, then 100%, plus accrued dividends. Dividends are cumulative, paid weekly.
 
-**Known items not deducted yet** (update from the FY2026 10-K): total liabilities $30.1M at May 31, 2026 — incl. the
-$1.8M ETH option liability, the $2.1M CVI warrant liability and the Pier Two deferred consideration ($9.5M fair value,
-75% cash) and earn-out ($1.8M fair value; $0–$11.8M undiscounted, payable in shares). "Cash & marketable securities"
-includes the cash posted as option collateral ($100.1M at May 31).
+**Known items not deducted yet**: total liabilities $33.7M at Aug 31, 2026 (10-K) — accrued $12.2M, CVI warrant liability
+$1.357M, deferred tax $2.256M, other (incl. Pier Two deferred consideration) ~$16.7M, leases $1.2M. No open ETH option contracts.
 * Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.
 
 ## Valuation (Bear / Base / Bull)
@@ -201,13 +199,14 @@ Bitmine does not disclose weekly ATM sales or a running share count. Official co
 | Apr 13, 2026 | 537,628,819 | same 10-Q, cover page — **flagged**: contradicts the filing's own Feb 28 count + 57,107,586 ATM shares sold through Apr 14 (= 551.0M); not used as an anchor |
 | May 31, 2026 | 579,652,432 | [10-Q May 31, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm) balance sheet |
 | Jul 9, 2026 | 603,226,394 | same 10-Q, cover page |
-| Aug 31, 2026 | 613,267,022 | [10-K FY ended Aug 31, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm) balance sheet (issued and outstanding). Cover page: 626,451,021 as of Nov 4, 2026 |
+| Aug 31, 2026 | 613,267,022 | [10-K FY ended Aug 31, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm) balance sheet (issued and outstanding) |
+| Nov 4, 2026 | 626,451,021 | same 10-K, cover page — latest anchor |
 
 Between anchors, for each weekly release *t* (window = day after the previous as-of date through this as-of date), **model v3**:
 
 | Step | Formula / rule |
 | --- | --- |
-| Est. staking rewards | `min(ETH staked over the last 5 reports) × stated 7-day BMNR yield × days / 365` — i.e. only ETH staked ≥ 4 reports earlier earns (validator entry queue). Fitted to 10-Q staking revenue: $55.6M modelled vs $52.5M reported for Dec–May (no lag gave $80.0M). |
+| Est. staking rewards | `min(ETH staked over the last 6 reports) × stated 7-day BMNR yield × days / 365` — i.e. only ETH staked ≥ 5 reports earlier earns (validator entry queue). Lag 5 matches the 10-K's 53,877 ETH from staking for FY2026 within +2.3% (lag 4: +7.3%). Fitted to 10-Q staking revenue: $55.6M modelled vs $52.5M reported for Dec–May (no lag gave $80.0M). |
 | Staking yield (input and check) | The input is Bitmine's stated 7-day yield, its own realized rate. Dec 28, 2025 – Feb 1, 2026 releases gave none, so the CESR figure quoted in those releases is used (`staking_yield_source`). The CESR weekly average (`data/cesr.json`: mean of the daily values dated previous as-of + 1 day … as-of) is shown as an independent check per week (`staking_yield_check`, flagged when it differs by > 0.3 pt) and is the input only for weeks with no yield in the release (Nov 30 – Dec 21, 2025, when nothing was staked). Across the 39 weeks with a Bitmine-stated yield, CESR averages 0.04 pt below it (mean absolute gap 0.04 pt). |
 | Est. ETH bought | `ETH held_t − ETH held_{t−1} − rewards` (the 10-Q digital-asset roll-forward adds staking rewards to ETH units) |
 | ETH price paid (basis per week) | **disclosed**: week inside a quarter with a filed 10-Q → `average daily ETH price in the window × that quarter's paid ÷ market ratio`. **assumed**: after the last filed quarter → `window average × pooled ratio (0.9979)`, low–high ±1%. **on-chain**: tracker prices, only if `use_onchain_price` is switched on (it is off — see below). A release that states the dollars spent on ETH (`eth_purchase_cost_usd`) would be used as disclosed for that week. |
@@ -216,7 +215,7 @@ Between anchors, for each weekly release *t* (window = day after the previous as
 | Disclosed investments | cash for non-ETH investments (Beast $186M wk of Jan 25 = $180.0M cash + $6.0M capitalized costs per the 10-Q, Note 6 — the release said "$200 million"; the other $20M is an unexercised side-letter right for Beast to sell more preferred; Eightco ~$80M wk of Mar 15; Pier Two ~$6M wk of Mar 29) |
 | Option book (not modeled) | Bitmine writes and buys ETH options: premiums received are a cash source, premiums paid and collateral posted are uses. FY2026 (10-K cash-flow statement): premiums paid $125.3M, received $121.4M; net loss on derivative contracts $143.7M. No open derivative contracts at August 31, 2026 and no separate option-collateral line for the year. Weekly values are still unknown, so the model leaves them out (they land in the share-funded amount). |
 | Award shares | RSU/award shares from Form 4s in their week, net of shares withheld for tax (`other_shares_issued`): Jan 23 board grants +442,463; Apr 7 officers +9,577; quarterly director vests 22,620 (Apr 23, Jul 23, Oct 23); Tsang +142 (Apr 23, Jul 23), +2,504 (Jun 30), +2,482 (Sep 30), −10 (Oct 23). Unvested RSUs/options excluded. |
-| Operating cash burn | `$2,278,000/week` = Dec 2025–May 2026 net operating cash flow (−$59.236M ÷ 26, 10-Qs) **plus** `$646,450/week` BMNP dividends from Jun 10, 2026; prorated by days |
+| Operating cash burn | `$1,969,051/week` = Dec 2025–Aug 2026 net operating cash flow (−$76.793M ÷ 39; FY2026 10-K − Sep–Nov 10-Q; was $2,278,000 on Dec–May) **plus** `$646,450/week` BMNP dividends from Jun 10, 2026; prorated by days |
 | Cash shortfall | `spending − cash drop − disclosed non-common proceeds (BMNP $273.8M)`, spending = ETH cost + other digital-asset cash + buyback cost + investments + operating burn. Negative = surplus. |
 | Surplus carry-forward | a surplus offsets the next weeks' shortfalls for at most **3 weeks** and **$5M in total** (oldest used first; anything older or above the cap is dropped). Noise-sized on purpose: cash in releases is rounded to the nearest $1M since Jan 4, 2026, and the ETH price assumption alone is ±1% (≈ ±$0.2M/week at current purchase sizes). |
 | Funded by share sales (est.) | `max(0, shortfall − surplus used)`. **Aug 23 – Sep 20, 2026 (‡ on the site)**: cash rose $78M → $714M with no disclosed raise — funding source undisclosed, modeled as ATM equity. The FY2026 10-K shows $545.1M of cash at August 31 (vs $541M in the August 30 release) and no debt. Subsequent events do not identify a post-year-end financing; the cover page increased from 613,267,022 at year-end to 626,451,021 as of November 4, 2026 (+13,183,999), consistent with ongoing ATM sales. |
@@ -280,31 +279,40 @@ Each interval starts at an official count and rolls forward using only the weekl
 
 | Interval | Official Δ | v1 error | v2 error | v3 error | v3 walk-forward |
 | --- | --- | --- | --- | --- | --- |
-| Nov 30 → Jan 12 | +46.28M | −0.82M (−0.18%) | +1.16M (+0.26%) | +1.21M (+0.27%) | +1.50M (+0.33%) |
-| Jan 12 → Feb 28 | +39.04M | −2.49M (−0.50%) | −0.45M (−0.09%) | −0.40M (−0.08%) | −0.19M (−0.04%) |
-| Feb 28 → May 31 (quarter) | +85.75M | −7.59M (−1.31%) | +0.42M (+0.07%) | +1.50M (+0.26%) | −4.33M (−0.75%) |
-| May 31 → Jul 9 | +23.57M | −0.65M (−0.11%) | +0.62M (+0.10%) | −0.28M (−0.05%) | −1.23M (−0.20%) |
-| Nov 30 → Jul 9 (no re-anchoring) | +194.65M | −11.55M (−1.91%) | +1.75M (+0.29%) | +2.04M (+0.34%) | −4.26M (−0.71%) |
-| *Feb 28 → Apr 13 (flagged cover)* | +43.72M | −3.17M | +2.86M | +3.33M | +0.64M |
-| *Apr 13 → May 31 (flagged cover)* | +42.02M | −4.42M | −2.44M | −1.83M | −5.02M |
+| Nov 30 → Jan 12 | +46.28M | −0.82M (−0.18%) | +1.10M (+0.24%) | +1.15M (+0.25%) | +1.44M (+0.32%) |
+| Jan 12 → Feb 28 | +39.04M | −2.49M (−0.50%) | −0.42M (−0.09%) | −0.38M (−0.08%) | −0.17M (−0.03%) |
+| Feb 28 → May 31 (quarter) | +85.75M | −7.59M (−1.31%) | +0.32M (+0.06%) | +1.40M (+0.24%) | −4.40M (−0.76%) |
+| May 31 → Jul 9 | +23.57M | −0.65M (−0.11%) | +0.56M (+0.09%) | −0.34M (−0.06%) | −1.29M (−0.21%) |
+| Jul 9 → Aug 31 (held-out when recorded) | +10.04M | +1.50M (+0.24%) | +1.65M (+0.27%) | +1.35M (+0.22%) | +0.97M (+0.16%) |
+| Aug 31 → Nov 4 (10-K cover) | +13.18M | −0.51M (−0.08%) | −0.30M (−0.05%) | −0.82M (−0.13%) | −0.82M (−0.13%) |
+| Nov 30 → Jul 9 (no re-anchoring) | +194.65M | −11.55M (−1.91%) | +1.56M (+0.26%) | +1.84M (+0.30%) | −4.43M (−0.73%) |
+| *Feb 28 → Apr 13 (flagged cover)* | +43.72M | −3.17M | +2.82M | +3.30M | +0.61M |
+| *Apr 13 → May 31 (flagged cover)* | +42.02M | −4.42M | −2.50M | −1.89M | −5.05M |
 
-Four clean intervals — mean |error| / bias: **v1 0.53% / −0.53%**, **v2 0.13% / +0.09%**, **v3 0.17% / +0.10%**,
-v3 walk-forward 0.33% / −0.16%. v2 and v3 both use Dec–May 10-Q data (in-sample on those rows); v3's walk-forward only
-knows 10-Qs filed before each interval starts, so it misses the Mar–May cash-timing item in the Feb 28 → May 31 test.
-v2's lower error comes from a factor that mixes ETH price with cash timing; it would overstate what Bitmine pays per
-ETH by ~5% in every week. Surplus carry-forward rules barely matter (no carry 0.19%, 3 wk/$5M 0.20%, unlimited 0.20%;
-current estimate 625.68M after the August 31, 2026 re-anchor). Sub-quarter errors are mostly *timing* (which days inside a week the ATM sold,
+Six clean intervals (the four earlier ones + Jul 9 → Aug 31 + Aug 31 → Nov 4) — mean |error| / bias: **v1 0.40% / −0.32%**,
+**v2 0.13% / +0.09%**, **v3 0.16% / +0.07%** (6/6 inside the range), v3 walk-forward 0.27% / −0.11%. v2's lower error comes
+from a factor that mixes ETH price with cash timing; it would overstate what Bitmine pays per ETH by ~5% in every week.
+
+**Nov 11, 2026 re-tune (after the held-out result was recorded).** Only changes measured directly from the 10-K were kept:
+cash opex $2,278,000 → **$1,969,051/week** (same rule, Dec–Aug operating cash flow −$76.793M ÷ 39 instead of Dec–May) and
+staking lag 4 → **5 reports** (chosen because it reproduces the 10-K's ETH received from staking: 55,132 modeled vs 53,877
+for Sep 2025–Aug 2026, +2.3%; lag 4 +7.3%, lag 6 −2.7%). Same six intervals: v3 0.17% / +0.09% → **0.16% / +0.07%**.
+Fitting parameters to the share backtest itself was rejected: leave-one-out (pick the best setting on five intervals,
+score the sixth) gave 0.18–0.20% for opex/lag/carry/full-grid tuning vs 0.17% for untuned v3, i.e. overfitting. Kept
+unchanged: ETH factor (pooled 0.998, already includes Jun–Aug; fixed 1.000 or the latest-quarter 0.995 made no
+difference), surplus carry-forward (3 weeks / $5M; none or unlimited within ±0.01 pt), staking realization 1.0 and the
+ATM issue price (weekly average close). Sub-quarter errors are mostly *timing* (which days inside a week the ATM sold,
 when ETH purchases settled) and rounded cash figures in some releases ("$1.0 billion", "$1.2 billion" → ±$50M ≈ ±2M shares).
 
-Current estimate (Nov 8, 2026): **v3 625,683,373** (low–high est. since the August 31 official count 624.2–627.6M);
-v2 is 626,198,170 (624.8–628.2M).
+Current estimate (Nov 8, 2026): **v3 626,451,021** — the 10-K cover count as of November 4, 2026 (newest official count, now an anchor), plus no modeled issuance Nov 5–8 (cash fell; no ETH-funding shortfall).
 
 **Held-out test (Jul 9 → Aug 31, 2026).** Recorded from the FY2026 10-K (filed November 10, 2026): the official
 August 31, 2026 balance-sheet count is **613,267,022**. The frozen v3 prediction (information known at Jul 9 only)
 was **614,351,108** (low–high 610,994,985–618,019,327), an error of **+1,084,086 shares (+0.18%)**, inside the
 predicted range. The 10-K cover page separately reports 626,451,021 shares as of November 4, 2026. The result lives
-in `backtest.json → out_of_sample` (and the "Held-out test" tile): it stays apart from the in-sample rows and is
-excluded from the averages. v3 parameters were not changed before this error was recorded.
+in `backtest.json → out_of_sample` (and the "Held-out test" tile), frozen verbatim in `checkpoints.json → out_of_sample.recorded`
+(commit 439fd4a). v3 parameters were not changed before this error was recorded; the Nov 11 re-tune happened afterwards and
+does not alter the recorded result. The interval now also counts in the averages.
 
 ### Anchor basis and reconciliations
 
@@ -383,7 +391,7 @@ checks the Oct 25 share count and range, the v3 backtest summary, the held-out f
 
 * **ORBS** = Eightco Holdings (NASDAQ: ORBS) **stock** — not the "Orbs" crypto token on CoinGecko. 100,655,143 shares per
   Bitmine's 10-Q; weekly snapshots use the reported $ value, the live page uses shares × live price.
-* Beast Industries is carried at the $180M Bitmine reports (10-Q cost $186.0M incl. costs). The BMNP preferred is deducted at its $350M liquidation preference; other liabilities are not deducted yet (see NAV formulas).
+* Beast Industries is carried at its $186.0M filed carrying value (10-K; the releases' $180M excludes $6.0M of capitalized costs); $9.96M of other balance-sheet assets are included from Aug 30, 2026. The BMNP preferred is deducted at its $350M liquidation preference; other liabilities are not deducted yet (see NAV formulas).
 * GitHub cron schedules can run late or be skipped under load, which is why stock prices are fetched live from CNBC; the page always shows each price's timestamp and source.
 
 Not investment advice.

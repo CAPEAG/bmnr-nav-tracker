@@ -1,4 +1,4 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202611021200';
+import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202611111200';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
@@ -223,7 +223,8 @@ function render() {
     ['BTC', n(h.btc), usd(p.BTC, 0), nav.btcVal, P.BTC],
     ['Cash & mkt. securities', '—', '$1.00', nav.cash, null],
     ['ORBS (Eightco stock)', n(h.orbs.shares), usd(p.ORBS), nav.orbsVal, P.ORBS],
-    ['Beast Industries stake', '—', 'fixed', nav.beast, null],
+    ['Beast Industries stake', '—', '10-K cost', nav.beast, null],
+    ...(nav.other ? [['Other assets (10-K)', '—', 'book', nav.other, null]] : []),
   ];
   const fullV = nav.full;
   $('holdBasis').innerHTML = `as of ${fmtDate(h.as_of)} <a href="${h.source.press_release}" target="_blank" rel="noopener">source</a>`;
@@ -506,11 +507,11 @@ function renderBacktest() {
   const sm = B.summary;
   $('btSummary').innerHTML = ['v1', 'v2', 'v3', 'v3_walkforward'].filter((k) => sm[k]).map((k) => `<div class="kpi"><div class="l">${B.models[k].label}</div><div class="v">${sm[k].mean_abs_error_pct.toFixed(2)}%</div><div class="s">mean |error| · bias ${sg(sm[k].mean_error_pct)} · ${sm[k].within_range}/${sm[k].intervals} inside low–high est.${B.current_estimate?.[k] ? `<br>now ${(B.current_estimate[k].shares / 1e6).toFixed(1)}M sh` : ''}</div></div>`).join('');
   const O = B.out_of_sample;
-  if (O) $('btSummary').innerHTML += `<div class="kpi"><div class="l">Held-out test, v3 frozen: ${O.label}</div><div class="v">${O.status === 'recorded' ? sg(O.error_pct) : 'pending 10-K'}</div><div class="s">${O.status === 'recorded' ? `est. ${n(O.est_shares)} vs official ${n(O.official_end_shares)} · ${O.within_range ? 'inside' : 'outside'} low–high est.` : 'out-of-sample error recorded when the FY2026 10-K adds the Aug 31 count'}${O.params_match_freeze ? '' : '<br>⚠ v3 parameters changed since the freeze'}; not in the averages${O.prediction ? `<br>frozen prediction ${n(O.prediction.est_shares)} (low–high ${n(O.prediction.est_range[0])}–${n(O.prediction.est_range[1])})` : ''}</div></div>`;
+  if (O) $('btSummary').innerHTML += `<div class="kpi"><div class="l">Held-out test, v3 frozen: ${O.label}</div><div class="v">${O.status === 'recorded' ? sg(O.error_pct) : 'pending 10-K'}</div><div class="s">${O.status === 'recorded' ? `est. ${n(O.est_shares)} vs official ${n(O.official_end_shares)} · ${O.within_range ? 'inside' : 'outside'} low–high est.` : 'out-of-sample error recorded when the FY2026 10-K adds the Aug 31 count'}${O.status === 'recorded' ? (O.retuned_after_recording ? '<br>frozen result; v3 re-tuned afterwards' : '') : (O.params_match_freeze ? '' : '<br>⚠ v3 parameters changed since the freeze')}${O.status === 'recorded' ? '' : '; not in the averages'}${O.prediction ? `<br>frozen prediction ${n(O.prediction.est_shares)} (low–high ${n(O.prediction.est_range[0])}–${n(O.prediction.est_range[1])})` : ''}</div></div>`;
   const cell = (v) => `${n(v.est_shares)}<br><span class="${Math.abs(v.error_pct) < 0.5 ? 'up' : 'down'}">${m(v.error_shares)}${p(v.error_pct)}</span>`;
   $('btTable').innerHTML = `<tr><th>Interval (official → official)</th><th>Official Δ shares</th><th>Official ATM shares</th><th>v1 est. end · error</th><th>v2 est. end · error</th><th>v3 est. end · error</th><th>v3 walk-forward · error</th><th>v3 est. ATM shares</th><th>v3 est. proceeds vs official</th></tr>` +
     B.intervals.map((b) => { const v3 = b.models.v3;
-      return `<tr class="${b.flagged ? 'flag' : ''}"><td>${shortDate(b.from)} → ${shortDate(b.to)}${b.kind !== 'consecutive' ? `<br><span class="fine">${b.kind}</span>` : ''}${b.flagged ? '<br><span class="fine">⚠ uses the Apr 13 cover count</span>' : ''}${b.out_of_sample ? '<br><span class="fine">held-out (not in the averages)</span>' : ''}<br><span class="fine"><a href="${b.sources[0]}" target="_blank" rel="noopener">start</a> · <a href="${b.sources[1]}" target="_blank" rel="noopener">end</a></span></td>
+      return `<tr class="${b.flagged ? 'flag' : ''}"><td>${shortDate(b.from)} → ${shortDate(b.to)}${b.kind !== 'consecutive' ? `<br><span class="fine">${b.kind}</span>` : ''}${b.flagged ? '<br><span class="fine">⚠ uses the Apr 13 cover count</span>' : ''}${b.out_of_sample ? `<br><span class="fine">${O?.status === 'recorded' ? 'held-out test (recorded; now in the averages)' : 'held-out (not in the averages)'}</span>` : ''}<br><span class="fine"><a href="${b.sources[0]}" target="_blank" rel="noopener">start</a> · <a href="${b.sources[1]}" target="_blank" rel="noopener">end</a></span></td>
       <td>${n(b.official_change)}</td><td>${b.official_atm_shares == null ? 'n/d' : n(b.official_atm_shares)}</td>
       <td>${cell(b.models.v1)}</td><td>${cell(b.models.v2)}</td><td>${cell(v3)}</td><td>${cell(b.models.v3_walkforward)}</td>
       <td>${n(v3.est_issued)}${v3.issued_error == null ? '' : `<br><span class="fine">${m(v3.issued_error)} (${v3.issued_error_pct > 0 ? '+' : ''}${v3.issued_error_pct}%)</span>`}</td>
