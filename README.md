@@ -295,12 +295,12 @@ when ETH purchases settled) and rounded cash figures in some releases ("$1.0 bil
 Current estimate (Oct 25, 2026): **v3 626,769,593** (low–high est. since the Jul 9 official count 621.9–632.2M);
 v2 was 627,963,701 (623.1–633.4M).
 
-**Held-out test (Jul 9 → Aug 31, 2026).** When the FY2026 10-K adds the Aug 31, 2026 count, that interval is scored
-as a pure out-of-sample error (`backtest.json → out_of_sample`, "Held-out test" tile on the site): v3 with only the
-information known at Jul 9 and the parameters frozen in `checkpoints.json → out_of_sample.frozen_v3_params`. It is
-reported apart from the in-sample rows and excluded from the averages; until then it shows "pending 10-K".
-**Do not re-tune v3 (opex, staking lag, carry-forward, ETH-price rules) before that error is recorded.** The build
-warns, and `npm test` fails, if the v3 parameters differ from the freeze while the test is pending.
+**Held-out test (Jul 9 → Aug 31, 2026).** Recorded from the FY2026 10-K (filed November 10, 2026): the official
+August 31, 2026 balance-sheet count is **613,267,022**. The frozen v3 prediction (information known at Jul 9 only)
+was **614,351,108** (low–high 610,994,985–618,019,327), an error of **+1,084,086 shares (+0.18%)**, inside the
+predicted range. The 10-K cover page separately reports 626,451,021 shares as of November 4, 2026. The result lives
+in `backtest.json → out_of_sample` (and the "Held-out test" tile): it stays apart from the in-sample rows and is
+excluded from the averages. v3 parameters were not changed before this error was recorded.
 
 ### Anchor basis and reconciliations
 

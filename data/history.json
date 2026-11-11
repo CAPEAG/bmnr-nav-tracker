@@ -115,6 +115,13 @@
         "basis": "cover page",
         "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
         "use_as_anchor": true
+      },
+      {
+        "date": "2026-08-31",
+        "shares": 613267022,
+        "basis": "balance sheet (issued and outstanding)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+        "use_as_anchor": false
       }
     ],
     "buyback_aggregate": {
@@ -6260,6 +6267,15 @@
         "shares": 603226394,
         "weeks_since": 8
       },
+      "checkpoints_in_week": [
+        {
+          "date": "2026-08-31",
+          "shares": 613267022,
+          "basis": "balance sheet (issued and outstanding)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+          "used_as_anchor": false
+        }
+      ],
       "btc": 211,
       "orbs_value": 91000000,
       "beast_value": 180000000,

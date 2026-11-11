@@ -134,6 +134,17 @@
       "source": "10-Q quarter ended May 31, 2026 (filed 2026-07-14)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
       "use_as_anchor": true
+    },
+    {
+      "date": "2026-08-31",
+      "shares": 613267022,
+      "basis": "balance sheet (issued and outstanding)",
+      "source": "Form 10-K for the fiscal year ended August 31, 2026 (filed 2026-11-10)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+      "use_as_anchor": false,
+      "cover_page_shares": 626451021,
+      "cover_page_date": "2026-11-04",
+      "note": "Balance-sheet common shares issued and outstanding as of August 31, 2026 (consolidated balance sheet and statement of stockholders' equity). Cover page (EntityCommonStockSharesOutstanding): 626,451,021 as of November 4, 2026. Added with use_as_anchor=false so the frozen Jul 9 → Aug 31 held-out prediction can be scored before estimates are re-anchored to this count. v3 parameters were not changed."
     }
   ],
   "atm_disclosures": [

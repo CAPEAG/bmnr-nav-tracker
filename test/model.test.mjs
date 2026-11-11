@@ -122,15 +122,20 @@ test('staking yield: model input is the stated yield; CESR weekly average is a f
   assert.equal(h.assumptions.weekly_staking_yield, Number((ys.reduce((t, x) => t + x, 0) / 13).toFixed(5)), 'accrual = 13-week stated average');
 });
 
-test('held-out interval Jul 9 → Aug 31, 2026: reported separately, v3 not re-tuned while pending', () => {
+test('held-out interval Jul 9 → Aug 31, 2026: recorded from the FY2026 10-K, v3 not re-tuned first', () => {
   const O = B.out_of_sample;
   assert.equal(O.from, '2026-07-09'); assert.equal(O.to, '2026-08-31');
-  assert.ok(['pending 10-K', 'recorded'].includes(O.status));
-  if (O.status === 'pending 10-K') assert.equal(O.params_match_freeze, true, 'v3 parameters changed before the out-of-sample error was recorded');
-  // the held-out prediction keeps the input in use at the freeze (Bitmine-stated yields); the new input is reported apart
+  assert.equal(O.status, 'recorded');
+  assert.equal(O.params_match_freeze, true, 'v3 parameters changed before the out-of-sample error was recorded');
+  // the held-out prediction keeps the input in use at the freeze (Bitmine-stated yields)
   assert.equal(O.staking_yield_input, 'bitmine_stated_7d (as frozen)');
   assert.deepEqual(O.prediction, { est_shares: 614351108, est_range: [610994985, 618019327] });
   assert.equal(O.current_model_matches_prediction, true);
+  assert.equal(O.official_end_shares, 613267022);
+  assert.equal(O.est_shares, 614351108);
+  assert.equal(O.error_shares, 1084086);
+  assert.equal(O.error_pct, 0.18);
+  assert.equal(O.within_range, true);
   assert.equal(O.superseded_alternatives?.[0]?.est_shares, 614503478, 'superseded cf594cf alternative kept on record');
   assert.ok(!B.intervals.some((b) => b.out_of_sample && B.summary.v3.intervals > 4), 'held-out interval excluded from the summary');
 });
