@@ -82,15 +82,15 @@ process.on('exit', () => rmSync(out, { recursive: true, force: true }));
 // (data/cesr.json) is a check only. (cf594cf briefly used a Lido weekly average as the input; reverted in bff5f5e.)
 test('Oct 25, 2026 week: v3 share count and range', () => {
   const s = H.snapshots.find((x) => x.as_of === '2026-10-25');
-  assert.equal(s.shares_outstanding, 626769593);
-  assert.deepEqual(s.shares_outstanding_range, [621932460, 632231048]);
+  assert.equal(s.shares_outstanding, 625683373);
+  assert.deepEqual(s.shares_outstanding_range, [624202447, 627475826]);
 });
 
 test('backtest: v3 in-sample summary unchanged', () => {
   const v3 = B.summary.v3;
   assert.equal(v3.intervals, 4);
-  assert.equal(v3.mean_abs_error_pct, 0.2);
-  assert.equal(v3.mean_error_pct, 0.06);
+  assert.equal(v3.mean_abs_error_pct, 0.17);
+  assert.equal(v3.mean_error_pct, 0.1);
   assert.equal(v3.within_range, 4);
 });
 
@@ -183,6 +183,6 @@ test('Nov 30, 2025 anchor: trade-date count kept, settlement-date figure alongsi
   assert.equal(s.atm_shares_settled, 84960590 + (n.shares - n.shares_settlement_basis) - 200000);
 });
 
-test('warrant-exercise line: three quarters from the 10-Q equity statements', () => {
-  assert.deepEqual(C.warrant_exercises.quarters.map((q) => q.shares), [63460, 94518, 54461]);
+test('warrant-exercise line: four quarters from the 10-Q/10-K equity statements', () => {
+  assert.deepEqual(C.warrant_exercises.quarters.map((q) => q.shares), [63460, 94518, 54461, 23026]);
 });

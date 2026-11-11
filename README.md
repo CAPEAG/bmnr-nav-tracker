@@ -112,14 +112,14 @@ Method:
 * Treasury business value = (own staking earnings − corporate costs) × (1 − treasury tax, only if positive) × treasury multiple. Losses get no tax benefit (full valuation allowance) and are kept (costs above staking income destroy value).
 * **BMNP preferred, counted once** (`valuation.json → preferred_treatment = "principal"`): the $350M liquidation preference is deducted from NAV and the dividends are not also subtracted from earnings. The alternative `"principal_and_dividends"` subtracts the dividends from *after-tax* treasury earnings as well. Preferred dividends never reduce taxable income.
 * MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − MAVAN tax, only if positive) × services multiple.
-* NOL tax shelter = one-off value of losses carried forward (est., pending the FY2026 10-K), added once rather than by lowering the tax rate.
+* NOL tax shelter = one-off value of FY2026 10-K NOL carryforwards ($271.9M principal, $57.154M tax-effected), added once rather than by lowering the tax rate. A full valuation allowance means none is recognized on the balance sheet.
 * SOTP per share = live NAV per share net of the preferred + (treasury value + MAVAN value + NOL shelter) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share (net of preferred).
-* Option-premium income and interest are excluded in all cases: the ETH options program lost $133.3M in the 9 months to May 31, 2026 and cash balances (and interest) are being spent down (10-Q).
+* Option-premium income and interest are excluded in all cases: the ETH options program lost $143.7M in FY2026 and there were no open derivative contracts at August 31, 2026 (10-K).
 
-**Tax:** FY2025 10-K: $0 current tax (the 20.9% effective rate was all deferred). Q3 FY2026 10-Q: full valuation allowance, no cash taxes; existing NOLs ≈ $50M (est., ≈ $10.5M of tax at 21%).
-Staking rewards are ordinary income at receipt (Rev. Rul. 2023-14); ETH losses (price well below Bitmine's ~$3,517 average cost) are capital losses and can't offset it.
-CAMT likely doesn't apply ($1B threshold; Notice 2025-49 excludes unrealized digital-asset gains). Nevada has no corporate income tax.
-MAVAN is taxed separately (Pier Two is Australian, 30%). Tax applies only to positive earnings; the NOL shelter ($40–60M) is a one-off estimate: existing NOLs plus FY2026's expected operating loss, pending the FY2026 10-K (due ~Oct 30, 2026).
+**Tax:** FY2026 10-K: $0 current tax, a $92.3M deferred-tax benefit (reversing the FY2025 deferred provision), and a full valuation allowance against net deferred tax assets. NOL carryforwards are $271.9M ($57.154M tax-effected). The $1.14B deferred tax asset on unrealized crypto losses is fully reserved, leaving a $2.256M net deferred tax liability on the balance sheet.
+Staking rewards are ordinary income at receipt (Rev. Rul. 2023-14); ETH losses (FY2026 unrealized loss $6.229B; average ETH cost about $3,380) are capital losses and can't offset it.
+CAMT likely doesn't apply ($1B threshold; Notice 2025-49 excludes unrealized digital-asset gains).
+MAVAN is taxed separately (Pier Two is Australian, 30%). Tax applies only to positive earnings; the NOL shelter is the tax-effected $57.154M (bear $45M).
 
 **No double counting:** NAV counts ETH already held, including staking rewards already received. The earnings value capitalizes only FUTURE net staking income on today's staked base, after costs, with no growth from future ETH purchases. Each week the rewards received move into NAV while the run-rate (and its capitalized value) stays the same, so no reward is counted twice at any point in time. The BMNP preferred is counted once: its $350M liquidation preference is deducted from NAV, so its dividends are not also subtracted from earnings (capitalized, they are the same claim — ≈ $394M at the base 15× after 21% tax). The rule: a perpetual preferred's claim is its dividend stream, so the SOTP deducts the $350M principal once and values earnings before preferred dividends; the weekly dividend ($646,450) still counts as a cash use in the share model. Because a staked-ETH ETF (e.g. BlackRock ETHB) already passes staking yield to holders at ~1.0× NAV, the multiples on Bitmine's own staking income are kept modest — the premium is only for the yield being earned at scale net of costs.
 
@@ -132,14 +132,14 @@ MAVAN is taxed separately (Pier Two is Australian, 30%). Tax applies only to pos
 | BMNP preferred dividends, annual (reference) | $33.2M | $33.2M | $33.2M | 3.5M shares of 9.50% Series A Perpetual Preferred ≈ $33.25M a year (10-Q). Not subtracted from earnings: the $350M liquidation preference is deducted from NAV instead. Never a pre-tax deduction; used only by the alternative treatment, after tax. [1] |
 | Tax rate on treasury/staking earnings (if positive) | 23% | 21% | 15% | Staking rewards are ordinary income when received (Rev. Rul. 2023-14). Base 21% federal (Nevada has no corporate income tax); bear 23% adds some state tax; bull 15% for deductions/credits (judgment). FY2025: $0 current tax, the 20.9% effective rate was all deferred; now a full valuation allowance and no cash taxes. ETH losses (price well below Bitmine's ~$3,517 average cost) are capital losses and can't offset ordinary staking income. CAMT unlikely ($1B threshold; Notice 2025-49 excludes unrealized digital-asset gains). No tax benefit on losses. [18] [19] [1] [20] |
 | Multiple on net treasury/staking earnings | 6× | 15× | 18.8× | Bear 6× = Lido DAO's treasury-adjusted revenue multiple (staking-protocol comp). Base 15× = money-center banks' market cap ÷ net income (balance-sheet yield businesses). Bull 18.8× = asset managers' forward P/E. Kept below asset-manager levels because staked-ETH ETFs offer the same yield at ~1.0× NAV. [14] [15] [17] |
-| MAVAN client revenue run-rate (today) | $18.9M | $18.9M | $18.9M | Pier Two (now MAVAN) contributed $3.527M of staking revenue from its Mar 24 acquisition to May 31, 2026 (68 days) → $18.9M a year. Client assets ≈ $2B (Tom Lee, May and again Oct 7, 2026) across ETH, Solana, Hyperliquid and Canton. Only named partner: Hyperion DeFi/Kinetiq's Hyperliquid validator (MAVAN 25% of commissions). [1] [5] [23] [26] |
+| MAVAN client revenue run-rate (today) | $24.5M | $24.5M | $24.5M | MAVAN contributed about $10.8M of revenue from the Pier Two acquisition (Mar 24) through Aug 31, 2026 (161 days) → $24.5M a year, with a net loss of about $0.2M (FY2026 10-K MD&A). That compares with $3.527M over the first 68 days to May 31 ($18.9M annualized). Client assets ≈ $2B (Tom Lee, May and again Oct 7, 2026). [27] [5] [23] [26] |
 | Fee compression on existing clients | 25% | 0% | 0% | Institutional commissions are compressing (Messari); bear cuts existing revenue by a quarter. [12] |
 | New client ETH staked via MAVAN | $0 | $1,000.0M | $4,000.0M | Disclosed client assets were flat at ~$2B from May to Oct 2026, and no new clients have been named. Bear: no growth. Base +$1B (judgment: midpoint between the flat $2B and the ~$3.9B implied by the 424B5's >$14B less Bitmine's $10.1B). Bull +$4B, back to Pier Two's ~$6B delegated assets of Dec 2025. [23] [22] [25] |
 | Fee on new client rewards | 5% | 8% | 10% | MAVAN's standard terms charge 10% of net rewards (bull). Base 8%: large institutions negotiate below list (judgment). Bear 5%: low end of the institutional 5–10% range (Messari). [24] [12] [11] |
 | MAVAN segment operating margin | 15% | 25% | 40% | Not disclosed (MAVAN is not a reported segment). Base = US asset managers' pre-tax operating margin (25.2%); bear 15% / bull 40% (judgment). [16] [22] |
 | Tax rate on MAVAN earnings (if positive) | 30% | 25% | 21% | Pier Two, MAVAN's main business, is Australian (30% company rate); US rate is 21% plus state. Bear 30%, base 25% (mix), bull 21% (judgment). [21] [3] |
 | Multiple on MAVAN after-tax earnings | 8.5× | 12× | 18.8× | Bear 8.5× ≈ Bitmine's ~$30.5M price for Pier Two ÷ its base-case after-tax earnings (also ≈ LDO market cap ÷ protocol revenue). Base 12× ≈ price including the full $11.8M earn-out (~$42.3M). Bull 18.8× = asset managers' forward P/E. [22] [13] [15] |
-| NOL tax shelter, one-off (est., pending FY2026 10-K) | $40.0M | $50.0M | $60.0M | Existing NOLs ≈ $50M (est.) are worth ≈ $10.5M at 21%. The rest assumes FY2026's expected operating loss adds to the NOLs (pending the 10-K, due ~Oct 30, 2026). Added once instead of lowering the rate permanently. [1] [19] |
+| NOL tax shelter, one-off (FY2026 10-K) | $45.0M | $57.2M | $57.2M | 10-K Note 12: $271.9M of U.S. federal and foreign NOL carryforwards ($57.154M tax-effected). Indefinite carryforward, subject to limitations; full valuation allowance so none is recognized on the balance sheet. Bear haircuts for possible limitations; base/bull use the full tax-effected amount. [27] |
 
 Cases — **Bear:** Yields compress as the network stake keeps rising, part of the ETH stays with paid outside partners, costs run at the top of management's guidance, MAVAN wins no new clients and faces fee pressure, and the market pays only a protocol-token multiple. **Base:** Today's business at its current run-rate: 13-week average Bitmine yield, staking moves toward "nearly all" ETH, 10-Q cost run-rate, MAVAN adds $1B of client assets at a typical institutional fee, and financial-sector multiples. **Bull:** Staking near-complete with the 26-week yield (MEV upside), leaner costs, MAVAN grows client assets back to Pier Two's ~$6B at its 10% list fee, a larger one-off NOL shelter, and asset-manager multiples.
 
@@ -171,6 +171,7 @@ Sources:
 24. [MAVAN (Pier Two) staking Terms of Use — service fee 10% of net rewards unless agreed otherwise](https://app.mavan.bitminetech.io/docs/staking-terms-general-02-10-25.pdf)
 25. [Lido research forum, Dec 3, 2025 — Pier Two: ~$6B delegated assets, Lido curated/DVT operator](https://research.lido.fi/t/node-operator-admission-pier-two-as-stvault-professional-operator/10952)
 26. [Hyperion DeFi 10-Q (Q2 2026) — Kinetiq x Hyperion Hyperliquid validator run with MAVAN (MAVAN gets 25% of commissions)](https://www.sec.gov/Archives/edgar/data/1682639/000110465926095181/hypd-20260630x10q.htm)
+27. [10-K for FY ended Aug 31, 2026 (filed Nov 10, 2026)](https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm)
 
 ## Weekly accretion check
 
@@ -199,7 +200,8 @@ Bitmine does not disclose weekly ATM sales or a running share count. Official co
 | Feb 28, 2026 | 493,905,227 | [10-Q Feb 28, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm) balance sheet |
 | Apr 13, 2026 | 537,628,819 | same 10-Q, cover page — **flagged**: contradicts the filing's own Feb 28 count + 57,107,586 ATM shares sold through Apr 14 (= 551.0M); not used as an anchor |
 | May 31, 2026 | 579,652,432 | [10-Q May 31, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm) balance sheet |
-| Jul 9, 2026 | 603,226,394 | same 10-Q, cover page (latest) |
+| Jul 9, 2026 | 603,226,394 | same 10-Q, cover page |
+| Aug 31, 2026 | 613,267,022 | [10-K FY ended Aug 31, 2026](https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm) balance sheet (issued and outstanding). Cover page: 626,451,021 as of Nov 4, 2026 |
 
 Between anchors, for each weekly release *t* (window = day after the previous as-of date through this as-of date), **model v3**:
 
@@ -209,18 +211,18 @@ Between anchors, for each weekly release *t* (window = day after the previous as
 | Staking yield (input and check) | The input is Bitmine's stated 7-day yield, its own realized rate. Dec 28, 2025 – Feb 1, 2026 releases gave none, so the CESR figure quoted in those releases is used (`staking_yield_source`). The CESR weekly average (`data/cesr.json`: mean of the daily values dated previous as-of + 1 day … as-of) is shown as an independent check per week (`staking_yield_check`, flagged when it differs by > 0.3 pt) and is the input only for weeks with no yield in the release (Nov 30 – Dec 21, 2025, when nothing was staked). Across the 39 weeks with a Bitmine-stated yield, CESR averages 0.04 pt below it (mean absolute gap 0.04 pt). |
 | Est. ETH bought | `ETH held_t − ETH held_{t−1} − rewards` (the 10-Q digital-asset roll-forward adds staking rewards to ETH units) |
 | ETH price paid (basis per week) | **disclosed**: week inside a quarter with a filed 10-Q → `average daily ETH price in the window × that quarter's paid ÷ market ratio`. **assumed**: after the last filed quarter → `window average × pooled ratio (0.9979)`, low–high ±1%. **on-chain**: tracker prices, only if `use_onchain_price` is switched on (it is off — see below). A release that states the dollars spent on ETH (`eth_purchase_cost_usd`) would be used as disclosed for that week. |
-| Other digital-asset cash (10-Q) | cash paid for digital assets beyond the cost of ETH added (cash-flow statement vs roll-forward): $124.6M in Dec–Feb (Sep–Nov purchases paid later) and $112.2M in Mar–May (unexplained), spread over that quarter's weeks by ETH bought (`checkpoints.json → eth_cost_quarterly.cash_timing_items`). None assumed after May 31, 2026. |
+| Other digital-asset cash (10-Q/10-K) | cash paid for digital assets beyond the cost of ETH added (cash-flow statement vs roll-forward): $124.6M in Dec–Feb (Sep–Nov purchases paid later), $112.2M in Mar–May and $25.8M in Jun–Aug (FY2026 10-K), spread over that quarter's weeks by ETH bought (`checkpoints.json → eth_cost_quarterly.cash_timing_items`). None assumed after August 31, 2026. |
 | Buyback cost | `shares × disclosed avg price`; else `shares × window avg BMNR close × k`, k calibrated to the disclosed total ($399.6M / 22.9M shares; k ≈ 1.005) |
 | Disclosed investments | cash for non-ETH investments (Beast $186M wk of Jan 25 = $180.0M cash + $6.0M capitalized costs per the 10-Q, Note 6 — the release said "$200 million"; the other $20M is an unexercised side-letter right for Beast to sell more preferred; Eightco ~$80M wk of Mar 15; Pier Two ~$6M wk of Mar 29) |
-| Option book (not modeled) | Bitmine writes and buys ETH options: premiums received are a cash source, premiums paid and collateral posted are uses. Nine months to May 31, 2026 (10-Q cash-flow statement): premiums paid $124.6M, received $103.9M, collateral posted $100.1M; net loss on derivative contracts $133.3M. No weekly data until the 10-K, so the model leaves them out (they land in the share-funded amount). |
+| Option book (not modeled) | Bitmine writes and buys ETH options: premiums received are a cash source, premiums paid and collateral posted are uses. FY2026 (10-K cash-flow statement): premiums paid $125.3M, received $121.4M; net loss on derivative contracts $143.7M. No open derivative contracts at August 31, 2026 and no separate option-collateral line for the year. Weekly values are still unknown, so the model leaves them out (they land in the share-funded amount). |
 | Award shares | RSU/award shares from Form 4s in their week, net of shares withheld for tax (`other_shares_issued`): Jan 23 board grants +442,463; Apr 7 officers +9,577; quarterly director vests 22,620 (Apr 23, Jul 23, Oct 23); Tsang +142 (Apr 23, Jul 23), +2,504 (Jun 30), +2,482 (Sep 30), −10 (Oct 23). Unvested RSUs/options excluded. |
 | Operating cash burn | `$2,278,000/week` = Dec 2025–May 2026 net operating cash flow (−$59.236M ÷ 26, 10-Qs) **plus** `$646,450/week` BMNP dividends from Jun 10, 2026; prorated by days |
 | Cash shortfall | `spending − cash drop − disclosed non-common proceeds (BMNP $273.8M)`, spending = ETH cost + other digital-asset cash + buyback cost + investments + operating burn. Negative = surplus. |
 | Surplus carry-forward | a surplus offsets the next weeks' shortfalls for at most **3 weeks** and **$5M in total** (oldest used first; anything older or above the cap is dropped). Noise-sized on purpose: cash in releases is rounded to the nearest $1M since Jan 4, 2026, and the ETH price assumption alone is ±1% (≈ ±$0.2M/week at current purchase sizes). |
-| Funded by share sales (est.) | `max(0, shortfall − surplus used)`. **Aug 23 – Sep 20, 2026 (‡ on the site)**: cash rose $78M → $714M with no disclosed raise — funding source undisclosed, modeled as ATM equity (~44.5M shares). Candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt (no evidence: no 8-K Item 2.03, no 424B5). Under a debt case NAV/share barely changes, but ETH/share would be 0.010394 instead of 0.009656. Resolve from the FY2026 10-K. |
+| Funded by share sales (est.) | `max(0, shortfall − surplus used)`. **Aug 23 – Sep 20, 2026 (‡ on the site)**: cash rose $78M → $714M with no disclosed raise — funding source undisclosed, modeled as ATM equity. The FY2026 10-K shows $545.1M of cash at August 31 (vs $541M in the August 30 release) and no debt. Subsequent events do not identify a post-year-end financing; the cover page increased from 613,267,022 at year-end to 626,451,021 as of November 4, 2026 (+13,183,999), consistent with ongoing ATM sales. |
 | Est. shares issued | `funded ÷ window average BMNR close` |
 | Shares outstanding | `anchor + Σ issued + RSU/acquisition shares − buybacks`; the week containing a new official count is re-based on it (issuance after that date only, by trading days) |
-| Low–high est. | low: operating burn = 0, ETH price −1% (assumed weeks only) and issue at the window's highest close; high: 2× burn, ETH price +1% and the window's lowest close. Shares-outstanding ranges accumulate from the last official count (Jul 9, 2026). |
+| Low–high est. | low: operating burn = 0, ETH price −1% (assumed weeks only) and issue at the window's highest close; high: 2× burn, ETH price +1% and the window's lowest close. Shares-outstanding ranges accumulate from the last official count (August 31, 2026). |
 
 ### What Bitmine pays for ETH
 
@@ -232,16 +234,18 @@ quarter can be compared with the market (`checkpoints.json → eth_cost_quarterl
 | Sep–Nov 2025 ([10-Q](https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm)) | 1,861,886 | $7,527.2M | $4,043 | $4,052 | 0.998 | $7,402.6M |
 | Dec 2025–Feb 2026 ([10-Q](https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm)) | 732,539 | $2,009.4M | $2,743 | $2,768 | 0.991 | $2,134.4M |
 | Mar–May 2026 ([10-Q](https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm)) | 923,853 | $2,036.5M | $2,204 | $2,192 | 1.006 | $2,150.5M |
-| Pooled | 3,518,278 | $11,573.2M | $3,289 | | **0.998** | $11,687.5M |
+| Jun–Aug 2026 ([10-K](https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm)) | 454,745 | $837.8M | $1,842 | $1,852 | 0.995 | $866.1M |
+| Pooled | 3,973,023 | $12,410.9M | $3,123 | | **0.998** | $12,553.6M |
 
 * Bitmine pays the market average to within about ±1% each quarter; there is no markup and no trend as purchases got
   smaller. v2's 1.05 factor was fitted to the cash-flow statement, which mixes price with settlement timing
   (Sep–Nov purchases paid in Dec–Feb, and $112M more cash than ETH added in Mar–May); v3 keeps the two apart.
-* No 10-K for the fiscal year ended Aug 31, 2026 is on EDGAR yet (checked Oct 27, 2026). When it lands, add Jun–Aug
-  2026 as a quarter (12-month − 9-month figures) and any cash-timing gap; those weeks then become "disclosed".
+* Jun–Aug 2026 is now disclosed from the FY2026 10-K (filed November 10, 2026): Bitmine paid $1,842 per ETH vs a
+  $1,852 purchase-weighted weekly average (factor 0.995). Cash paid for digital assets exceeded ETH/other additions
+  by $25.8M that quarter (added as a timing item). Weeks after August 31, 2026 use the pooled factor (0.998) ±1%.
 * Q1 market average uses the Sep–Nov 2025 weekly 8-K holdings and Yahoo Finance daily ETH closes (computed once,
-  stored in `checkpoints.json`); Q2/Q3 use the frozen weekly prices in `weekly-prices.json`. Staking units in Q1/Q2
-  are estimated from the staking $ ÷ average price (~4k ETH; the 9-month total of 23,582 is exact).
+  stored in `checkpoints.json`); later quarters use the frozen weekly prices in `weekly-prices.json`. Staking units in Q1/Q2
+  are estimated from the staking $ ÷ average price (~4k ETH; the 9-month total of 23,582 and the FY total of 53,877 are exact).
 
 **On-chain trackers.** Lookonchain, OnchainLens, EmberCN and others post Bitmine-linked wallets receiving ETH from
 FalconX, BitGo, Kraken, Galaxy etc. 50 such transfers since Dec 2025 are in `data/onchain-purchases.json`. Since Jul 9,
@@ -279,21 +283,21 @@ Each interval starts at an official count and rolls forward using only the weekl
 | Nov 30 → Jan 12 | +46.28M | −0.82M (−0.18%) | +1.16M (+0.26%) | +1.21M (+0.27%) | +1.50M (+0.33%) |
 | Jan 12 → Feb 28 | +39.04M | −2.49M (−0.50%) | −0.45M (−0.09%) | −0.40M (−0.08%) | −0.19M (−0.04%) |
 | Feb 28 → May 31 (quarter) | +85.75M | −7.59M (−1.31%) | +0.42M (+0.07%) | +1.50M (+0.26%) | −4.33M (−0.75%) |
-| May 31 → Jul 9 | +23.57M | −0.65M (−0.11%) | +0.62M (+0.10%) | −1.23M (−0.20%) | −1.23M (−0.20%) |
-| Nov 30 → Jul 9 (no re-anchoring) | +194.65M | −11.55M (−1.91%) | +1.75M (+0.29%) | +1.09M (+0.18%) | −4.26M (−0.71%) |
+| May 31 → Jul 9 | +23.57M | −0.65M (−0.11%) | +0.62M (+0.10%) | −0.28M (−0.05%) | −1.23M (−0.20%) |
+| Nov 30 → Jul 9 (no re-anchoring) | +194.65M | −11.55M (−1.91%) | +1.75M (+0.29%) | +2.04M (+0.34%) | −4.26M (−0.71%) |
 | *Feb 28 → Apr 13 (flagged cover)* | +43.72M | −3.17M | +2.86M | +3.33M | +0.64M |
 | *Apr 13 → May 31 (flagged cover)* | +42.02M | −4.42M | −2.44M | −1.83M | −5.02M |
 
-Four clean intervals — mean |error| / bias: **v1 0.53% / −0.53%**, **v2 0.13% / +0.09%**, **v3 0.20% / +0.06%**,
+Four clean intervals — mean |error| / bias: **v1 0.53% / −0.53%**, **v2 0.13% / +0.09%**, **v3 0.17% / +0.10%**,
 v3 walk-forward 0.33% / −0.16%. v2 and v3 both use Dec–May 10-Q data (in-sample on those rows); v3's walk-forward only
 knows 10-Qs filed before each interval starts, so it misses the Mar–May cash-timing item in the Feb 28 → May 31 test.
 v2's lower error comes from a factor that mixes ETH price with cash timing; it would overstate what Bitmine pays per
 ETH by ~5% in every week. Surplus carry-forward rules barely matter (no carry 0.19%, 3 wk/$5M 0.20%, unlimited 0.20%;
-current estimate 626.86M vs 626.77M). Sub-quarter errors are mostly *timing* (which days inside a week the ATM sold,
+current estimate 625.68M after the August 31, 2026 re-anchor). Sub-quarter errors are mostly *timing* (which days inside a week the ATM sold,
 when ETH purchases settled) and rounded cash figures in some releases ("$1.0 billion", "$1.2 billion" → ±$50M ≈ ±2M shares).
 
-Current estimate (Oct 25, 2026): **v3 626,769,593** (low–high est. since the Jul 9 official count 621.9–632.2M);
-v2 was 627,963,701 (623.1–633.4M).
+Current estimate (Nov 8, 2026): **v3 625,683,373** (low–high est. since the August 31 official count 624.2–627.6M);
+v2 is 626,198,170 (624.8–628.2M).
 
 **Held-out test (Jul 9 → Aug 31, 2026).** Recorded from the FY2026 10-K (filed November 10, 2026): the official
 August 31, 2026 balance-sheet count is **613,267,022**. The frozen v3 prediction (information known at Jul 9 only)

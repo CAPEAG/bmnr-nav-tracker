@@ -141,10 +141,10 @@
       "basis": "balance sheet (issued and outstanding)",
       "source": "Form 10-K for the fiscal year ended August 31, 2026 (filed 2026-11-10)",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
-      "use_as_anchor": false,
+      "use_as_anchor": true,
       "cover_page_shares": 626451021,
       "cover_page_date": "2026-11-04",
-      "note": "Balance-sheet common shares issued and outstanding as of August 31, 2026 (consolidated balance sheet and statement of stockholders' equity). Cover page (EntityCommonStockSharesOutstanding): 626,451,021 as of November 4, 2026. Added with use_as_anchor=false so the frozen Jul 9 → Aug 31 held-out prediction can be scored before estimates are re-anchored to this count. v3 parameters were not changed."
+      "note": "Balance-sheet common shares issued and outstanding as of August 31, 2026 (consolidated balance sheet and statement of stockholders' equity). Cover page (EntityCommonStockSharesOutstanding): 626,451,021 as of November 4, 2026. The Jul 9 → Aug 31 held-out error was recorded in commit 439fd4a with this checkpoint set not to anchor; it is now used as an anchor. v3 parameters were not re-tuned."
     }
   ],
   "atm_disclosures": [
@@ -190,6 +190,16 @@
       "shares": null,
       "source": "Not disclosed: the May 31, 2026 10-Q has no subsequent-event ATM figure (only the BMNP preferred offering).",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+    },
+    {
+      "from": "2026-06-01",
+      "to": "2026-08-31",
+      "shares": 54387961,
+      "gross_usd": null,
+      "net_usd": 1071388000,
+      "derived": true,
+      "source": "Derived: FY ATM 395,136,273 sh, $13,201,494K gross / $12,940,789K net (10-K cash-flow statement: ATM proceeds $13,201,494K − issuance cost $260,705K; MD&A agrees gross $13,201M and net $12,941M) − 9-month ATM 340,748,312 sh / $11,869,401K net (10-Q May 31, 2026 Note 8). Not split between pre- and post-Jul 9.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
     }
   ],
   "other_official": [
@@ -206,11 +216,12 @@
     }
   ],
   "cash_flow_official": {
-    "note": "Quarterly figures (USD thousands) derived by differencing the year-to-date statements of cash flows / operations in the three fiscal-2026 10-Qs (fiscal year ended Aug 31). Bitmine reclassified option-contract cash flows from operating (6-month statement) to investing (9-month statement), so the Dec–May combined column is the cleanest.",
+    "note": "Quarterly figures (USD thousands) derived by differencing the year-to-date statements of cash flows / operations in the three fiscal-2026 10-Qs (fiscal year ended Aug 31). Bitmine reclassified option-contract cash flows from operating (6-month statement) to investing (9-month statement), so the Dec–May combined column is the cleanest. FY2026 10-K (filed Nov 10, 2026) adds the full-year column; Jun–Aug is FY minus the 9-month figures where both exist.",
     "sources": {
       "q1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
       "h1": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
-      "9m": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      "9m": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+      "fy": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
     },
     "periods": [
       {
@@ -255,6 +266,46 @@
         "cash_change": -547389,
         "noncash_staking_revenue": 52493,
         "interest_income_net": 10117
+      },
+      {
+        "period": "Jun 1 – Aug 31, 2026 (FY minus 9 months)",
+        "eth_purchases_digital_assets_cash": 866079,
+        "operating_cash_flow": -17557,
+        "atm_gross_proceeds": null,
+        "atm_net_proceeds": 1071388,
+        "option_premiums_paid": -678,
+        "option_premiums_received": 17450,
+        "preferred_proceeds_gross": 280000,
+        "preferred_issuance_costs": -8522,
+        "preferred_dividends_paid": -7296,
+        "buybacks": -353845,
+        "cash_end": 545105,
+        "noncash_staking_revenue": 60169,
+        "note": "Operating cash flow: FY −$305,149K − 9-month −$287,592K = −$17,557K. Digital-asset purchases: FY $12,553,572K − 9-month $11,687,493K. Option premiums: FY paid $125,262K / received $121,388K vs 9-month paid $124,584K / received $103,938K. Non-cash staking: FY $112,662K − Dec–May $52,493K = $60,169K (the 9-month staking figure used here is the Dec–May combined column, not Sep–May). Buybacks of $353,845K and the BMNP issuance are full-year amounts (all occurred by Aug 31; buybacks were not isolated to Q4)."
+      },
+      {
+        "period": "Fiscal year ended August 31, 2026",
+        "digital_asset_purchases": 12553572,
+        "equity_investments": 290880,
+        "operating_cash_flow": -305149,
+        "option_premiums_paid": -125262,
+        "option_premiums_received": 121388,
+        "option_net_loss_pnl": -143674,
+        "atm_gross_proceeds": 13201494,
+        "atm_issuance_costs": -260705,
+        "rdo_and_warrant_proceeds": 365240,
+        "preferred_proceeds_gross": 280000,
+        "preferred_issuance_costs": -8522,
+        "preferred_dividends_paid": -7296,
+        "common_dividends_paid": 4258,
+        "buybacks": -353845,
+        "warrant_exercise_proceeds": 848,
+        "pier_two_cash": -5903,
+        "cash_change": 33106,
+        "cash_end": 545105,
+        "noncash_staking_revenue": 112662,
+        "unrealized_loss_on_digital_assets": 6229064,
+        "note": "From the FY2026 10-K consolidated statement of cash flows (USD thousands). No separate option-collateral line; no open derivative contracts at August 31, 2026 (Note on derivatives)."
       }
     ],
     "staking_eth_units_9m": {
@@ -273,6 +324,11 @@
         "general_operating_overhead": 83016,
         "bmnp_dividends": 33250
       }
+    },
+    "staking_eth_units_fy": {
+      "value": 53877,
+      "what": "ETH received from staking and validation, Sep 1, 2025 – Aug 31, 2026 (Note 4 roll-forward). 9-month figure was 23,582.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
     }
   },
   "eth_cost_quarterly": {
@@ -315,9 +371,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
         "filed": "2026-07-14",
         "cash_paid_usd": 2150498000
+      },
+      {
+        "period": "Jun 1 – Aug 31, 2026",
+        "from": "2026-05-31",
+        "to": "2026-08-31",
+        "purchase_cost_usd": 837756000,
+        "eth_units_purchased": 454745,
+        "derivation": "Units: FY purchases 3,973,023 − 9-month purchases 3,518,278 (Note 4 roll-forward). Cost: FY ETH purchases $12,410,908K − 9-month $11,573,152K. Cash paid for digital assets was $12,553,572K for the year vs $11,687,493K for the nine months, so Jun–Aug cash paid was $866,079K.",
+        "source": "Form 10-K for the fiscal year ended August 31, 2026, Note 4",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+        "filed": "2026-11-10",
+        "cash_paid_usd": 866079000
       }
     ],
-    "next": "10-K for the fiscal year ended Aug 31, 2026 (not on EDGAR as of Oct 27, 2026): Jun–Aug 2026 = 12-month purchases − 9-month (3,518,278 ETH, $11,573,152K). Add it as a quarter here; those weeks then switch to 'disclosed'.",
+    "next": "Form 10-QT for the three months ending November 30, 2026; then the 10-KT for Sep 1–Dec 31, 2026 (fiscal year-end changed to December 31).",
     "cash_timing_items": {
       "description": "Cash paid for digital assets that is not the cost of ETH added in the same weeks (10-Q statement of cash flows 'Purchase of digital assets' vs the roll-forward additions). These are added to the weekly cash need as 'other digital-asset cash (10-Q)'. Each item is only used in the backtest from the date its 10-Q was filed (known_from).",
       "items": [
@@ -336,9 +404,17 @@
           "known_from": "2026-07-14",
           "what": "Mar–May 2026: cash paid for digital assets $2,150,498K − additions $2,038,328K (ETH $2,036,507K + other digital assets $1,471K + BTC ~$350K). Not explained in the filing; timing unknown, so spread over the quarter's weeks in proportion to ETH bought.",
           "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+        },
+        {
+          "from": "2026-05-31",
+          "to": "2026-08-31",
+          "usd": 25781000,
+          "known_from": "2026-11-10",
+          "what": "Jun–Aug 2026: cash paid for digital assets $866,079K (FY $12,553,572K − 9-month $11,687,493K) − ETH additions $837,756K − other digital-asset purchases $2,542K = $25,781K. FY BTC purchases were $350K (3 BTC); any remaining gap is unexplained timing. Spread over the quarter's weeks in proportion to ETH bought.",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
         }
       ],
-      "after_last_filing": "None assumed: over the three filed quarters together cash paid exceeded additions by only 1.0% ($11,687,493K vs $11,574,973K), and the 10-K for FY ended Aug 31, 2026 will show whether any Jun–Aug timing gap exists."
+      "after_last_filing": "None assumed after August 31, 2026 until the next periodic report."
     }
   },
   "warrant_exercises": {
@@ -370,6 +446,15 @@
         "usd_thousands": 293,
         "source": "10-Q quarter ended May 31, 2026",
         "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm"
+      },
+      {
+        "period": "Jun 1 – Aug 31, 2026",
+        "from": "2026-05-31",
+        "to": "2026-08-31",
+        "shares": 23026,
+        "derived": true,
+        "source": "Derived: FY exercises 235,465 (78,500 Representative + 156,965 Strategic Advisor warrants; 10-K Note 9) − the three previously recorded quarters 212,439 (63,460 + 94,518 + 54,461). Not added to the weekly roll-forward.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
       }
     ]
   },

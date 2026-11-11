@@ -5,9 +5,9 @@
     "Corporate costs = company cash opex run-rate (excl. stock comp and one-time items) − the part attributed to serving MAVAN clients (current MAVAN client revenue × (1 − MAVAN margin)).",
     "Treasury business value = (own staking earnings − corporate costs) × (1 − treasury tax, only if positive) × treasury multiple. Losses get no tax benefit (full valuation allowance) and are kept (costs above staking income destroy value). BMNP preferred dividends are not deducted (see preferred_treatment); they never reduce taxable income.",
     "MAVAN third-party value = [existing client revenue × (1 − fee compression) + new client ETH AUM × network yield × take rate] × MAVAN margin × (1 − MAVAN tax, only if positive) × services multiple.",
-    "NOL tax shelter = one-off value of losses carried forward (est., pending the FY2026 10-K), added once rather than by lowering the tax rate.",
+    "NOL tax shelter = one-off value of U.S. federal and foreign NOL carryforwards from the FY2026 10-K ($271.9M principal, $57.154M tax-effected), added once rather than by lowering the tax rate. A full valuation allowance means none is recognized on the balance sheet.",
     "SOTP per share = live NAV per share net of the $350M BMNP liquidation preference + (treasury value + MAVAN value + NOL shelter) ÷ estimated shares. Implied mNAV = SOTP ÷ NAV per share (net of preferred).",
-    "Option-premium income and interest are excluded in all cases: the ETH options program lost $133.3M in the 9 months to May 31, 2026 and cash balances (and interest) are being spent down (10-Q)."
+    "Option-premium income and interest are excluded in all cases: the ETH options program lost $143.7M in FY2026 (10-K) and there were no open derivative contracts at August 31, 2026."
   ],
   "no_double_count": "NAV counts ETH already held, including staking rewards already received. The earnings value capitalizes only FUTURE net staking income on today's staked base, after costs, with no growth from future ETH purchases. Each week the rewards received move into NAV while the run-rate (and its capitalized value) stays the same, so no reward is counted twice at any point in time. Because a staked-ETH ETF (e.g. BlackRock ETHB) already passes staking yield to holders at ~1.0× NAV, the multiples on Bitmine's own staking income are kept modest — the premium is only for the yield being earned at scale net of costs. The BMNP preferred is counted once: its $350M liquidation preference is deducted from NAV, so its dividends are not also subtracted from earnings (the capitalized dividend stream is the same claim — about $394M at the base 15× after 21% tax — and deducting both would count the preferred twice). Preferred dividends are never treated as tax-deductible. The rule: a perpetual preferred's claim is its dividend stream, so the SOTP deducts the $350M principal once and values earnings before preferred dividends; the weekly dividend ($646,450) still counts as a cash use in the share model.",
   "sources": {
@@ -118,6 +118,10 @@
     "bmnp_cod": {
       "label": "Certificate of Designations, 9.50% Series A Perpetual Preferred (8-K Jun 10, 2026, Ex. 3.1) — $100 Stated Amount and liquidation preference; optional redemption 110% to Dec 10, 2027, 105% to Jun 10, 2029, then 100%",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226028140/ex3-1.htm"
+    },
+    "k10_fy26": {
+      "label": "10-K for FY ended Aug 31, 2026 (filed Nov 10, 2026) — $0 current tax; $271.9M NOL carryforwards; full valuation allowance; MAVAN revenue $10.8M since Mar 24",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
     }
   },
   "derived": {
@@ -360,21 +364,21 @@
       "label": "MAVAN client revenue run-rate (today)",
       "unit": "usd",
       "bear": {
-        "value": 18932000
+        "value": 24484000
       },
       "base": {
-        "value": 18932000
+        "value": 24484000
       },
       "bull": {
-        "value": 18932000
+        "value": 24484000
       },
       "sources": [
-        "q3_10q",
+        "k10_fy26",
         "lee_may",
         "oct_msg",
         "hypd_10q"
       ],
-      "rationale": "Pier Two (now MAVAN) contributed $3.527M of staking revenue from its Mar 24 acquisition to May 31, 2026 (68 days) → $18.9M a year. Client assets ≈ $2B (Tom Lee, May and again Oct 7, 2026) across ETH, Solana, Hyperliquid and Canton. Only named partner: Hyperion DeFi/Kinetiq's Hyperliquid validator (MAVAN 25% of commissions)."
+      "rationale": "MAVAN contributed approximately $10.8 million of revenue from the Pier Two acquisition date (March 24, 2026) through August 31, 2026 (161 days) → $24.5M a year (FY2026 10-K MD&A). That compares with $3.527M over the first 68 days to May 31 ($18.9M annualized). Client assets ≈ $2B (Tom Lee, May and again Oct 7, 2026). MAVAN also reported a net loss of about $0.2M over the post-acquisition period."
     },
     "mavan_fee_compression": {
       "label": "Fee compression on existing clients",
@@ -487,22 +491,21 @@
       "rationale": "Bear 8.5× ≈ Bitmine's ~$30.5M price for Pier Two ÷ its base-case after-tax earnings (also ≈ LDO market cap ÷ protocol revenue). Base 12× ≈ price including the full $11.8M earn-out (~$42.3M). Bull 18.8× = asset managers' forward P/E."
     },
     "nol_shelter_usd": {
-      "label": "NOL tax shelter, one-off (est., pending FY2026 10-K)",
+      "label": "NOL tax shelter, one-off (FY2026 10-K)",
       "unit": "usd",
       "bear": {
-        "value": 40000000
+        "value": 45000000
       },
       "base": {
-        "value": 50000000
+        "value": 57154000
       },
       "bull": {
-        "value": 60000000
+        "value": 57154000
       },
       "sources": [
-        "q3_10q",
-        "k10_fy25"
+        "k10_fy26"
       ],
-      "rationale": "Existing NOLs ≈ $50M (est.) are worth ≈ $10.5M at 21%. The rest assumes FY2026's expected operating loss adds to the NOLs (pending the 10-K, due ~Oct 30, 2026). Added once instead of lowering the rate permanently."
+      "rationale": "10-K Note 12: $271.9 million of U.S. federal and foreign NOL carryforwards at August 31, 2026 (tax-effected deferred tax asset $57.154M). They may generally be carried forward indefinitely, subject to applicable limitations. Management recorded a full valuation allowance against net deferred tax assets, so none is recognized on the balance sheet; the SOTP still counts the one-off shelter against future taxable treasury/staking income. Bear ($45M) haircuts for possible limitations; base and bull use the full tax-effected amount."
     }
   },
   "preferred_treatment": "principal",
