@@ -1189,6 +1189,30 @@
       "x_post": "https://x.com/BitMNR/status/2119794359977545960",
       "press_release": null,
       "notes": "No buyback disclosed this week. Stated trailing 7-day BMNR staking yield 2.65% per the 8-K (source of record). Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week."
+    },
+    {
+      "date": "2026-11-16",
+      "as_of": "2026-11-15",
+      "eth": 6077745,
+      "eth_acquired_reported": 7653,
+      "eth_price_reported": 1823,
+      "btc": 216,
+      "cash_usd": 448000000,
+      "orbs_value_usd": 67000000,
+      "beast_usd": 180000000,
+      "eth_staked": 5227037,
+      "staking_yield_7d": 0.0257,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "other_shares_issued": 0,
+      "disclosed_shares_issued": null,
+      "disclosed_proceeds_usd": null,
+      "investments_usd": 0,
+      "shares_outstanding_official": null,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226052063/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2122324383725232587",
+      "press_release": null,
+      "notes": "No buyback, investment, or share issuance disclosed. Stated 7-day BMNR yield 2.57% per 8-K Ex.99.1. Staked ETH unchanged at 5,227,037. No new Form 4s on EDGAR since Oct 26."
     }
   ]
 }

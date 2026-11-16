@@ -7784,24 +7784,181 @@
           "actual_change": 0.000002643
         }
       }
+    },
+    {
+      "date": "2026-11-16",
+      "as_of": "2026-11-15",
+      "days": 7,
+      "eth": 6077745,
+      "eth_change": 7653,
+      "eth_acquired_reported": 7653,
+      "eth_staked": 5227037,
+      "staking_yield_7d": 0.0257,
+      "staking_yield_used": 0.0257,
+      "staking_yield_basis": "Bitmine stated",
+      "staking_yield_check": {
+        "cesr": 0.02574,
+        "window": [
+          "2026-11-09",
+          "2026-11-15"
+        ],
+        "days": 7,
+        "min_daily": 0.02514,
+        "max_daily": 0.02635,
+        "diff_vs_stated_pt": 0,
+        "flagged": false
+      },
+      "est_staking_eth": 2498,
+      "est_purchased_eth": 5155,
+      "eth_week_avg": 1970.07,
+      "eth_price_used": 1965.53,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        1945.88,
+        1985.19
+      ],
+      "onchain_wallet_check": {
+        "status": "n/a",
+        "onchain_vwap": null,
+        "onchain_eth": 0,
+        "assumed": 1965.53,
+        "diff_pct": null,
+        "coverage": null,
+        "transfers": 0
+      },
+      "est_purchase_cost": 10133189,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 475000000,
+      "cash": 448000000,
+      "cash_change": -27000000,
+      "est_cash_opex": 2615501,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 12748690,
+      "cash_shortfall": -14251310,
+      "cash_shortfall_range": [
+        -16968143,
+        -11534477
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 0,
+      "funded_by_shares_range": [
+        0,
+        0
+      ],
+      "surplus_carried_out": 5000000,
+      "surplus_dropped": 11097845,
+      "assumed_issue_price": 18.392,
+      "bmnr_week_range": [
+        17.58,
+        19.24
+      ],
+      "est_shares_issued": 0,
+      "est_shares_issued_range": [
+        0,
+        0
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 626451021,
+      "shares_outstanding_range": [
+        626451021,
+        626451021
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2026-11-04",
+        "shares": 626451021,
+        "weeks_since": 1
+      },
+      "btc": 216,
+      "orbs_value": 67000000,
+      "beast_value": 186024000,
+      "other_assets_value": 9962000,
+      "snapshot_prices": {
+        "ETH": 1823,
+        "BTC": 65305,
+        "BMNR": 17.58,
+        "BMNR_date": "2026-11-13"
+      },
+      "preferred_usd": 350000000,
+      "debt_usd": 0,
+      "liabilities_usd": 33737000,
+      "nav": {
+        "full": 11804821015,
+        "net": 11421084015,
+        "crypto": 11541835015,
+        "eth": 11079729135,
+        "ev": 10915008949,
+        "nav_ex_cash": 11356821015
+      },
+      "nav_per_share": 18.23,
+      "nav_per_share_gross": 18.84,
+      "nav_per_share_all": {
+        "full": 18.84,
+        "net": 18.23,
+        "crypto": 18.42,
+        "eth": 17.69
+      },
+      "mnav": 0.964,
+      "mnav_gross": 0.933,
+      "mnav_all": {
+        "full": 0.933,
+        "net": 0.964,
+        "crypto": 0.954,
+        "eth": 0.994,
+        "ev_to_nav_ex_cash": 0.961
+      },
+      "eth_per_share": 0.0097019,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226052063/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/2122324383725232587",
+      "notes": "No buyback, investment, or share issuance disclosed. Stated 7-day BMNR yield 2.57% per 8-K Ex.99.1. Staked ETH unchanged at 5,227,037. No new Form 4s on EDGAR since Oct 26.",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 19.6933,
+        "atm_shares": 0,
+        "mnav_at_issue": 0.934,
+        "usd_per_share": {
+          "issuance": 0,
+          "buybacks": 0,
+          "staking": 0.0073,
+          "other": -0.0041,
+          "total": 0.0031,
+          "actual_change": -4.02,
+          "market": -4.0231
+        },
+        "eth_per_share": {
+          "capital": 0.000008211,
+          "staking": 0.000003987,
+          "premium": 1.9e-8,
+          "reanchor": 0,
+          "total": 0.000012216,
+          "actual_change": 0.000012216
+        }
+      }
     }
   ],
   "mnav_daily_ranges": {
-    "as_of": "2026-11-08",
+    "as_of": "2026-11-15",
     "source": "Yahoo Finance: BMNR and ORBS regular-session daily closes; ETH-USD and BTC-USD at 4:00 PM America/New_York (hourly close of the 3:00–4:00 PM ET bar)",
     "share_basis": "point estimate (shares_outstanding); the share-count range is not used",
     "past_week": {
-      "from": "2026-11-02",
-      "to": "2026-11-08",
-      "low": 0.846,
-      "high": 0.904,
-      "low_date": "2026-11-06",
-      "high_date": "2026-11-04",
+      "from": "2026-11-09",
+      "to": "2026-11-15",
+      "low": 0.878,
+      "high": 0.928,
+      "low_date": "2026-11-09",
+      "high_date": "2026-11-11",
       "days": 5
     },
     "past_4_weeks": {
-      "from": "2026-10-12",
-      "to": "2026-11-08",
+      "from": "2026-10-19",
+      "to": "2026-11-15",
       "low": 0.846,
       "high": 0.966,
       "low_date": "2026-11-06",
@@ -7809,8 +7966,8 @@
       "days": 20
     },
     "past_12_weeks": {
-      "from": "2026-08-17",
-      "to": "2026-11-08",
+      "from": "2026-08-24",
+      "to": "2026-11-15",
       "low": 0.846,
       "high": 1.057,
       "low_date": "2026-11-06",
@@ -7819,16 +7976,6 @@
     }
   },
   "mnav_weekly_ranges": [
-    {
-      "as_of": "2026-08-30",
-      "from": "2026-08-24",
-      "to": "2026-08-30",
-      "low": 0.985,
-      "high": 1.035,
-      "low_date": "2026-08-28",
-      "high_date": "2026-08-27",
-      "days": 5
-    },
     {
       "as_of": "2026-09-07",
       "from": "2026-08-31",
@@ -7927,6 +8074,16 @@
       "high": 0.904,
       "low_date": "2026-11-06",
       "high_date": "2026-11-04",
+      "days": 5
+    },
+    {
+      "as_of": "2026-11-15",
+      "from": "2026-11-09",
+      "to": "2026-11-15",
+      "low": 0.878,
+      "high": 0.928,
+      "low_date": "2026-11-09",
+      "high_date": "2026-11-11",
       "days": 5
     }
   ]
