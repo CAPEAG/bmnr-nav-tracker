@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { computeNav, computeValuation, dilutedShares } from '../assets/calc.js';
+import { computeNav, computeValuation, dilutedShares, priceMinusNav, signedUsd, signedPct } from '../assets/calc.js';
 
 const F = JSON.parse(readFileSync(new URL('./fixtures/oct25.json', import.meta.url), 'utf8'));
 const { holdings: h, prices: px, valuation: V } = F;
@@ -32,6 +32,27 @@ test('net NAV/share and mNAV (point and range)', () => {
   near(px.BMNR / (net.value / sr[0]), 0.9201, 0.00005, 'mNAV low');
   near(px.BMNR / (net.value / sr[1]), 0.9354, 0.00005, 'mNAV high');
   near(row('full').perShare, 23.884, 0.0005, 'gross NAV/share');
+});
+
+test('price minus NAV/share: sign matches mNAV, display rounding', () => {
+  const net = row('net');
+  const { diff, pct } = priceMinusNav(px.BMNR, net.perShare);
+  assert.ok(net.mnav < 1);
+  assert.ok(diff < 0, 'discount is negative when price is under NAV/share');
+  near(diff, px.BMNR - net.perShare, 1e-12, 'diff = price − NAV/share');
+  near(pct, net.mnav - 1, 1e-12, 'pct = mNAV − 1');
+  assert.equal(signedUsd(diff), '−$1.70');
+  assert.equal(signedPct(pct, 1), '−7.3%');
+  // explicit rounding / sign cases
+  assert.equal(signedUsd(-0.64), '−$0.64');
+  assert.equal(signedUsd(1.2), '+$1.20');
+  assert.equal(signedUsd(0), '$0.00');
+  assert.equal(signedUsd(-0.004), '$0.00');
+  assert.equal(signedPct(0.052, 1), '+5.2%');
+  const prem = priceMinusNav(25, 20);
+  assert.ok(prem.diff > 0);
+  assert.equal(signedUsd(prem.diff), '+$5.00');
+  assert.equal(signedPct(prem.pct, 1), '+25.0%');
 });
 
 test('EV ÷ NAV ex cash = (mcap + preferred + debt − cash) ÷ (Full NAV − cash)', () => {

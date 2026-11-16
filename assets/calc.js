@@ -114,3 +114,26 @@ export function computeValuation(h, px, nav, V) {
 
 /** Weekly staking estimate: ETH staked × annual yield × 7/365. */
 export const weeklyStakingEth = (staked, annualYield, days = 7) => staked * annualYield * days / 365;
+
+/** Live BMNR price minus net NAV/share (the same NAV/share headline mNAV uses). */
+export function priceMinusNav(price, navPerShare) {
+  const diff = price - navPerShare;
+  return { diff, pct: isFinite(navPerShare) && navPerShare !== 0 ? diff / navPerShare : null };
+}
+
+/** Signed dollar display, e.g. −$0.64 or +$1.20 (unicode minus). Rounded-to-zero has no sign. */
+export function signedUsd(x, d = 2) {
+  if (x == null || !isFinite(x)) return '—';
+  const body = Math.abs(x).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  if (/^0(\.0+)?$/.test(body.replace(/,/g, ''))) return '$' + (0).toFixed(d);
+  return (x > 0 ? '+' : '−') + '$' + body;
+}
+
+/** Signed percent display, e.g. −3.6% or +5.2% (unicode minus). Rounded-to-zero has no sign. */
+export function signedPct(x, d = 1) {
+  if (x == null || !isFinite(x)) return '—';
+  const body = (Math.abs(x) * 100).toFixed(d);
+  if (/^0(\.0+)?$/.test(body)) return (0).toFixed(d) + '%';
+  return (x > 0 ? '+' : '−') + body + '%';
+}
+

@@ -1,4 +1,4 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth } from './calc.js?v=202611111240';
+import { computeNav, computeValuation, valInput, weeklyStakingEth, priceMinusNav, signedUsd, signedPct } from './calc.js?v=202611161530';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
@@ -198,12 +198,14 @@ function render() {
   const rng = S.history.mnav_daily_ranges;
   const rngLine = (label, x) => x?.days ? `<br>${label} <span class="nw">${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
   const histM = rng ? rngLine('Previous week range', rng.past_week) : '';
+  const gap = priceMinusNav(p.BMNR, full.perShare);
   S.liveMnav = full.mnav; setLiveMnavLine();
   $('hero').innerHTML = `
     <div class="kpi main"><div class="l">mNAV (NAV net of preferred)</div><div class="v">${full.mnav.toFixed(3)}×</div>
       ${histM ? `<div class="s nw">${histM.replace(/^<br>/, '')}</div>` : ''}</div>
     <div class="kpi"><div class="l">BMNR price</div><div class="v">${usd(p.BMNR)}</div><div class="s" id="bmnrQuote"><span class="${cls(bmChg)}">${pct(bmChg, 2)}</span> · ${quoteLine(bm)}${bm.session && bm.session !== 'regular' && bm.regular?.price ? `<br>regular close ${usd(bm.regular.price)} · ${etTime(bm.regular.time)}` : ''}</div></div>
     <div class="kpi"><div class="l">NAV / share</div><div class="v">${usd(full.perShare)}</div><div class="s">${prefTxt} · <span class="${cls(navChg)}">${pct(navChg, 1)}</span> vs last snapshot${rngPs}</div></div>
+    <div class="kpi"><div class="l">Price − NAV/share</div><div class="v ${cls(gap.diff)}">${signedUsd(gap.diff)}</div><div class="s"><span class="${cls(gap.diff)}">${signedPct(gap.pct, 1)}</span></div></div>
     <div class="kpi"><div class="l">Market cap</div><div class="v">${big(nav.mcap)}</div><div class="s">${n(h.shares_outstanding)} sh <span class="tag a">est.</span>${h.shares_outstanding_range ? `<br>low–high est. ${(h.shares_outstanding_range[0] / 1e6).toFixed(1)}–${(h.shares_outstanding_range[1] / 1e6).toFixed(1)}M` : ''}</div></div>
     <div class="kpi"><div class="l">ETH price</div><div class="v">${usd(p.ETH)}</div><div class="s">${P.ETH.chg != null ? `<span class="${cls(P.ETH.chg)}">${pct(P.ETH.chg, 2)} 24h</span> · ` : ''}${P.ETH.source}</div></div>
     <div class="kpi"><div class="l">ETH / share <span class="tag a">est.</span></div><div class="v">${nav.ethPerShare.toFixed(6)}</div><div class="s">${n(h.eth)} ETH ÷ ${(h.shares_outstanding / 1e6).toFixed(1)}M sh${ethWow != null ? ` · <span class="${cls(ethWow)}">${pct(ethWow, 2)}</span> WoW` : ''}</div></div>
