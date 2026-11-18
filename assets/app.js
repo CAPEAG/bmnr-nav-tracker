@@ -305,11 +305,11 @@ function renderValuation(val, p) {
     row('Treasury business value / share', (v) => usd(v.treasuryPs), 'hl') +
     sec('MAVAN third-party staking') +
     row('Client revenue / yr', (v) => big(v.mavanRev)) +
-    row('Margin → pre-tax', (v) => `${(v.mavanMargin * 100).toFixed(0)}% → ${big(v.mavanPretax)}`) +
+    row('Margin → pre-tax', (v) => `${(v.mavanMargin * 100).toFixed(0).replace('-', '−')}% → <span class="${cls(v.mavanPretax)}">${big(v.mavanPretax)}</span>`) +
     row('After tax (if positive)', (v) => `${big(v.mavanAfterTax)} <span class="fine">(${(v.mavanTax * 100).toFixed(0)}%)</span>`) +
     row('× multiple', (v) => v.mavanMultiple.toFixed(1) + '×') +
-    row('MAVAN value / share', (v) => usd(v.mavanPs), 'hl') +
-    sec('NOL tax shelter (one-off, est. pending FY2026 10-K)') +
+    row('MAVAN value / share', (v) => `<span class="${cls(v.mavanPs)}">${v.mavanPs < 0 ? '−' + usd(-v.mavanPs) : usd(v.mavanPs)}</span>`, 'hl') +
+    sec('NOL tax shelter (one-off, FY2026 10-K)') +
     row('Value (added once)', (v) => big(v.nolValue)) +
     row('NOL shelter / share', (v) => usd(v.nolPs), 'hl') +
     sec('Sum of the parts') +

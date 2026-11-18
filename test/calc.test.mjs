@@ -90,3 +90,25 @@ test('SOTP: principal-only default; dividends never reduce taxable income', () =
     assert.ok(b[k].sotp < a[k].sotp, `${k}: subtracting dividends lowers SOTP`);
   }
 });
+
+test('MAVAN: a negative margin is kept as a loss (no tax benefit, no floor) and no cost is dropped', () => {
+  const withMargin = (m) => {
+    const W = structuredClone(V);
+    for (const k of ['bear', 'base', 'bull']) {
+      W.inputs.mavan_margin[k] = { value: m };
+      W.inputs.mavan_fee_compression[k] = { value: 0 };
+      W.inputs.mavan_new_aum_usd[k] = { value: 0 };
+    }
+    return computeValuation(h, px, nav, W);
+  };
+  const neg = withMargin(-0.02), pos = withMargin(0.25);
+  for (const k of ['bear', 'base', 'bull']) {
+    const v = neg[k];
+    assert.ok(v.mavanPretax < 0, `${k}: loss`);
+    assert.equal(v.mavanAfterTax, v.mavanPretax, `${k}: no tax benefit on a loss`);
+    near(v.mavanValue, v.mavanPretax * v.mavanMultiple, 1e-6, `${k}: loss valued as a loss, not floored`);
+    // MAVAN's costs = revenue × (1 − margin) leave corporate costs, so company pre-tax earnings are
+    // unchanged by the margin: the loss is not lost by flooring, only reallocated between the two parts.
+    near(v.treasuryPretax + v.mavanPretax, pos[k].treasuryPretax + pos[k].mavanPretax, 1e-3, `${k}: total pre-tax conserved`);
+  }
+});
