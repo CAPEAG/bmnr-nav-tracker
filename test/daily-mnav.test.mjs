@@ -5,6 +5,7 @@ import { computeNav } from '../assets/calc.js';
 import {
   snapshotForDay, holdingsFromSnapshot, dayMnav, completedWeekWindows,
   computeDailyMnavRanges, neededTradingDays, weeklyMnavRanges, currentWeekPoints,
+  isRegularHours, regularHoursBars, combineBars, refreshIntradayBars,
 } from '../scripts/daily-mnav.mjs';
 
 const snap = (as_of, eth, shares, extra = {}) => ({
@@ -138,4 +139,87 @@ test('weeklyMnavRanges: one low–high per completed week; currentWeekPoints: da
   assert.deepEqual(cw.points.map((p) => p.date), ['2026-02-02', '2026-02-03']);
   assert.equal(cw.low_date, '2026-02-03');
   assert.equal(cw.high_date, '2026-02-02');
+});
+
+// ---------- intraday regular-hours ranges ----------
+// ET → UTC seconds for a January (EST, UTC−5) wall-clock time.
+const estSec = (date, hh, mm) => Date.parse(`${date}T${String(hh + 5).padStart(2, '0')}:${String(mm).padStart(2, '0')}:00Z`) / 1000;
+
+test('isRegularHours: 9:30 ≤ t < 16:00 ET only', () => {
+  assert.equal(isRegularHours(9, 29), false);
+  assert.equal(isRegularHours(9, 30), true);
+  assert.equal(isRegularHours(15, 55), true);
+  assert.equal(isRegularHours(16, 0), false);
+  assert.equal(isRegularHours(4, 0), false);
+  assert.equal(isRegularHours(19, 30), false);
+});
+
+test('regularHoursBars drops pre-market, after-hours and weekend bars from a Yahoo chart result', () => {
+  const t = [
+    estSec('2026-01-27', 9, 25), estSec('2026-01-27', 9, 30), estSec('2026-01-27', 15, 55),
+    estSec('2026-01-27', 16, 0), estSec('2026-01-27', 18, 5), estSec('2026-01-31', 10, 0),
+  ];
+  const q = { open: [1, 2, 3, 4, 5, 6], high: [50, 2.1, 3.1, 60, 70, 80], low: [0.1, 1.9, 2.9, 0.2, 0.3, 0.4], close: [1, 2, 3, 4, 5, 6] };
+  const out = regularHoursBars({ timestamp: t, indicators: { quote: [q] } });
+  assert.deepEqual(Object.keys(out), ['2026-01-27']);
+  assert.deepEqual(Object.keys(out['2026-01-27']), ['09:30', '15:55']);
+  assert.equal(out['2026-01-27']['09:30'].l, 1.9);
+});
+
+test('combineBars pairs BMNR low/high with ETH/BTC midpoint at the same timestamp; ORBS carries forward', () => {
+  const bm = { '09:30': { h: 11, l: 10 }, '09:35': { h: 12, l: 10.5 }, '09:40': { h: 13, l: 12 } };
+  const eth = { '09:30': { h: 2010, l: 1990 }, '09:35': { h: 2100, l: 2000 } }; // no 09:40 ETH bar → skipped
+  const btc = { '09:30': { h: 70100, l: 69900 }, '09:35': { h: 70000, l: 70000 }, '09:40': { h: 1, l: 1 } };
+  const orbs = { '09:30': { c: 0.8 } };
+  assert.deepEqual(combineBars(bm, eth, btc, orbs), [
+    ['09:30', 10, 11, 2000, 70000, 0.8],
+    ['09:35', 10.5, 12, 2050, 70000, 0.8],
+  ]);
+});
+
+test('intraday ranges: low/high from regular-hours bar lows/highs with ET time; pre-market and after-hours bars excluded', () => {
+  const h = holdingsFromSnapshot(snaps[4], 0);
+  const nps = (eth) => dayMnav(h, { ETH: eth, BTC: 70_000, BMNR: 1, ORBS: 0 }).nav_per_share;
+  const intraday = { days: {
+    '2026-01-27': { bars: [
+      ['08:00', 0.01, 99, 2000, 70000, 0], // pre-market: must be ignored
+      ['09:30', 1.00, 1.10, 2000, 70000, 0],
+      ['11:15', 0.95, 1.05, 2100, 70000, 0], // low here
+      ['15:55', 1.05, 1.30, 2000, 70000, 0], // high here
+      ['16:00', 0.02, 50, 2000, 70000, 0], // closing-print / after-hours bar: ignored
+      ['19:45', 0.03, 60, 2000, 70000, 0], // after-hours: ignored
+    ] },
+  } };
+  // 2026-01-28 has only a daily close → fallback point stamped 16:00
+  const daily = { '2026-01-27': { BMNR: 1.0, ETH: 2000, BTC: 70_000, ORBS: 0 }, '2026-01-28': { BMNR: 1.2, ETH: 2000, BTC: 70_000, ORBS: 0 } };
+  const out = computeDailyMnavRanges({ snapshots: snaps, dailyPrices: daily, orbsShares: 0, intraday });
+  const w = out.past_week;
+  assert.equal(w.low, +(0.95 / nps(2100)).toFixed(3));
+  assert.equal([w.low_date, w.low_time_et].join(' '), '2026-01-27 11:15');
+  assert.equal(w.high, +(1.30 / nps(2000)).toFixed(3));
+  assert.equal([w.high_date, w.high_time_et].join(' '), '2026-01-27 15:55');
+  assert.equal(w.days, 2);
+  assert.equal(w.basis, 'mixed');
+  assert.equal(w.intraday_days, 1);
+  assert.equal(w.close_days, 1);
+  assert.match(out.source, /regular trading hours only/);
+  assert.match(out.source, /pre-market and after-hours excluded/);
+  // without the fallback day the week is fully intraday
+  const only = computeDailyMnavRanges({ snapshots: snaps, dailyPrices: { '2026-01-27': daily['2026-01-27'] }, orbsShares: 0, intraday });
+  assert.equal(only.past_week.basis, 'intraday_5m_regular_hours');
+  // intraday bars replace that day's close (no 16:00 close point on a day with bars)
+  assert.notEqual(only.past_week.low_time_et, '16:00');
+  assert.notEqual(only.past_week.high_time_et, '16:00');
+  const wk = weeklyMnavRanges({ snapshots: snaps, dailyPrices: daily, orbsShares: 0, weeks: 1, intraday });
+  assert.equal(wk[0].low_time_et, '11:15');
+});
+
+test('refreshIntradayBars keeps cached days, never stores today, and lists days past the 60-day window without fetching', async () => {
+  const now = Date.parse('2026-04-10T20:00:00Z');
+  const cache = { days: { '2026-04-06': { bars: [['09:30', 1, 2, 2000, 70000, 0.5]] }, '2026-04-10': { bars: [['09:30', 1, 2, 3, 4, 5]] } } };
+  const out = await refreshIntradayBars(cache, { neededDays: ['2026-01-05', '2026-04-06', '2026-04-10'], now });
+  assert.deepEqual(out.unavailable_days, ['2026-01-05']);
+  assert.deepEqual(out.days['2026-04-06'], cache.days['2026-04-06']);
+  assert.equal(out.days['2026-04-10'], undefined);
+  assert.equal(out.interval, '5m');
 });

@@ -7945,34 +7945,49 @@
   ],
   "mnav_daily_ranges": {
     "as_of": "2026-11-15",
-    "source": "Yahoo Finance: BMNR and ORBS regular-session daily closes; ETH-USD and BTC-USD at 4:00 PM America/New_York (hourly close of the 3:00–4:00 PM ET bar)",
+    "source": "Intraday regular-hours mNAV: Yahoo Finance 5-minute bars, regular trading hours only (9:30 AM–4:00 PM America/New_York; pre-market and after-hours excluded): BMNR bar low/high; ETH-USD and BTC-USD midpoint (high+low)/2 of the same 5-minute bar; ORBS close of the same bar (else its latest earlier regular-hours bar that day, else its daily close). Fallback for days without cached 5-minute bars: Yahoo Finance: BMNR and ORBS regular-session daily closes; ETH-USD and BTC-USD at 4:00 PM America/New_York (hourly close of the 3:00–4:00 PM ET bar)",
     "share_basis": "point estimate (shares_outstanding); the share-count range is not used",
     "past_week": {
       "from": "2026-11-09",
       "to": "2026-11-15",
-      "low": 0.878,
-      "high": 0.928,
-      "low_date": "2026-11-09",
-      "high_date": "2026-11-11",
-      "days": 5
+      "low": 0.845,
+      "high": 0.949,
+      "low_date": "2026-11-10",
+      "high_date": "2026-11-12",
+      "low_time_et": "09:30",
+      "high_time_et": "11:20",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     "past_4_weeks": {
       "from": "2026-10-19",
       "to": "2026-11-15",
-      "low": 0.846,
-      "high": 0.966,
+      "low": 0.826,
+      "high": 0.984,
       "low_date": "2026-11-06",
       "high_date": "2026-10-21",
-      "days": 20
+      "low_time_et": "10:40",
+      "high_time_et": "14:55",
+      "days": 20,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 20,
+      "close_days": 0
     },
     "past_12_weeks": {
       "from": "2026-08-24",
       "to": "2026-11-15",
-      "low": 0.846,
-      "high": 1.057,
+      "low": 0.826,
+      "high": 1.062,
       "low_date": "2026-11-06",
-      "high_date": "2026-09-03",
-      "days": 59
+      "high_date": "2026-09-25",
+      "low_time_et": "10:40",
+      "high_time_et": "09:30",
+      "days": 59,
+      "basis": "mixed",
+      "intraday_days": 40,
+      "close_days": 19
     }
   },
   "mnav_weekly_ranges": [
@@ -7984,7 +7999,12 @@
       "high": 1.057,
       "low_date": "2026-09-02",
       "high_date": "2026-09-03",
-      "days": 5
+      "low_time_et": "16:00",
+      "high_time_et": "16:00",
+      "days": 5,
+      "basis": "daily_close",
+      "intraday_days": 0,
+      "close_days": 5
     },
     {
       "as_of": "2026-09-13",
@@ -7994,7 +8014,12 @@
       "high": 1.002,
       "low_date": "2026-09-09",
       "high_date": "2026-09-08",
-      "days": 4
+      "low_time_et": "16:00",
+      "high_time_et": "16:00",
+      "days": 4,
+      "basis": "daily_close",
+      "intraday_days": 0,
+      "close_days": 4
     },
     {
       "as_of": "2026-09-20",
@@ -8004,87 +8029,132 @@
       "high": 1.02,
       "low_date": "2026-09-16",
       "high_date": "2026-09-14",
-      "days": 5
+      "low_time_et": "16:00",
+      "high_time_et": "16:00",
+      "days": 5,
+      "basis": "daily_close",
+      "intraday_days": 0,
+      "close_days": 5
     },
     {
       "as_of": "2026-09-27",
       "from": "2026-09-21",
       "to": "2026-09-27",
-      "low": 1.031,
-      "high": 1.053,
-      "low_date": "2026-09-25",
-      "high_date": "2026-09-22",
-      "days": 5
+      "low": 1,
+      "high": 1.062,
+      "low_date": "2026-09-21",
+      "high_date": "2026-09-25",
+      "low_time_et": "09:35",
+      "high_time_et": "09:30",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-10-04",
       "from": "2026-09-28",
       "to": "2026-10-04",
-      "low": 0.991,
-      "high": 1.011,
+      "low": 0.979,
+      "high": 1.043,
       "low_date": "2026-10-02",
       "high_date": "2026-09-28",
-      "days": 5
+      "low_time_et": "11:45",
+      "high_time_et": "13:55",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-10-11",
       "from": "2026-10-05",
       "to": "2026-10-11",
-      "low": 0.965,
-      "high": 0.996,
-      "low_date": "2026-10-07",
+      "low": 0.951,
+      "high": 1.008,
+      "low_date": "2026-10-08",
       "high_date": "2026-10-05",
-      "days": 5
+      "low_time_et": "09:40",
+      "high_time_et": "10:10",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-10-18",
       "from": "2026-10-12",
       "to": "2026-10-18",
-      "low": 0.904,
-      "high": 0.959,
-      "low_date": "2026-10-16",
-      "high_date": "2026-10-15",
-      "days": 5
+      "low": 0.886,
+      "high": 0.974,
+      "low_date": "2026-10-15",
+      "high_date": "2026-10-12",
+      "low_time_et": "09:55",
+      "high_time_et": "09:30",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-10-25",
       "from": "2026-10-19",
       "to": "2026-10-25",
-      "low": 0.906,
-      "high": 0.966,
-      "low_date": "2026-10-19",
+      "low": 0.894,
+      "high": 0.984,
+      "low_date": "2026-10-20",
       "high_date": "2026-10-21",
-      "days": 5
+      "low_time_et": "09:35",
+      "high_time_et": "14:55",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-11-01",
       "from": "2026-10-26",
       "to": "2026-11-01",
-      "low": 0.905,
-      "high": 0.934,
+      "low": 0.884,
+      "high": 0.949,
       "low_date": "2026-10-30",
-      "high_date": "2026-10-28",
-      "days": 5
+      "high_date": "2026-10-26",
+      "low_time_et": "14:55",
+      "high_time_et": "09:30",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-11-08",
       "from": "2026-11-02",
       "to": "2026-11-08",
-      "low": 0.846,
-      "high": 0.904,
+      "low": 0.826,
+      "high": 0.926,
       "low_date": "2026-11-06",
       "high_date": "2026-11-04",
-      "days": 5
+      "low_time_et": "10:40",
+      "high_time_et": "13:00",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     },
     {
       "as_of": "2026-11-15",
       "from": "2026-11-09",
       "to": "2026-11-15",
-      "low": 0.878,
-      "high": 0.928,
-      "low_date": "2026-11-09",
-      "high_date": "2026-11-11",
-      "days": 5
+      "low": 0.845,
+      "high": 0.949,
+      "low_date": "2026-11-10",
+      "high_date": "2026-11-12",
+      "low_time_et": "09:30",
+      "high_time_et": "11:20",
+      "days": 5,
+      "basis": "intraday_5m_regular_hours",
+      "intraday_days": 5,
+      "close_days": 0
     }
   ]
 }
