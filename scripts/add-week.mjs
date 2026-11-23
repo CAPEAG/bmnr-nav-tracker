@@ -45,6 +45,7 @@ const entry = {
   buyback_shares: num('buyback-shares') ?? 0, buyback_price: num('buyback-price'), other_shares_issued: num('other-shares') ?? 0,
   disclosed_shares_issued: num('shares-issued'), disclosed_proceeds_usd: num('proceeds'), investments_usd: num('investments') ?? 0,
   ...(a['eth-cost'] !== undefined ? { eth_purchase_cost_usd: num('eth-cost') } : {}),
+  ...(a['other-moonshots'] !== undefined ? { other_moonshots_usd: num('other-moonshots') } : {}),
   shares_outstanding_official: null,
   sec_8k: a.sec, x_post: a.x || null, press_release: a.pr || null, notes: a.notes || '',
 };

@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-16T13:54:15.679Z",
+  "fetched_at": "2026-11-23T14:35:01.776Z",
   "source": "Yahoo Finance: BMNR and ORBS regular-session daily closes; ETH-USD and BTC-USD at 4:00 PM America/New_York (hourly close of the 3:00–4:00 PM ET bar)",
   "eth_btc_timing": "4:00 PM America/New_York (Yahoo Finance hourly close of the 3:00–4:00 PM ET bar)",
   "days": {
@@ -386,6 +386,36 @@
       "ORBS": 0.669,
       "ETH": 1946.27,
       "BTC": 68837
+    },
+    "2026-11-16": {
+      "BMNR": 16.26,
+      "ORBS": 0.656,
+      "ETH": 1820.21,
+      "BTC": 65014
+    },
+    "2026-11-17": {
+      "BMNR": 15.86,
+      "ORBS": 0.62,
+      "ETH": 1798.25,
+      "BTC": 63915
+    },
+    "2026-11-18": {
+      "BMNR": 15.47,
+      "ORBS": 0.605,
+      "ETH": 1751.78,
+      "BTC": 62530
+    },
+    "2026-11-19": {
+      "BMNR": 15.07,
+      "ORBS": 0.625,
+      "ETH": 1759.13,
+      "BTC": 62049
+    },
+    "2026-11-20": {
+      "BMNR": 12.98,
+      "ORBS": 0.541,
+      "ETH": 1599.14,
+      "BTC": 58308
     }
   }
 }

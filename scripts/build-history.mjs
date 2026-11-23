@@ -201,7 +201,7 @@ if (process.env.TUNE) { const g = (await import(process.env.TUNE)).default; for 
 const BV = H.book_values || null;
 function bookFor(cur) {
   const beast = BV && cur.as_of >= BV.beast.from && cur.beast_usd === BV.beast.release_value_replaced ? BV.beast.usd : cur.beast_usd;
-  const other = BV && cur.as_of >= BV.other_assets.from ? BV.other_assets.usd : 0;
+  const other = (BV && cur.as_of >= BV.other_assets.from ? BV.other_assets.usd : 0) + (cur.other_moonshots_usd || 0);
   const liab = BV?.liabilities && cur.as_of >= BV.liabilities.from ? BV.liabilities.usd : 0;
   return { beast_usd: beast, other_assets_usd: other, liabilities_usd: liab };
 }
@@ -402,7 +402,7 @@ for (let i = 1; i < out.length; i++) {
 const last = out.at(-1), lr = rel.at(-1), lp = wk.at(-1).px;
 Object.assign(H, {
   as_of: lr.as_of, announced: lr.date,
-  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, liabilities_usd: bookFor(lr).liabilities_usd, beast_usd_release: lr.beast_usd,
+  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, other_moonshots_usd: lr.other_moonshots_usd || 0, liabilities_usd: bookFor(lr).liabilities_usd, beast_usd_release: lr.beast_usd,
   shares_outstanding: last.shares_outstanding, shares_outstanding_range: last.shares_outstanding_range,
   source: { type: 'official', sec_8k: lr.sec_8k, x_post: lr.x_post, press_release: lr.press_release || lr.sec_8k },
   reference_prices: { ETH: lr.eth_price_reported, BTC: lp.btc_close, BMNR: lp.bmnr_close, ORBS: lr.orbs_value_usd / H.orbs.shares,

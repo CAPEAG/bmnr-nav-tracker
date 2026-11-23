@@ -226,7 +226,7 @@ function render() {
     ['Cash & mkt. securities', '—', '$1.00', nav.cash, null],
     ['ORBS (Eightco stock)', n(h.orbs.shares), usd(p.ORBS), nav.orbsVal, P.ORBS],
     ['Beast Industries stake', '—', '10-K cost', nav.beast, null],
-    ...(nav.other ? [['Other assets (10-K)', '—', 'book', nav.other, null]] : []),
+    ...(nav.other ? [[h.other_moonshots_usd ? 'Other assets & moonshots' : 'Other assets (10-K)', '—', h.other_moonshots_usd ? '10-K + cost' : 'book', nav.other, null]] : []),
   ];
   const fullV = nav.full;
   $('holdBasis').innerHTML = `as of ${fmtDate(h.as_of)} <a href="${h.source.press_release}" target="_blank" rel="noopener">source</a>`;

@@ -202,3 +202,10 @@ test('Nov 4, 2026 10-K cover count anchors the latest week; balance-sheet book v
   assert.equal(H.snapshots.find((x) => x.as_of === '2026-08-23').liabilities_usd, undefined);
   assert.equal(s.nav.net, s.nav.full - s.preferred_usd - 33737000);
 });
+
+test('Nov 22, 2026: other moonshots at cost ($50M) added to other_assets_value', () => {
+  assert.equal(H.snapshots.find((x) => x.as_of === '2026-11-15').other_assets_value, 9962000);
+  const s = H.snapshots.find((x) => x.as_of === '2026-11-22');
+  assert.equal(s.other_assets_value, 59962000);
+  assert.equal(s.investments, 50000000);
+});

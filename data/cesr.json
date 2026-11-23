@@ -8,8 +8,8 @@
   "index_page": "https://indices.coindesk.com/indices/cesr-composite-ether-staking-rate",
   "script": "node scripts/fetch-cesr.mjs"
  },
- "fetched": "2026-11-16T13:54:15.001Z",
- "source_last_modified": "Sun, 15 Nov 2026 21:00:13 GMT",
+ "fetched": "2026-11-23T14:35:00.878Z",
+ "source_last_modified": "Sun, 22 Nov 2026 21:00:13 GMT",
  "days": [
   {
    "date": "2025-11-01",
@@ -2290,6 +2290,48 @@
    "total_rate": 0.02634875,
    "consensus_rewards_rate": 0.02469663,
    "block_rewards_rate": 0.00165213
+  },
+  {
+   "date": "2026-11-16",
+   "total_rate": 0.02567285,
+   "consensus_rewards_rate": 0.02463564,
+   "block_rewards_rate": 0.00103721
+  },
+  {
+   "date": "2026-11-17",
+   "total_rate": 0.02538889,
+   "consensus_rewards_rate": 0.02446314,
+   "block_rewards_rate": 0.00092575
+  },
+  {
+   "date": "2026-11-18",
+   "total_rate": 0.02534988,
+   "consensus_rewards_rate": 0.02455627,
+   "block_rewards_rate": 0.00079361
+  },
+  {
+   "date": "2026-11-19",
+   "total_rate": 0.02524599,
+   "consensus_rewards_rate": 0.02457812,
+   "block_rewards_rate": 0.00066787
+  },
+  {
+   "date": "2026-11-20",
+   "total_rate": 0.02543825,
+   "consensus_rewards_rate": 0.02460587,
+   "block_rewards_rate": 0.00083237
+  },
+  {
+   "date": "2026-11-21",
+   "total_rate": 0.02520428,
+   "consensus_rewards_rate": 0.02446754,
+   "block_rewards_rate": 0.00073674
+  },
+  {
+   "date": "2026-11-22",
+   "total_rate": 0.02496826,
+   "consensus_rewards_rate": 0.02450123,
+   "block_rewards_rate": 0.00046703
   }
  ]
 }

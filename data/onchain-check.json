@@ -249,7 +249,22 @@
       "coverage": null,
       "unlabeled_eth": 0,
       "transfers": [],
-      "checked": "2026-11-16T13:54:36.069Z"
+      "checked": "2026-11-23T14:35:37.965Z"
+    },
+    "2026-11-23": {
+      "as_of": "2026-11-22",
+      "status": "n/a",
+      "onchain_vwap": null,
+      "onchain_eth": 0,
+      "assumed": 1738.43,
+      "assumed_basis": "assumed",
+      "diff_pct": null,
+      "week_avg": 1742.44,
+      "reported_bought_eth_est": 5156,
+      "coverage": null,
+      "unlabeled_eth": 0,
+      "transfers": [],
+      "checked": "2026-11-23T14:35:37.965Z"
     }
   },
   "description": "Weekly on-chain cross-check of the ETH price paid (scripts/onchain-check.mjs). onchain_vwap = ETH-weighted hourly ETH/USD price at the times labeled exchanges/OTC desks sent ETH to Bitmine-attributed wallets (data/onchain-wallets.json). These are settlement transfers, not trade prices, and attribution is inferred, so this is a cross-check only — never the basis for the price unless Bitmine discloses it.",
