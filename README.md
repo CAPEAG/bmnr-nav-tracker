@@ -80,7 +80,7 @@ The share-count model is **backtested out-of-sample** against every official cou
 ## NAV formulas
 
 * Full NAV (gross) = ETH×ETHUSD + BTC×BTCUSD + cash & marketable securities + Eightco stake (100,655,143 ORBS shares × price) + Beast stake ($186.0M filed carrying value: $180.0M cash + $6.0M capitalized costs; the releases' $180M is the cash part) + other assets from the latest filing (from Aug 30, 2026: $8.347M other cost-method investments + $1.615M other digital assets, 10-K). Rule: any balance-sheet asset the weekly releases don't cover is added at its filed carrying value until the next filing; goodwill/intangibles (MAVAN, valued separately) and operating assets are not.
-* **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed) − filed balance-sheet liabilities ($33.737M from Aug 30, 2026; see below). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
+* **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed) − filed balance-sheet liabilities (latest balance sheet on/before each week; $33.737M from Aug 30, 2026; see below). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
 * Crypto/Cash NAV = ETH + BTC + cash; ETH-only NAV = ETH
 * EV ÷ NAV ex cash = (market cap + preferred + debt − cash) ÷ (Full NAV − cash); no per-share figure
 * NAV/share, fully diluted (TSM, sensitivity) = NAV net of preferred ÷ (shares + Σ count × (1 − strike ÷ BMNR price) over in-the-money warrants/options in `holdings.json → dilutive`)
@@ -95,7 +95,39 @@ that it resets daily to the greatest of $100, the last sale price (if Bitmine so
 10-day average price. Optional redemption (Bitmine's choice): 110% of $100 ($385M) until Dec 10, 2027, 105% until
 Jun 10, 2029, then 100%, plus accrued dividends. Dividends are cumulative, paid weekly.
 
-**Liabilities**: Weeks before Nov 30, 2025 use the balance sheet in effect (`holdings.json → book_values.history`): $5,387,860 for Jul 14 – Aug 27, 2025 (10-Q May 31, 2025) and $102.256M for Aug 31 – Nov 23, 2025 (FY2025 10-K: accrued $8.894M, contract liabilities $1.067M, deferred tax $92.295M). Weeks Nov 30, 2025 – Aug 23, 2026 deduct none (earlier treatment; the Nov 30, 2025 10-Q shows $235.7M incl. $125M unsettled ETH purchases and a $98.6M warrant liability — not yet back-filled, so there is a ~$102M step at Nov 23 → Nov 30, 2025). From the Aug 30, 2026 snapshot, NAV net of preferred also deducts total balance-sheet liabilities from the latest filing ($33.737M at Aug 31, 2026, 10-K: accrued $12.202M, CVI warrant liability $1.357M, other current $6.547M, non-current lease $1.189M, deferred tax $2.256M, other non-current incl. Pier Two deferred consideration $10.186M), held at the filed value until the next filing; the BMNP preferred is mezzanine equity, not a liability, so it is deducted only once, at its $350M liquidation preference.
+**Liabilities**: every weekly snapshot deducts total liabilities from the latest filed balance sheet on or before it, held at the filed value until the next filing (`holdings.json → book_values.history`, then `book_values.liabilities`):
+
+| Snapshots | Liabilities | Balance sheet / items |
+| --- | --- | --- |
+| Jul 14 – Aug 27, 2025 | $5,387,860 | 10-Q May 31, 2025 (pre-pivot) |
+| Aug 31 – Sep 21, 2025 | $102.256M | FY2025 10-K: accrued $8.894M, contract $1.067M, deferred tax $92.295M |
+| Sep 28 – Nov 23, 2025 | $359.083M | FY2025 10-K + CVI warrants at issuance fair value $256.827M (derived: $98.615M at Nov 30 + $158.212M Q1 fair-value gain; none exercised) |
+| Nov 30, 2025 | $235.743M | 10-Q: accrued/payables $11.338M, **unsettled ETH trades $125.0M**, contract $0.790M, CVI warrants $98.615M |
+| Dec 7, 2025 – Feb 22, 2026 | $110.743M | same 10-Q less the $125M unsettled trades (settled in December) |
+| Mar 1 – May 25, 2026 | $36.168M | 10-Q Feb 28, 2026: accrued $13.889M, contract $0.169M, other current $2.291M, lease $1.244M, CVI warrants $18.575M |
+| May 31 – Aug 23, 2026 | $30.128M | 10-Q May 31, 2026: accrued $10.230M, other current $1.908M, lease $1.216M, CVI warrants $2.087M, other non-current $14.687M (+ $7.186M other assets: other cost-method investments $5.737M, other digital assets $1.449M) |
+| Aug 30, 2026 – now | $33.737M | FY2026 10-K (below) |
+
+* **Unsettled ETH trades** ("trades at month end finalized and recorded but not yet settled", Nov 30, 2025 10-Q): the ETH is
+  in the release's holdings and the cash to pay for it is still in the release's cash ($882M; balance-sheet cash $887.7M),
+  so the $125M payable is deducted at the Nov 30 snapshot — once. It settled in December (the Feb 28, 2026 10-Q's
+  Dec–Feb cash paid for ETH includes it), so later snapshots, whose cash is already lower, don't deduct it again. No other
+  balance sheet shows unsettled trades.
+* **Warrants**: the share count is common stock only (10-Q/10-K counts). The CVI warrants (10,435,430 at $87.50, issued Sep
+  22, 2025 with the registered direct offering, expire Mar 22, 2027) are liability-classified and not in the count, so their
+  dilution enters only through the filed fair value — no double count. They are deducted from the first snapshot after
+  issuance (Sep 28, 2025); the offering's cash and 5,217,715 shares are in the releases / count from that week. The fair
+  value is held between filings like every other item: the filing's Black-Scholes inputs (120% volatility) reproduce the
+  Nov 30 value ($98.9M vs $98.6M) and would give ~$65M at the Nov 23, 2025 close (vs $256.8M held), so Sep 28 – Nov 23,
+  2025 NAV is conservative by up to ~$190M (~1.8%). Equity-classified Strategic Advisor / Representative warrants
+  (3,043,654 at $5.40 at Nov 30, 2025) are neither in the count nor deducted (basic share count; ~$85M intrinsic at Nov
+  30, 2025, ~0.7% of NAV). The Jul–Aug 2025 counts include the PIPE's pre-funded warrants ($0.0001 strike, economically
+  shares), so those are not deducted.
+* **Deferred tax** ($92.295M at Aug 31, 2025) is held until the Nov 30, 2025 10-Q (where it had reversed to zero).
+* The Nov 23 → Nov 30, 2025 step is now a filed-value change ($359.1M → $235.7M: warrant fair value −$158.2M, deferred tax
+  −$92.3M, unsettled trades +$125M, accrued/contract +$2.2M), not a change of method.
+
+From the Aug 30, 2026 snapshot, NAV net of preferred also deducts total balance-sheet liabilities from the latest filing ($33.737M at Aug 31, 2026, 10-K: accrued $12.202M, CVI warrant liability $1.357M, other current $6.547M, non-current lease $1.189M, deferred tax $2.256M, other non-current incl. Pier Two deferred consideration $10.186M), held at the filed value until the next filing; the BMNP preferred is mezzanine equity, not a liability, so it is deducted only once, at its $350M liquidation preference.
 * Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.
 
 ## Valuation (Bear / Base / Bull)
@@ -420,7 +452,7 @@ checks the Oct 25 share count and range, the v3 backtest summary, the held-out f
 
 * **ORBS** = Eightco Holdings (NASDAQ: ORBS) **stock** — not the "Orbs" crypto token on CoinGecko. 100,655,143 shares per
   Bitmine's 10-Q; weekly snapshots use the reported $ value, the live page uses shares × live price.
-* Beast Industries is carried at its $186.0M filed carrying value (10-K; the releases' $180M excludes $6.0M of capitalized costs); $9.96M of other balance-sheet assets are included from Aug 30, 2026. The BMNP preferred is deducted at its $350M liquidation preference; filed liabilities ($33.737M) are deducted from Aug 30, 2026 (see NAV formulas).
+* Beast Industries is carried at its $186.0M filed carrying value (10-K; the releases' $180M excludes $6.0M of capitalized costs); $9.96M of other balance-sheet assets are included from Aug 30, 2026. The BMNP preferred is deducted at its $350M liquidation preference; filed liabilities are deducted every week from the balance sheet in effect ($33.737M from Aug 30, 2026; see NAV formulas).
 * GitHub cron schedules can run late or be skipped under load, which is why stock prices are fetched live from CNBC; the page always shows each price's timestamp and source.
 
 Not investment advice.

@@ -61,8 +61,8 @@ test('liabilities in the new weeks come from the balance sheet in effect; no BMN
   assert.equal(liab(by['2025-07-14']), 5387860);
   assert.equal(liab(by['2025-08-27']), 5387860);
   assert.equal(liab(by['2025-08-31']), 102256000);
-  assert.equal(liab(by['2025-11-23']), 102256000);
-  assert.equal(liab(by['2025-11-30']), 0); // earlier treatment kept for Nov 30, 2025 – Aug 23, 2026
+  assert.equal(liab(by['2025-09-21']), 102256000);
+  assert.equal(liab(by['2025-11-23']), 102256000 + 256827000); // + CVI warrants from their Sep 22, 2025 issuance
   for (const s of S.filter((x) => x.as_of < '2026-06-10')) assert.ok(!s.preferred_usd, s.as_of);
 });
 
@@ -81,4 +81,50 @@ test('early roll-forward checks recorded (not in the backtest summary)', () => {
   assert.equal(B.early_history_checks.intervals.length, 3);
   assert.equal(B.summary.v3.intervals, 6);
   for (const c of B.early_history_checks.intervals.slice(0, 2)) assert.ok(Math.abs(c.error_pct) < 1, `${c.from}: ${c.error_pct}`);
+});
+
+// ---------- liability schedule (holdings.json → book_values.history, then the FY2026 10-K values) ----------
+const HB = data('holdings.json').book_values;
+const liabOf = (d) => by[d].nav.full - by[d].nav.net - (by[d].preferred_usd || 0);
+
+test('liability schedule: every week deducts the filed balance sheet in effect', () => {
+  const expect = {
+    '2025-07-14': 5387860, '2025-08-27': 5387860, '2025-08-31': 102256000, '2025-09-21': 102256000,
+    '2025-09-28': 359083000, '2025-11-23': 359083000, '2025-11-30': 235743000, '2025-12-07': 110743000, '2026-02-22': 110743000,
+    '2026-03-01': 36168000, '2026-05-25': 36168000, '2026-05-31': 30128000, '2026-08-23': 30128000, '2026-08-30': 33737000, '2026-11-22': 33737000,
+  };
+  for (const [d, v] of Object.entries(expect)) assert.equal(liabOf(d), v, d);
+  for (const s of S) assert.ok(s.nav.full - s.nav.net - (s.preferred_usd || 0) > 0, `${s.as_of}: no week without liabilities`);
+});
+
+test('liability schedule: periods are contiguous, items add up to the filed totals', () => {
+  const P = HB.history;
+  assert.equal(P[0].from, S[0].as_of);
+  for (let i = 1; i < P.length; i++) assert.equal(P[i].from, P[i - 1].until);
+  assert.equal(P.at(-1).until, HB.liabilities.from);
+  for (const p of P) assert.equal(p.items.reduce((t, x) => t + x.usd, 0), p.liabilities_usd, p.from);
+  const filed = { '2025-08-31': 102256000, '2025-11-30': 235743000, '2026-03-01': 36168000, '2026-05-31': 30128000 }; // balance-sheet totals
+  for (const [d, v] of Object.entries(filed)) assert.equal(P.find((p) => p.from === d).liabilities_usd, v, d);
+});
+
+test('unsettled ETH trades ($125M) are deducted once, at the Nov 30, 2025 snapshot only', () => {
+  const withIt = HB.history.filter((p) => p.items.some((x) => x.settlement_timing));
+  assert.equal(withIt.length, 1);
+  assert.deepEqual([withIt[0].from, withIt[0].until], ['2025-11-30', '2025-12-07']);
+  assert.equal(liabOf('2025-11-30') - liabOf('2025-12-07'), 125000000);
+});
+
+test('CVI warrants: liability at fair value from issuance, never in the share count', () => {
+  const cvi = (p) => p.items.filter((x) => /CVI warrant/.test(x.name)).reduce((t, x) => t + x.usd, 0);
+  const byFrom = Object.fromEntries(HB.history.map((p) => [p.from, cvi(p)]));
+  assert.deepEqual(byFrom, { '2025-07-14': 0, '2025-08-31': 0, '2025-09-28': 256827000, '2025-11-30': 98615000, '2025-12-07': 98615000, '2026-03-01': 18575000, '2026-05-31': 2087000 });
+  assert.equal(HB.liabilities.items.find((x) => /CVI/.test(x.name)).usd, 1357000);
+  // share count = common stock only: the Nov 30, 2025 anchor is the 10-Q common count, which excludes the 10,435,430 warrants
+  assert.equal(by['2025-11-30'].shares_outstanding, 408578823);
+});
+
+test('current headline still uses the FY2026 10-K liabilities', () => {
+  const h = data('holdings.json');
+  assert.equal(h.book_values.liabilities.usd, 33737000);
+  assert.equal(S.at(-1).liabilities_usd, 33737000);
 });

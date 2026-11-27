@@ -2161,28 +2161,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 11591904516,
-        "net": 11489648516,
+        "net": 11232821516,
         "crypto": 11434904516,
         "eth": 10977376900,
         "ev": 14607665130,
         "nav_ex_cash": 11155904516
       },
-      "nav_per_share": 38.57,
+      "nav_per_share": 37.71,
       "nav_per_share_gross": 38.91,
       "nav_per_share_all": {
         "full": 38.91,
-        "net": 38.57,
+        "net": 37.71,
         "crypto": 38.39,
         "eth": 36.85
       },
-      "mnav": 1.309,
+      "mnav": 1.339,
       "mnav_gross": 1.298,
       "mnav_all": {
         "full": 1.298,
-        "net": 1.309,
+        "net": 1.339,
         "crypto": 1.316,
         "eth": 1.37,
         "ev_to_nav_ex_cash": 1.309
@@ -2203,8 +2203,8 @@
           "staking": 0,
           "other": 0.0008,
           "total": 0.9532,
-          "actual_change": -1.87,
-          "market": -2.8232
+          "actual_change": -2.73,
+          "market": -3.6832
         },
         "eth_per_share": {
           "capital": 0.000253539,
@@ -2304,28 +2304,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 13427449281,
-        "net": 13325193281,
+        "net": 13068366281,
         "crypto": 13314449281,
         "eth": 12834734785,
         "ev": 17264109180,
         "nav_ex_cash": 12971449281
       },
-      "nav_per_share": 42.6,
+      "nav_per_share": 41.78,
       "nav_per_share_gross": 42.93,
       "nav_per_share_all": {
         "full": 42.93,
-        "net": 42.6,
+        "net": 41.78,
         "crypto": 42.57,
         "eth": 41.03
       },
-      "mnav": 1.33,
+      "mnav": 1.356,
       "mnav_gross": 1.32,
       "mnav_all": {
         "full": 1.32,
-        "net": 1.33,
+        "net": 1.356,
         "crypto": 1.331,
         "eth": 1.381,
         "ev_to_nav_ex_cash": 1.331
@@ -2337,17 +2337,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 40.7749,
+        "nav_per_share_before": 39.9128,
         "atm_shares": 14905450,
-        "mnav_at_issue": 1.328,
+        "mnav_at_issue": 1.356,
         "usd_per_share": {
-          "issuance": 0.6365,
+          "issuance": 0.6776,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0005,
-          "total": 0.636,
-          "actual_change": 4.03,
-          "market": 3.394
+          "total": 0.6771,
+          "actual_change": 4.07,
+          "market": 3.3929
         },
         "eth_per_share": {
           "capital": 0.000147693,
@@ -2447,28 +2447,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 12856821592,
-        "net": 12754565592,
+        "net": 12497738592,
         "crypto": 12721821592,
         "eth": 12595708952,
         "ev": 16761854431,
         "nav_ex_cash": 12752821592
       },
-      "nav_per_share": 39.68,
+      "nav_per_share": 38.88,
       "nav_per_share_gross": 40,
       "nav_per_share_all": {
         "full": 40,
-        "net": 39.68,
+        "net": 38.88,
         "crypto": 39.58,
         "eth": 39.19
       },
-      "mnav": 1.322,
+      "mnav": 1.35,
       "mnav_gross": 1.312,
       "mnav_all": {
         "full": 1.312,
-        "net": 1.322,
+        "net": 1.35,
         "crypto": 1.326,
         "eth": 1.339,
         "ev_to_nav_ex_cash": 1.314
@@ -2480,17 +2480,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 40.0777,
+        "nav_per_share_before": 39.2566,
         "atm_shares": 8638240,
-        "mnav_at_issue": 1.467,
+        "mnav_at_issue": 1.498,
         "usd_per_share": {
-          "issuance": 0.5031,
+          "issuance": 0.5251,
           "buybacks": 0,
           "staking": 0,
           "other": 0,
-          "total": 0.5031,
-          "actual_change": -2.92,
-          "market": -3.4231
+          "total": 0.5252,
+          "actual_change": -2.9,
+          "market": -3.4252
         },
         "eth_per_share": {
           "capital": 0.000383947,
@@ -2590,28 +2590,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 13374112372,
-        "net": 13271856372,
+        "net": 13015029372,
         "crypto": 13255112372,
         "eth": 13015248308,
         "ev": 16680364604,
         "nav_ex_cash": 13155112372
       },
-      "nav_per_share": 39.15,
+      "nav_per_share": 38.39,
       "nav_per_share_gross": 39.45,
       "nav_per_share_all": {
         "full": 39.45,
-        "net": 39.15,
+        "net": 38.39,
         "crypto": 39.1,
         "eth": 38.39
       },
-      "mnav": 1.273,
+      "mnav": 1.298,
       "mnav_gross": 1.264,
       "mnav_all": {
         "full": 1.264,
-        "net": 1.273,
+        "net": 1.298,
         "crypto": 1.275,
         "eth": 1.298,
         "ev_to_nav_ex_cash": 1.268
@@ -2623,17 +2623,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 38.174,
+        "nav_per_share_before": 37.375,
         "atm_shares": 17566257,
-        "mnav_at_issue": 1.386,
+        "mnav_at_issue": 1.415,
         "usd_per_share": {
-          "issuance": 0.7631,
+          "issuance": 0.8045,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0003,
-          "total": 0.7628,
-          "actual_change": -0.53,
-          "market": -1.2928
+          "total": 0.8042,
+          "actual_change": -0.49,
+          "market": -1.2942
         },
         "eth_per_share": {
           "capital": 0.000111064,
@@ -2733,28 +2733,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 13912421730,
-        "net": 13810165730,
+        "net": 13553338730,
         "crypto": 13824421730,
         "eth": 13497443106,
         "ev": 17173041677,
         "nav_ex_cash": 13607421730
       },
-      "nav_per_share": 39.83,
+      "nav_per_share": 39.09,
       "nav_per_share_gross": 40.13,
       "nav_per_share_all": {
         "full": 40.13,
-        "net": 39.83,
+        "net": 39.09,
         "crypto": 39.87,
         "eth": 38.93
       },
-      "mnav": 1.266,
+      "mnav": 1.29,
       "mnav_gross": 1.256,
       "mnav_all": {
         "full": 1.256,
-        "net": 1.266,
+        "net": 1.29,
         "crypto": 1.264,
         "eth": 1.295,
         "ev_to_nav_ex_cash": 1.262
@@ -2766,17 +2766,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 38.35,
+        "nav_per_share_before": 37.5924,
         "atm_shares": 7713443,
-        "mnav_at_issue": 1.321,
+        "mnav_at_issue": 1.348,
         "usd_per_share": {
-          "issuance": 0.2738,
+          "issuance": 0.2906,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0037,
-          "total": 0.2701,
-          "actual_change": 0.68,
-          "market": 0.4099
+          "total": 0.287,
+          "actual_change": 0.7,
+          "market": 0.413
         },
         "eth_per_share": {
           "capital": 0.000009368,
@@ -2876,28 +2876,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 13724574946,
-        "net": 13622318946,
+        "net": 13365491946,
         "crypto": 13662574946,
         "eth": 13252332066,
         "ev": 16170417723,
         "nav_ex_cash": 13335574946
       },
-      "nav_per_share": 38.38,
+      "nav_per_share": 37.65,
       "nav_per_share_gross": 38.66,
       "nav_per_share_all": {
         "full": 38.66,
-        "net": 38.38,
+        "net": 37.65,
         "crypto": 38.49,
         "eth": 37.33
       },
-      "mnav": 1.216,
+      "mnav": 1.239,
       "mnav_gross": 1.207,
       "mnav_all": {
         "full": 1.207,
-        "net": 1.216,
+        "net": 1.239,
         "crypto": 1.212,
         "eth": 1.25,
         "ev_to_nav_ex_cash": 1.213
@@ -2909,17 +2909,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 38.3629,
+        "nav_per_share_before": 37.6222,
         "atm_shares": 8253693,
-        "mnav_at_issue": 1.289,
+        "mnav_at_issue": 1.314,
         "usd_per_share": {
-          "issuance": 0.2576,
+          "issuance": 0.2748,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0035,
-          "total": 0.2542,
-          "actual_change": -1.45,
-          "market": -1.7042
+          "total": 0.2714,
+          "actual_change": -1.44,
+          "market": -1.7114
         },
         "eth_per_share": {
           "capital": 0.000009283,
@@ -3019,28 +3019,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 13236432237,
-        "net": 13134176237,
+        "net": 12877349237,
         "crypto": 13175432237,
         "eth": 12757325997,
         "ev": 14271203492,
         "nav_ex_cash": 12838432237
       },
-      "nav_per_share": 36.02,
+      "nav_per_share": 35.32,
       "nav_per_share_gross": 36.3,
       "nav_per_share_all": {
         "full": 36.3,
-        "net": 36.02,
+        "net": 35.32,
         "crypto": 36.13,
         "eth": 34.99
       },
-      "mnav": 1.117,
+      "mnav": 1.139,
       "mnav_gross": 1.108,
       "mnav_all": {
         "full": 1.108,
-        "net": 1.117,
+        "net": 1.139,
         "crypto": 1.113,
         "eth": 1.15,
         "ev_to_nav_ex_cash": 1.112
@@ -3052,17 +3052,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 33.9069,
+        "nav_per_share_before": 33.1834,
         "atm_shares": 9662004,
-        "mnav_at_issue": 1.188,
+        "mnav_at_issue": 1.213,
         "usd_per_share": {
-          "issuance": 0.1686,
+          "issuance": 0.1877,
           "buybacks": 0,
           "staking": 0,
           "other": -0.003,
-          "total": 0.1655,
-          "actual_change": -2.36,
-          "market": -2.5255
+          "total": 0.1847,
+          "actual_change": -2.33,
+          "market": -2.5147
         },
         "eth_per_share": {
           "capital": 0.000048342,
@@ -3162,28 +3162,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 11768904464,
-        "net": 11666648464,
+        "net": 11409821464,
         "crypto": 11731904464,
         "eth": 11106822480,
         "ev": 12283866284,
         "nav_ex_cash": 11161904464
       },
-      "nav_per_share": 31.13,
+      "nav_per_share": 30.45,
       "nav_per_share_gross": 31.41,
       "nav_per_share_all": {
         "full": 31.41,
-        "net": 31.13,
+        "net": 30.45,
         "crypto": 31.31,
         "eth": 29.64
       },
-      "mnav": 1.105,
+      "mnav": 1.13,
       "mnav_gross": 1.095,
       "mnav_all": {
         "full": 1.095,
-        "net": 1.105,
+        "net": 1.13,
         "crypto": 1.099,
         "eth": 1.161,
         "ev_to_nav_ex_cash": 1.101
@@ -3195,17 +3195,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 32.6137,
+        "nav_per_share_before": 31.9094,
         "atm_shares": 10101040,
-        "mnav_at_issue": 1.179,
+        "mnav_at_issue": 1.205,
         "usd_per_share": {
-          "issuance": 0.1575,
+          "issuance": 0.1765,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0042,
-          "total": 0.1533,
-          "actual_change": -4.89,
-          "market": -5.0433
+          "total": 0.1723,
+          "actual_change": -4.87,
+          "market": -5.0423
         },
         "eth_per_share": {
           "capital": -0.000114971,
@@ -3311,28 +3311,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
-      "liabilities_usd": 102256000,
+      "liabilities_usd": 359083000,
       "nav": {
         "full": 11163017400,
-        "net": 11060761400,
+        "net": 10803934400,
         "crypto": 11125017400,
         "eth": 10308350840,
         "ev": 9257295196,
         "nav_ex_cash": 10363017400
       },
-      "nav_per_share": 28.59,
+      "nav_per_share": 27.93,
       "nav_per_share_gross": 28.86,
       "nav_per_share_all": {
         "full": 28.86,
-        "net": 28.59,
+        "net": 27.93,
         "crypto": 28.76,
         "eth": 26.65
       },
-      "mnav": 0.909,
+      "mnav": 0.931,
       "mnav_gross": 0.901,
       "mnav_all": {
         "full": 0.901,
-        "net": 0.909,
+        "net": 0.931,
         "crypto": 0.904,
         "eth": 0.976,
         "ev_to_nav_ex_cash": 0.893
@@ -3344,17 +3344,17 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 29.0939,
+        "nav_per_share_before": 28.4085,
         "atm_shares": 13756115,
-        "mnav_at_issue": 0.993,
+        "mnav_at_issue": 1.017,
         "usd_per_share": {
-          "issuance": -0.0074,
+          "issuance": 0.017,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0039,
-          "total": -0.0113,
-          "actual_change": -2.54,
-          "market": -2.5287
+          "total": 0.0131,
+          "actual_change": -2.52,
+          "market": -2.5331
         },
         "eth_per_share": {
           "capital": -0.000157743,
@@ -3460,27 +3460,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 235743000,
       "nav": {
         "full": 12144658112,
-        "net": 12144658112,
+        "net": 11908915112,
         "crypto": 12108658112,
         "eth": 11209308992,
         "ev": 12650130618,
         "nav_ex_cash": 11262658112
       },
-      "nav_per_share": 29.72,
+      "nav_per_share": 29.15,
       "nav_per_share_gross": 29.72,
       "nav_per_share_all": {
         "full": 29.72,
-        "net": 29.72,
+        "net": 29.15,
         "crypto": 29.64,
         "eth": 27.43
       },
-      "mnav": 1.114,
+      "mnav": 1.136,
       "mnav_gross": 1.114,
       "mnav_all": {
         "full": 1.114,
-        "net": 1.114,
+        "net": 1.136,
         "crypto": 1.118,
         "eth": 1.207,
         "ev_to_nav_ex_cash": 1.123
@@ -3492,17 +3493,17 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 30.047,
+        "nav_per_share_before": 29.383,
         "atm_shares": 11954700,
-        "mnav_at_issue": 1.039,
+        "mnav_at_issue": 1.062,
         "usd_per_share": {
-          "issuance": 0.0342,
+          "issuance": 0.0537,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0032,
-          "total": 0.0311,
-          "actual_change": 1.13,
-          "market": 1.0989
+          "total": 0.0505,
+          "actual_change": 1.22,
+          "market": 1.1695
         },
         "eth_per_share": {
           "capital": -0.000038184,
@@ -3604,27 +3605,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 13185528003,
-        "net": 13185528003,
+        "net": 13074785003,
         "crypto": 13149528003,
         "eth": 12132081189,
         "ev": 13496041552,
         "nav_ex_cash": 12185528003
       },
-      "nav_per_share": 30.98,
+      "nav_per_share": 30.72,
       "nav_per_share_gross": 30.98,
       "nav_per_share_all": {
         "full": 30.98,
-        "net": 30.98,
+        "net": 30.72,
         "crypto": 30.9,
         "eth": 28.51
       },
-      "mnav": 1.099,
+      "mnav": 1.109,
       "mnav_gross": 1.099,
       "mnav_all": {
         "full": 1.099,
-        "net": 1.099,
+        "net": 1.109,
         "crypto": 1.102,
         "eth": 1.195,
         "ev_to_nav_ex_cash": 1.108
@@ -3636,17 +3638,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 29.9577,
+        "nav_per_share_before": 29.3807,
         "atm_shares": 17024276,
-        "mnav_at_issue": 1.101,
+        "mnav_at_issue": 1.122,
         "usd_per_share": {
-          "issuance": 0.1208,
+          "issuance": 0.1439,
           "buybacks": 0,
           "staking": 0,
           "other": 0.0045,
-          "total": 0.1253,
-          "actual_change": 1.26,
-          "market": 1.1347
+          "total": 0.1483,
+          "actual_change": 1.57,
+          "market": 1.4217
         },
         "eth_per_share": {
           "capital": -0.000042514,
@@ -3758,27 +3760,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 13250223052,
-        "net": 13250223052,
+        "net": 13139480052,
         "crypto": 13212223052,
         "eth": 12195203540,
         "ev": 14154205582,
         "nav_ex_cash": 12250223052
       },
-      "nav_per_share": 30.48,
+      "nav_per_share": 30.23,
       "nav_per_share_gross": 30.48,
       "nav_per_share_all": {
         "full": 30.48,
-        "net": 30.48,
+        "net": 30.23,
         "crypto": 30.39,
         "eth": 28.05
       },
-      "mnav": 1.144,
+      "mnav": 1.153,
       "mnav_gross": 1.144,
       "mnav_all": {
         "full": 1.144,
-        "net": 1.144,
+        "net": 1.153,
         "crypto": 1.147,
         "eth": 1.243,
         "ev_to_nav_ex_cash": 1.155
@@ -3790,17 +3793,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 31.3658,
+        "nav_per_share_before": 31.1056,
         "atm_shares": 9113068,
-        "mnav_at_issue": 1.203,
+        "mnav_at_issue": 1.213,
         "usd_per_share": {
-          "issuance": 0.1336,
+          "issuance": 0.139,
           "buybacks": 0,
           "staking": 0,
           "other": 0.0024,
-          "total": 0.1359,
-          "actual_change": -0.5,
-          "market": -0.6359
+          "total": 0.1414,
+          "actual_change": -0.49,
+          "market": -0.6314
         },
         "eth_per_share": {
           "capital": 0.000042698,
@@ -3911,27 +3914,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 13210705138,
-        "net": 13210705138,
+        "net": 13099962138,
         "crypto": 13178705138,
         "eth": 12161591442,
         "ev": 12950381003,
         "nav_ex_cash": 12210705138
       },
-      "nav_per_share": 29.7,
+      "nav_per_share": 29.45,
       "nav_per_share_gross": 29.7,
       "nav_per_share_all": {
         "full": 29.7,
-        "net": 29.7,
+        "net": 29.45,
         "crypto": 29.63,
         "eth": 27.34
       },
-      "mnav": 1.056,
+      "mnav": 1.065,
       "mnav_gross": 1.056,
       "mnav_all": {
         "full": 1.056,
-        "net": 1.056,
+        "net": 1.065,
         "crypto": 1.059,
         "eth": 1.147,
         "ev_to_nav_ex_cash": 1.061
@@ -3943,17 +3947,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 29.2053,
+        "nav_per_share_before": 28.9505,
         "atm_shares": 10130166,
-        "mnav_at_issue": 1.037,
+        "mnav_at_issue": 1.046,
         "usd_per_share": {
-          "issuance": 0.0247,
+          "issuance": 0.0305,
           "buybacks": 0,
           "staking": 0,
           "other": 0.0016,
-          "total": 0.0263,
+          "total": 0.0321,
           "actual_change": -0.78,
-          "market": -0.8063
+          "market": -0.8121
         },
         "eth_per_share": {
           "capital": 0.000012352,
@@ -4066,27 +4070,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 13157698164,
-        "net": 13157698164,
+        "net": 13046955164,
         "crypto": 13134698164,
         "eth": 12117827700,
         "ev": 11727132550,
         "nav_ex_cash": 12157698164
       },
-      "nav_per_share": 29.27,
+      "nav_per_share": 29.02,
       "nav_per_share_gross": 29.27,
       "nav_per_share_all": {
         "full": 29.27,
-        "net": 29.27,
+        "net": 29.02,
         "crypto": 29.22,
         "eth": 26.95
       },
-      "mnav": 0.967,
+      "mnav": 0.975,
       "mnav_gross": 0.967,
       "mnav_all": {
         "full": 0.967,
-        "net": 0.967,
+        "net": 0.975,
         "crypto": 0.969,
         "eth": 1.05,
         "ev_to_nav_ex_cash": 0.965
@@ -4098,17 +4103,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 29.3103,
+        "nav_per_share_before": 29.0614,
         "atm_shares": 4716809,
-        "mnav_at_issue": 1.011,
+        "mnav_at_issue": 1.02,
         "usd_per_share": {
-          "issuance": 0.0034,
+          "issuance": 0.006,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0017,
-          "total": 0.0017,
+          "total": 0.0043,
           "actual_change": -0.43,
-          "market": -0.4317
+          "market": -0.4343
         },
         "eth_per_share": {
           "capital": 0.000002092,
@@ -4219,27 +4224,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 14200273352,
-        "net": 14200273352,
+        "net": 14089530352,
         "crypto": 14175273352,
         "eth": 13242632392,
         "ev": 13131207309,
         "nav_ex_cash": 13285273352
       },
-      "nav_per_share": 31.53,
+      "nav_per_share": 31.29,
       "nav_per_share_gross": 31.53,
       "nav_per_share_all": {
         "full": 31.53,
-        "net": 31.53,
+        "net": 31.29,
         "crypto": 31.48,
         "eth": 29.41
       },
-      "mnav": 0.989,
+      "mnav": 0.997,
       "mnav_gross": 0.989,
       "mnav_all": {
         "full": 0.989,
-        "net": 0.989,
+        "net": 0.997,
         "crypto": 0.991,
         "eth": 1.061,
         "ev_to_nav_ex_cash": 0.988
@@ -4251,17 +4257,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 30.1123,
+        "nav_per_share_before": 29.866,
         "atm_shares": 780151,
-        "mnav_at_issue": 0.951,
+        "mnav_at_issue": 0.959,
         "usd_per_share": {
-          "issuance": -0.0025,
+          "issuance": -0.0021,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0023,
-          "total": -0.0049,
-          "actual_change": 2.26,
-          "market": 2.2649
+          "total": -0.0044,
+          "actual_change": 2.27,
+          "market": 2.2744
         },
         "eth_per_share": {
           "capital": 0.000056713,
@@ -4364,27 +4370,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 14027803793,
-        "net": 14027803793,
+        "net": 13917060793,
         "crypto": 14004803793,
         "eth": 12999268392,
         "ev": 12697743674,
         "nav_ex_cash": 13039803793
       },
-      "nav_per_share": 30.81,
+      "nav_per_share": 30.57,
       "nav_per_share_gross": 30.81,
       "nav_per_share_all": {
         "full": 30.81,
-        "net": 30.81,
+        "net": 30.57,
         "crypto": 30.76,
         "eth": 28.55
       },
-      "mnav": 0.976,
+      "mnav": 0.983,
       "mnav_gross": 0.976,
       "mnav_all": {
         "full": 0.976,
-        "net": 0.976,
+        "net": 0.983,
         "crypto": 0.977,
         "eth": 1.053,
         "ev_to_nav_ex_cash": 0.974
@@ -4396,17 +4403,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 31.147,
+        "nav_per_share_before": 30.9011,
         "atm_shares": 4937601,
-        "mnav_at_issue": 1.011,
+        "mnav_at_issue": 1.019,
         "usd_per_share": {
-          "issuance": 0.0036,
+          "issuance": 0.0062,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0028,
-          "total": 0.0008,
+          "total": 0.0035,
           "actual_change": -0.72,
-          "market": -0.7208
+          "market": -0.7235
         },
         "eth_per_share": {
           "capital": -0.000046975,
@@ -4524,27 +4531,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 14514813834,
-        "net": 14514813834,
+        "net": 14404070834,
         "crypto": 14492813834,
         "eth": 13495948596,
         "ev": 13285312188,
         "nav_ex_cash": 13535813834
       },
-      "nav_per_share": 31.71,
+      "nav_per_share": 31.47,
       "nav_per_share_gross": 31.71,
       "nav_per_share_all": {
         "full": 31.71,
-        "net": 31.71,
+        "net": 31.47,
         "crypto": 31.66,
         "eth": 29.48
       },
-      "mnav": 0.983,
+      "mnav": 0.99,
       "mnav_gross": 0.983,
       "mnav_all": {
         "full": 0.983,
-        "net": 0.983,
+        "net": 0.99,
         "crypto": 0.984,
         "eth": 1.057,
         "ev_to_nav_ex_cash": 0.981
@@ -4556,17 +4564,17 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 32.1776,
+        "nav_per_share_before": 31.9344,
         "atm_shares": 3642419,
-        "mnav_at_issue": 0.976,
+        "mnav_at_issue": 0.984,
         "usd_per_share": {
-          "issuance": -0.0061,
+          "issuance": -0.0042,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0026,
-          "total": -0.0087,
+          "total": -0.0068,
           "actual_change": 0.9,
-          "market": 0.9087
+          "market": 0.9068
         },
         "eth_per_share": {
           "capital": 0.000003495,
@@ -4677,27 +4685,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 12950555207,
-        "net": 12950555207,
+        "net": 12839812207,
         "crypto": 12745555207,
         "eth": 12046836582,
         "ev": 12529603222,
         "nav_ex_cash": 12268555207
       },
-      "nav_per_share": 28.23,
+      "nav_per_share": 27.99,
       "nav_per_share_gross": 28.23,
       "nav_per_share_all": {
         "full": 28.23,
-        "net": 28.23,
+        "net": 27.99,
         "crypto": 27.78,
         "eth": 26.26
       },
-      "mnav": 1.02,
+      "mnav": 1.029,
       "mnav_gross": 1.02,
       "mnav_all": {
         "full": 1.02,
-        "net": 1.02,
+        "net": 1.029,
         "crypto": 1.037,
         "eth": 1.097,
         "ev_to_nav_ex_cash": 1.021
@@ -4709,17 +4718,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 29.1509,
+        "nav_per_share_before": 28.909,
         "atm_shares": 517374,
-        "mnav_at_issue": 0.989,
+        "mnav_at_issue": 0.997,
         "usd_per_share": {
-          "issuance": -0.0007,
+          "issuance": -0.0002,
           "buybacks": 0,
           "staking": 0,
           "other": -0.0013,
-          "total": -0.002,
+          "total": -0.0015,
           "actual_change": -3.48,
-          "market": -3.478
+          "market": -3.4785
         },
         "eth_per_share": {
           "capital": 0.000067835,
@@ -4830,27 +4839,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 10735475553,
-        "net": 10735475553,
+        "net": 10624732553,
         "crypto": 10529475553,
         "eth": 9928634625,
         "ev": 10952190185,
         "nav_ex_cash": 10149475553
       },
-      "nav_per_share": 23.35,
+      "nav_per_share": 23.11,
       "nav_per_share_gross": 23.35,
       "nav_per_share_all": {
         "full": 23.35,
-        "net": 23.35,
+        "net": 23.11,
         "crypto": 22.91,
         "eth": 21.6
       },
-      "mnav": 1.075,
+      "mnav": 1.086,
       "mnav_gross": 1.075,
       "mnav_all": {
         "full": 1.075,
-        "net": 1.075,
+        "net": 1.086,
         "crypto": 1.096,
         "eth": 1.162,
         "ev_to_nav_ex_cash": 1.079
@@ -4862,17 +4872,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 27.3335,
+        "nav_per_share_before": 27.0921,
         "atm_shares": 952629,
-        "mnav_at_issue": 1.014,
+        "mnav_at_issue": 1.023,
         "usd_per_share": {
-          "issuance": 0.0008,
+          "issuance": 0.0013,
           "buybacks": 0,
           "staking": 0,
           "other": -0.002,
-          "total": -0.0012,
+          "total": -0.0007,
           "actual_change": -4.88,
-          "market": -4.8788
+          "market": -4.8793
         },
         "eth_per_share": {
           "capital": 0.000070897,
@@ -4983,27 +4993,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 10005780064,
-        "net": 10005780064,
+        "net": 9895037064,
         "crypto": 9800780064,
         "eth": 9192193250,
         "ev": 8914400258,
         "nav_ex_cash": 9410780064
       },
-      "nav_per_share": 21.54,
+      "nav_per_share": 21.3,
       "nav_per_share_gross": 21.54,
       "nav_per_share_all": {
         "full": 21.54,
-        "net": 21.54,
+        "net": 21.3,
         "crypto": 21.1,
         "eth": 19.79
       },
-      "mnav": 0.95,
+      "mnav": 0.961,
       "mnav_gross": 0.95,
       "mnav_all": {
         "full": 0.95,
-        "net": 0.95,
+        "net": 0.961,
         "crypto": 0.97,
         "eth": 1.035,
         "ev_to_nav_ex_cash": 0.947
@@ -5015,17 +5026,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.4284,
+        "nav_per_share_before": 21.1875,
         "atm_shares": 4864165,
-        "mnav_at_issue": 0.964,
+        "mnav_at_issue": 0.975,
         "usd_per_share": {
-          "issuance": -0.008,
+          "issuance": -0.0055,
           "buybacks": 0,
           "staking": 0.0012,
           "other": -0.0026,
-          "total": -0.0094,
+          "total": -0.0068,
           "actual_change": -1.81,
-          "market": -1.8006
+          "market": -1.8032
         },
         "eth_per_share": {
           "capital": -0.000011541,
@@ -5136,27 +5147,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 9620540986,
-        "net": 9620540986,
+        "net": 9509797986,
         "crypto": 9417540986,
         "eth": 8734251006,
         "ev": 9245875769,
         "nav_ex_cash": 8950540986
       },
-      "nav_per_share": 20.34,
+      "nav_per_share": 20.1,
       "nav_per_share_gross": 20.34,
       "nav_per_share_all": {
         "full": 20.34,
-        "net": 20.34,
+        "net": 20.1,
         "crypto": 19.91,
         "eth": 18.46
       },
-      "mnav": 1.031,
+      "mnav": 1.043,
       "mnav_gross": 1.031,
       "mnav_all": {
         "full": 1.031,
-        "net": 1.031,
+        "net": 1.043,
         "crypto": 1.053,
         "eth": 1.135,
         "ev_to_nav_ex_cash": 1.033
@@ -5168,17 +5180,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.5148,
+        "nav_per_share_before": 20.2764,
         "atm_shares": 8532659,
-        "mnav_at_issue": 0.99,
+        "mnav_at_issue": 1.002,
         "usd_per_share": {
-          "issuance": -0.0036,
+          "issuance": 0.0007,
           "buybacks": 0,
           "staking": 0.0018,
           "other": -0.003,
-          "total": -0.0048,
+          "total": -0.0005,
           "actual_change": -1.2,
-          "market": -1.1952
+          "market": -1.1995
         },
         "eth_per_share": {
           "capital": -0.000072986,
@@ -5291,27 +5303,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 110743000,
       "nav": {
         "full": 9566148378,
-        "net": 9566148378,
+        "net": 9455405378,
         "crypto": 9363148378,
         "eth": 8659566322,
         "ev": 8959458240,
         "nav_ex_cash": 8875148378
       },
-      "nav_per_share": 19.95,
+      "nav_per_share": 19.72,
       "nav_per_share_gross": 19.95,
       "nav_per_share_all": {
         "full": 19.95,
-        "net": 19.95,
+        "net": 19.72,
         "crypto": 19.53,
         "eth": 18.06
       },
-      "mnav": 1.009,
+      "mnav": 1.021,
       "mnav_gross": 1.009,
       "mnav_all": {
         "full": 1.009,
-        "net": 1.009,
+        "net": 1.021,
         "crypto": 1.031,
         "eth": 1.114,
         "ev_to_nav_ex_cash": 1.009
@@ -5323,17 +5336,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 19.9133,
+        "nav_per_share_before": 19.6792,
         "atm_shares": 6321091,
-        "mnav_at_issue": 1.005,
+        "mnav_at_issue": 1.017,
         "usd_per_share": {
-          "issuance": 0.0013,
+          "issuance": 0.0044,
           "buybacks": 0,
           "staking": 0.0024,
           "other": -0.0016,
-          "total": 0.0022,
-          "actual_change": -0.39,
-          "market": -0.3922
+          "total": 0.0052,
+          "actual_change": -0.38,
+          "market": -0.3852
         },
         "eth_per_share": {
           "capital": -0.000017332,
@@ -5441,27 +5454,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 9920643592,
-        "net": 9920643592,
+        "net": 9884475592,
         "crypto": 9720643592,
         "eth": 8839807912,
         "ev": 8506321208,
         "nav_ex_cash": 9052643592
       },
-      "nav_per_share": 20.09,
+      "nav_per_share": 20.01,
       "nav_per_share_gross": 20.09,
       "nav_per_share_all": {
         "full": 20.09,
-        "net": 20.09,
+        "net": 20.01,
         "crypto": 19.68,
         "eth": 17.9
       },
-      "mnav": 0.945,
+      "mnav": 0.948,
       "mnav_gross": 0.945,
       "mnav_all": {
         "full": 0.945,
-        "net": 0.945,
+        "net": 0.948,
         "crypto": 0.964,
         "eth": 1.06,
         "ev_to_nav_ex_cash": 0.94
@@ -5473,17 +5487,17 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 19.8534,
+        "nav_per_share_before": 19.6224,
         "atm_shares": 14121753,
-        "mnav_at_issue": 1.003,
+        "mnav_at_issue": 1.015,
         "usd_per_share": {
-          "issuance": 0.0018,
+          "issuance": 0.0084,
           "buybacks": 0,
           "staking": 0.004,
           "other": -0.0022,
-          "total": 0.0036,
-          "actual_change": 0.14,
-          "market": 0.1364
+          "total": 0.0103,
+          "actual_change": 0.29,
+          "market": 0.2797
         },
         "eth_per_share": {
           "capital": -0.000163627,
@@ -5585,27 +5599,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 10323294680,
-        "net": 10323294680,
+        "net": 10287126680,
         "crypto": 10123294680,
         "eth": 8910416295,
         "ev": 8559580533,
         "nav_ex_cash": 9123294680
       },
-      "nav_per_share": 19.97,
+      "nav_per_share": 19.9,
       "nav_per_share_gross": 19.97,
       "nav_per_share_all": {
         "full": 19.97,
-        "net": 19.97,
+        "net": 19.9,
         "crypto": 19.58,
         "eth": 17.24
       },
-      "mnav": 0.945,
+      "mnav": 0.949,
       "mnav_gross": 0.945,
       "mnav_all": {
         "full": 0.945,
-        "net": 0.945,
+        "net": 0.949,
         "crypto": 0.964,
         "eth": 1.095,
         "ev_to_nav_ex_cash": 0.938
@@ -5617,17 +5632,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.436,
+        "nav_per_share_before": 20.3628,
         "atm_shares": 23021708,
-        "mnav_at_issue": 0.982,
+        "mnav_at_issue": 0.985,
         "usd_per_share": {
-          "issuance": -0.0166,
+          "issuance": -0.0133,
           "buybacks": 0,
           "staking": 0.0043,
           "other": -0.0051,
-          "total": -0.0174,
-          "actual_change": -0.12,
-          "market": -0.1026
+          "total": -0.0142,
+          "actual_change": -0.11,
+          "market": -0.0958
         },
         "eth_per_share": {
           "capital": -0.000286936,
@@ -5738,27 +5753,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 11524598034,
-        "net": 11524598034,
+        "net": 11488430034,
         "crypto": 11255598034,
         "eth": 10041302970,
         "ev": 9628738775,
         "nav_ex_cash": 10324598034
       },
-      "nav_per_share": 21.86,
+      "nav_per_share": 21.79,
       "nav_per_share_gross": 21.86,
       "nav_per_share_all": {
         "full": 21.86,
-        "net": 21.86,
+        "net": 21.79,
         "crypto": 21.35,
         "eth": 19.05
       },
-      "mnav": 0.94,
+      "mnav": 0.943,
       "mnav_gross": 0.94,
       "mnav_all": {
         "full": 0.94,
-        "net": 0.94,
+        "net": 0.943,
         "crypto": 0.962,
         "eth": 1.078,
         "ev_to_nav_ex_cash": 0.933
@@ -5770,17 +5786,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9281,
+        "nav_per_share_before": 20.8581,
         "atm_shares": 10275536,
-        "mnav_at_issue": 0.99,
+        "mnav_at_issue": 0.993,
         "usd_per_share": {
-          "issuance": -0.0042,
+          "issuance": -0.0028,
           "buybacks": 0,
           "staking": 0.0064,
           "other": -0.0051,
-          "total": -0.0028,
+          "total": -0.0015,
           "actual_change": 1.89,
-          "market": 1.8928
+          "market": 1.8915
         },
         "eth_per_share": {
           "capital": -0.000057567,
@@ -5882,27 +5898,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 11051705884,
-        "net": 11051705884,
+        "net": 11015537884,
         "crypto": 10770705884,
         "eth": 9657391016,
         "ev": 9986836595,
         "nav_ex_cash": 9951705884
       },
-      "nav_per_share": 20.87,
+      "nav_per_share": 20.81,
       "nav_per_share_gross": 20.87,
       "nav_per_share_all": {
         "full": 20.87,
-        "net": 20.87,
+        "net": 20.81,
         "crypto": 20.34,
         "eth": 18.24
       },
-      "mnav": 1.003,
+      "mnav": 1.006,
       "mnav_gross": 1.003,
       "mnav_all": {
         "full": 1.003,
-        "net": 1.003,
+        "net": 1.006,
         "crypto": 1.029,
         "eth": 1.148,
         "ev_to_nav_ex_cash": 1.004
@@ -5914,17 +5931,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.8357,
+        "nav_per_share_before": 21.7671,
         "atm_shares": 2254863,
-        "mnav_at_issue": 1.009,
+        "mnav_at_issue": 1.012,
         "usd_per_share": {
-          "issuance": 0.0008,
+          "issuance": 0.0011,
           "buybacks": 0,
           "staking": 0.0062,
           "other": -0.0052,
-          "total": 0.0017,
-          "actual_change": -0.99,
-          "market": -0.9917
+          "total": 0.002,
+          "actual_change": -0.98,
+          "market": -0.982
         },
         "eth_per_share": {
           "capital": 0.000084004,
@@ -6035,27 +6052,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 10749815969,
-        "net": 10749815969,
+        "net": 10713647969,
         "crypto": 10461815969,
         "eth": 9487824410,
         "ev": 8804859548,
         "nav_ex_cash": 9788815969
       },
-      "nav_per_share": 20.24,
+      "nav_per_share": 20.17,
       "nav_per_share_gross": 20.24,
       "nav_per_share_all": {
         "full": 20.24,
-        "net": 20.24,
+        "net": 20.17,
         "crypto": 19.7,
         "eth": 17.87
       },
-      "mnav": 0.908,
+      "mnav": 0.912,
       "mnav_gross": 0.908,
       "mnav_all": {
         "full": 0.908,
-        "net": 0.908,
+        "net": 0.912,
         "crypto": 0.933,
         "eth": 1.029,
         "ev_to_nav_ex_cash": 0.899
@@ -6067,17 +6085,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.8759,
+        "nav_per_share_before": 20.8076,
         "atm_shares": 1082967,
-        "mnav_at_issue": 0.969,
+        "mnav_at_issue": 0.972,
         "usd_per_share": {
-          "issuance": -0.0019,
+          "issuance": -0.0017,
           "buybacks": 0,
           "staking": 0.0062,
           "other": -0.0053,
-          "total": -0.001,
-          "actual_change": -0.63,
-          "market": -0.629
+          "total": -0.0008,
+          "actual_change": -0.64,
+          "market": -0.6392
         },
         "eth_per_share": {
           "capital": 0.000105442,
@@ -6188,27 +6206,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 11353140478,
-        "net": 11353140478,
+        "net": 11316972478,
         "crypto": 11075140478,
         "eth": 10197478082,
         "ev": 9523559738,
         "nav_ex_cash": 10489140478
       },
-      "nav_per_share": 21.26,
+      "nav_per_share": 21.19,
       "nav_per_share_gross": 21.26,
       "nav_per_share_all": {
         "full": 21.26,
-        "net": 21.26,
+        "net": 21.19,
         "crypto": 20.74,
         "eth": 19.09
       },
-      "mnav": 0.915,
+      "mnav": 0.918,
       "mnav_gross": 0.915,
       "mnav_all": {
         "full": 0.915,
-        "net": 0.915,
+        "net": 0.918,
         "crypto": 0.938,
         "eth": 1.019,
         "ev_to_nav_ex_cash": 0.908
@@ -6220,17 +6239,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.8736,
+        "nav_per_share_before": 20.8055,
         "atm_shares": 3022922,
-        "mnav_at_issue": 0.925,
+        "mnav_at_issue": 0.928,
         "usd_per_share": {
-          "issuance": -0.0089,
+          "issuance": -0.0085,
           "buybacks": 0,
           "staking": 0.0064,
           "other": -0.0052,
-          "total": -0.0077,
+          "total": -0.0073,
           "actual_change": 1.02,
-          "market": 1.0277
+          "market": 1.0273
         },
         "eth_per_share": {
           "capital": 0.000080685,
@@ -6332,27 +6351,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 11757927626,
-        "net": 11757927626,
+        "net": 11721759626,
         "crypto": 11486927626,
         "eth": 10753936748,
         "ev": 10666588871,
         "nav_ex_cash": 11038927626
       },
-      "nav_per_share": 21.98,
+      "nav_per_share": 21.91,
       "nav_per_share_gross": 21.98,
       "nav_per_share_all": {
         "full": 21.98,
-        "net": 21.98,
+        "net": 21.91,
         "crypto": 21.47,
         "eth": 20.1
       },
-      "mnav": 0.968,
+      "mnav": 0.971,
       "mnav_gross": 0.968,
       "mnav_all": {
         "full": 0.968,
-        "net": 0.968,
+        "net": 0.971,
         "crypto": 0.991,
         "eth": 1.059,
         "ev_to_nav_ex_cash": 0.966
@@ -6364,17 +6384,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 21.9652,
+        "nav_per_share_before": 21.8975,
         "atm_shares": 962726,
-        "mnav_at_issue": 0.953,
+        "mnav_at_issue": 0.956,
         "usd_per_share": {
-          "issuance": -0.0019,
+          "issuance": -0.0018,
           "buybacks": 0,
           "staking": 0.0069,
           "other": -0.0053,
-          "total": -0.0003,
+          "total": -0.0001,
           "actual_change": 0.72,
-          "market": 0.7203
+          "market": 0.7201
         },
         "eth_per_share": {
           "capital": 0.000114931,
@@ -6485,27 +6505,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 12878586344,
-        "net": 12878586344,
+        "net": 12842418344,
         "crypto": 12585586344,
         "eth": 11450891985,
         "ev": 11834926229,
         "nav_ex_cash": 11758586344
       },
-      "nav_per_share": 22.81,
+      "nav_per_share": 22.75,
       "nav_per_share_gross": 22.81,
       "nav_per_share_all": {
         "full": 22.81,
-        "net": 22.81,
+        "net": 22.75,
         "crypto": 22.3,
         "eth": 20.29
       },
-      "mnav": 1.006,
+      "mnav": 1.009,
       "mnav_gross": 1.006,
       "mnav_all": {
         "full": 1.006,
-        "net": 1.006,
+        "net": 1.009,
         "crypto": 1.029,
         "eth": 1.131,
         "ev_to_nav_ex_cash": 1.006
@@ -6517,17 +6538,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.2833,
+        "nav_per_share_before": 23.2157,
         "atm_shares": 29447732,
-        "mnav_at_issue": 0.951,
+        "mnav_at_issue": 0.954,
         "usd_per_share": {
-          "issuance": -0.0594,
+          "issuance": -0.0559,
           "buybacks": 0,
           "staking": 0.0068,
           "other": -0.0059,
-          "total": -0.0584,
-          "actual_change": 0.83,
-          "market": 0.8884
+          "total": -0.0549,
+          "actual_change": 0.84,
+          "market": 0.8949
         },
         "eth_per_share": {
           "capital": -0.000297242,
@@ -6629,27 +6650,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 13263424034,
-        "net": 13263424034,
+        "net": 13227256034,
         "crypto": 12986424034,
         "eth": 12030696434,
         "ev": 11627720676,
         "nav_ex_cash": 12323424034
       },
-      "nav_per_share": 23.37,
+      "nav_per_share": 23.3,
       "nav_per_share_gross": 23.37,
       "nav_per_share_all": {
         "full": 23.37,
-        "net": 23.37,
+        "net": 23.3,
         "crypto": 22.88,
         "eth": 21.19
       },
-      "mnav": 0.948,
+      "mnav": 0.95,
       "mnav_gross": 0.948,
       "mnav_all": {
         "full": 0.948,
-        "net": 0.948,
+        "net": 0.95,
         "crypto": 0.968,
         "eth": 1.045,
         "ev_to_nav_ex_cash": 0.944
@@ -6661,17 +6683,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.1246,
+        "nav_per_share_before": 23.0606,
         "atm_shares": 3140162,
-        "mnav_at_issue": 0.966,
+        "mnav_at_issue": 0.969,
         "usd_per_share": {
-          "issuance": -0.0044,
+          "issuance": -0.004,
           "buybacks": 0,
           "staking": 0.0074,
           "other": -0.0058,
-          "total": -0.0028,
-          "actual_change": 0.56,
-          "market": 0.5628
+          "total": -0.0025,
+          "actual_change": 0.55,
+          "market": 0.5525
         },
         "eth_per_share": {
           "capital": 0.000128282,
@@ -6783,27 +6805,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 13085488416,
-        "net": 13085488416,
+        "net": 13049320416,
         "crypto": 12816488416,
         "eth": 12100786016,
         "ev": 11725274526,
         "nav_ex_cash": 12385488416
       },
-      "nav_per_share": 23.04,
+      "nav_per_share": 22.98,
       "nav_per_share_gross": 23.04,
       "nav_per_share_all": {
         "full": 23.04,
-        "net": 23.04,
+        "net": 22.98,
         "crypto": 22.57,
         "eth": 21.31
       },
-      "mnav": 0.95,
+      "mnav": 0.952,
       "mnav_gross": 0.95,
       "mnav_all": {
         "full": 0.95,
-        "net": 0.95,
+        "net": 0.952,
         "crypto": 0.969,
         "eth": 1.027,
         "ev_to_nav_ex_cash": 0.947
@@ -6815,17 +6838,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.6698,
+        "nav_per_share_before": 22.6061,
         "atm_shares": 235021,
-        "mnav_at_issue": 0.944,
+        "mnav_at_issue": 0.946,
         "usd_per_share": {
           "issuance": -0.0005,
           "buybacks": 0,
           "staking": 0.0072,
           "other": -0.0058,
           "total": 0.0009,
-          "actual_change": -0.33,
-          "market": -0.3309
+          "actual_change": -0.32,
+          "market": -0.3209
         },
         "eth_per_share": {
           "capital": 0.000173378,
@@ -6935,27 +6958,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 13384750758,
-        "net": 13384750758,
+        "net": 13348582758,
         "crypto": 13110750758,
         "eth": 12319265140,
         "ev": 11951289152,
         "nav_ex_cash": 12609750758
       },
-      "nav_per_share": 23.32,
+      "nav_per_share": 23.25,
       "nav_per_share_gross": 23.32,
       "nav_per_share_all": {
         "full": 23.32,
-        "net": 23.32,
+        "net": 23.25,
         "crypto": 22.84,
         "eth": 21.46
       },
-      "mnav": 0.951,
+      "mnav": 0.953,
       "mnav_gross": 0.951,
       "mnav_all": {
         "full": 0.951,
-        "net": 0.951,
+        "net": 0.953,
         "crypto": 0.971,
         "eth": 1.033,
         "ev_to_nav_ex_cash": 0.948
@@ -6967,17 +6991,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 23.0449,
+        "nav_per_share_before": 22.9812,
         "atm_shares": 6149239,
-        "mnav_at_issue": 0.98,
+        "mnav_at_issue": 0.983,
         "usd_per_share": {
-          "issuance": -0.0048,
+          "issuance": -0.0041,
           "buybacks": 0,
           "staking": 0.0071,
           "other": -0.004,
-          "total": -0.0017,
-          "actual_change": 0.28,
-          "market": 0.2817
+          "total": -0.0011,
+          "actual_change": 0.27,
+          "market": 0.2711
         },
         "eth_per_share": {
           "capital": -0.00005403,
@@ -7087,27 +7111,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 12534750900,
-        "net": 12534750900,
+        "net": 12498582900,
         "crypto": 12265750900,
         "eth": 11565110242,
         "ev": 10793140542,
         "nav_ex_cash": 11849750900
       },
-      "nav_per_share": 21.7,
+      "nav_per_share": 21.64,
       "nav_per_share_gross": 21.7,
       "nav_per_share_all": {
         "full": 21.7,
-        "net": 21.7,
+        "net": 21.64,
         "crypto": 21.23,
         "eth": 20.02
       },
-      "mnav": 0.916,
+      "mnav": 0.918,
       "mnav_gross": 0.916,
       "mnav_all": {
         "full": 0.916,
-        "net": 0.916,
+        "net": 0.918,
         "crypto": 0.936,
         "eth": 0.992,
         "ev_to_nav_ex_cash": 0.911
@@ -7119,17 +7144,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.1874,
+        "nav_per_share_before": 22.1244,
         "atm_shares": 3629842,
-        "mnav_at_issue": 0.971,
+        "mnav_at_issue": 0.974,
         "usd_per_share": {
-          "issuance": -0.004,
+          "issuance": -0.0036,
           "buybacks": 0,
           "staking": 0.0068,
           "other": -0.005,
-          "total": -0.0022,
-          "actual_change": -1.62,
-          "market": -1.6178
+          "total": -0.0018,
+          "actual_change": -1.61,
+          "market": -1.6082
         },
         "eth_per_share": {
           "capital": 0.000064666,
@@ -7239,27 +7264,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 36168000,
       "nav": {
         "full": 12257805510,
-        "net": 12257805510,
+        "net": 12221637510,
         "crypto": 11962805510,
         "eth": 11503122136,
         "ev": 10469631861,
         "nav_ex_cash": 11813805510
       },
-      "nav_per_share": 21.21,
+      "nav_per_share": 21.14,
       "nav_per_share_gross": 21.21,
       "nav_per_share_all": {
         "full": 21.21,
-        "net": 21.21,
+        "net": 21.14,
         "crypto": 20.7,
         "eth": 19.9
       },
-      "mnav": 0.89,
+      "mnav": 0.893,
       "mnav_gross": 0.89,
       "mnav_all": {
         "full": 0.89,
-        "net": 0.89,
+        "net": 0.893,
         "crypto": 0.912,
         "eth": 0.949,
         "ev_to_nav_ex_cash": 0.886
@@ -7271,17 +7297,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 20.9665,
+        "nav_per_share_before": 20.9038,
         "atm_shares": 390705,
-        "mnav_at_issue": 0.908,
+        "mnav_at_issue": 0.911,
         "usd_per_share": {
           "issuance": -0.0013,
           "buybacks": 0,
           "staking": 0.0074,
           "other": -0.0062,
-          "total": -0.0001,
-          "actual_change": -0.49,
-          "market": -0.4899
+          "total": 0,
+          "actual_change": -0.5,
+          "market": -0.5
         },
         "eth_per_share": {
           "capital": 0.000185085,
@@ -7389,6 +7415,7 @@
       "btc": 203,
       "orbs_value": 93000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 2003,
         "BTC": 73599,
@@ -7397,27 +7424,28 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11590017300,
-        "net": 11590017300,
+        "full": 11597203300,
+        "net": 11567075300,
         "crypto": 11310993300,
         "eth": 10850052703,
         "ev": 10723902365,
-        "nav_ex_cash": 11144017300
+        "nav_ex_cash": 11151203300
       },
-      "nav_per_share": 19.99,
-      "nav_per_share_gross": 19.99,
+      "nav_per_share": 19.96,
+      "nav_per_share_gross": 20.01,
       "nav_per_share_all": {
-        "full": 19.99,
-        "net": 19.99,
+        "full": 20.01,
+        "net": 19.96,
         "crypto": 19.51,
         "eth": 18.72
       },
-      "mnav": 0.964,
-      "mnav_gross": 0.964,
+      "mnav": 0.966,
+      "mnav_gross": 0.963,
       "mnav_all": {
-        "full": 0.964,
-        "net": 0.964,
+        "full": 0.963,
+        "net": 0.966,
         "crypto": 0.988,
         "eth": 1.029,
         "ev_to_nav_ex_cash": 0.962
@@ -7429,17 +7457,17 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 20.1768,
+        "nav_per_share_before": 20.1142,
         "atm_shares": 3003894,
-        "mnav_at_issue": 0.948,
+        "mnav_at_issue": 0.951,
         "usd_per_share": {
-          "issuance": -0.0054,
+          "issuance": -0.0051,
           "buybacks": 0,
           "staking": 0.0052,
           "other": -0.0034,
-          "total": -0.0036,
-          "actual_change": -1.22,
-          "market": -1.2164
+          "total": -0.0033,
+          "actual_change": -1.18,
+          "market": -1.1767
         },
         "eth_per_share": {
           "capital": -0.000004949,
@@ -7533,6 +7561,7 @@
       "btc": 204,
       "orbs_value": 88000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1630,
         "BTC": 63274,
@@ -7541,30 +7570,31 @@
       },
       "preferred_usd": 0,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 9570443256,
-        "net": 9570443256,
+        "full": 9577629256,
+        "net": 9547501256,
         "crypto": 9296419256,
         "eth": 9036511360,
         "ev": 8994241003,
-        "nav_ex_cash": 9323443256
+        "nav_ex_cash": 9330629256
       },
-      "nav_per_share": 16.47,
-      "nav_per_share_gross": 16.47,
+      "nav_per_share": 16.43,
+      "nav_per_share_gross": 16.48,
       "nav_per_share_all": {
-        "full": 16.47,
-        "net": 16.47,
+        "full": 16.48,
+        "net": 16.43,
         "crypto": 15.99,
         "eth": 15.55
       },
-      "mnav": 0.966,
-      "mnav_gross": 0.966,
+      "mnav": 0.968,
+      "mnav_gross": 0.965,
       "mnav_all": {
-        "full": 0.966,
-        "net": 0.966,
+        "full": 0.965,
+        "net": 0.968,
         "crypto": 0.994,
         "eth": 1.023,
-        "ev_to_nav_ex_cash": 0.965
+        "ev_to_nav_ex_cash": 0.964
       },
       "eth_per_share": 0.0095385,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226027647/ex99-1.htm",
@@ -7573,17 +7603,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 17.6728,
+        "nav_per_share_before": 17.6332,
         "atm_shares": 1557694,
-        "mnav_at_issue": 0.99,
+        "mnav_at_issue": 0.993,
         "usd_per_share": {
-          "issuance": -0.0005,
+          "issuance": -0.0004,
           "buybacks": 0,
           "staking": 0.006,
           "other": -0.0014,
-          "total": 0.0041,
-          "actual_change": -3.52,
-          "market": -3.5241
+          "total": 0.0042,
+          "actual_change": -3.53,
+          "market": -3.5342
         },
         "eth_per_share": {
           "capital": 0.000188624,
@@ -7687,6 +7717,7 @@
       "btc": 204,
       "orbs_value": 88000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1718,
         "BTC": 65709,
@@ -7695,27 +7726,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 10445884008,
-        "net": 10095884008,
+        "full": 10453070008,
+        "net": 10072942008,
         "crypto": 10171860008,
         "eth": 9656455372,
         "ev": 9321618456,
-        "nav_ex_cash": 9943884008
+        "nav_ex_cash": 9951070008
       },
-      "nav_per_share": 17.17,
-      "nav_per_share_gross": 17.76,
+      "nav_per_share": 17.13,
+      "nav_per_share_gross": 17.78,
       "nav_per_share_all": {
-        "full": 17.76,
-        "net": 17.17,
+        "full": 17.78,
+        "net": 17.13,
         "crypto": 17.3,
         "eth": 16.42
       },
-      "mnav": 0.938,
-      "mnav_gross": 0.907,
+      "mnav": 0.941,
+      "mnav_gross": 0.906,
       "mnav_all": {
-        "full": 0.907,
-        "net": 0.938,
+        "full": 0.906,
+        "net": 0.941,
         "crypto": 0.931,
         "eth": 0.981,
         "ev_to_nav_ex_cash": 0.937
@@ -7727,17 +7759,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.8525,
+        "nav_per_share_before": 16.8131,
         "atm_shares": 6848127,
-        "mnav_at_issue": 0.965,
+        "mnav_at_issue": 0.967,
         "usd_per_share": {
-          "issuance": -0.0069,
+          "issuance": -0.0064,
           "buybacks": 0,
           "staking": 0.0068,
           "other": -0.1329,
-          "total": -0.1329,
+          "total": -0.1325,
           "actual_change": 0.7,
-          "market": 0.8329
+          "market": 0.8325
         },
         "eth_per_share": {
           "capital": 0.000015018,
@@ -7839,6 +7871,7 @@
       "btc": 205,
       "orbs_value": 104000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1733,
         "BTC": 63255,
@@ -7847,27 +7880,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 10735224023,
-        "net": 10385224023,
+        "full": 10742410023,
+        "net": 10362282023,
         "crypto": 10445200023,
         "eth": 9831232748,
         "ev": 9428945777,
-        "nav_ex_cash": 10134224023
+        "nav_ex_cash": 10141410023
       },
-      "nav_per_share": 17.32,
-      "nav_per_share_gross": 17.9,
+      "nav_per_share": 17.28,
+      "nav_per_share_gross": 17.91,
       "nav_per_share_all": {
-        "full": 17.9,
-        "net": 17.32,
+        "full": 17.91,
+        "net": 17.28,
         "crypto": 17.42,
         "eth": 16.39
       },
-      "mnav": 0.932,
-      "mnav_gross": 0.902,
+      "mnav": 0.934,
+      "mnav_gross": 0.901,
       "mnav_all": {
-        "full": 0.902,
-        "net": 0.932,
+        "full": 0.901,
+        "net": 0.934,
         "crypto": 0.927,
         "eth": 0.985,
         "ev_to_nav_ex_cash": 0.93
@@ -7879,17 +7913,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 17.4034,
+        "nav_per_share_before": 17.3644,
         "atm_shares": 11690556,
-        "mnav_at_issue": 0.936,
+        "mnav_at_issue": 0.938,
         "usd_per_share": {
-          "issuance": -0.0217,
+          "issuance": -0.0209,
           "buybacks": 0,
           "staking": 0.0071,
           "other": -0.0036,
-          "total": -0.0182,
+          "total": -0.0174,
           "actual_change": 0.15,
-          "market": 0.1682
+          "market": 0.1674
         },
         "eth_per_share": {
           "capital": -0.000103826,
@@ -7991,6 +8025,7 @@
       "btc": 206,
       "orbs_value": 74000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1569,
         "BTC": 59495,
@@ -7999,27 +8034,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 9770642730,
-        "net": 9420642730,
+        "full": 9777828730,
+        "net": 9397700730,
         "crypto": 9510618730,
         "eth": 8943362760,
         "ev": 7927593850,
-        "nav_ex_cash": 9215642730
+        "nav_ex_cash": 9222828730
       },
-      "nav_per_share": 15.71,
-      "nav_per_share_gross": 16.29,
+      "nav_per_share": 15.67,
+      "nav_per_share_gross": 16.3,
       "nav_per_share_all": {
-        "full": 16.29,
-        "net": 15.71,
+        "full": 16.3,
+        "net": 15.67,
         "crypto": 15.86,
         "eth": 14.91
       },
-      "mnav": 0.863,
+      "mnav": 0.865,
       "mnav_gross": 0.832,
       "mnav_all": {
         "full": 0.832,
-        "net": 0.863,
+        "net": 0.865,
         "crypto": 0.855,
         "eth": 0.909,
         "ev_to_nav_ex_cash": 0.86
@@ -8031,9 +8067,9 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.1883,
+        "nav_per_share_before": 16.15,
         "atm_shares": 0,
-        "mnav_at_issue": 0.888,
+        "mnav_at_issue": 0.89,
         "usd_per_share": {
           "issuance": 0,
           "buybacks": 0,
@@ -8135,6 +8171,7 @@
       "btc": 206,
       "orbs_value": 71000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1800,
         "BTC": 63586,
@@ -8143,27 +8180,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11133149316,
-        "net": 10783149316,
+        "full": 11140335316,
+        "net": 10760207316,
         "crypto": 10876125316,
         "eth": 10336026600,
         "ev": 8477518216,
-        "nav_ex_cash": 10606149316
+        "nav_ex_cash": 10613335316
       },
-      "nav_per_share": 17.89,
-      "nav_per_share_gross": 18.47,
+      "nav_per_share": 17.85,
+      "nav_per_share_gross": 18.48,
       "nav_per_share_all": {
-        "full": 18.47,
-        "net": 17.89,
+        "full": 18.48,
+        "net": 17.85,
         "crypto": 18.05,
         "eth": 17.15
       },
-      "mnav": 0.803,
+      "mnav": 0.804,
       "mnav_gross": 0.777,
       "mnav_all": {
         "full": 0.777,
-        "net": 0.803,
+        "net": 0.804,
         "crypto": 0.796,
         "eth": 0.837,
         "ev_to_nav_ex_cash": 0.799
@@ -8175,17 +8213,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 16.8271,
+        "nav_per_share_before": 16.7889,
         "atm_shares": 2931015,
-        "mnav_at_issue": 0.826,
+        "mnav_at_issue": 0.828,
         "usd_per_share": {
-          "issuance": -0.0142,
+          "issuance": -0.014,
           "buybacks": 0,
           "staking": 0.0072,
           "other": -0.0037,
-          "total": -0.0107,
+          "total": -0.0106,
           "actual_change": 2.18,
-          "market": 2.1907
+          "market": 2.1906
         },
         "eth_per_share": {
           "capital": 0.000019386,
@@ -8294,6 +8332,7 @@
       "btc": 206,
       "orbs_value": 69000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1820,
         "BTC": 63747,
@@ -8302,30 +8341,31 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11251625042,
-        "net": 10901625042,
+        "full": 11258811042,
+        "net": 10878683042,
         "crypto": 10996601042,
         "eth": 10501469160,
         "ev": 8905107811,
-        "nav_ex_cash": 10769625042
+        "nav_ex_cash": 10776811042
       },
-      "nav_per_share": 18.07,
-      "nav_per_share_gross": 18.65,
+      "nav_per_share": 18.03,
+      "nav_per_share_gross": 18.66,
       "nav_per_share_all": {
-        "full": 18.65,
-        "net": 18.07,
+        "full": 18.66,
+        "net": 18.03,
         "crypto": 18.23,
         "eth": 17.41
       },
-      "mnav": 0.829,
+      "mnav": 0.831,
       "mnav_gross": 0.803,
       "mnav_all": {
         "full": 0.803,
-        "net": 0.829,
+        "net": 0.831,
         "crypto": 0.822,
         "eth": 0.861,
-        "ev_to_nav_ex_cash": 0.827
+        "ev_to_nav_ex_cash": 0.826
       },
       "eth_per_share": 0.0095645,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032951/ex99-1.htm",
@@ -8334,11 +8374,11 @@
       "accretion": {
         "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
-        "nav_per_share_before": 17.6815,
+        "nav_per_share_before": 17.6434,
         "atm_shares": 259155,
-        "mnav_at_issue": 0.847,
+        "mnav_at_issue": 0.849,
         "usd_per_share": {
-          "issuance": -0.0012,
+          "issuance": -0.0011,
           "buybacks": 0,
           "staking": 0.0074,
           "other": -0.0039,
@@ -8446,6 +8486,7 @@
       "btc": 207,
       "orbs_value": 58000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1879,
         "BTC": 64670,
@@ -8454,30 +8495,31 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11498273062,
-        "net": 11148273062,
+        "full": 11505459062,
+        "net": 11125331062,
         "crypto": 11254249062,
         "eth": 10855862372,
         "ev": 9345323188,
-        "nav_ex_cash": 11113273062
+        "nav_ex_cash": 11120459062
       },
-      "nav_per_share": 18.65,
-      "nav_per_share_gross": 19.23,
+      "nav_per_share": 18.61,
+      "nav_per_share_gross": 19.24,
       "nav_per_share_all": {
-        "full": 19.23,
-        "net": 18.65,
+        "full": 19.24,
+        "net": 18.61,
         "crypto": 18.82,
         "eth": 18.16
       },
-      "mnav": 0.841,
-      "mnav_gross": 0.816,
+      "mnav": 0.843,
+      "mnav_gross": 0.815,
       "mnav_all": {
-        "full": 0.816,
-        "net": 0.841,
+        "full": 0.815,
+        "net": 0.843,
         "crypto": 0.833,
         "eth": 0.864,
-        "ev_to_nav_ex_cash": 0.841
+        "ev_to_nav_ex_cash": 0.84
       },
       "eth_per_share": 0.0096637,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226033855/ex99-1.htm",
@@ -8486,17 +8528,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.4505,
+        "nav_per_share_before": 18.4125,
         "atm_shares": 75388,
-        "mnav_at_issue": 0.844,
+        "mnav_at_issue": 0.845,
         "usd_per_share": {
           "issuance": -0.0004,
-          "buybacks": 0.0261,
+          "buybacks": 0.0257,
           "staking": 0.0076,
           "other": -0.0043,
-          "total": 0.029,
+          "total": 0.0287,
           "actual_change": 0.58,
-          "market": 0.551
+          "market": 0.5513
         },
         "eth_per_share": {
           "capital": 0.000095125,
@@ -8590,6 +8632,7 @@
       "btc": 208,
       "orbs_value": 61000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1948,
         "BTC": 65344,
@@ -8598,27 +8641,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11802498024,
-        "net": 11452498024,
+        "full": 11809684024,
+        "net": 11429556024,
         "crypto": 11555474024,
         "eth": 11273882472,
         "ev": 9429359116,
-        "nav_ex_cash": 11534498024
+        "nav_ex_cash": 11541684024
       },
-      "nav_per_share": 19.35,
-      "nav_per_share_gross": 19.94,
+      "nav_per_share": 19.31,
+      "nav_per_share_gross": 19.95,
       "nav_per_share_all": {
-        "full": 19.94,
-        "net": 19.35,
+        "full": 19.95,
+        "net": 19.31,
         "crypto": 19.52,
         "eth": 19.04
       },
-      "mnav": 0.816,
-      "mnav_gross": 0.792,
+      "mnav": 0.818,
+      "mnav_gross": 0.791,
       "mnav_all": {
-        "full": 0.792,
-        "net": 0.816,
+        "full": 0.791,
+        "net": 0.818,
         "crypto": 0.809,
         "eth": 0.829,
         "ev_to_nav_ex_cash": 0.817
@@ -8630,17 +8674,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.8903,
+        "nav_per_share_before": 18.8519,
         "atm_shares": 203303,
-        "mnav_at_issue": 0.889,
+        "mnav_at_issue": 0.891,
         "usd_per_share": {
           "issuance": -0.0008,
-          "buybacks": 0.0207,
+          "buybacks": 0.0203,
           "staking": 0.0079,
           "other": -0.0043,
-          "total": 0.0235,
+          "total": 0.0232,
           "actual_change": 0.7,
-          "market": 0.6765
+          "market": 0.6768
         },
         "eth_per_share": {
           "capital": 0.000108571,
@@ -8743,6 +8787,7 @@
       "btc": 209,
       "orbs_value": 61000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1880,
         "BTC": 63504,
@@ -8751,30 +8796,31 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11333184776,
-        "net": 10983184776,
+        "full": 11340370776,
+        "net": 10960242776,
         "crypto": 11086160776,
         "eth": 10899888440,
         "ev": 10330885386,
-        "nav_ex_cash": 11160184776
+        "nav_ex_cash": 11167370776
       },
-      "nav_per_share": 18.69,
-      "nav_per_share_gross": 19.29,
+      "nav_per_share": 18.65,
+      "nav_per_share_gross": 19.3,
       "nav_per_share_all": {
-        "full": 19.29,
-        "net": 18.69,
+        "full": 19.3,
+        "net": 18.65,
         "crypto": 18.87,
         "eth": 18.55
       },
-      "mnav": 0.924,
-      "mnav_gross": 0.896,
+      "mnav": 0.926,
+      "mnav_gross": 0.895,
       "mnav_all": {
-        "full": 0.896,
-        "net": 0.924,
+        "full": 0.895,
+        "net": 0.926,
         "crypto": 0.916,
         "eth": 0.932,
-        "ev_to_nav_ex_cash": 0.926
+        "ev_to_nav_ex_cash": 0.925
       },
       "eth_per_share": 0.0098668,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226035752/ex99-1.htm",
@@ -8783,17 +8829,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.771,
+        "nav_per_share_before": 18.7322,
         "atm_shares": 129430,
-        "mnav_at_issue": 0.932,
+        "mnav_at_issue": 0.934,
         "usd_per_share": {
           "issuance": -0.0003,
-          "buybacks": 0.0092,
+          "buybacks": 0.0089,
           "staking": 0.0077,
           "other": -0.0043,
-          "total": 0.0123,
+          "total": 0.012,
           "actual_change": -0.66,
-          "market": -0.6723
+          "market": -0.672
         },
         "eth_per_share": {
           "capital": 0.000086229,
@@ -8887,6 +8933,7 @@
       "btc": 209,
       "orbs_value": 69000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1928,
         "BTC": 64856,
@@ -8895,27 +8942,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11565077768,
-        "net": 11215077768,
+        "full": 11572263768,
+        "net": 11192135768,
         "crypto": 11310053768,
         "eth": 11192498864,
         "ev": 11248343413,
-        "nav_ex_cash": 11461077768
+        "nav_ex_cash": 11468263768
       },
-      "nav_per_share": 19.18,
-      "nav_per_share_gross": 19.78,
+      "nav_per_share": 19.14,
+      "nav_per_share_gross": 19.79,
       "nav_per_share_all": {
-        "full": 19.78,
-        "net": 19.18,
+        "full": 19.79,
+        "net": 19.14,
         "crypto": 19.35,
         "eth": 19.15
       },
-      "mnav": 0.981,
+      "mnav": 0.983,
       "mnav_gross": 0.951,
       "mnav_all": {
         "full": 0.951,
-        "net": 0.981,
+        "net": 0.983,
         "crypto": 0.973,
         "eth": 0.983,
         "ev_to_nav_ex_cash": 0.981
@@ -8927,17 +8975,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.8521,
+        "nav_per_share_before": 18.8131,
         "atm_shares": 0,
-        "mnav_at_issue": 0.966,
+        "mnav_at_issue": 0.968,
         "usd_per_share": {
           "issuance": 0,
-          "buybacks": 0.0028,
+          "buybacks": 0.0026,
           "staking": 0.0081,
           "other": -0.0044,
-          "total": 0.0065,
+          "total": 0.0063,
           "actual_change": 0.49,
-          "market": 0.4835
+          "market": 0.4837
         },
         "eth_per_share": {
           "capital": 0.000059079,
@@ -9039,6 +9087,7 @@
       "btc": 210,
       "orbs_value": 73000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 1893,
         "BTC": 62844,
@@ -9047,27 +9096,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 11358326692,
-        "net": 11008326692,
+        "full": 11365512692,
+        "net": 10985384692,
         "crypto": 11099302692,
         "eth": 11008105452,
         "ev": 10831318773,
-        "nav_ex_cash": 11280326692
+        "nav_ex_cash": 11287512692
       },
-      "nav_per_share": 18.85,
-      "nav_per_share_gross": 19.45,
+      "nav_per_share": 18.81,
+      "nav_per_share_gross": 19.46,
       "nav_per_share_all": {
-        "full": 19.45,
-        "net": 18.85,
+        "full": 19.46,
+        "net": 18.81,
         "crypto": 19,
         "eth": 18.85
       },
-      "mnav": 0.959,
-      "mnav_gross": 0.93,
+      "mnav": 0.961,
+      "mnav_gross": 0.929,
       "mnav_all": {
-        "full": 0.93,
-        "net": 0.959,
+        "full": 0.929,
+        "net": 0.961,
         "crypto": 0.951,
         "eth": 0.959,
         "ev_to_nav_ex_cash": 0.96
@@ -9079,12 +9129,12 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 18.6926,
+        "nav_per_share_before": 18.6534,
         "atm_shares": 1124010,
-        "mnav_at_issue": 0.968,
+        "mnav_at_issue": 0.97,
         "usd_per_share": {
-          "issuance": -0.0012,
-          "buybacks": 0.0015,
+          "issuance": -0.0011,
+          "buybacks": 0.0014,
           "staking": 0.0079,
           "other": -0.0044,
           "total": 0.0039,
@@ -9183,6 +9233,7 @@
       "btc": 210,
       "orbs_value": 89000000,
       "beast_value": 186024000,
+      "other_assets_value": 7186000,
       "snapshot_prices": {
         "ETH": 2440,
         "BTC": 77712,
@@ -9191,27 +9242,28 @@
       },
       "preferred_usd": 350000000,
       "debt_usd": 0,
+      "liabilities_usd": 30128000,
       "nav": {
-        "full": 14867514360,
-        "net": 14517514360,
+        "full": 14874700360,
+        "net": 14494572360,
         "crypto": 14592490360,
         "eth": 14268170840,
         "ev": 13714558545,
-        "nav_ex_cash": 14559514360
+        "nav_ex_cash": 14566700360
       },
-      "nav_per_share": 24.24,
-      "nav_per_share_gross": 24.83,
+      "nav_per_share": 24.2,
+      "nav_per_share_gross": 24.84,
       "nav_per_share_all": {
-        "full": 24.83,
-        "net": 24.24,
+        "full": 24.84,
+        "net": 24.2,
         "crypto": 24.37,
         "eth": 23.82
       },
-      "mnav": 0.942,
-      "mnav_gross": 0.92,
+      "mnav": 0.943,
+      "mnav_gross": 0.919,
       "mnav_all": {
-        "full": 0.92,
-        "net": 0.942,
+        "full": 0.919,
+        "net": 0.943,
         "crypto": 0.937,
         "eth": 0.958,
         "ev_to_nav_ex_cash": 0.942
@@ -9224,17 +9276,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 22.4856,
+        "nav_per_share_before": 22.4463,
         "atm_shares": 14852495,
-        "mnav_at_issue": 0.904,
+        "mnav_at_issue": 0.906,
         "usd_per_share": {
-          "issuance": -0.0535,
+          "issuance": -0.0525,
           "buybacks": 0,
           "staking": 0.0103,
           "other": -0.0038,
-          "total": -0.047,
+          "total": -0.046,
           "actual_change": 5.39,
-          "market": 5.437
+          "market": 5.436
         },
         "eth_per_share": {
           "capital": -0.000197224,
@@ -9380,17 +9432,17 @@
       "accretion": {
         "basis": "estimate (v3 model)",
         "reanchor": false,
-        "nav_per_share_before": 24.4884,
+        "nav_per_share_before": 24.4501,
         "atm_shares": 14778283,
-        "mnav_at_issue": 1.007,
+        "mnav_at_issue": 1.009,
         "usd_per_share": {
-          "issuance": 0.0041,
+          "issuance": 0.0051,
           "buybacks": 0,
           "staking": 0.0103,
           "other": -0.0032,
-          "total": 0.0113,
-          "actual_change": 0.64,
-          "market": 0.6287
+          "total": 0.0122,
+          "actual_change": 0.68,
+          "market": 0.6678
         },
         "eth_per_share": {
           "capital": -0.000152501,

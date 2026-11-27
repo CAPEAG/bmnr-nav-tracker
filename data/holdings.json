@@ -214,7 +214,7 @@
       }
     }
   },
-  "last_updated": "2026-11-27T18:38:51.269Z",
+  "last_updated": "2026-11-27T19:04:43.588Z",
   "shares_official": {
     "shares": 626451021,
     "date": "2026-11-04",
@@ -228,7 +228,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-27T18:38:51.269Z"
+    "built": "2026-11-27T19:04:43.588Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
@@ -341,21 +341,195 @@
       {
         "from": "2025-07-14",
         "until": "2025-08-31",
-        "liabilities_usd": 5387860,
+        "balance_sheet": "2025-05-31",
+        "items": [
+          {
+            "name": "Total liabilities (pre-pivot: accrued, loans/notes payable, deferred revenue)",
+            "usd": 5387860
+          }
+        ],
         "other_assets_usd": 0,
-        "source": "Form 10-Q quarter ended May 31, 2025 (filed 2025-07-02): total liabilities $5,387,860 (pre-pivot balance sheet, incl. loans/notes payable and deferred revenue); no non-operating assets the releases miss.",
-        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000168316825004889/bitmine_i10q-053125.htm"
+        "source": "Form 10-Q quarter ended May 31, 2025 (filed 2025-07-02): total liabilities $5,387,860. No non-operating assets the releases miss.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000168316825004889/bitmine_i10q-053125.htm",
+        "liabilities_usd": 5387860
       },
       {
         "from": "2025-08-31",
-        "until": "2025-11-30",
-        "liabilities_usd": 102256000,
+        "until": "2025-09-28",
+        "balance_sheet": "2025-08-31",
+        "items": [
+          {
+            "name": "Accrued liabilities",
+            "usd": 8894000
+          },
+          {
+            "name": "Contract liabilities",
+            "usd": 1067000
+          },
+          {
+            "name": "Deferred tax liability",
+            "usd": 92295000
+          }
+        ],
         "other_assets_usd": 0,
-        "source": "Form 10-K FY ended Aug 31, 2025 (filed 2025-11-21): total liabilities $102.256M = accrued $8.894M + contract liabilities $1.067M + deferred tax liability $92.295M; no debt. No other non-operating assets (Eightco stake is in the releases from Sep 14).",
-        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm"
+        "source": "Form 10-K FY ended Aug 31, 2025: total liabilities $102.256M. No debt; no other non-operating assets (Eightco stake is in the releases from Sep 14).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+        "liabilities_usd": 102256000
+      },
+      {
+        "from": "2025-09-28",
+        "until": "2025-11-30",
+        "balance_sheet": "2025-08-31 + CVI warrants issued 2025-09-22",
+        "items": [
+          {
+            "name": "Accrued liabilities",
+            "usd": 8894000
+          },
+          {
+            "name": "Contract liabilities",
+            "usd": 1067000
+          },
+          {
+            "name": "Deferred tax liability",
+            "usd": 92295000
+          },
+          {
+            "name": "CVI warrant liability at issuance fair value (10,435,430 warrants, $87.50 strike; derived: $98.615M at Nov 30, 2025 + $158.212M Q1 fair-value gain, no exercises)",
+            "usd": 256827000,
+            "derived": true,
+            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+          }
+        ],
+        "other_assets_usd": 0,
+        "source": "FY2025 10-K balance sheet ($102.256M) plus the liability-classified CVI warrants issued Sep 22, 2025 with the registered direct offering (the offering's cash and 5,217,715 shares are already in the releases / share count from the Sep 28 week; the warrants are not in the share count). Issuance fair value from the Nov 30, 2025 10-Q (Note 7).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+        "liabilities_usd": 359083000
+      },
+      {
+        "from": "2025-11-30",
+        "until": "2025-12-07",
+        "balance_sheet": "2025-11-30",
+        "items": [
+          {
+            "name": "Accrued liabilities and payables",
+            "usd": 11338000
+          },
+          {
+            "name": "Unsettled digital asset trades (ETH purchases recorded, cash not yet paid)",
+            "usd": 125000000,
+            "settlement_timing": true
+          },
+          {
+            "name": "Contract liabilities",
+            "usd": 790000
+          },
+          {
+            "name": "CVI warrant liability (fair value)",
+            "usd": 98615000
+          }
+        ],
+        "other_assets_usd": 0,
+        "source": "Form 10-Q quarter ended Nov 30, 2025: total liabilities $235.743M. The $125M unsettled trades apply only to the Nov 30 snapshot: that ETH is in the release's holdings and the cash to pay for it is still in the release's $882M (balance-sheet cash $887.7M), so the payable is deducted once; it settled in December (the Feb 28, 2026 10-Q's Dec–Feb cash paid for ETH includes it), after which the release cash is already lower.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "liabilities_usd": 235743000
+      },
+      {
+        "from": "2025-12-07",
+        "until": "2026-03-01",
+        "balance_sheet": "2025-11-30",
+        "items": [
+          {
+            "name": "Accrued liabilities and payables",
+            "usd": 11338000
+          },
+          {
+            "name": "Contract liabilities",
+            "usd": 790000
+          },
+          {
+            "name": "CVI warrant liability (fair value)",
+            "usd": 98615000
+          }
+        ],
+        "other_assets_usd": 0,
+        "source": "Form 10-Q quarter ended Nov 30, 2025: $235.743M less the $125M unsettled ETH trades, which settled in December (cash already reflects it in later releases).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "liabilities_usd": 110743000
+      },
+      {
+        "from": "2026-03-01",
+        "until": "2026-05-31",
+        "balance_sheet": "2026-02-28",
+        "items": [
+          {
+            "name": "Accrued liabilities and payables",
+            "usd": 13889000
+          },
+          {
+            "name": "Contract liabilities",
+            "usd": 169000
+          },
+          {
+            "name": "Other current liabilities",
+            "usd": 2291000
+          },
+          {
+            "name": "Operating lease liability, non-current",
+            "usd": 1244000
+          },
+          {
+            "name": "CVI warrant liability (fair value)",
+            "usd": 18575000
+          }
+        ],
+        "other_assets_usd": 0,
+        "source": "Form 10-Q quarter ended Feb 28, 2026: total liabilities $36.168M; no unsettled trades. Equity investments at cost $186.024M = Beast (in the releases); equity at fair value $14.384M = Eightco (in the releases).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "liabilities_usd": 36168000
+      },
+      {
+        "from": "2026-05-31",
+        "until": "2026-08-30",
+        "balance_sheet": "2026-05-31",
+        "items": [
+          {
+            "name": "Accrued liabilities",
+            "usd": 10230000
+          },
+          {
+            "name": "Other current liabilities",
+            "usd": 1908000
+          },
+          {
+            "name": "Operating lease liability, non-current",
+            "usd": 1216000
+          },
+          {
+            "name": "CVI warrant liability (fair value)",
+            "usd": 2087000
+          },
+          {
+            "name": "Other non-current liabilities (incl. Pier Two deferred consideration)",
+            "usd": 14687000
+          }
+        ],
+        "other_assets_usd": 7186000,
+        "other_assets_items": [
+          {
+            "name": "Other cost-method equity investments ($191.761M − Beast $186.024M)",
+            "usd": 5737000
+          },
+          {
+            "name": "Other digital assets (non-ETH/BTC, fair value)",
+            "usd": 1449000
+          }
+        ],
+        "source": "Form 10-Q quarter ended May 31, 2026: total liabilities $30.128M; no unsettled trades. Other assets per the book-value rule (same categories as the Aug 31, 2026 10-K). The $100.1M cash collateral for open derivative positions is already in the release cash ($446M vs balance-sheet cash $340.3M + collateral).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+        "liabilities_usd": 30128000
       }
     ],
-    "history_rule": "Weeks before Nov 30, 2025 (history extended back to the DAT start): total liabilities from the latest balance sheet on or before each week, held until the next one (same rule as the Aug 31, 2026 10-K values). Weeks Nov 30, 2025 – Aug 23, 2026 keep the earlier treatment (no liabilities deducted) — see README."
+    "history_rule": "Total liabilities (and other non-operating assets the releases miss) from the latest filed balance sheet on or before each snapshot, held until the next one; from Aug 30, 2026 the FY2026 10-K values (book_values.liabilities / other_assets). Settlement-timing payables (unsettled ETH trades: ETH already in the release, cash still in the release) are deducted only at the balance-sheet snapshot, then dropped once settled. Liability-classified warrants (CVI, not in the share count) are deducted at fair value from their issuance (Sep 22, 2025) — their dilution enters only here; equity-classified warrants are neither in the share count nor deducted (see README)."
   },
   "other_assets_usd": 59962000,
   "beast_usd_release": 180000000,
