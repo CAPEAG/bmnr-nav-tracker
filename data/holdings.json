@@ -159,31 +159,66 @@
     },
     "preferred_usd": 350000000,
     "debt_usd": 0,
-    "liabilities_usd": 33737000,
+    "liabilities_usd": 32380160,
+    "liabilities_ex_cvi_usd": 32380000,
+    "liabilities_filed_usd": 33737000,
+    "cvi_warrant": {
+      "count": 10435430,
+      "issued": "2025-09-22",
+      "expiry": "2027-03-22",
+      "strike": 87.48,
+      "rate": 0.0397,
+      "vol": 0.75,
+      "div": 0.0004,
+      "inputs_from": "2026-08-31",
+      "as_of": "2026-11-22"
+    },
+    "cvi_warrant_liability": {
+      "usd": 160,
+      "per_warrant": 0,
+      "bmnr": 12.98,
+      "term_years": 0.329,
+      "inputs_from": "2026-08-31",
+      "filed_value_in_effect_usd": 1357000
+    },
+    "warrants_tsm": [
+      {
+        "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+        "count": 2820774,
+        "strike": 5.4
+      },
+      {
+        "name": "Representative warrants ($10.00)",
+        "count": 50875,
+        "strike": 10
+      }
+    ],
+    "tsm_shares": 1658943,
+    "per_share_shares": 628109964,
     "nav": {
       "full": 11121770284,
-      "net": 10738033284,
+      "net": 10739390124,
       "crypto": 10821784284,
       "eth": 10424571132,
-      "ev": 8097334253,
+      "ev": 8118867327,
       "nav_ex_cash": 10737770284
     },
-    "nav_per_share": 17.14,
-    "nav_per_share_gross": 17.75,
+    "nav_per_share": 17.1,
+    "nav_per_share_gross": 17.71,
     "nav_per_share_all": {
-      "full": 17.75,
-      "net": 17.14,
-      "crypto": 17.27,
-      "eth": 16.64
+      "full": 17.71,
+      "net": 17.1,
+      "crypto": 17.23,
+      "eth": 16.6
     },
-    "mnav": 0.757,
-    "mnav_gross": 0.731,
+    "mnav": 0.759,
+    "mnav_gross": 0.733,
     "mnav_all": {
-      "full": 0.731,
-      "net": 0.757,
-      "crypto": 0.751,
-      "eth": 0.78,
-      "ev_to_nav_ex_cash": 0.754
+      "full": 0.733,
+      "net": 0.759,
+      "crypto": 0.753,
+      "eth": 0.782,
+      "ev_to_nav_ex_cash": 0.756
     },
     "eth_per_share": 0.0097143,
     "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226053668/ex99-1.htm",
@@ -192,7 +227,7 @@
     "accretion": {
       "basis": "estimate (v3 model)",
       "reanchor": false,
-      "nav_per_share_before": 17.4498,
+      "nav_per_share_before": 17.452,
       "atm_shares": 0,
       "mnav_at_issue": 0.867,
       "usd_per_share": {
@@ -201,8 +236,8 @@
         "staking": 0.0073,
         "other": -0.0041,
         "total": 0.0031,
-        "actual_change": -1.09,
-        "market": -1.0931
+        "actual_change": -1.08,
+        "market": -1.0831
       },
       "eth_per_share": {
         "capital": 0.000008212,
@@ -214,7 +249,7 @@
       }
     }
   },
-  "last_updated": "2026-11-27T19:04:43.588Z",
+  "last_updated": "2026-11-27T19:15:53.071Z",
   "shares_official": {
     "shares": 626451021,
     "date": "2026-11-04",
@@ -228,7 +263,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-27T19:04:43.588Z"
+    "built": "2026-11-27T19:15:53.071Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
@@ -245,18 +280,6 @@
   "debt_usd": 0,
   "debt_note": "No borrowings: the August 31, 2026 balance sheet has no debt or notes payable (Form 10-K filed November 10, 2026). Total liabilities $33.737M (current $20.106M), including a $1.357M CVI warrant liability, a $2.256M net deferred tax liability after a full valuation allowance, and $10.186M other non-current liabilities (Pier Two deferred consideration is about $12M fair value in total). No 8-K Item 2.03 since June 2025.",
   "dilutive": [
-    {
-      "name": "Strategic advisor warrants",
-      "count": 2820774,
-      "strike": 5.4,
-      "source": "10-Q May 31, 2026 (count, Note 12 anti-dilution table; $5.40 exercise price, Note 8)"
-    },
-    {
-      "name": "Representative's warrants",
-      "count": 50875,
-      "strike": 10,
-      "source": "count: 10-Q May 31, 2026; $10.00 exercise price: 10-K FY2025 (ThinkEquity warrants, Jun 4, 2025)"
-    },
     {
       "name": "Options (Tsang 30,211 + Kim 264,360, granted Apr 2, 2026)",
       "count": 294571,
@@ -276,7 +299,7 @@
       "source": "Form 4 Jan 27, 2026; out of the money at current prices; outstanding count confirmed by 10-K FY2026 Note 9 (359,124 at $21.10 weighted average)"
     }
   ],
-  "dilutive_note": "Treasury-stock method at the live BMNR price. 10-K Note 9: 359,124 options outstanding at a $21.10 weighted-average strike (104,031 exercisable), unchanged vs the May 31, 2026 10-Q; 2,872,929 equity-classified warrants outstanding at August 31, 2026 after 78,500 Representative and 156,965 Strategic Advisor exercises during FY2026. Excluded: CVI warrants (10,435,430 at $87.50, expire March 22, 2027; liability $1.357M; none exercised), Lee's 1,000,000 time-based RSUs (vest January 23, 2027/2028) and 4,500,000 performance RSUs (still unvested), and the January 23, 2027 director RSU tranche (22,620). No open ETH option contracts at August 31, 2026.",
+  "dilutive_note": "Sensitivity row only (options): treasury-stock method at the live BMNR price. 10-K Note 9: 359,124 options outstanding at a $21.10 weighted-average strike (104,031 exercisable), unchanged vs the May 31, 2026 10-Q. The equity-classified Strategic Advisor / Representative warrants (2,820,774 at $5.40 + 50,875 at $10.00 at Aug 31, 2026) are in the headline per-share figures (warrants_tsm_schedule), and the CVI warrants are a liability revalued at the live price (cvi_warrants).",
   "staking_accrual_basis": {
     "eth": 5067309,
     "realization": 1,
@@ -533,6 +556,188 @@
   },
   "other_assets_usd": 59962000,
   "beast_usd_release": 180000000,
-  "liabilities_usd": 33737000,
-  "other_moonshots_usd": 50000000
+  "liabilities_usd": 32380000,
+  "other_moonshots_usd": 50000000,
+  "cvi_warrants": {
+    "description": "Liability-classified CVI warrants (registered direct offering, Sep 22, 2025): 10,435,430 warrants, strike $87.50 (filings later show $87.49 / $87.48 after anti-dilution adjustments), expire Mar 22, 2027; none exercised through the FY2026 10-K. Not in the share count (common stock only), so their dilution enters only as this liability. Revalued every week (and live on the page) with Black-Scholes at that BMNR price, term = expiry − date, and the inputs (strike, risk-free rate, volatility, dividend yield) of the filing whose balance-sheet date is closest. The filed values are reproduced in `check` below.",
+    "count": 10435430,
+    "issued": "2025-09-22",
+    "expiry": "2027-03-22",
+    "first_week": "2025-09-28",
+    "inputs": [
+      {
+        "balance_sheet": "2025-11-30",
+        "strike": 87.5,
+        "rate": 0.0354,
+        "vol": 1.2,
+        "div": 0,
+        "filing_stock_price": 33.12,
+        "filing_term": 1.31,
+        "filed_fair_value_usd": 98615000,
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+        "source": "10-Q Nov 30, 2025, Note 7"
+      },
+      {
+        "balance_sheet": "2026-02-28",
+        "strike": 87.49,
+        "rate": 0.0344,
+        "vol": 1.1,
+        "div": 0,
+        "filing_stock_price": 18.98,
+        "filing_term": 1.06,
+        "filed_fair_value_usd": 18575000,
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm",
+        "source": "10-Q Feb 28, 2026"
+      },
+      {
+        "balance_sheet": "2026-05-31",
+        "strike": 87.49,
+        "rate": 0.0375,
+        "vol": 0.8,
+        "div": 0,
+        "filing_stock_price": null,
+        "filing_term": 0.81,
+        "filed_fair_value_usd": 2087000,
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
+        "source": "10-Q May 31, 2026 (stock and exercise price printed as $0.02 / $0.09 — a typo; strike taken from the Feb 28 filing)"
+      },
+      {
+        "balance_sheet": "2026-08-31",
+        "strike": 87.48,
+        "rate": 0.0397,
+        "vol": 0.75,
+        "div": 0.0004,
+        "filing_stock_price": 25.32,
+        "filing_term": 0.56,
+        "filed_fair_value_usd": 1357000,
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm",
+        "source": "10-K FY2026"
+      }
+    ],
+    "issuance_check": {
+      "date": "2025-09-22",
+      "derived_fair_value_usd": 256827000,
+      "note": "Nov 30, 2025 fair value $98.615M + Q1 fair-value gain $158.212M (no exercises)."
+    }
+  },
+  "warrants_tsm_schedule": {
+    "description": "Equity-classified warrants counted as dilution with the treasury-stock method (count × (1 − strike ÷ BMNR price) when in the money) in every per-share figure, from the latest filing on or before each week. Exercised warrants become common shares, which the share count picks up at the next official count (exercises are not in the weekly roll-forward, so they are not counted twice).",
+    "periods": [
+      {
+        "from": "2025-07-14",
+        "until": "2025-08-31",
+        "items": [
+          {
+            "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+            "count": 4424565,
+            "strike": 5.4
+          },
+          {
+            "name": "Representative warrants ($10.00)",
+            "count": 129375,
+            "strike": 10
+          }
+        ],
+        "source": "Issued Jul 8, 2025 (Strategic Advisor 3,192,620, Placement Agent 1,231,945) and Jun 4, 2025 (Representative 129,375); all outstanding per the POS ASR of Jul 29, 2025. 1,446,826 were exercised by Aug 31, 2025 (date not disclosed), so Aug 2025 weeks may count up to ~1.4M of them both as warrants and in an interpolated share count.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011460/formposasr.htm"
+      },
+      {
+        "from": "2025-08-31",
+        "until": "2025-11-30",
+        "items": [
+          {
+            "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+            "count": 2977739,
+            "strike": 5.4
+          },
+          {
+            "name": "Representative warrants ($10.00)",
+            "count": 129375,
+            "strike": 10
+          }
+        ],
+        "source": "3,107,114 outstanding at Aug 31, 2025 (10-Qs, Note 8); Representative 129,375 (50,875 at Aug 31, 2026 + 78,500 exercised in FY2026, 10-K).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+      },
+      {
+        "from": "2025-11-30",
+        "until": "2026-03-01",
+        "items": [
+          {
+            "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+            "count": 2914279,
+            "strike": 5.4
+          },
+          {
+            "name": "Representative warrants ($10.00)",
+            "count": 129375,
+            "strike": 10
+          }
+        ],
+        "source": "10-Q Nov 30, 2025: Strategic Advisor and Representative warrants 3,043,654 (= 3,107,114 − 63,460 exercised at $5.40 in Q1).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+      },
+      {
+        "from": "2026-03-01",
+        "until": "2026-05-31",
+        "items": [
+          {
+            "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+            "count": 2875037,
+            "strike": 5.4
+          },
+          {
+            "name": "Representative warrants ($10.00)",
+            "count": 50875,
+            "strike": 10
+          }
+        ],
+        "source": "10-Q Feb 28, 2026: 2,925,912 outstanding after 78,500 Representative (cashless) and 102,702 Strategic Advisor exercises in the six months.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226016560/form10-q.htm"
+      },
+      {
+        "from": "2026-05-31",
+        "until": null,
+        "items": [
+          {
+            "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+            "count": 2820774,
+            "strike": 5.4
+          },
+          {
+            "name": "Representative warrants ($10.00)",
+            "count": 50875,
+            "strike": 10
+          }
+        ],
+        "source": "10-Q May 31, 2026 and 10-K FY2026 (Note 12 / anti-dilution tables): Strategic Advisor 2,820,774, Representative 50,875 (the 10-Q text total 2,872,929 also includes the 1,280 out-of-the-money C-3 warrants).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
+      }
+    ]
+  },
+  "liabilities_filed_usd": 33737000,
+  "liabilities_note": "liabilities_usd excludes the CVI warrant liability, which the page revalues live (cvi_warrant, Black-Scholes at the live BMNR price)",
+  "cvi_warrant": {
+    "count": 10435430,
+    "issued": "2025-09-22",
+    "expiry": "2027-03-22",
+    "strike": 87.48,
+    "rate": 0.0397,
+    "vol": 0.75,
+    "div": 0.0004,
+    "inputs_from": "2026-08-31",
+    "as_of": "2026-11-22"
+  },
+  "warrants_tsm": [
+    {
+      "name": "Strategic Advisor + Placement Agent warrants ($5.40)",
+      "count": 2820774,
+      "strike": 5.4
+    },
+    {
+      "name": "Representative warrants ($10.00)",
+      "count": 50875,
+      "strike": 10
+    }
+  ]
 }

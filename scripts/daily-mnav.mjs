@@ -12,7 +12,7 @@ export const DAILY_SOURCE = 'Yahoo Finance: BMNR and ORBS regular-session daily 
 export const INTRADAY_INTERVAL = '5m';
 export const INTRADAY_SOURCE = 'Yahoo Finance 5-minute bars, regular trading hours only (9:30 AM–4:00 PM America/New_York; pre-market and after-hours excluded): BMNR bar low/high; ETH-USD and BTC-USD midpoint (high+low)/2 of the same 5-minute bar; ORBS close of the same bar (else its latest earlier regular-hours bar that day, else its daily close)';
 export const PRICE_SOURCE = 'Intraday regular-hours mNAV: ' + INTRADAY_SOURCE + '. Fallback for days without cached 5-minute bars: ' + DAILY_SOURCE;
-export const SHARE_BASIS = 'point estimate (shares_outstanding); the share-count range is not used';
+export const SHARE_BASIS = 'point estimate (shares_outstanding) + in-the-money warrant shares (treasury-stock method at each price); the share-count range is not used';
 
 const iso = (t) => new Date(t).toISOString().slice(0, 10);
 const r = (x, d = 3) => (x == null || !isFinite(x) ? null : +x.toFixed(d));
@@ -50,7 +50,10 @@ export function holdingsFromSnapshot(s, orbsShares) {
     shares_outstanding: s.shares_outstanding,
     preferred: s.preferred_usd ? { liquidation_usd: s.preferred_usd } : null,
     debt_usd: s.debt_usd || 0,
-    liabilities_usd: s.liabilities_usd || 0,
+    // CVI warrants revalued at each price (liabilities_ex_cvi_usd + cvi_warrant); TSM warrant shares at each price
+    liabilities_usd: s.cvi_warrant ? s.liabilities_ex_cvi_usd || 0 : s.liabilities_usd || 0,
+    cvi_warrant: s.cvi_warrant || null,
+    warrants_tsm: s.warrants_tsm || [],
   };
 }
 
@@ -106,17 +109,18 @@ function pointsInWindow(snapshots, dailyPrices, orbsShares, from, to, intraday =
       for (const [t, lo, hi, eth, btc, orbs] of bars) {
         const [hh, mm] = t.split(':').map(Number);
         if (!isRegularHours(hh, mm) || lo == null || hi == null || eth == null || btc == null) continue;
-        const d = dayMnav(h, { ETH: eth, BTC: btc, BMNR: 1, ORBS: orbs ?? orbsFallback ?? 0 });
-        const nps = d.nav_per_share;
-        if (!(nps > 0)) continue;
-        pts.push({ date, time: t, mnav: lo / nps, nav_per_share: nps, basis: 'intraday' });
-        pts.push({ date, time: t, mnav: hi / nps, nav_per_share: nps, basis: 'intraday' });
+        // NAV/share depends on the BMNR price (TSM warrant shares, CVI warrant liability), so value it at the bar low and high
+        const dl = dayMnav(h, { ETH: eth, BTC: btc, BMNR: lo, ORBS: orbs ?? orbsFallback ?? 0, date });
+        const dh = dayMnav(h, { ETH: eth, BTC: btc, BMNR: hi, ORBS: orbs ?? orbsFallback ?? 0, date });
+        if (!(dl.nav_per_share > 0) || !(dh.nav_per_share > 0)) continue;
+        pts.push({ date, time: t, mnav: lo / dl.nav_per_share, nav_per_share: dl.nav_per_share, basis: 'intraday' });
+        pts.push({ date, time: t, mnav: hi / dh.nav_per_share, nav_per_share: dh.nav_per_share, basis: 'intraday' });
         used = true;
       }
     }
     if (used) continue;
     if (dpx?.BMNR == null || dpx.ETH == null || dpx.BTC == null) continue;
-    const d = dayMnav(h, { ETH: dpx.ETH, BTC: dpx.BTC, BMNR: dpx.BMNR, ORBS: orbsFallback || 0 });
+    const d = dayMnav(h, { ETH: dpx.ETH, BTC: dpx.BTC, BMNR: dpx.BMNR, ORBS: orbsFallback || 0, date });
     pts.push({ date, time: '16:00', mnav: d.mnav, nav_per_share: d.nav_per_share, basis: 'close' });
   }
   return pts;

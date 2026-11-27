@@ -213,8 +213,27 @@ function bookFor(cur) {
   const liab = BV?.liabilities && cur.as_of >= BV.liabilities.from ? BV.liabilities.usd : 0;
   // weeks before Nov 30, 2025 (history back to the DAT start): the balance sheet on/before the week (book_values.history)
   const hb = (BV?.history || []).find((p) => cur.as_of >= p.from && cur.as_of < p.until);
-  if (hb) return { beast_usd: beast, other_assets_usd: other + (hb.other_assets_usd || 0), liabilities_usd: hb.liabilities_usd || 0 };
-  return { beast_usd: beast, other_assets_usd: other, liabilities_usd: liab };
+  const items = hb ? hb.items || [] : cur.as_of >= (BV?.liabilities?.from || '9999') ? BV.liabilities.items || [] : [];
+  const cviFiled = items.filter((x) => /CVI warrant/i.test(x.name)).reduce((t, x) => t + x.usd, 0);
+  const total = hb ? hb.liabilities_usd || 0 : liab;
+  // CVI warrants are revalued weekly (computeNav) instead of the filed value held between filings
+  const ex = { liabilities_filed_usd: total, cvi_filed_usd: cviFiled, liabilities_ex_cvi_usd: total - cviFiled, cvi_warrants: cviFor(cur.as_of), warrants_tsm: tsmFor(cur.as_of) };
+  if (hb) return { beast_usd: beast, other_assets_usd: other + (hb.other_assets_usd || 0), liabilities_usd: total, ...ex };
+  return { beast_usd: beast, other_assets_usd: other, liabilities_usd: liab, ...ex };
+}
+// CVI warrant inputs for a date: the filing whose balance-sheet date is closest (none before the issue week)
+function cviFor(asof) {
+  const C = H.cvi_warrants;
+  if (!C || asof < C.first_week || asof > C.expiry) return null;
+  const t = Date.parse(asof);
+  const f = C.inputs.reduce((b, x) => (Math.abs(Date.parse(x.balance_sheet) - t) < Math.abs(Date.parse(b.balance_sheet) - t) ? x : b));
+  return { count: C.count, issued: C.issued, expiry: C.expiry, strike: f.strike, rate: f.rate, vol: f.vol, div: f.div, inputs_from: f.balance_sheet, as_of: asof };
+}
+// equity-classified warrants in the money (treasury-stock method): latest filing on/before the week
+function tsmFor(asof) {
+  const P = H.warrants_tsm_schedule?.periods || [];
+  const p = P.find((x) => asof >= x.from && (!x.until || asof < x.until));
+  return p ? p.items.map((x) => ({ name: x.name, count: x.count, strike: x.strike })) : [];
 }
 const flowsFor = (m) => wk.map((_, i) => weekFlows(wk, i, m, kBuyback));
 const flowsBy = Object.fromEntries(Object.entries(MODELS).filter(([, m]) => !m.walkforward).map(([k, m]) => [k, flowsFor(m)]));
@@ -357,8 +376,8 @@ for (let i = 0; i < wk.length; i++) {
   const prefOn = H.preferred && cur.as_of >= H.preferred.issued;
   const bk = bookFor(cur);
   const h = { eth: cur.eth, btc: cur.btc, cash_usd: cur.cash_usd, orbs: { shares: 1 }, beast_usd: bk.beast_usd, other_assets_usd: bk.other_assets_usd, shares_outstanding: Math.round(e.shares[1]),
-    preferred: prefOn ? H.preferred : null, debt_usd: H.debt_usd || 0, liabilities_usd: bk.liabilities_usd };
-  const nav = computeNav(h, { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, ORBS: cur.orbs_value_usd });
+    preferred: prefOn ? H.preferred : null, debt_usd: H.debt_usd || 0, liabilities_usd: bk.liabilities_ex_cvi_usd, cvi_warrant: bk.cvi_warrants, warrants_tsm: bk.warrants_tsm };
+  const nav = computeNav(h, { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, ORBS: cur.orbs_value_usd, date: cur.as_of });
   const row = Object.fromEntries(nav.rows.map((x) => [x.key, x]));
   const cpIn = [...(interpWeek.has(i) ? ESC.points_in_week(i).map((c) => ({ date: c.date, shares: c.shares, basis: c.basis, url: c.url, used_as_anchor: true, derived: c.derived || undefined })) : []),
     ...cps.filter((c) => weekIndexOf(wk, c.date) === i).map((c) => ({ date: c.date, shares: c.shares, basis: c.basis, url: c.url, used_as_anchor: c.use_as_anchor !== false }))];
@@ -408,6 +427,10 @@ for (let i = 0; i < wk.length; i++) {
     btc: cur.btc, orbs_value: cur.orbs_value_usd, beast_value: bk.beast_usd, other_assets_value: bk.other_assets_usd || undefined,
     snapshot_prices: { ETH: cur.eth_price_reported, BTC: px.btc_close, BMNR: px.bmnr_close, BMNR_date: px.bmnr_close_date },
     preferred_usd: nav.pref, debt_usd: nav.debt, liabilities_usd: nav.liab || undefined,
+    liabilities_ex_cvi_usd: bk.liabilities_ex_cvi_usd || undefined, liabilities_filed_usd: bk.liabilities_filed_usd || undefined,
+    cvi_warrant: bk.cvi_warrants || undefined, cvi_warrant_liability: bk.cvi_warrants ? { usd: nav.cvi.usd, per_warrant: r(nav.cvi.per_warrant, 4), bmnr: px.bmnr_close, term_years: r(nav.cvi.term_years, 3), inputs_from: bk.cvi_warrants.inputs_from, filed_value_in_effect_usd: bk.cvi_filed_usd } : undefined,
+    warrants_tsm: bk.warrants_tsm.length ? bk.warrants_tsm : undefined, tsm_shares: bk.warrants_tsm.length ? r(nav.tsm.added) : undefined,
+    per_share_shares: r(nav.perShareShares),
     nav: { full: r(row.full.value), net: r(row.net.value), crypto: r(row.crypto.value), eth: r(row.eth.value), ev: r(row.ev.value), nav_ex_cash: r(row.ev.navExCash) },
     // headline NAV/share and mNAV are net of the BMNP preferred (from Jun 10, 2026); gross figures kept alongside
     nav_per_share: r(row.net.perShare, 2), nav_per_share_gross: r(row.full.perShare, 2),
@@ -467,7 +490,7 @@ for (let i = 1; i < out.length; i++) {
 const last = out.at(-1), lr = rel.at(-1), lp = wk.at(-1).px;
 Object.assign(H, {
   as_of: lr.as_of, announced: lr.date,
-  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, other_moonshots_usd: lr.other_moonshots_usd || 0, liabilities_usd: bookFor(lr).liabilities_usd, beast_usd_release: lr.beast_usd,
+  eth: lr.eth, eth_staked: lr.eth_staked, btc: lr.btc, cash_usd: lr.cash_usd, beast_usd: bookFor(lr).beast_usd, other_assets_usd: bookFor(lr).other_assets_usd, other_moonshots_usd: lr.other_moonshots_usd || 0, liabilities_usd: bookFor(lr).liabilities_ex_cvi_usd, liabilities_filed_usd: bookFor(lr).liabilities_filed_usd, liabilities_note: 'liabilities_usd excludes the CVI warrant liability, which the page revalues live (cvi_warrant, Black-Scholes at the live BMNR price)', cvi_warrant: bookFor(lr).cvi_warrants, warrants_tsm: bookFor(lr).warrants_tsm, beast_usd_release: lr.beast_usd,
   shares_outstanding: last.shares_outstanding, shares_outstanding_range: last.shares_outstanding_range,
   source: { type: 'official', sec_8k: lr.sec_8k, x_post: lr.x_post, press_release: lr.press_release || lr.sec_8k },
   reference_prices: { ETH: lr.eth_price_reported, BTC: lp.btc_close, BMNR: lp.bmnr_close, ORBS: lr.orbs_value_usd / H.orbs.shares,

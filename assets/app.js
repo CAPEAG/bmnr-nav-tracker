@@ -1,4 +1,4 @@
-import { computeNav, computeValuation, valInput, weeklyStakingEth, priceMinusNav, signedUsd, signedPct } from './calc.js?v=202611161530';
+import { computeNav, computeValuation, valInput, weeklyStakingEth, priceMinusNav, signedUsd, signedPct } from './calc.js?v=202611271430';
 
 const REPO_RAW = 'https://raw.githubusercontent.com/CAPEAG/bmnr-nav-tracker/main/data/prices.json';
 const CG = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true';
@@ -158,8 +158,8 @@ function renderEthSens(h, p, sr) {
   const x3 = (v) => v.toFixed(3) + '×';
   $('sensTable').innerHTML = '<tr><th>ETH move</th><th>ETH price</th><th>NAV / share (net)</th><th>mNAV</th></tr>' + moves.map((m) => {
     const q = { ...p, ETH: p.ETH * (1 + m) };
-    const net = computeNav(h, q).rows.find((r) => r.key === 'net');
-    const ps = net.perShare, lo = sr ? net.value / sr[1] : null, hi = sr ? net.value / sr[0] : null;
+    const nv = computeNav(h, q), net = nv.rows.find((r) => r.key === 'net'), add = nv.tsmAdded || 0;
+    const ps = net.perShare, lo = sr ? net.value / (sr[1] + add) : null, hi = sr ? net.value / (sr[0] + add) : null;
     return `<tr class="${m === 0 ? 'hl' : ''}"><td>${m === 0 ? 'live' : `${m > 0 ? '+' : '−'}${Math.abs(m * 100)}%`}</td><td>${usd(q.ETH, 0)}</td>
       <td>${usd(ps)}${sr ? rng(lo, hi, usd) : ''}</td><td>${x3(p.BMNR / ps)}${sr ? rng(p.BMNR / hi, p.BMNR / lo, x3) : ''}</td></tr>`;
   }).join('');
@@ -193,7 +193,7 @@ function render() {
   $('status').innerHTML = `<span class="dot ${stale ? 'stale' : ''}"></span>${feeds.join(' · ')} · refresh 60s<br>Holdings as of ${fmtDate(h.as_of)} · times in ${tz}`;
 
   const srH = h.shares_outstanding_range;
-  const psLo = srH ? full.value / srH[1] : null, psHi = srH ? full.value / srH[0] : null;
+  const psLo = srH ? full.value / (srH[1] + nav.tsmAdded) : null, psHi = srH ? full.value / (srH[0] + nav.tsmAdded) : null; // + in-the-money warrant shares (TSM)
   const rngPs = srH ? `<br>range est. ${usd(psLo)}–${usd(psHi)}` : '';
   const rng = S.history.mnav_daily_ranges;
   const rngLine = (label, x) => x?.days ? `<br>${label} <span class="nw">${x.low.toFixed(3)}–${x.high.toFixed(3)}×</span>` : '';
@@ -217,8 +217,8 @@ function render() {
   const sr = h.shares_outstanding_range;
   renderShareLine(h);
   renderEthSens(h, p, sr);
-  $('navRange').innerHTML = sr ? (() => { const hiPs = full.value / sr[0], loPs = full.value / sr[1];
-    return `NAV / share (net of preferred) low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M, live prices${fundFlag()}`; })() : '';
+  $('navRange').innerHTML = sr ? (() => { const hiPs = full.value / (sr[0] + nav.tsmAdded), loPs = full.value / (sr[1] + nav.tsmAdded);
+    return `NAV / share (net of preferred) low–high est. <b>${usd(loPs)}–${usd(hiPs)}</b> · mNAV <b>${(p.BMNR / hiPs).toFixed(3)}–${(p.BMNR / loPs).toFixed(3)}×</b><br>from est. shares ${(sr[0] / 1e6).toFixed(1)}–${(sr[1] / 1e6).toFixed(1)}M + ${(nav.tsmAdded / 1e6).toFixed(2)}M in-the-money warrant shares (TSM); CVI warrant liability ${big(nav.cvi.usd)} (Black-Scholes, live price); live prices${fundFlag()}`; })() : '';
 
   const rows = [
     ['ETH', n(h.eth), usd(p.ETH), nav.ethVal, P.ETH],

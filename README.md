@@ -80,11 +80,15 @@ The share-count model is **backtested out-of-sample** against every official cou
 ## NAV formulas
 
 * Full NAV (gross) = ETH×ETHUSD + BTC×BTCUSD + cash & marketable securities + Eightco stake (100,655,143 ORBS shares × price) + Beast stake ($186.0M filed carrying value: $180.0M cash + $6.0M capitalized costs; the releases' $180M is the cash part) + other assets from the latest filing (from Aug 30, 2026: $8.347M other cost-method investments + $1.615M other digital assets, 10-K). Rule: any balance-sheet asset the weekly releases don't cover is added at its filed carrying value until the next filing; goodwill/intangibles (MAVAN, valued separately) and operating assets are not.
-* **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed) − filed balance-sheet liabilities (latest balance sheet on/before each week; $33.737M from Aug 30, 2026; see below). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
+* **NAV net of preferred** = Full NAV − BMNP liquidation preference ($350M = 3.5M × $100) − debt (none disclosed) − filed balance-sheet liabilities (latest balance sheet on/before each week, with the CVI warrant liability revalued at that BMNR price; $33.737M filed from Aug 30, 2026; see below). This is the headline NAV/share and mNAV (top cards, highlighted row, history and charts from Jun 10, 2026).
 * Crypto/Cash NAV = ETH + BTC + cash; ETH-only NAV = ETH
-* EV ÷ NAV ex cash = (market cap + preferred + debt − cash) ÷ (Full NAV − cash); no per-share figure
-* NAV/share, fully diluted (TSM, sensitivity) = NAV net of preferred ÷ (shares + Σ count × (1 − strike ÷ BMNR price) over in-the-money warrants/options in `holdings.json → dilutive`)
-* NAV/share = NAV ÷ estimated shares outstanding; mNAV = BMNR price ÷ NAV/share
+* EV ÷ NAV ex cash = (BMNR price × per-share basis + preferred + debt − cash) ÷ (Full NAV − cash); no per-share figure
+* **Per-share basis** = estimated shares outstanding + in-the-money equity-classified warrants by the treasury-stock method at that
+  BMNR price (Σ count × (1 − strike ÷ price), `holdings.json → warrants_tsm_schedule`, counts from the latest filing on/before
+  each week). NAV/share = NAV ÷ per-share basis; mNAV = BMNR price ÷ NAV/share (= price × per-share basis ÷ NAV). Used for every
+  per-share figure (history, live cards, EV multiple, Bear/Base/Bull per share, intraday mNAV ranges, valued at each bar's price).
+  The share-count model, the backtest and ETH/share stay on basic shares.
+* NAV/share, fully diluted (TSM, sensitivity) = NAV net of preferred ÷ (per-share basis + TSM shares from in-the-money options in `holdings.json → dilutive`)
 * NAV/share range (NAV & mNAV card) = live NAV net of preferred ÷ share-count high/low estimate; the live mNAV share-count range is shown on the same card (not on the hero mNAV figure). The NAV/share chart shades the same weekly range.
 * Previous-week mNAV range (hero card; last-4-week and last-12-week ranges are also kept in `history.json`) = lowest and highest intraday mNAV during US regular trading hours (9:30 AM–4:00 PM ET; pre-market and after-hours excluded) in the last completed snapshot week (previous as-of + 1 through the latest as-of) and in the last four and twelve snapshot weeks. Each Yahoo Finance 5-minute regular-hours bar (`includePrePost=false`, and bars outside 9:30–16:00 ET are dropped) contributes BMNR bar low ÷ net NAV/share and BMNR bar high ÷ net NAV/share, where NAV uses ETH and BTC at the same bar's midpoint (high+low)/2 and ORBS at that bar's close (else its latest earlier regular-hours bar that day, else its daily close), on the holdings and point-estimate shares from the snapshot whose as-of week contains that day, net of the $350M BMNP preferred (`data/intraday-prices.json`). Days with no cached 5-minute bars (before Sep 21, 2026: Yahoo keeps 5-minute bars for 60 days) fall back to the BMNR regular-session close ÷ net NAV/share with ETH and BTC at 4:00 PM ET (`data/daily-prices.json`); each range records `basis` (intraday / daily_close / mixed), and its low/high date and ET time. These ranges are frozen in `history.json → mnav_daily_ranges` / `mnav_weekly_ranges` by the weekly build and do not change with live prices.
 
@@ -95,13 +99,13 @@ that it resets daily to the greatest of $100, the last sale price (if Bitmine so
 10-day average price. Optional redemption (Bitmine's choice): 110% of $100 ($385M) until Dec 10, 2027, 105% until
 Jun 10, 2029, then 100%, plus accrued dividends. Dividends are cumulative, paid weekly.
 
-**Liabilities**: every weekly snapshot deducts total liabilities from the latest filed balance sheet on or before it, held at the filed value until the next filing (`holdings.json → book_values.history`, then `book_values.liabilities`):
+**Liabilities**: every weekly snapshot deducts total liabilities from the latest filed balance sheet on or before it, held at the filed value until the next filing (`holdings.json → book_values.history`, then `book_values.liabilities`). The table shows filed totals; the CVI warrant line in each is replaced by the weekly Black-Scholes value (see Warrants):
 
 | Snapshots | Liabilities | Balance sheet / items |
 | --- | --- | --- |
 | Jul 14 – Aug 27, 2025 | $5,387,860 | 10-Q May 31, 2025 (pre-pivot) |
 | Aug 31 – Sep 21, 2025 | $102.256M | FY2025 10-K: accrued $8.894M, contract $1.067M, deferred tax $92.295M |
-| Sep 28 – Nov 23, 2025 | $359.083M | FY2025 10-K + CVI warrants at issuance fair value $256.827M (derived: $98.615M at Nov 30 + $158.212M Q1 fair-value gain; none exercised) |
+| Sep 28 – Nov 23, 2025 | $102.256M + CVI | FY2025 10-K + CVI warrants (issued Sep 22, 2025; filed-basis issuance value $256.827M = $98.615M at Nov 30 + $158.212M Q1 gain; revalued weekly, see below) |
 | Nov 30, 2025 | $235.743M | 10-Q: accrued/payables $11.338M, **unsettled ETH trades $125.0M**, contract $0.790M, CVI warrants $98.615M |
 | Dec 7, 2025 – Feb 22, 2026 | $110.743M | same 10-Q less the $125M unsettled trades (settled in December) |
 | Mar 1 – May 25, 2026 | $36.168M | 10-Q Feb 28, 2026: accrued $13.889M, contract $0.169M, other current $2.291M, lease $1.244M, CVI warrants $18.575M |
@@ -113,19 +117,36 @@ Jun 10, 2029, then 100%, plus accrued dividends. Dividends are cumulative, paid 
   so the $125M payable is deducted at the Nov 30 snapshot — once. It settled in December (the Feb 28, 2026 10-Q's
   Dec–Feb cash paid for ETH includes it), so later snapshots, whose cash is already lower, don't deduct it again. No other
   balance sheet shows unsettled trades.
-* **Warrants**: the share count is common stock only (10-Q/10-K counts). The CVI warrants (10,435,430 at $87.50, issued Sep
-  22, 2025 with the registered direct offering, expire Mar 22, 2027) are liability-classified and not in the count, so their
-  dilution enters only through the filed fair value — no double count. They are deducted from the first snapshot after
-  issuance (Sep 28, 2025); the offering's cash and 5,217,715 shares are in the releases / count from that week. The fair
-  value is held between filings like every other item: the filing's Black-Scholes inputs (120% volatility) reproduce the
-  Nov 30 value ($98.9M vs $98.6M) and would give ~$65M at the Nov 23, 2025 close (vs $256.8M held), so Sep 28 – Nov 23,
-  2025 NAV is conservative by up to ~$190M (~1.8%). Equity-classified Strategic Advisor / Representative warrants
-  (3,043,654 at $5.40 at Nov 30, 2025) are neither in the count nor deducted (basic share count; ~$85M intrinsic at Nov
-  30, 2025, ~0.7% of NAV). The Jul–Aug 2025 counts include the PIPE's pre-funded warrants ($0.0001 strike, economically
-  shares), so those are not deducted.
+* **Warrants**: the share count is common stock only (10-Q/10-K counts), so each warrant class enters NAV/share exactly once.
+  * **CVI warrants** (10,435,430, strike $87.50 → $87.49 → $87.48 after anti-dilution adjustments, issued Sep 22, 2025 with the
+    registered direct offering, expire Mar 22, 2027, none exercised; liability-classified, `holdings.json → cvi_warrants`):
+    deducted as a liability from the first snapshot after issuance (Sep 28, 2025), **revalued every week** (and live on the
+    page) with Black-Scholes at that week's BMNR close, term = expiry − as-of date, and the strike / risk-free rate /
+    volatility / dividend yield of the filing whose balance-sheet date is closest. Reproduction of the filed values:
+
+    | Filing | Inputs (vol, rate) | Black-Scholes | Filed | Diff |
+    | --- | --- | --- | --- | --- |
+    | Sep 22, 2025 issuance (Nov 30 inputs, close $55.10) | 120%, 3.54% | $253.6M | $256.8M (derived) | −1.2% |
+    | Nov 30, 2025 10-Q (S $33.12) | 120%, 3.54% | $98.90M | $98.615M | +0.3% (+0.05% with the exact term) |
+    | Feb 28, 2026 10-Q (S $18.98) | 110%, 3.44% | $18.58M | $18.575M | +0.03% |
+    | May 31, 2026 10-Q (May 29 close $19.27; filing printed S $0.02 / K $0.09) | 80%, 3.75% | $2.07M | $2.087M | −0.7% |
+    | Aug 31, 2026 10-K (S $25.32) | 75%, 3.97%, 0.04% div | $1.41M | $1.357M | +3.6% with the filing's 0.56-yr term; +1.0% with the exact 0.556 |
+
+    Switching to the next filing's inputs at the midpoint between balance-sheet dates moves the value in one step (largest:
+    Apr 19, 2026, Feb → May inputs, vol 110% → 80%, ~$13.6M ≈ 0.1% of NAV). Value at the Nov 22, 2026 snapshot: ~$160.
+  * **Strategic Advisor / Placement Agent ($5.40) and Representative ($10.00) warrants** (equity-classified): counted as dilution
+    with the treasury-stock method at each week's BMNR price (`holdings.json → warrants_tsm_schedule`): 4,424,565 + 129,375
+    (issued Jul 8 / Jun 4, 2025; POS ASR Jul 29, 2025) until Aug 31, 2025; 2,977,739 + 129,375 (3,107,114 at Aug 31, 2025);
+    2,914,279 + 129,375 (3,043,654 at Nov 30, 2025); 2,875,037 + 50,875 (2,925,912 at Feb 28, 2026); 2,820,774 + 50,875 from
+    May 31, 2026 (unchanged at Aug 31, 2026, 10-K). Exercised warrants become common shares at the next official count (the
+    weekly roll-forward does not add exercises), so nothing is counted twice — except possibly in Aug 2025: 1,446,826 warrants
+    (all Placement Agent + 214,881 Strategic Advisor) were exercised by Aug 31, 2025 on undisclosed dates, and the Aug 11
+    prospectus count used for interpolation may already include some of the resulting shares (up to ~1.2M TSM shares, ~0.6%).
+  * The Jul–Aug 2025 counts include the PIPE's pre-funded warrants ($0.0001 strike, economically shares), so those are neither
+    deducted nor added again. Options (359,124) remain a sensitivity row (Fully diluted).
 * **Deferred tax** ($92.295M at Aug 31, 2025) is held until the Nov 30, 2025 10-Q (where it had reversed to zero).
-* The Nov 23 → Nov 30, 2025 step is now a filed-value change ($359.1M → $235.7M: warrant fair value −$158.2M, deferred tax
-  −$92.3M, unsettled trades +$125M, accrued/contract +$2.2M), not a change of method.
+* Nov 23 → Nov 30, 2025: filed items change ($102.3M → $137.1M excluding CVI: deferred tax −$92.3M, unsettled trades +$125M,
+  accrued/contract +$2.2M) and the revalued CVI liability rises with BMNR ($64.8M at $26.00 → $98.7M at $33.12).
 
 From the Aug 30, 2026 snapshot, NAV net of preferred also deducts total balance-sheet liabilities from the latest filing ($33.737M at Aug 31, 2026, 10-K: accrued $12.202M, CVI warrant liability $1.357M, other current $6.547M, non-current lease $1.189M, deferred tax $2.256M, other non-current incl. Pier Two deferred consideration $10.186M), held at the filed value until the next filing; the BMNP preferred is mezzanine equity, not a liability, so it is deducted only once, at its $350M liquidation preference.
 * Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.

@@ -5,6 +5,7 @@ import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { computeNav, cviWarrantValue, bsCall } from '../assets/calc.js';
 
 const data = (f) => JSON.parse(readFileSync(new URL(`../data/${f}`, import.meta.url), 'utf8'));
 const out = mkdtempSync(join(tmpdir(), 'bmnr-dat-'));
@@ -62,7 +63,7 @@ test('liabilities in the new weeks come from the balance sheet in effect; no BMN
   assert.equal(liab(by['2025-08-27']), 5387860);
   assert.equal(liab(by['2025-08-31']), 102256000);
   assert.equal(liab(by['2025-09-21']), 102256000);
-  assert.equal(liab(by['2025-11-23']), 102256000 + 256827000); // + CVI warrants from their Sep 22, 2025 issuance
+  assert.equal(liab(by['2025-11-23']), 102256000 + by['2025-11-23'].cvi_warrant_liability.usd); // + CVI warrants (revalued) from their Sep 22, 2025 issuance
   for (const s of S.filter((x) => x.as_of < '2026-06-10')) assert.ok(!s.preferred_usd, s.as_of);
 });
 
@@ -93,7 +94,10 @@ test('liability schedule: every week deducts the filed balance sheet in effect',
     '2025-09-28': 359083000, '2025-11-23': 359083000, '2025-11-30': 235743000, '2025-12-07': 110743000, '2026-02-22': 110743000,
     '2026-03-01': 36168000, '2026-05-25': 36168000, '2026-05-31': 30128000, '2026-08-23': 30128000, '2026-08-30': 33737000, '2026-11-22': 33737000,
   };
-  for (const [d, v] of Object.entries(expect)) assert.equal(liabOf(d), v, d);
+  for (const [d, v] of Object.entries(expect)) {
+    assert.equal(by[d].liabilities_filed_usd, v, d);
+    assert.equal(liabOf(d), by[d].liabilities_ex_cvi_usd + (by[d].cvi_warrant_liability?.usd || 0), d);
+  }
   for (const s of S) assert.ok(s.nav.full - s.nav.net - (s.preferred_usd || 0) > 0, `${s.as_of}: no week without liabilities`);
 });
 
@@ -111,7 +115,7 @@ test('unsettled ETH trades ($125M) are deducted once, at the Nov 30, 2025 snapsh
   const withIt = HB.history.filter((p) => p.items.some((x) => x.settlement_timing));
   assert.equal(withIt.length, 1);
   assert.deepEqual([withIt[0].from, withIt[0].until], ['2025-11-30', '2025-12-07']);
-  assert.equal(liabOf('2025-11-30') - liabOf('2025-12-07'), 125000000);
+  assert.equal(by['2025-11-30'].liabilities_ex_cvi_usd - by['2025-12-07'].liabilities_ex_cvi_usd, 125000000);
 });
 
 test('CVI warrants: liability at fair value from issuance, never in the share count', () => {
@@ -126,5 +130,67 @@ test('CVI warrants: liability at fair value from issuance, never in the share co
 test('current headline still uses the FY2026 10-K liabilities', () => {
   const h = data('holdings.json');
   assert.equal(h.book_values.liabilities.usd, 33737000);
-  assert.equal(S.at(-1).liabilities_usd, 33737000);
+  assert.equal(S.at(-1).liabilities_filed_usd, 33737000);
+  assert.equal(h.liabilities_usd, 33737000 - 1357000); // the live page adds the CVI warrants revalued at the live price
+  assert.equal(h.cvi_warrant.inputs_from, '2026-08-31');
+});
+
+// ---------- CVI warrants revalued weekly (Black-Scholes, closest filing's inputs) ----------
+const CW = data('holdings.json').cvi_warrants;
+
+test('CVI Black-Scholes reproduces every filed fair value within 1.5%', () => {
+  // filing's stock price where printed; May 31, 2026 printed a typo ($0.02), so the May 29, 2026 BMNR close ($19.27)
+  for (const f of CW.inputs) {
+    const S0 = f.filing_stock_price ?? 19.27;
+    const v = cviWarrantValue({ count: CW.count, expiry: CW.expiry, strike: f.strike, rate: f.rate, vol: f.vol, div: f.div }, S0, f.balance_sheet).usd;
+    assert.ok(Math.abs(v / f.filed_fair_value_usd - 1) < 0.015, `${f.balance_sheet}: ${v} vs ${f.filed_fair_value_usd}`);
+  }
+  // issuance (Sep 22, 2025 close $55.10, Nov 30 inputs) vs the derived $256.827M
+  const f = CW.inputs[0];
+  const v = cviWarrantValue({ count: CW.count, expiry: CW.expiry, strike: f.strike, rate: f.rate, vol: f.vol }, 55.1, '2025-09-22').usd;
+  assert.ok(Math.abs(v / CW.issuance_check.derived_fair_value_usd - 1) < 0.02, String(v));
+  assert.ok(Math.abs(bsCall(33.12, 87.5, 1.31, 0.0354, 1.2) * 10435430 - 98901160) < 50, 'normal CDF accuracy');
+});
+
+test('CVI liability: none before the Sep 28, 2025 week, revalued every week after with the closest filing', () => {
+  for (const s of S) {
+    if (s.as_of < '2025-09-28') { assert.equal(s.cvi_warrant_liability, undefined, s.as_of); continue; }
+    const c = s.cvi_warrant_liability;
+    assert.ok(c && c.usd >= 0, s.as_of);
+    const near = CW.inputs.reduce((b, x) => (Math.abs(Date.parse(x.balance_sheet) - Date.parse(s.as_of)) < Math.abs(Date.parse(b.balance_sheet) - Date.parse(s.as_of)) ? x : b));
+    assert.equal(c.inputs_from, near.balance_sheet, s.as_of);
+    assert.equal(c.bmnr, s.snapshot_prices.BMNR);
+  }
+  // Nov 30, 2025 snapshot (BMNR $33.12, the filing's price) is within 0.1% of the filed $98.615M
+  assert.ok(Math.abs(by['2025-11-30'].cvi_warrant_liability.usd / 98615000 - 1) < 0.001);
+});
+
+test('in-the-money advisor / placement agent / representative warrants: treasury-stock method on every week', () => {
+  const sched = data('holdings.json').warrants_tsm_schedule.periods;
+  const counts = Object.fromEntries(sched.map((p) => [p.from, p.items.map((x) => x.count)]));
+  assert.deepEqual(counts, { '2025-07-14': [4424565, 129375], '2025-08-31': [2977739, 129375], '2025-11-30': [2914279, 129375], '2026-03-01': [2875037, 50875], '2026-05-31': [2820774, 50875] });
+  assert.equal(2977739 + 129375, 3107114); // Aug 31, 2025 total (10-Q Note 8)
+  assert.equal(2914279 + 129375, 3043654); // Nov 30, 2025 anti-dilution table
+  assert.equal(2875037 + 50875, 2925912); // Feb 28, 2026
+  for (const s of S) {
+    const P = s.snapshot_prices.BMNR;
+    const want = (s.warrants_tsm || []).reduce((t, x) => t + (P > x.strike ? x.count * (1 - x.strike / P) : 0), 0);
+    assert.ok(Math.abs(s.tsm_shares - want) <= 1, s.as_of);
+    assert.equal(s.per_share_shares, s.shares_outstanding + s.tsm_shares, s.as_of);
+    assert.ok(Math.abs(s.nav_per_share - s.nav.net / s.per_share_shares) < 0.006, s.as_of);
+    assert.ok(Math.abs(s.mnav - P / (s.nav.net / s.per_share_shares)) < 0.0006, s.as_of);
+  }
+  // basic share count (model, backtest) unchanged
+  assert.equal(by['2025-11-30'].shares_outstanding, 408578823);
+});
+
+test('live NAV: TSM shares and CVI value move with the BMNR price; options stay a sensitivity row', () => {
+  const h = data('holdings.json');
+  assert.ok(!h.dilutive.some((x) => /warrant/i.test(x.name)), 'warrants are in the headline, not the sensitivity list');
+  const px = { ETH: 3000, BTC: 90000, ORBS: 1, date: '2026-11-27' };
+  const a = computeNav(h, { ...px, BMNR: 10 }), b = computeNav(h, { ...px, BMNR: 40 });
+  assert.ok(b.tsmAdded > a.tsmAdded && b.cvi.usd > a.cvi.usd);
+  assert.equal(a.perShareShares, h.shares_outstanding + a.tsmAdded);
+  assert.ok(Math.abs(a.liab - (h.liabilities_usd + a.cvi.usd)) < 1);
+  assert.equal(computeNav(h, { ...px, BMNR: 40, date: '2027-03-23' }).cvi.usd, 0, 'expired');
 });
