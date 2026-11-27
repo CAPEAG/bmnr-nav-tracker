@@ -1,5 +1,5 @@
 {
-  "description": "Weekly reconstruction from every official Bitmine release since Nov 30, 2025. Share counts are official at 10-Q checkpoints (checkpoints.json) and estimated between them by rolling the current model forward from the latest checkpoint. est_* / assumed_* fields are estimates; see README \"Share-count reconstruction\".",
+  "description": "Weekly reconstruction from every official Bitmine holdings release since the first disclosed ETH holding (Jul 14, 2025; ETH treasury strategy announced Jun 30, 2025). Share counts are official at filed checkpoints (checkpoints.json) and estimated between them: Jul 14 – Aug 24, 2025 interpolated between filed counts (checkpoints.json → early_share_counts), from Aug 31, 2025 by rolling the current model forward from the latest checkpoint. est_* / assumed_* fields are estimates; cash_disclosed / btc_disclosed = false marks values carried from an earlier release. See README \"Share-count reconstruction\".",
   "method": {
     "model": {
       "label": "v3 – 10-Q ETH price, capped carry (current)",
@@ -33,7 +33,7 @@
           "cash_paid_usd": 7402573000,
           "paid_per_eth": 4042.79,
           "factor": 0.9977,
-          "weeks": 0
+          "weeks": 13
         },
         {
           "period": "Dec 1, 2025 – Feb 28, 2026",
@@ -90,6 +90,27 @@
       "note": "paid_per_eth = 10-Q cost of ETH purchased ÷ units purchased; market_avg_weighted = weekly average ETH price weighted by ETH added each week; factor = paid ÷ market."
     },
     "checkpoints": [
+      {
+        "date": "2025-08-31",
+        "shares": 234712310,
+        "basis": "10-K cover page (as of Aug 31, 2025), trade-date basis",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+        "use_as_anchor": true
+      },
+      {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "basis": "424B5 prospectus supplement: \"Common Stock Outstanding Before this Offering\"",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225014391/form424b5.htm",
+        "use_as_anchor": true
+      },
+      {
+        "date": "2025-11-20",
+        "shares": 384067823,
+        "basis": "10-K cover page",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+        "use_as_anchor": true
+      },
       {
         "date": "2025-11-30",
         "shares": 408578823,
@@ -182,25 +203,25 @@
   },
   "snapshots": [
     {
-      "date": "2025-12-01",
-      "as_of": "2025-11-30",
+      "date": "2025-07-14",
+      "as_of": "2025-07-14",
       "days": null,
-      "eth": 3726499,
+      "eth": 163142,
       "eth_change": null,
-      "eth_acquired_reported": 96798,
+      "eth_acquired_reported": null,
       "eth_staked": 0,
       "staking_yield_7d": null,
       "staking_yield_used": null,
       "staking_yield_basis": "CESR fallback",
       "staking_yield_check": {
-        "cesr": 0.0283,
+        "cesr": 0.02995,
         "window": [
-          "2025-11-24",
-          "2025-11-30"
+          "2025-07-08",
+          "2025-07-14"
         ],
         "days": 7,
-        "min_daily": 0.02797,
-        "max_daily": 0.02857,
+        "min_daily": 0.02888,
+        "max_daily": 0.03146,
         "diff_vs_stated_pt": null,
         "flagged": false
       },
@@ -217,8 +238,10 @@
       "buyback_price_basis": null,
       "buyback_cost": null,
       "cash_prev": null,
-      "cash": 882000000,
+      "cash": 0,
       "cash_change": null,
+      "cash_disclosed": false,
+      "btc_disclosed": false,
       "est_cash_opex": null,
       "investments": 0,
       "disclosed_proceeds": null,
@@ -231,6 +254,3178 @@
       "surplus_carried_out": null,
       "assumed_issue_price": null,
       "bmnr_week_range": null,
+      "est_shares_issued": null,
+      "est_shares_issued_range": null,
+      "other_shares_issued": 0,
+      "shares_outstanding": 65781325,
+      "shares_outstanding_range": [
+        65781325,
+        75927077
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 0
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-07-08",
+          "shares": 62282962,
+          "basis": "S-3ASR (Jul 9, 2025): \"Up to 80,220,182 shares of Common Stock [outstanding after the ATM offering], including the sale of 17,937,220 shares\" → 62,282,962 before the ATM began. Includes the 11,006,444 PIPE pre-funded warrants.",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000164117225018322/forms-3asr.htm",
+          "used_as_anchor": true,
+          "derived": true
+        }
+      ],
+      "btc": 154,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3072.67,
+        "BTC": 119850,
+        "BMNR": 40.62,
+        "BMNR_date": "2025-07-11"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 519738429,
+        "net": 514350569,
+        "crypto": 519738429,
+        "eth": 501281529,
+        "ev": 2672037422,
+        "nav_ex_cash": 519738429
+      },
+      "nav_per_share": 7.82,
+      "nav_per_share_gross": 7.9,
+      "nav_per_share_all": {
+        "full": 7.9,
+        "net": 7.82,
+        "crypto": 7.9,
+        "eth": 7.62
+      },
+      "mnav": 5.195,
+      "mnav_gross": 5.141,
+      "mnav_all": {
+        "full": 5.141,
+        "net": 5.195,
+        "crypto": 5.141,
+        "eth": 5.33,
+        "ev_to_nav_ex_cash": 5.141
+      },
+      "eth_per_share": 0.0024801,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000164117225018905/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1944740731056230895",
+      "notes": "First disclosed ETH holding (DAT start). Private placement announced Jun 30, 2025; closed Jul 8. Cash not disclosed (treated as $0, so NAV is a lower bound). BTC not disclosed: 154 BTC carried from the Jun 30, 2025 investor deck (holdings at Jun 24); the PIPE was partly paid in ETH/BTC, so BTC may be higher (192 by Jul 28)."
+    },
+    {
+      "date": "2025-07-17",
+      "as_of": "2025-07-17",
+      "days": 3,
+      "eth": 300657,
+      "eth_change": 137515,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.030552,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.03055,
+        "window": [
+          "2025-07-15",
+          "2025-07-17"
+        ],
+        "days": 3,
+        "min_daily": 0.03033,
+        "max_daily": 0.03081,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 137515,
+      "eth_week_avg": 3329.39,
+      "eth_price_used": 3321.72,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        3288.5,
+        3354.94
+      ],
+      "est_purchase_cost": 456786603,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 0,
+      "cash_change": null,
+      "cash_disclosed": false,
+      "btc_disclosed": false,
+      "est_cash_opex": 843879,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 457630482,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 42.22,
+      "bmnr_week_range": [
+        39.96,
+        44.8
+      ],
+      "est_shares_issued": 10529633,
+      "est_shares_issued_range": [
+        10529633,
+        13644115
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 76310958,
+      "shares_outstanding_range": [
+        76310958,
+        89571191
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 1
+      },
+      "btc": 154,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3461.89,
+        "BTC": 119290,
+        "BMNR": 44.8,
+        "BMNR_date": "2025-07-16"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 1059212122,
+        "net": 1053824262,
+        "crypto": 1059212122,
+        "eth": 1040841462,
+        "ev": 3418730918,
+        "nav_ex_cash": 1059212122
+      },
+      "nav_per_share": 13.81,
+      "nav_per_share_gross": 13.88,
+      "nav_per_share_all": {
+        "full": 13.88,
+        "net": 13.81,
+        "crypto": 13.88,
+        "eth": 13.64
+      },
+      "mnav": 3.244,
+      "mnav_gross": 3.228,
+      "mnav_all": {
+        "full": 3.228,
+        "net": 3.244,
+        "crypto": 3.228,
+        "eth": 3.285,
+        "ev_to_nav_ex_cash": 3.228
+      },
+      "eth_per_share": 0.0039399,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011270/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1945852899789029572",
+      "notes": "Includes 60,000 ETH held through in-the-money options, \"backed 1:1 with approximately $200MM of unencumbered cash\" (footnote 1). That cash pays for those 60,000 ETH, so it is not added again: cash treated as $0. BTC carried (154, undisclosed).",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 8.4558,
+        "atm_shares": 10529633,
+        "mnav_at_issue": 4.993,
+        "usd_per_share": {
+          "issuance": 4.6589,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0028,
+          "total": 4.6617,
+          "actual_change": 5.99,
+          "market": 1.3283
+        },
+        "eth_per_share": {
+          "capital": 0.001455677,
+          "staking": 0,
+          "premium": 0.00000415,
+          "reanchor": 0,
+          "total": 0.001459827,
+          "actual_change": 0.001459827
+        }
+      }
+    },
+    {
+      "date": "2025-07-24",
+      "as_of": "2025-07-23",
+      "days": 6,
+      "eth": 566776,
+      "eth_change": 266119,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029888,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02989,
+        "window": [
+          "2025-07-18",
+          "2025-07-23"
+        ],
+        "days": 6,
+        "min_daily": 0.02905,
+        "max_daily": 0.03121,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 266119,
+      "eth_week_avg": 3674.33,
+      "eth_price_used": 3665.87,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        3629.21,
+        3702.53
+      ],
+      "est_purchase_cost": 975557014,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 0,
+      "cash_change": null,
+      "cash_disclosed": false,
+      "btc_disclosed": false,
+      "est_cash_opex": 1687758,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 977244772,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 40.4375,
+      "bmnr_week_range": [
+        39.5,
+        42.35
+      ],
+      "est_shares_issued": 36000424,
+      "est_shares_issued_range": [
+        22740191,
+        36000424
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 112311382,
+      "shares_outstanding_range": [
+        112311382,
+        112311382
+      ],
+      "shares_basis": "official",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 2
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-07-23",
+          "shares": 112311382,
+          "basis": "424B5 (Jul 24, 2025): \"based on 112,311,382 shares of our Common Stock outstanding as of July 23, 2025\" (112,311,382 + $2.5B ÷ $39.50 = 175,602,522 after the offering, as stated)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011368/form424b5.htm",
+          "used_as_anchor": true
+        }
+      ],
+      "btc": 154,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3643.752,
+        "BTC": 118755,
+        "BMNR": 39.5,
+        "BMNR_date": "2025-07-23"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 2083479454,
+        "net": 2078091594,
+        "crypto": 2083479454,
+        "eth": 2065191184,
+        "ev": 4436299589,
+        "nav_ex_cash": 2083479454
+      },
+      "nav_per_share": 18.5,
+      "nav_per_share_gross": 18.55,
+      "nav_per_share_all": {
+        "full": 18.55,
+        "net": 18.5,
+        "crypto": 18.55,
+        "eth": 18.39
+      },
+      "mnav": 2.135,
+      "mnav_gross": 2.129,
+      "mnav_all": {
+        "full": 2.129,
+        "net": 2.135,
+        "crypto": 2.129,
+        "eth": 2.148,
+        "ev_to_nav_ex_cash": 2.129
+      },
+      "eth_per_share": 0.0050465,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011364/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1948346721060229171",
+      "notes": "Cash and BTC not disclosed: carried from the Jul 17 release ($0 cash, 154 BTC). NAV is a lower bound.",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 14.6466,
+        "atm_shares": 36000424,
+        "mnav_at_issue": 2.761,
+        "usd_per_share": {
+          "issuance": 8.267,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.005,
+          "total": 8.2721,
+          "actual_change": 4.69,
+          "market": -3.5821
+        },
+        "eth_per_share": {
+          "capital": 0.00110112,
+          "staking": 0,
+          "premium": 0.000005457,
+          "reanchor": 0,
+          "total": 0.001106577,
+          "actual_change": 0.001106577
+        }
+      }
+    },
+    {
+      "date": "2025-07-29",
+      "as_of": "2025-07-28",
+      "days": 5,
+      "eth": 625000,
+      "eth_change": 58224,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029038,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02904,
+        "window": [
+          "2025-07-24",
+          "2025-07-28"
+        ],
+        "days": 5,
+        "min_daily": 0.02852,
+        "max_daily": 0.0296,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 58224,
+      "eth_week_avg": 3767.87,
+      "eth_price_used": 3759.19,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        3721.6,
+        3796.78
+      ],
+      "est_purchase_cost": 218875203,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 401400000,
+      "cash_change": null,
+      "est_cash_opex": 1406465,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 220281668,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 38.8867,
+      "bmnr_week_range": [
+        35.11,
+        41.75
+      ],
+      "est_shares_issued": 4874211,
+      "est_shares_issued_range": [
+        4874211,
+        4874211
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 117185593,
+      "shares_outstanding_range": [
+        117185593,
+        117185593
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 3
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-07-28",
+          "shares": 117185593,
+          "basis": "POS ASR (Jul 29, 2025): 109,527,225 shares outstanding before the resale offering and 121,739,533 after exercise of all pre-funded, Strategic Advisor (3,192,620), Placement Agent (1,231,945) and Representative's (129,375) warrants. 121,739,533 − 4,553,940 non-pre-funded warrants = 117,185,593 (109,527,225 + 7,658,368 unexercised pre-funded warrants).",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011460/formposasr.htm",
+          "used_as_anchor": true,
+          "derived": true
+        }
+      ],
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3755,
+        "BTC": 117924,
+        "BMNR": 35.11,
+        "BMNR_date": "2025-07-28"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 2770916408,
+        "net": 2765528548,
+        "crypto": 2770916408,
+        "eth": 2346875000,
+        "ev": 3712986170,
+        "nav_ex_cash": 2369516408
+      },
+      "nav_per_share": 23.6,
+      "nav_per_share_gross": 23.65,
+      "nav_per_share_all": {
+        "full": 23.65,
+        "net": 23.6,
+        "crypto": 23.65,
+        "eth": 20.03
+      },
+      "mnav": 1.488,
+      "mnav_gross": 1.485,
+      "mnav_all": {
+        "full": 1.485,
+        "net": 1.488,
+        "crypto": 1.485,
+        "eth": 1.753,
+        "ev_to_nav_ex_cash": 1.567
+      },
+      "eth_per_share": 0.0053334,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011466/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1950157954956530085",
+      "notes": "Cash \"in excess of $401.4 million\" of unencumbered cash. Release states 121,739,533 fully diluted shares (= 109,527,225 outstanding + pre-funded and other warrants, S-3ASR/POS ASR Jul 28-29).",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 19.1293,
+        "atm_shares": 4874211,
+        "mnav_at_issue": 2.033,
+        "usd_per_share": {
+          "issuance": 0.8218,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0077,
+          "total": 0.8141,
+          "actual_change": 5.1,
+          "market": 4.2859
+        },
+        "eth_per_share": {
+          "capital": 0.000285806,
+          "staking": 0,
+          "premium": 0.000001144,
+          "reanchor": 0,
+          "total": 0.00028695,
+          "actual_change": 0.00028695
+        }
+      }
+    },
+    {
+      "date": "2025-08-04",
+      "as_of": "2025-08-03",
+      "days": 6,
+      "eth": 833137,
+      "eth_change": 208137,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029144,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02914,
+        "window": [
+          "2025-07-29",
+          "2025-08-03"
+        ],
+        "days": 6,
+        "min_daily": 0.02863,
+        "max_daily": 0.02944,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 208137,
+      "eth_week_avg": 3612.81,
+      "eth_price_used": 3604.49,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        3568.44,
+        3640.53
+      ],
+      "est_purchase_cost": 750227582,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 401400000,
+      "cash_change": null,
+      "cash_disclosed": false,
+      "btc_disclosed": false,
+      "est_cash_opex": 1687758,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 751915340,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 33.18,
+      "bmnr_week_range": [
+        31.68,
+        34.64
+      ],
+      "est_shares_issued": 21261310,
+      "est_shares_issued_range": [
+        21261310,
+        22524543
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 138446903,
+      "shares_outstanding_range": [
+        138446903,
+        139710136
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 4
+      },
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3491.86,
+        "BTC": 114218,
+        "BMNR": 31.68,
+        "BMNR_date": "2025-08-01"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 3332527621,
+        "net": 3327139761,
+        "crypto": 3332527621,
+        "eth": 2909197765,
+        "ev": 3984597887,
+        "nav_ex_cash": 2931127621
+      },
+      "nav_per_share": 24.03,
+      "nav_per_share_gross": 24.07,
+      "nav_per_share_all": {
+        "full": 24.07,
+        "net": 24.03,
+        "crypto": 24.07,
+        "eth": 21.01
+      },
+      "mnav": 1.318,
+      "mnav_gross": 1.316,
+      "mnav_all": {
+        "full": 1.316,
+        "net": 1.318,
+        "crypto": 1.316,
+        "eth": 1.508,
+        "ev_to_nav_ex_cash": 1.359
+      },
+      "eth_per_share": 0.0060177,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011555/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1952356935249907970",
+      "notes": "Release gives ETH only: cash ($401.4M) and BTC (192) carried from Jul 28.",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 22.8412,
+        "atm_shares": 21261310,
+        "mnav_at_issue": 1.453,
+        "usd_per_share": {
+          "issuance": 1.5877,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0003,
+          "total": 1.588,
+          "actual_change": 0.43,
+          "market": -1.158
+        },
+        "eth_per_share": {
+          "capital": 0.000680854,
+          "staking": 0,
+          "premium": 0.000003462,
+          "reanchor": 0,
+          "total": 0.000684317,
+          "actual_change": 0.000684317
+        }
+      }
+    },
+    {
+      "date": "2025-08-11",
+      "as_of": "2025-08-10",
+      "days": 7,
+      "eth": 1150263,
+      "eth_change": 317126,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.02902,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02902,
+        "window": [
+          "2025-08-04",
+          "2025-08-10"
+        ],
+        "days": 7,
+        "min_daily": 0.02857,
+        "max_daily": 0.02932,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 317126,
+      "eth_week_avg": 3922.4,
+      "eth_price_used": 3913.37,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        3874.23,
+        3952.5
+      ],
+      "est_purchase_cost": 1241030183,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 401400000,
+      "cash_change": null,
+      "cash_disclosed": false,
+      "btc_disclosed": false,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 1242999234,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 39.122,
+      "bmnr_week_range": [
+        31.13,
+        51.43
+      ],
+      "est_shares_issued": 29828724,
+      "est_shares_issued_range": [
+        28565491,
+        29828724
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 168275627,
+      "shares_outstanding_range": [
+        167865814,
+        168275627
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 5
+      },
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4311,
+        "BTC": 119307,
+        "BMNR": 51.43,
+        "BMNR_date": "2025-08-08"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 5383090737,
+        "net": 5377702877,
+        "crypto": 5383090737,
+        "eth": 4958783793,
+        "ev": 8253015497,
+        "nav_ex_cash": 4981690737
+      },
+      "nav_per_share": 31.96,
+      "nav_per_share_gross": 31.99,
+      "nav_per_share_all": {
+        "full": 31.99,
+        "net": 31.96,
+        "crypto": 31.99,
+        "eth": 29.47
+      },
+      "mnav": 1.609,
+      "mnav_gross": 1.608,
+      "mnav_all": {
+        "full": 1.608,
+        "net": 1.609,
+        "crypto": 1.608,
+        "eth": 1.745,
+        "ev_to_nav_ex_cash": 1.657
+      },
+      "eth_per_share": 0.0068356,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011799/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1955011293125193732",
+      "notes": "Release gives ETH and \"crypto holdings\" ($4.98B = ETH + 192 BTC); cash not disclosed, carried from Jul 28 ($401.4M).",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 26.6228,
+        "atm_shares": 29828724,
+        "mnav_at_issue": 1.469,
+        "usd_per_share": {
+          "issuance": 2.2156,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0053,
+          "total": 2.221,
+          "actual_change": 7.93,
+          "market": 5.709
+        },
+        "eth_per_share": {
+          "capital": 0.000813512,
+          "staking": 0,
+          "premium": 0.00000434,
+          "reanchor": 0,
+          "total": 0.000817852,
+          "actual_change": 0.000817852
+        }
+      }
+    },
+    {
+      "date": "2025-08-18",
+      "as_of": "2025-08-17",
+      "days": 7,
+      "eth": 1523373,
+      "eth_change": 373110,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029501,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.0295,
+        "window": [
+          "2025-08-11",
+          "2025-08-17"
+        ],
+        "days": 7,
+        "min_daily": 0.02846,
+        "max_daily": 0.03054,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 373110,
+      "eth_week_avg": 4494.54,
+      "eth_price_used": 4484.19,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        4439.35,
+        4529.03
+      ],
+      "est_purchase_cost": 1673095584,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 401400000,
+      "cash_change": null,
+      "cash_disclosed": false,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 1675064635,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 60.262,
+      "bmnr_week_range": [
+        57.81,
+        62.44
+      ],
+      "est_shares_issued": 30727688,
+      "est_shares_issued_range": [
+        23121239,
+        30727688
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 199003315,
+      "shares_outstanding_range": [
+        190987053,
+        199003315
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 6
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-08-11",
+          "shares": 173496950,
+          "basis": "424B5 (Aug 12, 2025): \"based on 173,496,950 shares of our Common Stock outstanding as of August 11, 2025\" (512,594,949 after − 339,097,999 assumed sales)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011831/form424b5.htm",
+          "used_as_anchor": true
+        }
+      ],
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4326,
+        "BTC": 117453,
+        "BMNR": 57.81,
+        "BMNR_date": "2025-08-15"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 7014062574,
+        "net": 7008674714,
+        "crypto": 7014062574,
+        "eth": 6590111598,
+        "ev": 11102981640,
+        "nav_ex_cash": 6612662574
+      },
+      "nav_per_share": 35.22,
+      "nav_per_share_gross": 35.25,
+      "nav_per_share_all": {
+        "full": 35.25,
+        "net": 35.22,
+        "crypto": 35.25,
+        "eth": 33.12
+      },
+      "mnav": 1.641,
+      "mnav_gross": 1.64,
+      "mnav_all": {
+        "full": 1.64,
+        "net": 1.641,
+        "crypto": 1.64,
+        "eth": 1.746,
+        "ev_to_nav_ex_cash": 1.679
+      },
+      "eth_per_share": 0.007655,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225012109/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1957449700488974847",
+      "notes": "Release gives crypto holdings only ($6.612B = ETH + 192 BTC); cash not disclosed, carried from Jul 28 ($401.4M).",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 33.2123,
+        "atm_shares": 30727688,
+        "mnav_at_issue": 1.814,
+        "usd_per_share": {
+          "issuance": 4.1767,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0095,
+          "total": 4.1862,
+          "actual_change": 3.26,
+          "market": -0.9262
+        },
+        "eth_per_share": {
+          "capital": 0.000815106,
+          "staking": 0,
+          "premium": 0.000004318,
+          "reanchor": 0,
+          "total": 0.000819424,
+          "actual_change": 0.000819424
+        }
+      }
+    },
+    {
+      "date": "2025-08-25",
+      "as_of": "2025-08-24",
+      "days": 7,
+      "eth": 1713899,
+      "eth_change": 190526,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029271,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02927,
+        "window": [
+          "2025-08-18",
+          "2025-08-24"
+        ],
+        "days": 7,
+        "min_daily": 0.02834,
+        "max_daily": 0.0297,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 190526,
+      "eth_week_avg": 4475.82,
+      "eth_price_used": 4465.51,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        4420.86,
+        4510.17
+      ],
+      "est_purchase_cost": 850796072,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": null,
+      "cash": 562000000,
+      "cash_change": null,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 852765123,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 51.586,
+      "bmnr_week_range": [
+        47.73,
+        54.87
+      ],
+      "est_shares_issued": 18939783,
+      "est_shares_issued_range": [
+        18939783,
+        21862629
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 217943098,
+      "shares_outstanding_range": [
+        212849681,
+        217943098
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 7
+      },
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4808,
+        "BTC": 113458,
+        "BMNR": 53.49,
+        "BMNR_date": "2025-08-22"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 8824210328,
+        "net": 8818822468,
+        "crypto": 8824210328,
+        "eth": 8240426392,
+        "ev": 11095776312,
+        "nav_ex_cash": 8262210328
+      },
+      "nav_per_share": 40.46,
+      "nav_per_share_gross": 40.49,
+      "nav_per_share_all": {
+        "full": 40.49,
+        "net": 40.46,
+        "crypto": 40.49,
+        "eth": 37.81
+      },
+      "mnav": 1.322,
+      "mnav_gross": 1.321,
+      "mnav_all": {
+        "full": 1.321,
+        "net": 1.322,
+        "crypto": 1.321,
+        "eth": 1.415,
+        "ev_to_nav_ex_cash": 1.343
+      },
+      "eth_per_share": 0.007864,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225012292/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1959993556669526467",
+      "notes": "Release states 221,515,180 fully diluted shares and $39.84 crypto NAV/share. Re-filed the same day as an 8-K/A (000149315225012298).",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 36.3658,
+        "atm_shares": 18939783,
+        "mnav_at_issue": 1.419,
+        "usd_per_share": {
+          "issuance": 1.3227,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0,
+          "total": 1.3227,
+          "actual_change": 5.24,
+          "market": 3.9173
+        },
+        "eth_per_share": {
+          "capital": 0.000206948,
+          "staking": 0,
+          "premium": 0.000002013,
+          "reanchor": 0,
+          "total": 0.000208961,
+          "actual_change": 0.000208961
+        }
+      }
+    },
+    {
+      "date": "2025-08-28",
+      "as_of": "2025-08-27",
+      "days": 3,
+      "eth": 1792690,
+      "eth_change": 78791,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029247,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02925,
+        "window": [
+          "2025-08-25",
+          "2025-08-27"
+        ],
+        "days": 3,
+        "min_daily": 0.02897,
+        "max_daily": 0.02948,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 78791,
+      "eth_week_avg": 4492.27,
+      "eth_price_used": 4481.92,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        4437.1,
+        4526.74
+      ],
+      "est_purchase_cost": 353135255,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 562000000,
+      "cash": 775000000,
+      "cash_change": 213000000,
+      "est_cash_opex": 843879,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 353979134,
+      "cash_shortfall": null,
+      "cash_shortfall_range": null,
+      "surplus_from_prior": null,
+      "funded_by_shares": null,
+      "funded_by_shares_range": null,
+      "surplus_carried_out": null,
+      "assumed_issue_price": 48.5267,
+      "bmnr_week_range": [
+        46.03,
+        49.95
+      ],
+      "est_shares_issued": 8356832,
+      "est_shares_issued_range": [
+        8356832,
+        13117577
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 226299930,
+      "shares_outstanding_range": [
+        225967259,
+        226299930
+      ],
+      "shares_basis": "estimate",
+      "shares_method": "interpolated between filed counts (Jul–Aug 2025)",
+      "shares_anchor": {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "weeks_since": 8
+      },
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4591,
+        "BTC": 111222,
+        "BMNR": 46.03,
+        "BMNR_date": "2025-08-27"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 5387860,
+      "nav": {
+        "full": 9026594414,
+        "net": 9021206554,
+        "crypto": 9026594414,
+        "eth": 8230239790,
+        "ev": 9641585778,
+        "nav_ex_cash": 8251594414
+      },
+      "nav_per_share": 39.86,
+      "nav_per_share_gross": 39.89,
+      "nav_per_share_all": {
+        "full": 39.89,
+        "net": 39.86,
+        "crypto": 39.89,
+        "eth": 36.37
+      },
+      "mnav": 1.155,
+      "mnav_gross": 1.154,
+      "mnav_all": {
+        "full": 1.154,
+        "net": 1.155,
+        "crypto": 1.154,
+        "eth": 1.266,
+        "ev_to_nav_ex_cash": 1.168
+      },
+      "eth_per_share": 0.0079217,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225012443/ex99-1.htm",
+      "x_post": null,
+      "notes": "Mid-week update (Wednesday) in the 8-K announcing David Sharbutt's board appointment.",
+      "accretion": {
+        "basis": "estimate (share count interpolated between filed counts, Jul–Aug 2025)",
+        "reanchor": false,
+        "nav_per_share_before": 37.981,
+        "atm_shares": 8356832,
+        "mnav_at_issue": 1.278,
+        "usd_per_share": {
+          "issuance": 0.3894,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0001,
+          "total": 0.3893,
+          "actual_change": -0.6,
+          "market": -0.9893
+        },
+        "eth_per_share": {
+          "capital": 0.000056967,
+          "staking": 0,
+          "premium": 8.02e-7,
+          "reanchor": 0,
+          "total": 0.000057769,
+          "actual_change": 0.000057769
+        }
+      }
+    },
+    {
+      "date": "2025-09-02",
+      "as_of": "2025-08-31",
+      "days": 4,
+      "eth": 1866974,
+      "eth_change": 74284,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028758,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02876,
+        "window": [
+          "2025-08-28",
+          "2025-08-31"
+        ],
+        "days": 4,
+        "min_daily": 0.02829,
+        "max_daily": 0.02922,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 74284,
+      "eth_week_avg": 4407.88,
+      "eth_price_used": 4397.73,
+      "eth_price_basis": "assumed",
+      "eth_price_source": "weekly avg × 0.9977 (pooled 10-Q factor, 4 quarters)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": [
+        4353.75,
+        4441.71
+      ],
+      "est_purchase_cost": 326680836,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 775000000,
+      "cash": 635000000,
+      "cash_change": -140000000,
+      "est_cash_opex": 1125172,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 327806008,
+      "cash_shortfall": 187806008,
+      "cash_shortfall_range": [
+        183414028,
+        192197988
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 0,
+      "funded_by_shares_range": [
+        0,
+        0
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 44.595,
+      "bmnr_week_range": [
+        43.62,
+        45.57
+      ],
+      "est_shares_issued": null,
+      "est_shares_issued_range": null,
+      "other_shares_issued": 0,
+      "shares_outstanding": 234712310,
+      "shares_outstanding_range": [
+        234712310,
+        234712310
+      ],
+      "shares_basis": "official",
+      "shares_anchor": {
+        "date": "2025-08-31",
+        "shares": 234712310,
+        "weeks_since": 0
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-08-31",
+          "shares": 234712310,
+          "basis": "10-K cover page (as of Aug 31, 2025), trade-date basis",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+          "used_as_anchor": true
+        }
+      ],
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4458,
+        "BTC": 108237,
+        "BMNR": 43.62,
+        "BMNR_date": "2025-08-29"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 8978751596,
+        "net": 8876495596,
+        "crypto": 8978751596,
+        "eth": 8322970092,
+        "ev": 9603150962,
+        "nav_ex_cash": 8343751596
+      },
+      "nav_per_share": 37.82,
+      "nav_per_share_gross": 38.25,
+      "nav_per_share_all": {
+        "full": 38.25,
+        "net": 37.82,
+        "crypto": 38.25,
+        "eth": 35.46
+      },
+      "mnav": 1.153,
+      "mnav_gross": 1.14,
+      "mnav_all": {
+        "full": 1.14,
+        "net": 1.153,
+        "crypto": 1.14,
+        "eth": 1.23,
+        "ev_to_nav_ex_cash": 1.151
+      },
+      "eth_per_share": 0.0079543,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225012513/ex99-3.htm",
+      "x_post": null,
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 38.4133,
+        "atm_shares": 4211369,
+        "mnav_at_issue": 1.161,
+        "usd_per_share": {
+          "issuance": 0.1109,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0016,
+          "total": 0.1093,
+          "actual_change": -2.04,
+          "market": -2.1493
+        },
+        "eth_per_share": {
+          "capital": 0.000173623,
+          "staking": 0,
+          "premium": 7.29e-7,
+          "reanchor": -0.000141788,
+          "total": 0.000032564,
+          "actual_change": 0.000032564
+        }
+      }
+    },
+    {
+      "date": "2025-09-08",
+      "as_of": "2025-09-07",
+      "days": 7,
+      "eth": 2069443,
+      "eth_change": 202469,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028875,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02887,
+        "window": [
+          "2025-09-01",
+          "2025-09-07"
+        ],
+        "days": 7,
+        "min_daily": 0.02809,
+        "max_daily": 0.03051,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 202469,
+      "eth_week_avg": 4325.08,
+      "eth_price_used": 4315.13,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 873680525,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 635000000,
+      "cash": 266000000,
+      "cash_change": -369000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 875649576,
+      "cash_shortfall": 506649576,
+      "cash_shortfall_range": [
+        504680525,
+        508618627
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 506649576,
+      "funded_by_shares_range": [
+        504680525,
+        508618627
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 42.895,
+      "bmnr_week_range": [
+        42.04,
+        44.86
+      ],
+      "est_shares_issued": 11811390,
+      "est_shares_issued_range": [
+        11250123,
+        12098445
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 246523700,
+      "shares_outstanding_range": [
+        245962433,
+        246810755
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-08-31",
+        "shares": 234712310,
+        "weeks_since": 1
+      },
+      "btc": 192,
+      "orbs_value": 0,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4312,
+        "BTC": 111168,
+        "BMNR": 42.04,
+        "BMNR_date": "2025-09-05"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 9210782472,
+        "net": 9108526472,
+        "crypto": 9210782472,
+        "eth": 8923438216,
+        "ev": 10097856348,
+        "nav_ex_cash": 8944782472
+      },
+      "nav_per_share": 36.95,
+      "nav_per_share_gross": 37.36,
+      "nav_per_share_all": {
+        "full": 37.36,
+        "net": 36.95,
+        "crypto": 37.36,
+        "eth": 36.2
+      },
+      "mnav": 1.138,
+      "mnav_gross": 1.125,
+      "mnav_all": {
+        "full": 1.125,
+        "net": 1.138,
+        "crypto": 1.125,
+        "eth": 1.161,
+        "ev_to_nav_ex_cash": 1.129
+      },
+      "eth_per_share": 0.0083945,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225012776/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1965032435768504591",
+      "notes": "8-K states $266M cash (the X thread says $264M; the 8-K is used). Announces the $20M Eightco (ORBS) investment.",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 36.7613,
+        "atm_shares": 11811390,
+        "mnav_at_issue": 1.167,
+        "usd_per_share": {
+          "issuance": 0.2939,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0002,
+          "total": 0.2941,
+          "actual_change": -0.87,
+          "market": -1.1641
+        },
+        "eth_per_share": {
+          "capital": 0.000438302,
+          "staking": 0,
+          "premium": 0.000001889,
+          "reanchor": 0,
+          "total": 0.000440191,
+          "actual_change": 0.000440191
+        }
+      }
+    },
+    {
+      "date": "2025-09-15",
+      "as_of": "2025-09-14",
+      "days": 7,
+      "eth": 2151676,
+      "eth_change": 82233,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028403,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.0284,
+        "window": [
+          "2025-09-08",
+          "2025-09-14"
+        ],
+        "days": 7,
+        "min_daily": 0.02803,
+        "max_daily": 0.02867,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 82233,
+      "eth_week_avg": 4488.65,
+      "eth_price_used": 4478.33,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 368266191,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 266000000,
+      "cash": 569000000,
+      "cash_change": 303000000,
+      "est_cash_opex": 1969051,
+      "investments": 20000000,
+      "disclosed_proceeds": null,
+      "est_spending": 390235242,
+      "cash_shortfall": 693235242,
+      "cash_shortfall_range": [
+        691266191,
+        695204293
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 693235242,
+      "funded_by_shares_range": [
+        691266191,
+        695204293
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 47.374,
+      "bmnr_week_range": [
+        43.79,
+        55.09
+      ],
+      "est_shares_issued": 14633243,
+      "est_shares_issued_range": [
+        12547943,
+        15875869
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 261156943,
+      "shares_outstanding_range": [
+        258510376,
+        262686624
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-08-31",
+        "shares": 234712310,
+        "weeks_since": 2
+      },
+      "btc": 192,
+      "orbs_value": 214000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4632,
+        "BTC": 115408,
+        "BMNR": 55.09,
+        "BMNR_date": "2025-09-12"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 10771721568,
+        "net": 10669465568,
+        "crypto": 10557721568,
+        "eth": 9966563232,
+        "ev": 13818135990,
+        "nav_ex_cash": 10202721568
+      },
+      "nav_per_share": 40.85,
+      "nav_per_share_gross": 41.25,
+      "nav_per_share_all": {
+        "full": 41.25,
+        "net": 40.85,
+        "crypto": 40.43,
+        "eth": 38.16
+      },
+      "mnav": 1.348,
+      "mnav_gross": 1.336,
+      "mnav_all": {
+        "full": 1.336,
+        "net": 1.348,
+        "crypto": 1.363,
+        "eth": 1.444,
+        "ev_to_nav_ex_cash": 1.354
+      },
+      "eth_per_share": 0.008239,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225013376/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1967577261948666199",
+      "notes": "First Eightco (ORBS) stake ($214M). investments_usd = $20M cash paid for the Eightco shares (announced Sep 8; 10-Q Sep–Nov 2025: purchase of equity securities $20,000K).",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 38.4308,
+        "atm_shares": 14633243,
+        "mnav_at_issue": 1.233,
+        "usd_per_share": {
+          "issuance": 0.5011,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0043,
+          "total": 0.4968,
+          "actual_change": 3.9,
+          "market": 3.4032
+        },
+        "eth_per_share": {
+          "capital": -0.000156208,
+          "staking": 0,
+          "premium": 7.24e-7,
+          "reanchor": 0,
+          "total": -0.000155484,
+          "actual_change": -0.000155484
+        }
+      }
+    },
+    {
+      "date": "2025-09-22",
+      "as_of": "2025-09-21",
+      "days": 7,
+      "eth": 2416054,
+      "eth_change": 264378,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028587,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02859,
+        "window": [
+          "2025-09-15",
+          "2025-09-21"
+        ],
+        "days": 7,
+        "min_daily": 0.02804,
+        "max_daily": 0.02917,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 264378,
+      "eth_week_avg": 4516.79,
+      "eth_price_used": 4506.4,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 1191393385,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 569000000,
+      "cash": 345000000,
+      "cash_change": -224000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 1193362436,
+      "cash_shortfall": 969362436,
+      "cash_shortfall_range": [
+        967393385,
+        971331487
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 0,
+      "funded_by_shares_range": [
+        0,
+        0
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 57.472,
+      "bmnr_week_range": [
+        53.11,
+        61.29
+      ],
+      "est_shares_issued": null,
+      "est_shares_issued_range": null,
+      "other_shares_issued": 0,
+      "shares_outstanding": 279524602,
+      "shares_outstanding_range": [
+        279524602,
+        279524602
+      ],
+      "shares_basis": "official",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 0
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-09-19",
+          "shares": 279524602,
+          "basis": "424B5 prospectus supplement: \"Common Stock Outstanding Before this Offering\"",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225014391/form424b5.htm",
+          "used_as_anchor": true
+        }
+      ],
+      "btc": 192,
+      "orbs_value": 175000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4497,
+        "BTC": 115306,
+        "BMNR": 61.29,
+        "BMNR_date": "2025-09-19"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 11407133590,
+        "net": 11304877590,
+        "crypto": 11232133590,
+        "eth": 10864994838,
+        "ev": 16787062857,
+        "nav_ex_cash": 11062133590
+      },
+      "nav_per_share": 40.44,
+      "nav_per_share_gross": 40.81,
+      "nav_per_share_all": {
+        "full": 40.81,
+        "net": 40.44,
+        "crypto": 40.18,
+        "eth": 38.87
+      },
+      "mnav": 1.515,
+      "mnav_gross": 1.502,
+      "mnav_all": {
+        "full": 1.502,
+        "net": 1.515,
+        "crypto": 1.525,
+        "eth": 1.577,
+        "ev_to_nav_ex_cash": 1.518
+      },
+      "eth_per_share": 0.0086434,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225014387/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1970113351016468683",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 39.9054,
+        "atm_shares": 16866690,
+        "mnav_at_issue": 1.44,
+        "usd_per_share": {
+          "issuance": 1.06,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0028,
+          "total": 1.0628,
+          "actual_change": -0.41,
+          "market": -1.4728
+        },
+        "eth_per_share": {
+          "capital": 0.00044649,
+          "staking": 0,
+          "premium": 0.000002175,
+          "reanchor": -0.000044241,
+          "total": 0.000404424,
+          "actual_change": 0.000404424
+        }
+      }
+    },
+    {
+      "date": "2025-09-29",
+      "as_of": "2025-09-28",
+      "days": 7,
+      "eth": 2650900,
+      "eth_change": 234846,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028699,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.0287,
+        "window": [
+          "2025-09-22",
+          "2025-09-28"
+        ],
+        "days": 7,
+        "min_daily": 0.02806,
+        "max_daily": 0.029,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 234846,
+      "eth_week_avg": 4083.74,
+      "eth_price_used": 4074.35,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 956844189,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 345000000,
+      "cash": 436000000,
+      "cash_change": 91000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": 361751000,
+      "est_spending": 958813240,
+      "cash_shortfall": 688062240,
+      "cash_shortfall_range": [
+        686093189,
+        690031291
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 688062240,
+      "funded_by_shares_range": [
+        686093189,
+        690031291
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 52.316,
+      "bmnr_week_range": [
+        49.57,
+        55.1
+      ],
+      "est_shares_issued": 13152042,
+      "est_shares_issued_range": [
+        12451782,
+        13920341
+      ],
+      "other_shares_issued": 5217715,
+      "shares_outstanding": 297894359,
+      "shares_outstanding_range": [
+        297194099,
+        298662658
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 1
+      },
+      "btc": 192,
+      "orbs_value": 157000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4141,
+        "BTC": 112123,
+        "BMNR": 50.5,
+        "BMNR_date": "2025-09-26"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 11591904516,
+        "net": 11489648516,
+        "crypto": 11434904516,
+        "eth": 10977376900,
+        "ev": 14607665130,
+        "nav_ex_cash": 11155904516
+      },
+      "nav_per_share": 38.57,
+      "nav_per_share_gross": 38.91,
+      "nav_per_share_all": {
+        "full": 38.91,
+        "net": 38.57,
+        "crypto": 38.39,
+        "eth": 36.85
+      },
+      "mnav": 1.309,
+      "mnav_gross": 1.298,
+      "mnav_all": {
+        "full": 1.298,
+        "net": 1.309,
+        "crypto": 1.316,
+        "eth": 1.37,
+        "ev_to_nav_ex_cash": 1.309
+      },
+      "eth_per_share": 0.0088988,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225015879/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1972627021856677976",
+      "notes": "Registered direct offering closed Sep 23: 5,217,715 shares at $70 + 10,435,430 warrants at $87.50 (8-K Sep 22). Net proceeds $361.751M (10-Q Sep–Nov 2025 cash-flow statement).",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 36.8712,
+        "atm_shares": 13152042,
+        "mnav_at_issue": 1.419,
+        "usd_per_share": {
+          "issuance": 0.9524,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0.0008,
+          "total": 0.9532,
+          "actual_change": -1.87,
+          "market": -2.8232
+        },
+        "eth_per_share": {
+          "capital": 0.000253539,
+          "staking": 0,
+          "premium": 0.000001813,
+          "reanchor": 0,
+          "total": 0.000255353,
+          "actual_change": 0.000255353
+        }
+      }
+    },
+    {
+      "date": "2025-10-06",
+      "as_of": "2025-10-05",
+      "days": 7,
+      "eth": 2830151,
+      "eth_change": 179251,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028658,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02866,
+        "window": [
+          "2025-09-29",
+          "2025-10-05"
+        ],
+        "days": 7,
+        "min_daily": 0.02821,
+        "max_daily": 0.02933,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 179251,
+      "eth_week_avg": 4388.83,
+      "eth_price_used": 4378.74,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 784892751,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 436000000,
+      "cash": 456000000,
+      "cash_change": 20000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 786861802,
+      "cash_shortfall": 806861802,
+      "cash_shortfall_range": [
+        804892751,
+        808830853
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 806861802,
+      "funded_by_shares_range": [
+        804892751,
+        808830853
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 54.132,
+      "bmnr_week_range": [
+        51.93,
+        56.65
+      ],
+      "est_shares_issued": 14905450,
+      "est_shares_issued_range": [
+        14208169,
+        15575406
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 312799809,
+      "shares_outstanding_range": [
+        311402268,
+        314238064
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 2
+      },
+      "btc": 192,
+      "orbs_value": 113000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4535,
+        "BTC": 123513,
+        "BMNR": 56.65,
+        "BMNR_date": "2025-10-03"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 13427449281,
+        "net": 13325193281,
+        "crypto": 13314449281,
+        "eth": 12834734785,
+        "ev": 17264109180,
+        "nav_ex_cash": 12971449281
+      },
+      "nav_per_share": 42.6,
+      "nav_per_share_gross": 42.93,
+      "nav_per_share_all": {
+        "full": 42.93,
+        "net": 42.6,
+        "crypto": 42.57,
+        "eth": 41.03
+      },
+      "mnav": 1.33,
+      "mnav_gross": 1.32,
+      "mnav_all": {
+        "full": 1.32,
+        "net": 1.33,
+        "crypto": 1.331,
+        "eth": 1.381,
+        "ev_to_nav_ex_cash": 1.331
+      },
+      "eth_per_share": 0.0090478,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225017019/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1975175272342175976",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 40.7749,
+        "atm_shares": 14905450,
+        "mnav_at_issue": 1.328,
+        "usd_per_share": {
+          "issuance": 0.6365,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0005,
+          "total": 0.636,
+          "actual_change": 4.03,
+          "market": 3.394
+        },
+        "eth_per_share": {
+          "capital": 0.000147693,
+          "staking": 0,
+          "premium": 0.000001318,
+          "reanchor": 0,
+          "total": 0.000149011,
+          "actual_change": 0.000149011
+        }
+      }
+    },
+    {
+      "date": "2025-10-13",
+      "as_of": "2025-10-12",
+      "days": 7,
+      "eth": 3032188,
+      "eth_change": 202037,
+      "eth_acquired_reported": 202037,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.03021,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.03021,
+        "window": [
+          "2025-10-06",
+          "2025-10-12"
+        ],
+        "days": 7,
+        "min_daily": 0.0285,
+        "max_daily": 0.03881,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 202037,
+      "eth_week_avg": 4256.25,
+      "eth_price_used": 4246.46,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 857942165,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 456000000,
+      "cash": 104000000,
+      "cash_change": -352000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 859911216,
+      "cash_shortfall": 507911216,
+      "cash_shortfall_range": [
+        505942165,
+        509880267
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 507911216,
+      "funded_by_shares_range": [
+        505942165,
+        509880267
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 58.798,
+      "bmnr_week_range": [
+        52.47,
+        63.22
+      ],
+      "est_shares_issued": 8638240,
+      "est_shares_issued_range": [
+        8002881,
+        9717558
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 321438049,
+      "shares_outstanding_range": [
+        319405149,
+        323955622
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 3
+      },
+      "btc": 192,
+      "orbs_value": 135000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4154,
+        "BTC": 115170,
+        "BMNR": 52.47,
+        "BMNR_date": "2025-10-10"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 12856821592,
+        "net": 12754565592,
+        "crypto": 12721821592,
+        "eth": 12595708952,
+        "ev": 16761854431,
+        "nav_ex_cash": 12752821592
+      },
+      "nav_per_share": 39.68,
+      "nav_per_share_gross": 40,
+      "nav_per_share_all": {
+        "full": 40,
+        "net": 39.68,
+        "crypto": 39.58,
+        "eth": 39.19
+      },
+      "mnav": 1.322,
+      "mnav_gross": 1.312,
+      "mnav_all": {
+        "full": 1.312,
+        "net": 1.322,
+        "crypto": 1.326,
+        "eth": 1.339,
+        "ev_to_nav_ex_cash": 1.314
+      },
+      "eth_per_share": 0.0094332,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225017868/ex99-3.htm",
+      "x_post": "https://x.com/BitMNR/status/1977717131182547141",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 40.0777,
+        "atm_shares": 8638240,
+        "mnav_at_issue": 1.467,
+        "usd_per_share": {
+          "issuance": 0.5031,
+          "buybacks": 0,
+          "staking": 0,
+          "other": 0,
+          "total": 0.5031,
+          "actual_change": -2.92,
+          "market": -3.4231
+        },
+        "eth_per_share": {
+          "capital": 0.000383947,
+          "staking": 0,
+          "premium": 0.000001446,
+          "reanchor": 0,
+          "total": 0.000385393,
+          "actual_change": 0.000385393
+        }
+      }
+    },
+    {
+      "date": "2025-10-20",
+      "as_of": "2025-10-19",
+      "days": 7,
+      "eth": 3236014,
+      "eth_change": 203826,
+      "eth_acquired_reported": 203826,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028803,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.0288,
+        "window": [
+          "2025-10-13",
+          "2025-10-19"
+        ],
+        "days": 7,
+        "min_daily": 0.02816,
+        "max_daily": 0.02964,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 203826,
+      "eth_week_avg": 3994.38,
+      "eth_price_used": 3985.19,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 812285933,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 104000000,
+      "cash": 219000000,
+      "cash_change": 115000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 814254984,
+      "cash_shortfall": 929254984,
+      "cash_shortfall_range": [
+        927285933,
+        931224035
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 929254984,
+      "funded_by_shares_range": [
+        927285933,
+        931224035
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 52.9,
+      "bmnr_week_range": [
+        49.85,
+        56.85
+      ],
+      "est_shares_issued": 17566257,
+      "est_shares_issued_range": [
+        16311098,
+        18680522
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 339004305,
+      "shares_outstanding_range": [
+        335716247,
+        342636144
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 4
+      },
+      "btc": 192,
+      "orbs_value": 119000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4022,
+        "BTC": 108667,
+        "BMNR": 49.85,
+        "BMNR_date": "2025-10-17"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 13374112372,
+        "net": 13271856372,
+        "crypto": 13255112372,
+        "eth": 13015248308,
+        "ev": 16680364604,
+        "nav_ex_cash": 13155112372
+      },
+      "nav_per_share": 39.15,
+      "nav_per_share_gross": 39.45,
+      "nav_per_share_all": {
+        "full": 39.45,
+        "net": 39.15,
+        "crypto": 39.1,
+        "eth": 38.39
+      },
+      "mnav": 1.273,
+      "mnav_gross": 1.264,
+      "mnav_all": {
+        "full": 1.264,
+        "net": 1.273,
+        "crypto": 1.275,
+        "eth": 1.298,
+        "ev_to_nav_ex_cash": 1.268
+      },
+      "eth_per_share": 0.0095456,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225018577/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1980272188528775569",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 38.174,
+        "atm_shares": 17566257,
+        "mnav_at_issue": 1.386,
+        "usd_per_share": {
+          "issuance": 0.7631,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0003,
+          "total": 0.7628,
+          "actual_change": -0.53,
+          "market": -1.2928
+        },
+        "eth_per_share": {
+          "capital": 0.000111064,
+          "staking": 0,
+          "premium": 0.000001383,
+          "reanchor": 0,
+          "total": 0.000112447,
+          "actual_change": 0.000112447
+        }
+      }
+    },
+    {
+      "date": "2025-10-27",
+      "as_of": "2025-10-26",
+      "days": 7,
+      "eth": 3313069,
+      "eth_change": 77055,
+      "eth_acquired_reported": 77055,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028408,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02841,
+        "window": [
+          "2025-10-20",
+          "2025-10-26"
+        ],
+        "days": 7,
+        "min_daily": 0.02818,
+        "max_daily": 0.02867,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 77055,
+      "eth_week_avg": 3938.24,
+      "eth_price_used": 3929.18,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 302763123,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 219000000,
+      "cash": 305000000,
+      "cash_change": 86000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 304732174,
+      "cash_shortfall": 390732174,
+      "cash_shortfall_range": [
+        388763123,
+        392701225
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 390732174,
+      "funded_by_shares_range": [
+        388763123,
+        392701225
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 50.656,
+      "bmnr_week_range": [
+        48.03,
+        53.8
+      ],
+      "est_shares_issued": 7713443,
+      "est_shares_issued_range": [
+        7226080,
+        8176165
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 346717748,
+      "shares_outstanding_range": [
+        342942328,
+        350812310
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 5
+      },
+      "btc": 192,
+      "orbs_value": 88000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 4074,
+        "BTC": 114472,
+        "BMNR": 50.41,
+        "BMNR_date": "2025-10-24"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 13912421730,
+        "net": 13810165730,
+        "crypto": 13824421730,
+        "eth": 13497443106,
+        "ev": 17173041677,
+        "nav_ex_cash": 13607421730
+      },
+      "nav_per_share": 39.83,
+      "nav_per_share_gross": 40.13,
+      "nav_per_share_all": {
+        "full": 40.13,
+        "net": 39.83,
+        "crypto": 39.87,
+        "eth": 38.93
+      },
+      "mnav": 1.266,
+      "mnav_gross": 1.256,
+      "mnav_all": {
+        "full": 1.256,
+        "net": 1.266,
+        "crypto": 1.264,
+        "eth": 1.295,
+        "ev_to_nav_ex_cash": 1.262
+      },
+      "eth_per_share": 0.0095555,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225019644/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1982787908038721859",
+      "notes": "8-K states $4,074 per ETH (the X thread says $4,164; the 8-K is used).",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 38.35,
+        "atm_shares": 7713443,
+        "mnav_at_issue": 1.321,
+        "usd_per_share": {
+          "issuance": 0.2738,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0037,
+          "total": 0.2701,
+          "actual_change": 0.68,
+          "market": 0.4099
+        },
+        "eth_per_share": {
+          "capital": 0.000009368,
+          "staking": 0,
+          "premium": 5.11e-7,
+          "reanchor": 0,
+          "total": 0.000009879,
+          "actual_change": 0.000009879
+        }
+      }
+    },
+    {
+      "date": "2025-11-03",
+      "as_of": "2025-11-02",
+      "days": 7,
+      "eth": 3395422,
+      "eth_change": 82353,
+      "eth_acquired_reported": 82353,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.02858,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02858,
+        "window": [
+          "2025-10-27",
+          "2025-11-02"
+        ],
+        "days": 7,
+        "min_daily": 0.02816,
+        "max_daily": 0.02931,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 82353,
+      "eth_week_avg": 3920.35,
+      "eth_price_used": 3911.33,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 322110023,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 305000000,
+      "cash": 389000000,
+      "cash_change": 84000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 324079074,
+      "cash_shortfall": 408079074,
+      "cash_shortfall_range": [
+        406110023,
+        410048125
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 408079074,
+      "funded_by_shares_range": [
+        406110023,
+        410048125
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 49.442,
+      "bmnr_week_range": [
+        44.55,
+        53.71
+      ],
+      "est_shares_issued": 8253693,
+      "est_shares_issued_range": [
+        7561162,
+        9204223
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 354971441,
+      "shares_outstanding_range": [
+        350503490,
+        360016533
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 6
+      },
+      "btc": 192,
+      "orbs_value": 62000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3903,
+        "BTC": 110640,
+        "BMNR": 46.65,
+        "BMNR_date": "2025-10-31"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 13724574946,
+        "net": 13622318946,
+        "crypto": 13662574946,
+        "eth": 13252332066,
+        "ev": 16170417723,
+        "nav_ex_cash": 13335574946
+      },
+      "nav_per_share": 38.38,
+      "nav_per_share_gross": 38.66,
+      "nav_per_share_all": {
+        "full": 38.66,
+        "net": 38.38,
+        "crypto": 38.49,
+        "eth": 37.33
+      },
+      "mnav": 1.216,
+      "mnav_gross": 1.207,
+      "mnav_all": {
+        "full": 1.207,
+        "net": 1.216,
+        "crypto": 1.212,
+        "eth": 1.25,
+        "ev_to_nav_ex_cash": 1.213
+      },
+      "eth_per_share": 0.0095653,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225020545/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1985351977455268063",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 38.3629,
+        "atm_shares": 8253693,
+        "mnav_at_issue": 1.289,
+        "usd_per_share": {
+          "issuance": 0.2576,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0035,
+          "total": 0.2542,
+          "actual_change": -1.45,
+          "market": -1.7042
+        },
+        "eth_per_share": {
+          "capital": 0.000009283,
+          "staking": 0,
+          "premium": 5.34e-7,
+          "reanchor": 0,
+          "total": 0.000009817,
+          "actual_change": 0.000009817
+        }
+      }
+    },
+    {
+      "date": "2025-11-10",
+      "as_of": "2025-11-09",
+      "days": 7,
+      "eth": 3505723,
+      "eth_change": 110301,
+      "eth_acquired_reported": 110288,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029389,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02939,
+        "window": [
+          "2025-11-03",
+          "2025-11-09"
+        ],
+        "days": 7,
+        "min_daily": 0.02816,
+        "max_daily": 0.03063,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 110301,
+      "eth_week_avg": 3435.8,
+      "eth_price_used": 3427.9,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 378100540,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 389000000,
+      "cash": 398000000,
+      "cash_change": 9000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 380069591,
+      "cash_shortfall": 389069591,
+      "cash_shortfall_range": [
+        387100540,
+        391038642
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 389069591,
+      "funded_by_shares_range": [
+        387100540,
+        391038642
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 40.268,
+      "bmnr_week_range": [
+        37.37,
+        42.86
+      ],
+      "est_shares_issued": 9662004,
+      "est_shares_issued_range": [
+        9031744,
+        10463972
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 364633445,
+      "shares_outstanding_range": [
+        359535234,
+        370480505
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 7
+      },
+      "btc": 192,
+      "orbs_value": 61000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3639,
+        "BTC": 104720,
+        "BMNR": 40.23,
+        "BMNR_date": "2025-11-07"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 13236432237,
+        "net": 13134176237,
+        "crypto": 13175432237,
+        "eth": 12757325997,
+        "ev": 14271203492,
+        "nav_ex_cash": 12838432237
+      },
+      "nav_per_share": 36.02,
+      "nav_per_share_gross": 36.3,
+      "nav_per_share_all": {
+        "full": 36.3,
+        "net": 36.02,
+        "crypto": 36.13,
+        "eth": 34.99
+      },
+      "mnav": 1.117,
+      "mnav_gross": 1.108,
+      "mnav_all": {
+        "full": 1.108,
+        "net": 1.117,
+        "crypto": 1.113,
+        "eth": 1.15,
+        "ev_to_nav_ex_cash": 1.112
+      },
+      "eth_per_share": 0.0096144,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225021429/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1987897065834217505",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 33.9069,
+        "atm_shares": 9662004,
+        "mnav_at_issue": 1.188,
+        "usd_per_share": {
+          "issuance": 0.1686,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.003,
+          "total": 0.1655,
+          "actual_change": -2.36,
+          "market": -2.5255
+        },
+        "eth_per_share": {
+          "capital": 0.000048342,
+          "staking": 0,
+          "premium": 6.96e-7,
+          "reanchor": 0,
+          "total": 0.000049037,
+          "actual_change": 0.000049037
+        }
+      }
+    },
+    {
+      "date": "2025-11-17",
+      "as_of": "2025-11-16",
+      "days": 7,
+      "eth": 3559879,
+      "eth_change": 54156,
+      "eth_acquired_reported": null,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028799,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.0288,
+        "window": [
+          "2025-11-10",
+          "2025-11-16"
+        ],
+        "days": 7,
+        "min_daily": 0.02828,
+        "max_daily": 0.02978,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 54156,
+      "eth_week_avg": 3284.69,
+      "eth_price_used": 3277.14,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 177476535,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 398000000,
+      "cash": 607000000,
+      "cash_change": 209000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 179445586,
+      "cash_shortfall": 388445586,
+      "cash_shortfall_range": [
+        386476535,
+        390414637
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 388445586,
+      "funded_by_shares_range": [
+        386476535,
+        390414637
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 38.456,
+      "bmnr_week_range": [
+        34.4,
+        41.15
+      ],
+      "est_shares_issued": 10101040,
+      "est_shares_issued_range": [
+        9391896,
+        11349263
+      ],
+      "other_shares_issued": 0,
+      "shares_outstanding": 374734485,
+      "shares_outstanding_range": [
+        368927130,
+        381829767
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-09-19",
+        "shares": 279524602,
+        "weeks_since": 8
+      },
+      "btc": 192,
+      "orbs_value": 37000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 3120,
+        "BTC": 94177,
+        "BMNR": 34.4,
+        "BMNR_date": "2025-11-14"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 11768904464,
+        "net": 11666648464,
+        "crypto": 11731904464,
+        "eth": 11106822480,
+        "ev": 12283866284,
+        "nav_ex_cash": 11161904464
+      },
+      "nav_per_share": 31.13,
+      "nav_per_share_gross": 31.41,
+      "nav_per_share_all": {
+        "full": 31.41,
+        "net": 31.13,
+        "crypto": 31.31,
+        "eth": 29.64
+      },
+      "mnav": 1.105,
+      "mnav_gross": 1.095,
+      "mnav_all": {
+        "full": 1.095,
+        "net": 1.105,
+        "crypto": 1.099,
+        "eth": 1.161,
+        "ev_to_nav_ex_cash": 1.101
+      },
+      "eth_per_share": 0.0094997,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225023780/ex99-3.htm",
+      "x_post": "https://x.com/BitMNR/status/1990431998259736783",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (v3 model)",
+        "reanchor": false,
+        "nav_per_share_before": 32.6137,
+        "atm_shares": 10101040,
+        "mnav_at_issue": 1.179,
+        "usd_per_share": {
+          "issuance": 0.1575,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0042,
+          "total": 0.1533,
+          "actual_change": -4.89,
+          "market": -5.0433
+        },
+        "eth_per_share": {
+          "capital": -0.000114971,
+          "staking": 0,
+          "premium": 3.32e-7,
+          "reanchor": 0,
+          "total": -0.000114639,
+          "actual_change": -0.000114639
+        }
+      }
+    },
+    {
+      "date": "2025-11-24",
+      "as_of": "2025-11-23",
+      "days": 7,
+      "eth": 3629701,
+      "eth_change": 69822,
+      "eth_acquired_reported": 69822,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.029091,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.02909,
+        "window": [
+          "2025-11-17",
+          "2025-11-23"
+        ],
+        "days": 7,
+        "min_daily": 0.02813,
+        "max_daily": 0.03056,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 69822,
+      "eth_week_avg": 2905.34,
+      "eth_price_used": 2898.66,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 202390079,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 607000000,
+      "cash": 800000000,
+      "cash_change": 193000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 204359130,
+      "cash_shortfall": 397359130,
+      "cash_shortfall_range": [
+        395390079,
+        399328181
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 79471826,
+      "funded_by_shares_range": [
+        79078016,
+        79865636
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 28.886,
+      "bmnr_week_range": [
+        26,
+        32.28
+      ],
+      "est_shares_issued": null,
+      "est_shares_issued_range": null,
+      "other_shares_issued": 0,
+      "shares_outstanding": 386819046,
+      "shares_outstanding_range": [
+        386517576,
+        387139578
+      ],
+      "shares_basis": "estimate",
+      "shares_anchor": {
+        "date": "2025-11-20",
+        "shares": 384067823,
+        "weeks_since": 0
+      },
+      "checkpoints_in_week": [
+        {
+          "date": "2025-11-20",
+          "shares": 384067823,
+          "basis": "10-K cover page",
+          "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+          "used_as_anchor": true
+        }
+      ],
+      "btc": 192,
+      "orbs_value": 38000000,
+      "beast_value": 0,
+      "snapshot_prices": {
+        "ETH": 2840,
+        "BTC": 86805,
+        "BMNR": 26,
+        "BMNR_date": "2025-11-21"
+      },
+      "preferred_usd": 0,
+      "debt_usd": 0,
+      "liabilities_usd": 102256000,
+      "nav": {
+        "full": 11163017400,
+        "net": 11060761400,
+        "crypto": 11125017400,
+        "eth": 10308350840,
+        "ev": 9257295196,
+        "nav_ex_cash": 10363017400
+      },
+      "nav_per_share": 28.59,
+      "nav_per_share_gross": 28.86,
+      "nav_per_share_all": {
+        "full": 28.86,
+        "net": 28.59,
+        "crypto": 28.76,
+        "eth": 26.65
+      },
+      "mnav": 0.909,
+      "mnav_gross": 0.901,
+      "mnav_all": {
+        "full": 0.901,
+        "net": 0.909,
+        "crypto": 0.904,
+        "eth": 0.976,
+        "ev_to_nav_ex_cash": 0.893
+      },
+      "eth_per_share": 0.0093835,
+      "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024762/ex99-1.htm",
+      "x_post": "https://x.com/BitMNR/status/1992957336927793389",
+      "notes": "",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 29.0939,
+        "atm_shares": 13756115,
+        "mnav_at_issue": 0.993,
+        "usd_per_share": {
+          "issuance": -0.0074,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0039,
+          "total": -0.0113,
+          "actual_change": -2.54,
+          "market": -2.5287
+        },
+        "eth_per_share": {
+          "capital": -0.000157743,
+          "staking": 0,
+          "premium": 4.15e-7,
+          "reanchor": 0.000041051,
+          "total": -0.000116277,
+          "actual_change": -0.000116277
+        }
+      }
+    },
+    {
+      "date": "2025-12-01",
+      "as_of": "2025-11-30",
+      "days": 7,
+      "eth": 3726499,
+      "eth_change": 96798,
+      "eth_acquired_reported": 96798,
+      "eth_staked": 0,
+      "staking_yield_7d": null,
+      "staking_yield_used": 0.028296,
+      "staking_yield_basis": "CESR fallback",
+      "staking_yield_check": {
+        "cesr": 0.0283,
+        "window": [
+          "2025-11-24",
+          "2025-11-30"
+        ],
+        "days": 7,
+        "min_daily": 0.02797,
+        "max_daily": 0.02857,
+        "diff_vs_stated_pt": null,
+        "flagged": false
+      },
+      "est_staking_eth": 0,
+      "est_purchased_eth": 96798,
+      "eth_week_avg": 2994.83,
+      "eth_price_used": 2987.94,
+      "eth_price_basis": "disclosed",
+      "eth_price_source": "10-Q quarter ended Nov 30, 2025, Note 3 (digital assets): paid $4,043/ETH vs $4,052 market (×0.9977)",
+      "eth_price_factor": 0.9977,
+      "eth_price_range": null,
+      "est_purchase_cost": 289226799,
+      "buyback_shares": 0,
+      "buyback_price": null,
+      "buyback_price_basis": null,
+      "buyback_cost": 0,
+      "cash_prev": 800000000,
+      "cash": 882000000,
+      "cash_change": 82000000,
+      "est_cash_opex": 1969051,
+      "investments": 0,
+      "disclosed_proceeds": null,
+      "est_spending": 291195850,
+      "cash_shortfall": 373195850,
+      "cash_shortfall_range": [
+        371226799,
+        375164901
+      ],
+      "surplus_from_prior": 0,
+      "funded_by_shares": 0,
+      "funded_by_shares_range": [
+        0,
+        0
+      ],
+      "surplus_carried_out": 0,
+      "assumed_issue_price": 31.2175,
+      "bmnr_week_range": [
+        28.91,
+        33.12
+      ],
       "est_shares_issued": null,
       "est_shares_issued_range": null,
       "other_shares_issued": 0,
@@ -293,7 +3488,31 @@
       "eth_per_share": 0.0091206,
       "sec_8k": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225025501/ex99-1.htm",
       "x_post": "https://x.com/BitMNR/status/1995494975078109335",
-      "notes": "Cash line is \"unencumbered cash\"."
+      "notes": "Cash line is \"unencumbered cash\".",
+      "accretion": {
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
+        "reanchor": true,
+        "nav_per_share_before": 30.047,
+        "atm_shares": 11954700,
+        "mnav_at_issue": 1.039,
+        "usd_per_share": {
+          "issuance": 0.0342,
+          "buybacks": 0,
+          "staking": 0,
+          "other": -0.0032,
+          "total": 0.0311,
+          "actual_change": 1.13,
+          "market": 1.0989
+        },
+        "eth_per_share": {
+          "capital": -0.000038184,
+          "staking": 0,
+          "premium": 5.45e-7,
+          "reanchor": -0.000225184,
+          "total": -0.000262823,
+          "actual_change": -0.000262823
+        }
+      }
     },
     {
       "date": "2025-12-08",
@@ -1335,7 +4554,7 @@
       "x_post": "https://x.com/BitMNR/status/2013605389569228938",
       "notes": "Staking yield = CESR (no Bitmine 7-day yield in this release).",
       "accretion": {
-        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
         "nav_per_share_before": 32.1776,
         "atm_shares": 3642419,
@@ -2252,7 +5471,7 @@
       "x_post": "https://x.com/BitMNR/status/2028469808816173532",
       "notes": "",
       "accretion": {
-        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
         "nav_per_share_before": 19.8534,
         "atm_shares": 14121753,
@@ -4208,7 +7427,7 @@
       "x_post": "https://x.com/BitMNR/status/2061436317469176271",
       "notes": "X thread is titled 'May 26' but is the Jun 1 update.",
       "accretion": {
-        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
         "nav_per_share_before": 20.1768,
         "atm_shares": 3003894,
@@ -5113,7 +8332,7 @@
       "x_post": null,
       "notes": "No @BitMNR 'holdings update' X post found for this week. Same 8-K announced the fiscal year-end change (Aug 31 → Dec 31).",
       "accretion": {
-        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
         "nav_per_share_before": 17.6815,
         "atm_shares": 259155,
@@ -6330,7 +9549,7 @@
       "x_post": "https://x.com/BitMNR/status/2097322402325663994",
       "notes": "8-day week (Labor Day). Same 8-K: staking management agreement with Ethereum Tower terminated (Item 1.02). Funding source undisclosed; modeled as ATM equity (candidates: ATM equity, option premiums received, release of option collateral, marketable securities, debt — no evidence of debt). Resolve from the FY2026 10-K.",
       "accretion": {
-        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
         "nav_per_share_before": 24.4409,
         "atm_shares": 4755649,
@@ -7761,7 +10980,7 @@
       "x_post": "https://x.com/BitMNR/status/2119794359977545960",
       "notes": "No buyback disclosed this week. Stated trailing 7-day BMNR staking yield 2.65% per the 8-K (source of record). Staked ETH unchanged at 5,227,037. No new Form 4 award vests filed this week.",
       "accretion": {
-        "basis": "estimate (week re-anchored to an official 10-Q count; ATM issuance from the model)",
+        "basis": "estimate (week re-anchored to an official filed count; ATM issuance from the model)",
         "reanchor": true,
         "nav_per_share_before": 22.4919,
         "atm_shares": 0,

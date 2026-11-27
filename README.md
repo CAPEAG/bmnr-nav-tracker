@@ -19,7 +19,8 @@ methodology/notes sections are collapsed by default too. Explanatory notes for e
 "Assumptions, methodology & notes" at the bottom so the cards stay clean. The layout is fluid up to 1760 px (cards and
 charts in 2–3 columns on wide screens, one column on phones); wide tables scroll horizontally.
 
-Every figure is rebuilt from Bitmine's own weekly releases and SEC filings since Nov 30, 2025: weekly inputs in
+Every figure is rebuilt from Bitmine's own weekly releases and SEC filings since it became an ETH treasury (first
+disclosed holding Jul 14, 2025; see "History back to the DAT start"): weekly inputs in
 `data/releases.json`, official share counts / ATM sales / cash-flow figures from the 10-Qs in `data/checkpoints.json`.
 The share-count model is **backtested out-of-sample** against every official count in 2026 (`data/backtest.json`,
 "Model accuracy / backtest" section on the site).
@@ -30,10 +31,10 @@ The share-count model is **backtested out-of-sample** against every official cou
 | --- | --- |
 | `index.html`, `assets/style.css`, `assets/app.js` | The page. |
 | `assets/calc.js` | NAV / mNAV / valuation formulas (shared by the page and the build script). |
-| `data/releases.json` | **Official weekly inputs**, one entry per Bitmine Monday release since Nov 30, 2025 (ETH, ETH acquired, release ETH price, staked ETH, stated 7-day yield or CESR, BTC, cash (& marketable securities), Eightco and Beast stakes, buybacks, RSU/acquisition shares, disclosed investments (`investments_usd`), disclosed non-common proceeds, 8-K / X links). Also the disclosed cumulative buyback total. |
+| `data/releases.json` | **Official weekly inputs**, one entry per Bitmine holdings release since Jul 14, 2025 (ETH, ETH acquired, release ETH price, staked ETH, stated 7-day yield or CESR, BTC, cash (& marketable securities), Eightco and Beast stakes, buybacks, RSU/acquisition shares, disclosed investments (`investments_usd`), disclosed non-common proceeds, 8-K / X links). Also the disclosed cumulative buyback total. |
 | `data/checkpoints.json` | **Official share counts** (10-Q balance sheets and cover pages) with links, ATM sales disclosed between them, and the 10-Q cash-flow figures used for the backtest and the cash-source analysis. |
 | `data/backtest.json` | **Generated** out-of-sample backtest (models v1, v2, v3, v3 walk-forward + sensitivity variants) per interval, the 10-Q ETH price per quarter (`eth_price`), plus component diagnostics. |
-| `data/cesr.json` | **CESR check**: daily CESR® (Composite Ether Staking Rate: mean annualized yield of all eligible Ethereum validators, consensus rewards + priority fees; administered by Quatrefoil Data Services, calculated by CoinDesk Indices) since Nov 1, 2025, from the public file behind quatrefoildata.com's chart (`https://cdn.quatrefoildata.com/cesr/data.json`, no key), with fetch time. Written by `scripts/fetch-cesr.mjs`; the build averages it over each release window. |
+| `data/cesr.json` | **CESR check**: daily CESR® (Composite Ether Staking Rate: mean annualized yield of all eligible Ethereum validators, consensus rewards + priority fees; administered by Quatrefoil Data Services, calculated by CoinDesk Indices) since Jul 1, 2025, from the public file behind quatrefoildata.com's chart (`https://cdn.quatrefoildata.com/cesr/data.json`, no key), with fetch time. Written by `scripts/fetch-cesr.mjs`; the build averages it over each release window. |
 | `data/weekly-prices.json` | Frozen market data per week (avg ETH, BTC close, BMNR avg/min/max/close) so past weeks don't drift. |
 | `data/intraday-prices.json` | Frozen Yahoo 5-minute regular-hours bars (9:30 AM–4:00 PM ET only): BMNR bar low/high, ETH/BTC bar midpoint, ORBS bar close. Used for the hero card's previous-week, 4-week and 12-week intraday mNAV ranges. Refreshed for each new week by `scripts/build-history.mjs` (Yahoo keeps 5-minute bars for 60 days; cached days are never refetched unless `--refetch`). |
 | `data/daily-prices.json` | Frozen daily BMNR and ORBS regular-session closes plus ETH and BTC at 4:00 PM ET — fallback for range days with no cached 5-minute bars. Written by `scripts/build-history.mjs`. |
@@ -94,7 +95,7 @@ that it resets daily to the greatest of $100, the last sale price (if Bitmine so
 10-day average price. Optional redemption (Bitmine's choice): 110% of $100 ($385M) until Dec 10, 2027, 105% until
 Jun 10, 2029, then 100%, plus accrued dividends. Dividends are cumulative, paid weekly.
 
-**Liabilities**: From the Aug 30, 2026 snapshot, NAV net of preferred also deducts total balance-sheet liabilities from the latest filing ($33.737M at Aug 31, 2026, 10-K: accrued $12.202M, CVI warrant liability $1.357M, other current $6.547M, non-current lease $1.189M, deferred tax $2.256M, other non-current incl. Pier Two deferred consideration $10.186M), held at the filed value until the next filing; the BMNP preferred is mezzanine equity, not a liability, so it is deducted only once, at its $350M liquidation preference.
+**Liabilities**: Weeks before Nov 30, 2025 use the balance sheet in effect (`holdings.json → book_values.history`): $5,387,860 for Jul 14 – Aug 27, 2025 (10-Q May 31, 2025) and $102.256M for Aug 31 – Nov 23, 2025 (FY2025 10-K: accrued $8.894M, contract liabilities $1.067M, deferred tax $92.295M). Weeks Nov 30, 2025 – Aug 23, 2026 deduct none (earlier treatment; the Nov 30, 2025 10-Q shows $235.7M incl. $125M unsettled ETH purchases and a $98.6M warrant liability — not yet back-filled, so there is a ~$102M step at Nov 23 → Nov 30, 2025). From the Aug 30, 2026 snapshot, NAV net of preferred also deducts total balance-sheet liabilities from the latest filing ($33.737M at Aug 31, 2026, 10-K: accrued $12.202M, CVI warrant liability $1.357M, other current $6.547M, non-current lease $1.189M, deferred tax $2.256M, other non-current incl. Pier Two deferred consideration $10.186M), held at the filed value until the next filing; the BMNP preferred is mezzanine equity, not a liability, so it is deducted only once, at its $350M liquidation preference.
 * Valuation scenarios: see **Valuation (Bear / Base / Bull)** below; formulas in `assets/calc.js → computeValuation`, inputs in `data/valuation.json`.
 
 ## Valuation (Bear / Base / Bull)
@@ -223,6 +224,33 @@ Between anchors, for each weekly release *t* (window = day after the previous as
 | Est. shares issued | `funded ÷ window average BMNR close` |
 | Shares outstanding | `anchor + Σ issued + RSU/acquisition shares − buybacks`; the week containing a new official count is re-based on it (issuance after that date only, by trading days) |
 | Low–high est. | low: operating burn = 0, ETH price −1% (assumed weeks only) and issue at the window's highest close; high: 2× burn, ETH price +1% and the window's lowest close. Shares-outstanding ranges accumulate from the last official count (August 31, 2026). |
+
+### History back to the DAT start (Jul 14 – Nov 23, 2025)
+
+Bitmine announced its ETH treasury strategy on Jun 30, 2025 ($250M PIPE, closed Jul 8). The first disclosed holding is
+**163,142 ETH on Jul 14, 2025** ([8-K Ex. 99.1](https://www.sec.gov/Archives/edgar/data/1829311/000164117225018905/ex99-1.htm)),
+so the history starts there: 22 releases from Jul 14 to Nov 23, 2025 (including the mid-week Jul 17 and Aug 27 releases).
+
+* **Not disclosed → carried, flagged** (`cash_disclosed` / `btc_disclosed: false`): cash on Jul 14, 17 and 23 (set to $0,
+  so NAV/share is a lower bound and mNAV an upper bound; on Jul 17 Bitmine said ~$200M of cash backed 60,000 ETH of
+  in-the-money options, which it counted in ETH), cash on Aug 3, 10 and 17 (Jul 28's $401.4M carried); BTC before Jul 28
+  (154 BTC from Bitmine's Jun 24 presentation carried; 192 from Jul 28). No staking, Beast, buybacks or BMNP in 2025.
+* **Pre-open releases**: the Jul 14 and Jul 17 releases were issued before the market opened (`as_of_before_open`), so
+  their mNAV uses the previous close.
+* **Shares Jul 14 – Aug 24, 2025** (`checkpoints.json → early_share_counts`): common + pre-funded warrants, interpolated
+  between filed counts weighted by each week's ETH purchases ÷ BMNR price; low–high = even split by trading day.
+  Jul 8 (62,282,962 = S-3ASR's 80,220,182 − 17,937,220 ATM shares) and Jul 28 (117,185,593 = POS ASR's 121,739,533 −
+  4,553,940 advisor/agent warrants) are derived; Jul 23 (112,311,382) and Aug 11 (173,496,950) are 424B5 counts.
+  Warrant-exercise timing makes the Jul 28 figure uncertain by up to ~1.9M shares.
+* **Anchors Aug 31 – Nov 30, 2025**: 234,712,310 (Aug 31, 10-K cover; the 10-Q shows 234,712,324), 279,524,602
+  (Sep 19, 424B5 count before that offering; the prospectus's 295,177,747 is after it), 384,067,823 (Nov 20, 10-K
+  cover), then the existing 408,578,823 (Nov 30). The v3 model runs between them with the Sep–Nov 2025 10-Q ETH factor.
+  These counts are not in the backtest summary; roll-forward checks are in `backtest.json → early_history_checks`:
+  Aug 31 → Sep 19 −0.54%, Sep 19 → Nov 20 +0.44% (both in range), Nov 20 → Nov 30 −2.4% (out of range — the Nov 20
+  cover count is likely settlement-basis and Nov 30 trade-date; only the Nov 23 week depends on it).
+* The registered direct offering that closed Sep 23, 2025 (5,217,715 shares, $361.75M) is recorded as disclosed
+  non-ATM shares/proceeds; Eightco's $20M is a disclosed investment in the Sep 14 week.
+* Prices: Yahoo Finance daily ETH-USD / BTC-USD for weeks older than CoinGecko's free 365-day window.
 
 ### What Bitmine pays for ETH
 

@@ -214,7 +214,7 @@
       }
     }
   },
-  "last_updated": "2026-11-23T14:35:38.063Z",
+  "last_updated": "2026-11-27T18:38:51.269Z",
   "shares_official": {
     "shares": 626451021,
     "date": "2026-11-04",
@@ -228,7 +228,7 @@
   ],
   "share_estimation_meta": {
     "buyback_price_calibration_k": 1.0049,
-    "built": "2026-11-23T14:35:38.063Z"
+    "built": "2026-11-27T18:38:51.269Z"
   },
   "preferred": {
     "series": "BMNP 9.50% Series A Perpetual Preferred Stock",
@@ -336,7 +336,26 @@
           "usd": 10186000
         }
       ]
-    }
+    },
+    "history": [
+      {
+        "from": "2025-07-14",
+        "until": "2025-08-31",
+        "liabilities_usd": 5387860,
+        "other_assets_usd": 0,
+        "source": "Form 10-Q quarter ended May 31, 2025 (filed 2025-07-02): total liabilities $5,387,860 (pre-pivot balance sheet, incl. loans/notes payable and deferred revenue); no non-operating assets the releases miss.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000168316825004889/bitmine_i10q-053125.htm"
+      },
+      {
+        "from": "2025-08-31",
+        "until": "2025-11-30",
+        "liabilities_usd": 102256000,
+        "other_assets_usd": 0,
+        "source": "Form 10-K FY ended Aug 31, 2025 (filed 2025-11-21): total liabilities $102.256M = accrued $8.894M + contract liabilities $1.067M + deferred tax liability $92.295M; no debt. No other non-operating assets (Eightco stake is in the releases from Sep 14).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm"
+      }
+    ],
+    "history_rule": "Weeks before Nov 30, 2025 (history extended back to the DAT start): total liabilities from the latest balance sheet on or before each week, held until the next one (same rule as the Aug 31, 2026 10-K values). Weeks Nov 30, 2025 – Aug 23, 2026 keep the earlier treatment (no liabilities deducted) — see README."
   },
   "other_assets_usd": 59962000,
   "beast_usd_release": 180000000,

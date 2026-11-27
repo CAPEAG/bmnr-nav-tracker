@@ -10,7 +10,7 @@ import { writeFile } from 'node:fs/promises';
 
 const URL_ = 'https://cdn.quatrefoildata.com/cesr/data.json';
 const OUT = new URL('../data/cesr.json', import.meta.url);
-const FROM = '2025-11-01';
+const FROM = '2025-07-01';
 let res;
 for (let i = 0; i < 3; i++) {
   res = await fetch(URL_, { headers: { 'User-Agent': 'Mozilla/5.0 (bmnr-nav-tracker)' } }).catch((e) => ({ ok: false, statusText: e.message }));
@@ -23,7 +23,7 @@ const days = raw.filter((x) => x.date >= FROM).sort((a, b) => a.date.localeCompa
   .map((x) => ({ date: x.date, total_rate: +(+x.total_rate).toFixed(8), consensus_rewards_rate: +(+x.consensus_rewards_rate).toFixed(8), block_rewards_rate: +(+x.block_rewards_rate).toFixed(8) }));
 if (!days.length || days.some((d) => !(d.total_rate > 0 && d.total_rate < 0.5))) { console.error('CESR data failed sanity check'); process.exit(1); }
 const out = {
-  description: 'CESR® (Composite Ether Staking Rate) daily values since Nov 1, 2025: mean annualized yield of all eligible Ethereum validators (consensus rewards + priority transaction fees), one-day observation period ending 13:05 ET on each date. Independent check on Bitmine\'s stated 7-day yield; weekly value = average of the daily total_rate within each release window (previous as-of + 1 day … as-of).',
+  description: 'CESR® (Composite Ether Staking Rate) daily values since Jul 1, 2025: mean annualized yield of all eligible Ethereum validators (consensus rewards + priority transaction fees), one-day observation period ending 13:05 ET on each date. Independent check on Bitmine\'s stated 7-day yield; weekly value = average of the daily total_rate within each release window (previous as-of + 1 day … as-of).',
   source: { url: URL_, page: 'https://www.quatrefoildata.com/methodology?rate=cesr', administrator: 'Quatrefoil Data Services (QDS)', calculation_agent: 'CoinDesk Indices', index_page: 'https://indices.coindesk.com/indices/cesr-composite-ether-staking-rate', script: 'node scripts/fetch-cesr.mjs' },
   fetched: new Date().toISOString(), source_last_modified: res.headers.get('last-modified'), days,
 };

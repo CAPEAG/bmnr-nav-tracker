@@ -1,5 +1,5 @@
 {
- "description": "CESR® (Composite Ether Staking Rate) daily values since Nov 1, 2025: mean annualized yield of all eligible Ethereum validators (consensus rewards + priority transaction fees), one-day observation period ending 13:05 ET on each date. Independent check on Bitmine's stated 7-day yield; weekly value = average of the daily total_rate within each release window (previous as-of + 1 day … as-of).",
+ "description": "CESR® (Composite Ether Staking Rate) daily values since Jul 1, 2025: mean annualized yield of all eligible Ethereum validators (consensus rewards + priority transaction fees), one-day observation period ending 13:05 ET on each date. Independent check on Bitmine's stated 7-day yield; weekly value = average of the daily total_rate within each release window (previous as-of + 1 day … as-of).",
  "source": {
   "url": "https://cdn.quatrefoildata.com/cesr/data.json",
   "page": "https://www.quatrefoildata.com/methodology?rate=cesr",
@@ -8,9 +8,747 @@
   "index_page": "https://indices.coindesk.com/indices/cesr-composite-ether-staking-rate",
   "script": "node scripts/fetch-cesr.mjs"
  },
- "fetched": "2026-11-23T14:35:00.878Z",
- "source_last_modified": "Sun, 22 Nov 2026 21:00:13 GMT",
+ "fetched": "2026-11-27T18:34:34.497Z",
+ "source_last_modified": "Thu, 26 Nov 2026 21:00:13 GMT",
  "days": [
+  {
+   "date": "2025-07-01",
+   "total_rate": 0.02997947,
+   "consensus_rewards_rate": 0.02735699,
+   "block_rewards_rate": 0.00262247
+  },
+  {
+   "date": "2025-07-02",
+   "total_rate": 0.02978708,
+   "consensus_rewards_rate": 0.02731358,
+   "block_rewards_rate": 0.0024735
+  },
+  {
+   "date": "2025-07-03",
+   "total_rate": 0.02992357,
+   "consensus_rewards_rate": 0.02731679,
+   "block_rewards_rate": 0.00260678
+  },
+  {
+   "date": "2025-07-04",
+   "total_rate": 0.02923292,
+   "consensus_rewards_rate": 0.02726425,
+   "block_rewards_rate": 0.00196866
+  },
+  {
+   "date": "2025-07-05",
+   "total_rate": 0.02877904,
+   "consensus_rewards_rate": 0.02731128,
+   "block_rewards_rate": 0.00146776
+  },
+  {
+   "date": "2025-07-06",
+   "total_rate": 0.02927728,
+   "consensus_rewards_rate": 0.02727092,
+   "block_rewards_rate": 0.00200636
+  },
+  {
+   "date": "2025-07-07",
+   "total_rate": 0.02965907,
+   "consensus_rewards_rate": 0.02732718,
+   "block_rewards_rate": 0.00233189
+  },
+  {
+   "date": "2025-07-08",
+   "total_rate": 0.02969607,
+   "consensus_rewards_rate": 0.02734233,
+   "block_rewards_rate": 0.00235375
+  },
+  {
+   "date": "2025-07-09",
+   "total_rate": 0.02970068,
+   "consensus_rewards_rate": 0.02735018,
+   "block_rewards_rate": 0.0023505
+  },
+  {
+   "date": "2025-07-10",
+   "total_rate": 0.03002356,
+   "consensus_rewards_rate": 0.0272092,
+   "block_rewards_rate": 0.00281436
+  },
+  {
+   "date": "2025-07-11",
+   "total_rate": 0.03145792,
+   "consensus_rewards_rate": 0.02720288,
+   "block_rewards_rate": 0.00425504
+  },
+  {
+   "date": "2025-07-12",
+   "total_rate": 0.02945938,
+   "consensus_rewards_rate": 0.02721492,
+   "block_rewards_rate": 0.00224445
+  },
+  {
+   "date": "2025-07-13",
+   "total_rate": 0.02887519,
+   "consensus_rewards_rate": 0.02719203,
+   "block_rewards_rate": 0.00168317
+  },
+  {
+   "date": "2025-07-14",
+   "total_rate": 0.03042738,
+   "consensus_rewards_rate": 0.02728952,
+   "block_rewards_rate": 0.00313786
+  },
+  {
+   "date": "2025-07-15",
+   "total_rate": 0.03032853,
+   "consensus_rewards_rate": 0.02726306,
+   "block_rewards_rate": 0.00306547
+  },
+  {
+   "date": "2025-07-16",
+   "total_rate": 0.03051654,
+   "consensus_rewards_rate": 0.02725307,
+   "block_rewards_rate": 0.00326347
+  },
+  {
+   "date": "2025-07-17",
+   "total_rate": 0.03081077,
+   "consensus_rewards_rate": 0.02722439,
+   "block_rewards_rate": 0.00358638
+  },
+  {
+   "date": "2025-07-18",
+   "total_rate": 0.03120671,
+   "consensus_rewards_rate": 0.02721135,
+   "block_rewards_rate": 0.00399536
+  },
+  {
+   "date": "2025-07-19",
+   "total_rate": 0.02904836,
+   "consensus_rewards_rate": 0.0271424,
+   "block_rewards_rate": 0.00190596
+  },
+  {
+   "date": "2025-07-20",
+   "total_rate": 0.02946457,
+   "consensus_rewards_rate": 0.02716209,
+   "block_rewards_rate": 0.00230248
+  },
+  {
+   "date": "2025-07-21",
+   "total_rate": 0.03041846,
+   "consensus_rewards_rate": 0.02715629,
+   "block_rewards_rate": 0.00326216
+  },
+  {
+   "date": "2025-07-22",
+   "total_rate": 0.02969781,
+   "consensus_rewards_rate": 0.02703637,
+   "block_rewards_rate": 0.00266143
+  },
+  {
+   "date": "2025-07-23",
+   "total_rate": 0.02948951,
+   "consensus_rewards_rate": 0.02696113,
+   "block_rewards_rate": 0.00252839
+  },
+  {
+   "date": "2025-07-24",
+   "total_rate": 0.02960096,
+   "consensus_rewards_rate": 0.0270869,
+   "block_rewards_rate": 0.00251406
+  },
+  {
+   "date": "2025-07-25",
+   "total_rate": 0.02954252,
+   "consensus_rewards_rate": 0.02703306,
+   "block_rewards_rate": 0.00250946
+  },
+  {
+   "date": "2025-07-26",
+   "total_rate": 0.02852337,
+   "consensus_rewards_rate": 0.02703971,
+   "block_rewards_rate": 0.00148366
+  },
+  {
+   "date": "2025-07-27",
+   "total_rate": 0.02855466,
+   "consensus_rewards_rate": 0.02708208,
+   "block_rewards_rate": 0.00147258
+  },
+  {
+   "date": "2025-07-28",
+   "total_rate": 0.02896812,
+   "consensus_rewards_rate": 0.02708679,
+   "block_rewards_rate": 0.00188133
+  },
+  {
+   "date": "2025-07-29",
+   "total_rate": 0.02933651,
+   "consensus_rewards_rate": 0.02712917,
+   "block_rewards_rate": 0.00220734
+  },
+  {
+   "date": "2025-07-30",
+   "total_rate": 0.02944093,
+   "consensus_rewards_rate": 0.02718035,
+   "block_rewards_rate": 0.00226058
+  },
+  {
+   "date": "2025-07-31",
+   "total_rate": 0.02935913,
+   "consensus_rewards_rate": 0.02713301,
+   "block_rewards_rate": 0.00222612
+  },
+  {
+   "date": "2025-08-01",
+   "total_rate": 0.02927248,
+   "consensus_rewards_rate": 0.02704955,
+   "block_rewards_rate": 0.00222293
+  },
+  {
+   "date": "2025-08-02",
+   "total_rate": 0.02882297,
+   "consensus_rewards_rate": 0.02711443,
+   "block_rewards_rate": 0.00170854
+  },
+  {
+   "date": "2025-08-03",
+   "total_rate": 0.02863279,
+   "consensus_rewards_rate": 0.0271125,
+   "block_rewards_rate": 0.00152028
+  },
+  {
+   "date": "2025-08-04",
+   "total_rate": 0.02857227,
+   "consensus_rewards_rate": 0.02719011,
+   "block_rewards_rate": 0.00138216
+  },
+  {
+   "date": "2025-08-05",
+   "total_rate": 0.02903935,
+   "consensus_rewards_rate": 0.02716235,
+   "block_rewards_rate": 0.00187701
+  },
+  {
+   "date": "2025-08-06",
+   "total_rate": 0.02900164,
+   "consensus_rewards_rate": 0.02727866,
+   "block_rewards_rate": 0.00172299
+  },
+  {
+   "date": "2025-08-07",
+   "total_rate": 0.02898327,
+   "consensus_rewards_rate": 0.02722438,
+   "block_rewards_rate": 0.00175888
+  },
+  {
+   "date": "2025-08-08",
+   "total_rate": 0.02915471,
+   "consensus_rewards_rate": 0.02719124,
+   "block_rewards_rate": 0.00196347
+  },
+  {
+   "date": "2025-08-09",
+   "total_rate": 0.02931885,
+   "consensus_rewards_rate": 0.02719499,
+   "block_rewards_rate": 0.00212386
+  },
+  {
+   "date": "2025-08-10",
+   "total_rate": 0.02906682,
+   "consensus_rewards_rate": 0.02716473,
+   "block_rewards_rate": 0.00190209
+  },
+  {
+   "date": "2025-08-11",
+   "total_rate": 0.0292262,
+   "consensus_rewards_rate": 0.02718863,
+   "block_rewards_rate": 0.00203758
+  },
+  {
+   "date": "2025-08-12",
+   "total_rate": 0.02967927,
+   "consensus_rewards_rate": 0.02717413,
+   "block_rewards_rate": 0.00250513
+  },
+  {
+   "date": "2025-08-13",
+   "total_rate": 0.03043239,
+   "consensus_rewards_rate": 0.02722055,
+   "block_rewards_rate": 0.00321184
+  },
+  {
+   "date": "2025-08-14",
+   "total_rate": 0.0305408,
+   "consensus_rewards_rate": 0.02713939,
+   "block_rewards_rate": 0.00340141
+  },
+  {
+   "date": "2025-08-15",
+   "total_rate": 0.02925485,
+   "consensus_rewards_rate": 0.02702997,
+   "block_rewards_rate": 0.00222489
+  },
+  {
+   "date": "2025-08-16",
+   "total_rate": 0.02891857,
+   "consensus_rewards_rate": 0.02713388,
+   "block_rewards_rate": 0.00178469
+  },
+  {
+   "date": "2025-08-17",
+   "total_rate": 0.02845669,
+   "consensus_rewards_rate": 0.02711636,
+   "block_rewards_rate": 0.00134033
+  },
+  {
+   "date": "2025-08-18",
+   "total_rate": 0.02921042,
+   "consensus_rewards_rate": 0.0271839,
+   "block_rewards_rate": 0.00202652
+  },
+  {
+   "date": "2025-08-19",
+   "total_rate": 0.02942202,
+   "consensus_rewards_rate": 0.02723742,
+   "block_rewards_rate": 0.00218461
+  },
+  {
+   "date": "2025-08-20",
+   "total_rate": 0.02930825,
+   "consensus_rewards_rate": 0.02722712,
+   "block_rewards_rate": 0.00208113
+  },
+  {
+   "date": "2025-08-21",
+   "total_rate": 0.02960177,
+   "consensus_rewards_rate": 0.02721828,
+   "block_rewards_rate": 0.0023835
+  },
+  {
+   "date": "2025-08-22",
+   "total_rate": 0.02969934,
+   "consensus_rewards_rate": 0.02720463,
+   "block_rewards_rate": 0.00249471
+  },
+  {
+   "date": "2025-08-23",
+   "total_rate": 0.02931755,
+   "consensus_rewards_rate": 0.02719076,
+   "block_rewards_rate": 0.00212679
+  },
+  {
+   "date": "2025-08-24",
+   "total_rate": 0.02833677,
+   "consensus_rewards_rate": 0.02710354,
+   "block_rewards_rate": 0.00123322
+  },
+  {
+   "date": "2025-08-25",
+   "total_rate": 0.02947583,
+   "consensus_rewards_rate": 0.02725645,
+   "block_rewards_rate": 0.00221938
+  },
+  {
+   "date": "2025-08-26",
+   "total_rate": 0.02929028,
+   "consensus_rewards_rate": 0.02714793,
+   "block_rewards_rate": 0.00214234
+  },
+  {
+   "date": "2025-08-27",
+   "total_rate": 0.02897438,
+   "consensus_rewards_rate": 0.02719273,
+   "block_rewards_rate": 0.00178165
+  },
+  {
+   "date": "2025-08-28",
+   "total_rate": 0.02921564,
+   "consensus_rewards_rate": 0.02721837,
+   "block_rewards_rate": 0.00199727
+  },
+  {
+   "date": "2025-08-29",
+   "total_rate": 0.0291471,
+   "consensus_rewards_rate": 0.02726374,
+   "block_rewards_rate": 0.00188336
+  },
+  {
+   "date": "2025-08-30",
+   "total_rate": 0.02837817,
+   "consensus_rewards_rate": 0.02717197,
+   "block_rewards_rate": 0.0012062
+  },
+  {
+   "date": "2025-08-31",
+   "total_rate": 0.0282902,
+   "consensus_rewards_rate": 0.02723669,
+   "block_rewards_rate": 0.00105351
+  },
+  {
+   "date": "2025-09-01",
+   "total_rate": 0.03051497,
+   "consensus_rewards_rate": 0.02720088,
+   "block_rewards_rate": 0.00331409
+  },
+  {
+   "date": "2025-09-02",
+   "total_rate": 0.02884506,
+   "consensus_rewards_rate": 0.02701845,
+   "block_rewards_rate": 0.00182661
+  },
+  {
+   "date": "2025-09-03",
+   "total_rate": 0.02866996,
+   "consensus_rewards_rate": 0.02727531,
+   "block_rewards_rate": 0.00139464
+  },
+  {
+   "date": "2025-09-04",
+   "total_rate": 0.02877176,
+   "consensus_rewards_rate": 0.02719618,
+   "block_rewards_rate": 0.00157558
+  },
+  {
+   "date": "2025-09-05",
+   "total_rate": 0.02896466,
+   "consensus_rewards_rate": 0.02718332,
+   "block_rewards_rate": 0.00178134
+  },
+  {
+   "date": "2025-09-06",
+   "total_rate": 0.02826813,
+   "consensus_rewards_rate": 0.02716319,
+   "block_rewards_rate": 0.00110494
+  },
+  {
+   "date": "2025-09-07",
+   "total_rate": 0.02808987,
+   "consensus_rewards_rate": 0.02718124,
+   "block_rewards_rate": 0.00090863
+  },
+  {
+   "date": "2025-09-08",
+   "total_rate": 0.0284318,
+   "consensus_rewards_rate": 0.02719096,
+   "block_rewards_rate": 0.00124084
+  },
+  {
+   "date": "2025-09-09",
+   "total_rate": 0.02867364,
+   "consensus_rewards_rate": 0.02723352,
+   "block_rewards_rate": 0.00144012
+  },
+  {
+   "date": "2025-09-10",
+   "total_rate": 0.02803351,
+   "consensus_rewards_rate": 0.02667442,
+   "block_rewards_rate": 0.0013591
+  },
+  {
+   "date": "2025-09-11",
+   "total_rate": 0.02856972,
+   "consensus_rewards_rate": 0.02702052,
+   "block_rewards_rate": 0.00154921
+  },
+  {
+   "date": "2025-09-12",
+   "total_rate": 0.02840366,
+   "consensus_rewards_rate": 0.02713583,
+   "block_rewards_rate": 0.00126784
+  },
+  {
+   "date": "2025-09-13",
+   "total_rate": 0.02850874,
+   "consensus_rewards_rate": 0.0272237,
+   "block_rewards_rate": 0.00128504
+  },
+  {
+   "date": "2025-09-14",
+   "total_rate": 0.0281989,
+   "consensus_rewards_rate": 0.02720045,
+   "block_rewards_rate": 0.00099845
+  },
+  {
+   "date": "2025-09-15",
+   "total_rate": 0.02867641,
+   "consensus_rewards_rate": 0.02722801,
+   "block_rewards_rate": 0.0014484
+  },
+  {
+   "date": "2025-09-16",
+   "total_rate": 0.02855442,
+   "consensus_rewards_rate": 0.0272403,
+   "block_rewards_rate": 0.00131412
+  },
+  {
+   "date": "2025-09-17",
+   "total_rate": 0.02893219,
+   "consensus_rewards_rate": 0.02723118,
+   "block_rewards_rate": 0.00170101
+  },
+  {
+   "date": "2025-09-18",
+   "total_rate": 0.02917154,
+   "consensus_rewards_rate": 0.02727165,
+   "block_rewards_rate": 0.0018999
+  },
+  {
+   "date": "2025-09-19",
+   "total_rate": 0.02849989,
+   "consensus_rewards_rate": 0.02729469,
+   "block_rewards_rate": 0.0012052
+  },
+  {
+   "date": "2025-09-20",
+   "total_rate": 0.02823638,
+   "consensus_rewards_rate": 0.02720556,
+   "block_rewards_rate": 0.00103083
+  },
+  {
+   "date": "2025-09-21",
+   "total_rate": 0.02803711,
+   "consensus_rewards_rate": 0.02713268,
+   "block_rewards_rate": 0.00090443
+  },
+  {
+   "date": "2025-09-22",
+   "total_rate": 0.02895265,
+   "consensus_rewards_rate": 0.02707452,
+   "block_rewards_rate": 0.00187813
+  },
+  {
+   "date": "2025-09-23",
+   "total_rate": 0.02845693,
+   "consensus_rewards_rate": 0.02721063,
+   "block_rewards_rate": 0.0012463
+  },
+  {
+   "date": "2025-09-24",
+   "total_rate": 0.02896185,
+   "consensus_rewards_rate": 0.02717841,
+   "block_rewards_rate": 0.00178345
+  },
+  {
+   "date": "2025-09-25",
+   "total_rate": 0.02892385,
+   "consensus_rewards_rate": 0.02721438,
+   "block_rewards_rate": 0.00170947
+  },
+  {
+   "date": "2025-09-26",
+   "total_rate": 0.02899779,
+   "consensus_rewards_rate": 0.0271763,
+   "block_rewards_rate": 0.0018215
+  },
+  {
+   "date": "2025-09-27",
+   "total_rate": 0.02853534,
+   "consensus_rewards_rate": 0.02720389,
+   "block_rewards_rate": 0.00133145
+  },
+  {
+   "date": "2025-09-28",
+   "total_rate": 0.02806184,
+   "consensus_rewards_rate": 0.02714461,
+   "block_rewards_rate": 0.00091723
+  },
+  {
+   "date": "2025-09-29",
+   "total_rate": 0.02932561,
+   "consensus_rewards_rate": 0.0272481,
+   "block_rewards_rate": 0.00207751
+  },
+  {
+   "date": "2025-09-30",
+   "total_rate": 0.02869482,
+   "consensus_rewards_rate": 0.02724773,
+   "block_rewards_rate": 0.00144709
+  },
+  {
+   "date": "2025-10-01",
+   "total_rate": 0.02872989,
+   "consensus_rewards_rate": 0.02717742,
+   "block_rewards_rate": 0.00155247
+  },
+  {
+   "date": "2025-10-02",
+   "total_rate": 0.0287573,
+   "consensus_rewards_rate": 0.0271889,
+   "block_rewards_rate": 0.0015684
+  },
+  {
+   "date": "2025-10-03",
+   "total_rate": 0.02859239,
+   "consensus_rewards_rate": 0.02721154,
+   "block_rewards_rate": 0.00138085
+  },
+  {
+   "date": "2025-10-04",
+   "total_rate": 0.02829031,
+   "consensus_rewards_rate": 0.02714028,
+   "block_rewards_rate": 0.00115003
+  },
+  {
+   "date": "2025-10-05",
+   "total_rate": 0.02821429,
+   "consensus_rewards_rate": 0.02715834,
+   "block_rewards_rate": 0.00105595
+  },
+  {
+   "date": "2025-10-06",
+   "total_rate": 0.02850988,
+   "consensus_rewards_rate": 0.02713191,
+   "block_rewards_rate": 0.00137797
+  },
+  {
+   "date": "2025-10-07",
+   "total_rate": 0.02891351,
+   "consensus_rewards_rate": 0.02717681,
+   "block_rewards_rate": 0.00173669
+  },
+  {
+   "date": "2025-10-08",
+   "total_rate": 0.02849768,
+   "consensus_rewards_rate": 0.02717533,
+   "block_rewards_rate": 0.00132235
+  },
+  {
+   "date": "2025-10-09",
+   "total_rate": 0.02861239,
+   "consensus_rewards_rate": 0.02715124,
+   "block_rewards_rate": 0.00146115
+  },
+  {
+   "date": "2025-10-10",
+   "total_rate": 0.0288762,
+   "consensus_rewards_rate": 0.02721179,
+   "block_rewards_rate": 0.00166441
+  },
+  {
+   "date": "2025-10-11",
+   "total_rate": 0.03881272,
+   "consensus_rewards_rate": 0.02713648,
+   "block_rewards_rate": 0.01167624
+  },
+  {
+   "date": "2025-10-12",
+   "total_rate": 0.02924721,
+   "consensus_rewards_rate": 0.02711316,
+   "block_rewards_rate": 0.00213406
+  },
+  {
+   "date": "2025-10-13",
+   "total_rate": 0.02912337,
+   "consensus_rewards_rate": 0.02710301,
+   "block_rewards_rate": 0.00202036
+  },
+  {
+   "date": "2025-10-14",
+   "total_rate": 0.02918518,
+   "consensus_rewards_rate": 0.02716415,
+   "block_rewards_rate": 0.00202103
+  },
+  {
+   "date": "2025-10-15",
+   "total_rate": 0.0287979,
+   "consensus_rewards_rate": 0.02704591,
+   "block_rewards_rate": 0.00175199
+  },
+  {
+   "date": "2025-10-16",
+   "total_rate": 0.02851418,
+   "consensus_rewards_rate": 0.02694059,
+   "block_rewards_rate": 0.00157359
+  },
+  {
+   "date": "2025-10-17",
+   "total_rate": 0.02964022,
+   "consensus_rewards_rate": 0.02712793,
+   "block_rewards_rate": 0.00251229
+  },
+  {
+   "date": "2025-10-18",
+   "total_rate": 0.02815736,
+   "consensus_rewards_rate": 0.02707711,
+   "block_rewards_rate": 0.00108025
+  },
+  {
+   "date": "2025-10-19",
+   "total_rate": 0.0282039,
+   "consensus_rewards_rate": 0.0271478,
+   "block_rewards_rate": 0.0010561
+  },
+  {
+   "date": "2025-10-20",
+   "total_rate": 0.02840807,
+   "consensus_rewards_rate": 0.02708657,
+   "block_rewards_rate": 0.00132149
+  },
+  {
+   "date": "2025-10-21",
+   "total_rate": 0.02832874,
+   "consensus_rewards_rate": 0.02705978,
+   "block_rewards_rate": 0.00126896
+  },
+  {
+   "date": "2025-10-22",
+   "total_rate": 0.02864697,
+   "consensus_rewards_rate": 0.0270098,
+   "block_rewards_rate": 0.00163718
+  },
+  {
+   "date": "2025-10-23",
+   "total_rate": 0.02835521,
+   "consensus_rewards_rate": 0.02695909,
+   "block_rewards_rate": 0.00139612
+  },
+  {
+   "date": "2025-10-24",
+   "total_rate": 0.02867461,
+   "consensus_rewards_rate": 0.02697742,
+   "block_rewards_rate": 0.00169719
+  },
+  {
+   "date": "2025-10-25",
+   "total_rate": 0.02825803,
+   "consensus_rewards_rate": 0.02716099,
+   "block_rewards_rate": 0.00109704
+  },
+  {
+   "date": "2025-10-26",
+   "total_rate": 0.02818425,
+   "consensus_rewards_rate": 0.02718552,
+   "block_rewards_rate": 0.00099873
+  },
+  {
+   "date": "2025-10-27",
+   "total_rate": 0.02894592,
+   "consensus_rewards_rate": 0.02716986,
+   "block_rewards_rate": 0.00177606
+  },
+  {
+   "date": "2025-10-28",
+   "total_rate": 0.02849492,
+   "consensus_rewards_rate": 0.0270803,
+   "block_rewards_rate": 0.00141462
+  },
+  {
+   "date": "2025-10-29",
+   "total_rate": 0.02836995,
+   "consensus_rewards_rate": 0.02702607,
+   "block_rewards_rate": 0.00134387
+  },
+  {
+   "date": "2025-10-30",
+   "total_rate": 0.02930737,
+   "consensus_rewards_rate": 0.02711952,
+   "block_rewards_rate": 0.00218785
+  },
+  {
+   "date": "2025-10-31",
+   "total_rate": 0.02861472,
+   "consensus_rewards_rate": 0.02714728,
+   "block_rewards_rate": 0.00146744
+  },
   {
    "date": "2025-11-01",
    "total_rate": 0.02816864,
@@ -2332,6 +3070,30 @@
    "total_rate": 0.02496826,
    "consensus_rewards_rate": 0.02450123,
    "block_rewards_rate": 0.00046703
+  },
+  {
+   "date": "2026-11-23",
+   "total_rate": 0.02519629,
+   "consensus_rewards_rate": 0.02452891,
+   "block_rewards_rate": 0.00066738
+  },
+  {
+   "date": "2026-11-24",
+   "total_rate": 0.02572518,
+   "consensus_rewards_rate": 0.02452998,
+   "block_rewards_rate": 0.0011952
+  },
+  {
+   "date": "2026-11-25",
+   "total_rate": 0.02511525,
+   "consensus_rewards_rate": 0.02455173,
+   "block_rewards_rate": 0.00056352
+  },
+  {
+   "date": "2026-11-26",
+   "total_rate": 0.02512065,
+   "consensus_rewards_rate": 0.02456371,
+   "block_rewards_rate": 0.00055694
   }
  ]
 }

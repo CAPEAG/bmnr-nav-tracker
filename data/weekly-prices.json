@@ -1132,5 +1132,477 @@
     "bmnr_close": 12.98,
     "bmnr_close_date": "2026-11-20",
     "source": "CoinGecko daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-07-14": {
+    "window": [
+      "2025-07-08",
+      "2025-07-14"
+    ],
+    "eth_avg": 2889.81,
+    "eth_days": 7,
+    "btc_close": 119850,
+    "bmnr_avg": 61.174,
+    "bmnr_min": 40.62,
+    "bmnr_max": 111.5,
+    "bmnr_trading_days": [
+      "2025-07-08",
+      "2025-07-09",
+      "2025-07-10",
+      "2025-07-11",
+      "2025-07-14"
+    ],
+    "bmnr_close": 40.62,
+    "bmnr_close_date": "2025-07-11",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR); BMNR close = last close before the pre-open as-of time"
+  },
+  "2025-07-17": {
+    "window": [
+      "2025-07-15",
+      "2025-07-17"
+    ],
+    "eth_avg": 3329.39,
+    "eth_days": 3,
+    "btc_close": 119290,
+    "bmnr_avg": 42.22,
+    "bmnr_min": 39.96,
+    "bmnr_max": 44.8,
+    "bmnr_trading_days": [
+      "2025-07-15",
+      "2025-07-16",
+      "2025-07-17"
+    ],
+    "bmnr_close": 44.8,
+    "bmnr_close_date": "2025-07-16",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR); BMNR close = last close before the pre-open as-of time"
+  },
+  "2025-07-23": {
+    "window": [
+      "2025-07-18",
+      "2025-07-23"
+    ],
+    "eth_avg": 3674.33,
+    "eth_days": 6,
+    "btc_close": 118755,
+    "bmnr_avg": 40.4375,
+    "bmnr_min": 39.5,
+    "bmnr_max": 42.35,
+    "bmnr_trading_days": [
+      "2025-07-18",
+      "2025-07-21",
+      "2025-07-22",
+      "2025-07-23"
+    ],
+    "bmnr_close": 39.5,
+    "bmnr_close_date": "2025-07-23",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-07-28": {
+    "window": [
+      "2025-07-24",
+      "2025-07-28"
+    ],
+    "eth_avg": 3767.87,
+    "eth_days": 5,
+    "btc_close": 117924,
+    "bmnr_avg": 38.8867,
+    "bmnr_min": 35.11,
+    "bmnr_max": 41.75,
+    "bmnr_trading_days": [
+      "2025-07-24",
+      "2025-07-25",
+      "2025-07-28"
+    ],
+    "bmnr_close": 35.11,
+    "bmnr_close_date": "2025-07-28",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-08-03": {
+    "window": [
+      "2025-07-29",
+      "2025-08-03"
+    ],
+    "eth_avg": 3612.81,
+    "eth_days": 6,
+    "btc_close": 114218,
+    "bmnr_avg": 33.18,
+    "bmnr_min": 31.68,
+    "bmnr_max": 34.64,
+    "bmnr_trading_days": [
+      "2025-07-29",
+      "2025-07-30",
+      "2025-07-31",
+      "2025-08-01"
+    ],
+    "bmnr_close": 31.68,
+    "bmnr_close_date": "2025-08-01",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-08-10": {
+    "window": [
+      "2025-08-04",
+      "2025-08-10"
+    ],
+    "eth_avg": 3922.4,
+    "eth_days": 7,
+    "btc_close": 119307,
+    "bmnr_avg": 39.122,
+    "bmnr_min": 31.13,
+    "bmnr_max": 51.43,
+    "bmnr_trading_days": [
+      "2025-08-04",
+      "2025-08-05",
+      "2025-08-06",
+      "2025-08-07",
+      "2025-08-08"
+    ],
+    "bmnr_close": 51.43,
+    "bmnr_close_date": "2025-08-08",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-08-17": {
+    "window": [
+      "2025-08-11",
+      "2025-08-17"
+    ],
+    "eth_avg": 4494.54,
+    "eth_days": 7,
+    "btc_close": 117453,
+    "bmnr_avg": 60.262,
+    "bmnr_min": 57.81,
+    "bmnr_max": 62.44,
+    "bmnr_trading_days": [
+      "2025-08-11",
+      "2025-08-12",
+      "2025-08-13",
+      "2025-08-14",
+      "2025-08-15"
+    ],
+    "bmnr_close": 57.81,
+    "bmnr_close_date": "2025-08-15",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-08-24": {
+    "window": [
+      "2025-08-18",
+      "2025-08-24"
+    ],
+    "eth_avg": 4475.82,
+    "eth_days": 7,
+    "btc_close": 113458,
+    "bmnr_avg": 51.586,
+    "bmnr_min": 47.73,
+    "bmnr_max": 54.87,
+    "bmnr_trading_days": [
+      "2025-08-18",
+      "2025-08-19",
+      "2025-08-20",
+      "2025-08-21",
+      "2025-08-22"
+    ],
+    "bmnr_close": 53.49,
+    "bmnr_close_date": "2025-08-22",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-08-27": {
+    "window": [
+      "2025-08-25",
+      "2025-08-27"
+    ],
+    "eth_avg": 4492.27,
+    "eth_days": 3,
+    "btc_close": 111222,
+    "bmnr_avg": 48.5267,
+    "bmnr_min": 46.03,
+    "bmnr_max": 49.95,
+    "bmnr_trading_days": [
+      "2025-08-25",
+      "2025-08-26",
+      "2025-08-27"
+    ],
+    "bmnr_close": 46.03,
+    "bmnr_close_date": "2025-08-27",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-08-31": {
+    "window": [
+      "2025-08-28",
+      "2025-08-31"
+    ],
+    "eth_avg": 4407.88,
+    "eth_days": 4,
+    "btc_close": 108237,
+    "bmnr_avg": 44.595,
+    "bmnr_min": 43.62,
+    "bmnr_max": 45.57,
+    "bmnr_trading_days": [
+      "2025-08-28",
+      "2025-08-29"
+    ],
+    "bmnr_close": 43.62,
+    "bmnr_close_date": "2025-08-29",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-09-07": {
+    "window": [
+      "2025-09-01",
+      "2025-09-07"
+    ],
+    "eth_avg": 4325.08,
+    "eth_days": 7,
+    "btc_close": 111168,
+    "bmnr_avg": 42.895,
+    "bmnr_min": 42.04,
+    "bmnr_max": 44.86,
+    "bmnr_trading_days": [
+      "2025-09-02",
+      "2025-09-03",
+      "2025-09-04",
+      "2025-09-05"
+    ],
+    "bmnr_close": 42.04,
+    "bmnr_close_date": "2025-09-05",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-09-14": {
+    "window": [
+      "2025-09-08",
+      "2025-09-14"
+    ],
+    "eth_avg": 4488.65,
+    "eth_days": 7,
+    "btc_close": 115408,
+    "bmnr_avg": 47.374,
+    "bmnr_min": 43.79,
+    "bmnr_max": 55.09,
+    "bmnr_trading_days": [
+      "2025-09-08",
+      "2025-09-09",
+      "2025-09-10",
+      "2025-09-11",
+      "2025-09-12"
+    ],
+    "bmnr_close": 55.09,
+    "bmnr_close_date": "2025-09-12",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-09-21": {
+    "window": [
+      "2025-09-15",
+      "2025-09-21"
+    ],
+    "eth_avg": 4516.79,
+    "eth_days": 7,
+    "btc_close": 115306,
+    "bmnr_avg": 57.472,
+    "bmnr_min": 53.11,
+    "bmnr_max": 61.29,
+    "bmnr_trading_days": [
+      "2025-09-15",
+      "2025-09-16",
+      "2025-09-17",
+      "2025-09-18",
+      "2025-09-19"
+    ],
+    "bmnr_close": 61.29,
+    "bmnr_close_date": "2025-09-19",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-09-28": {
+    "window": [
+      "2025-09-22",
+      "2025-09-28"
+    ],
+    "eth_avg": 4083.74,
+    "eth_days": 7,
+    "btc_close": 112123,
+    "bmnr_avg": 52.316,
+    "bmnr_min": 49.57,
+    "bmnr_max": 55.1,
+    "bmnr_trading_days": [
+      "2025-09-22",
+      "2025-09-23",
+      "2025-09-24",
+      "2025-09-25",
+      "2025-09-26"
+    ],
+    "bmnr_close": 50.5,
+    "bmnr_close_date": "2025-09-26",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-10-05": {
+    "window": [
+      "2025-09-29",
+      "2025-10-05"
+    ],
+    "eth_avg": 4388.83,
+    "eth_days": 7,
+    "btc_close": 123513,
+    "bmnr_avg": 54.132,
+    "bmnr_min": 51.93,
+    "bmnr_max": 56.65,
+    "bmnr_trading_days": [
+      "2025-09-29",
+      "2025-09-30",
+      "2025-10-01",
+      "2025-10-02",
+      "2025-10-03"
+    ],
+    "bmnr_close": 56.65,
+    "bmnr_close_date": "2025-10-03",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-10-12": {
+    "window": [
+      "2025-10-06",
+      "2025-10-12"
+    ],
+    "eth_avg": 4256.25,
+    "eth_days": 7,
+    "btc_close": 115170,
+    "bmnr_avg": 58.798,
+    "bmnr_min": 52.47,
+    "bmnr_max": 63.22,
+    "bmnr_trading_days": [
+      "2025-10-06",
+      "2025-10-07",
+      "2025-10-08",
+      "2025-10-09",
+      "2025-10-10"
+    ],
+    "bmnr_close": 52.47,
+    "bmnr_close_date": "2025-10-10",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-10-19": {
+    "window": [
+      "2025-10-13",
+      "2025-10-19"
+    ],
+    "eth_avg": 3994.38,
+    "eth_days": 7,
+    "btc_close": 108667,
+    "bmnr_avg": 52.9,
+    "bmnr_min": 49.85,
+    "bmnr_max": 56.85,
+    "bmnr_trading_days": [
+      "2025-10-13",
+      "2025-10-14",
+      "2025-10-15",
+      "2025-10-16",
+      "2025-10-17"
+    ],
+    "bmnr_close": 49.85,
+    "bmnr_close_date": "2025-10-17",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-10-26": {
+    "window": [
+      "2025-10-20",
+      "2025-10-26"
+    ],
+    "eth_avg": 3938.24,
+    "eth_days": 7,
+    "btc_close": 114472,
+    "bmnr_avg": 50.656,
+    "bmnr_min": 48.03,
+    "bmnr_max": 53.8,
+    "bmnr_trading_days": [
+      "2025-10-20",
+      "2025-10-21",
+      "2025-10-22",
+      "2025-10-23",
+      "2025-10-24"
+    ],
+    "bmnr_close": 50.41,
+    "bmnr_close_date": "2025-10-24",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-11-02": {
+    "window": [
+      "2025-10-27",
+      "2025-11-02"
+    ],
+    "eth_avg": 3920.35,
+    "eth_days": 7,
+    "btc_close": 110640,
+    "bmnr_avg": 49.442,
+    "bmnr_min": 44.55,
+    "bmnr_max": 53.71,
+    "bmnr_trading_days": [
+      "2025-10-27",
+      "2025-10-28",
+      "2025-10-29",
+      "2025-10-30",
+      "2025-10-31"
+    ],
+    "bmnr_close": 46.65,
+    "bmnr_close_date": "2025-10-31",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-11-09": {
+    "window": [
+      "2025-11-03",
+      "2025-11-09"
+    ],
+    "eth_avg": 3435.8,
+    "eth_days": 7,
+    "btc_close": 104720,
+    "bmnr_avg": 40.268,
+    "bmnr_min": 37.37,
+    "bmnr_max": 42.86,
+    "bmnr_trading_days": [
+      "2025-11-03",
+      "2025-11-04",
+      "2025-11-05",
+      "2025-11-06",
+      "2025-11-07"
+    ],
+    "bmnr_close": 40.23,
+    "bmnr_close_date": "2025-11-07",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-11-16": {
+    "window": [
+      "2025-11-10",
+      "2025-11-16"
+    ],
+    "eth_avg": 3284.69,
+    "eth_days": 7,
+    "btc_close": 94177,
+    "bmnr_avg": 38.456,
+    "bmnr_min": 34.4,
+    "bmnr_max": 41.15,
+    "bmnr_trading_days": [
+      "2025-11-10",
+      "2025-11-11",
+      "2025-11-12",
+      "2025-11-13",
+      "2025-11-14"
+    ],
+    "bmnr_close": 34.4,
+    "bmnr_close_date": "2025-11-14",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
+  },
+  "2025-11-23": {
+    "window": [
+      "2025-11-17",
+      "2025-11-23"
+    ],
+    "eth_avg": 2905.34,
+    "eth_days": 7,
+    "btc_close": 86805,
+    "bmnr_avg": 28.886,
+    "bmnr_min": 26,
+    "bmnr_max": 32.28,
+    "bmnr_trading_days": [
+      "2025-11-17",
+      "2025-11-18",
+      "2025-11-19",
+      "2025-11-20",
+      "2025-11-21"
+    ],
+    "bmnr_close": 26,
+    "bmnr_close_date": "2025-11-21",
+    "source": "Yahoo Finance ETH-USD / BTC-USD daily (ETH avg, BTC), Yahoo Finance daily closes (BMNR)"
   }
 }

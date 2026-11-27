@@ -2,6 +2,36 @@
   "description": "Official share-count checkpoints and official ATM (at-the-market) sales between them, from Bitmine 10-Q filings (CIK 1829311). Used to anchor the reconstruction and to backtest the weekly estimator out-of-sample. Dollar figures in USD.",
   "checkpoints": [
     {
+      "date": "2025-08-31",
+      "shares": 234712310,
+      "basis": "10-K cover page (as of Aug 31, 2025), trade-date basis",
+      "source": "Form 10-K FY ended Aug 31, 2025 (filed 2025-11-21)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+      "use_as_anchor": true,
+      "backtest": false,
+      "note": "Start of the cash-flow roll-forward for Sep–Nov 2025 (weeks before it are interpolated between the counts in early_share_counts). The 10-Q for Nov 30, 2025 shows 234,712,324 in its comparative balance sheet (+14). Trade-date basis: the 10-K says $101.17M of ATM proceeds for sales before Aug 31 were received on Sep 2, 2025."
+    },
+    {
+      "date": "2025-09-19",
+      "shares": 279524602,
+      "basis": "424B5 prospectus supplement: \"Common Stock Outstanding Before this Offering\"",
+      "source": "424B5 for the registered direct offering (filed 2025-09-22)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225014391/form424b5.htm",
+      "use_as_anchor": true,
+      "backtest": false,
+      "note": "The same document's \"295,177,747 shares outstanding as of September 19, 2025\" is after this offering: 279,524,602 + 5,217,715 offered shares + 10,435,430 warrant shares = 295,177,747."
+    },
+    {
+      "date": "2025-11-20",
+      "shares": 384067823,
+      "basis": "10-K cover page",
+      "source": "Form 10-K FY ended Aug 31, 2025 (filed 2025-11-21)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+      "use_as_anchor": true,
+      "backtest": false,
+      "note": "Cover: 146,451,088 additional ATM shares issued Sep 1 – Nov 20, 2025. 234,712,310 + 146,451,088 + 5,217,715 (registered direct) = 386,381,113, 2,313,290 above this count — consistent with ATM shares sold before Aug 31 (already in the trade-date Aug 31 count) settling in September (~$101.17M ÷ ~$43.7). Inference, not stated in the filing."
+    },
+    {
       "date": "2025-11-30",
       "shares": 408578823,
       "basis": "balance sheet (Note 7), trade-date basis",
@@ -157,6 +187,35 @@
     }
   ],
   "atm_disclosures": [
+    {
+      "from": "2025-07-09",
+      "to": "2025-08-31",
+      "shares": 170695568,
+      "net_usd": 7717761000,
+      "commission_usd": 114277000,
+      "source": "10-K FY2025, Note 9 (ATM sales through Aug 31, 2025; $101.17M of it received Sep 2)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+      "early_history": true
+    },
+    {
+      "from": "2025-09-01",
+      "to": "2025-11-20",
+      "shares": 146451088,
+      "basis": "issued (settlement)",
+      "source": "10-K FY2025 cover page",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+      "early_history": true
+    },
+    {
+      "from": "2025-09-01",
+      "to": "2025-11-30",
+      "shares": 168532074,
+      "net_usd": 7664380000,
+      "commission_usd": 98882000,
+      "source": "10-Q quarter ended Nov 30, 2025, ATM note",
+      "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm",
+      "early_history": true
+    },
     {
       "from": "2025-12-01",
       "to": "2026-01-12",
@@ -538,5 +597,43 @@
         "carry_max_usd": 5000000
       }
     }
+  },
+  "early_share_counts": {
+    "description": "Share counts used for Jul 14 – Aug 31, 2025, before weekly cash was disclosed every week (cash is missing from 6 of the first 9 releases, so the cash-flow roll-forward cannot run). Basis: common shares + pre-funded warrants (exercise price $0.0001, economically shares; Bitmine's own counts in this period include them). Between two counts, the change is spread over the weeks in proportion to each week's estimated ETH purchases (ETH added × the week's average ETH price, less the PIPE-funded amount in the first week) ÷ the week's average BMNR close; the low–high range is the spread between that and an even split by trading day. Not used in the backtest.",
+    "until": "2025-08-31",
+    "pipe_funded_usd": 251138000,
+    "pipe_funded_note": "PIPE closed Jul 8, 2025: $211.519M net cash + $39.619M of ETH/BTC contributed in kind (10-K FY2025 Note 9). ETH bought with it needed no ATM shares, so it is taken out of the first week's weight.",
+    "points": [
+      {
+        "date": "2025-07-08",
+        "shares": 62282962,
+        "derived": true,
+        "basis": "S-3ASR (Jul 9, 2025): \"Up to 80,220,182 shares of Common Stock [outstanding after the ATM offering], including the sale of 17,937,220 shares\" → 62,282,962 before the ATM began. Includes the 11,006,444 PIPE pre-funded warrants.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000164117225018322/forms-3asr.htm",
+        "check": "May 31, 2025 10-Q 2,053,366 + June offering 2,587,500 + PIPE 36,309,592 common + 8,804,122 in-kind + 11,006,444 pre-funded + 1,759,915 preferred conversions + 163,500 restricted stock = 62,684,439 (−401,477 vs the derived count: timing of the over-allotment and awards).",
+        "note": "The S-3ASR also says \"based on 80,220,182 shares ... outstanding as of July 8, 2025\"; that figure already includes the 17,937,220 offered shares, so it is not used."
+      },
+      {
+        "date": "2025-07-23",
+        "shares": 112311382,
+        "basis": "424B5 (Jul 24, 2025): \"based on 112,311,382 shares of our Common Stock outstanding as of July 23, 2025\" (112,311,382 + $2.5B ÷ $39.50 = 175,602,522 after the offering, as stated)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011368/form424b5.htm",
+        "note": "Includes the pre-funded warrants: the count excluding them was 109,527,225 on Jul 28 (lower), so this one cannot exclude them."
+      },
+      {
+        "date": "2025-07-28",
+        "shares": 117185593,
+        "derived": true,
+        "basis": "POS ASR (Jul 29, 2025): 109,527,225 shares outstanding before the resale offering and 121,739,533 after exercise of all pre-funded, Strategic Advisor (3,192,620), Placement Agent (1,231,945) and Representative's (129,375) warrants. 121,739,533 − 4,553,940 non-pre-funded warrants = 117,185,593 (109,527,225 + 7,658,368 unexercised pre-funded warrants).",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011460/formposasr.htm",
+        "check": "The Jul 29 release states the same 121,739,533 \"fully diluted common shares outstanding\" as of Jul 28. Warrant counts: 10-K FY2025 Notes 9–10."
+      },
+      {
+        "date": "2025-08-11",
+        "shares": 173496950,
+        "basis": "424B5 (Aug 12, 2025): \"based on 173,496,950 shares of our Common Stock outstanding as of August 11, 2025\" (512,594,949 after − 339,097,999 assumed sales)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315225011831/form424b5.htm"
+      }
+    ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "description": "Out-of-sample backtest: each interval starts from an official share count and rolls the weekly estimator forward using only the weekly releases, then compares with the next official count / ATM disclosure. Errors = estimate − official.",
-  "built": "2026-11-23T14:35:38.069Z",
+  "built": "2026-11-27T18:38:51.276Z",
   "models": {
     "v1": {
       "label": "v1 – original (Jul–Oct 2026)",
@@ -365,7 +365,7 @@
         "cash_paid_usd": 7402573000,
         "paid_per_eth": 4042.79,
         "factor": 0.9977,
-        "weeks": 0
+        "weeks": 13
       },
       {
         "period": "Dec 1, 2025 – Feb 28, 2026",
@@ -3106,5 +3106,64 @@
       "what": "ETH received from staking and validation, Sep 1, 2025 – Aug 31, 2026 (Note 4 roll-forward). 9-month figure was 23,582.",
       "url": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026072846/bmnr-20260831.htm"
     }
+  },
+  "early_history_checks": {
+    "note": "Sep–Nov 2025 counts added with the history back to Jul 2025: v3 rolled forward from each count to the next (current parameters, 10-Q Sep–Nov 2025 ETH factor; not out-of-sample, not in the summary).",
+    "intervals": [
+      {
+        "from": "2025-08-31",
+        "to": "2025-09-19",
+        "start_shares": 234712310,
+        "official_end_shares": 279524602,
+        "est_shares": 278023633,
+        "est_range": [
+          274294246,
+          280975675
+        ],
+        "error_shares": -1500969,
+        "error_pct": -0.54,
+        "within_range": true,
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+          "https://www.sec.gov/Archives/edgar/data/1829311/000149315225014391/form424b5.htm"
+        ]
+      },
+      {
+        "from": "2025-09-19",
+        "to": "2025-11-20",
+        "start_shares": 279524602,
+        "official_end_shares": 384067823,
+        "est_shares": 385739377,
+        "est_range": [
+          378726141,
+          394116788
+        ],
+        "error_shares": 1671554,
+        "error_pct": 0.44,
+        "within_range": true,
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/1829311/000149315225014391/form424b5.htm",
+          "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm"
+        ]
+      },
+      {
+        "from": "2025-11-20",
+        "to": "2025-11-30",
+        "start_shares": 384067823,
+        "official_end_shares": 408578823,
+        "est_shares": 398773746,
+        "est_range": [
+          397726114,
+          400116572
+        ],
+        "error_shares": -9805077,
+        "error_pct": -2.4,
+        "within_range": false,
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/1829311/000149315225024679/form10-k.htm",
+          "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002084/form10-q.htm"
+        ]
+      }
+    ]
   }
 }
